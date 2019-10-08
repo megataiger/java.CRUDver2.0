@@ -4,14 +4,16 @@
  * @version 2.0
  */
 
+
+
 import java.io.IOException;
 import java.sql.*;
+import java.util.Date;
 
 public class Main {
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws SQLException, IOException {
             //Создаём экземпляр объекта DataBase, для доступа к методам класса.
-            DataBase a = new DataBase();
+    /*        DataBase a = new DataBase();
 
             //Добавляем новую группу в таблицу group
             a.execute("group", "INSERT");
@@ -27,14 +29,12 @@ public class Main {
             a.executeSelectWithId("group", 1);
             //Просматриваем информацию о студенте с id=1
             a.executeSelectWithId("student", 1);
-        }
-        catch (SQLException e)
-        {
-            System.out.println("Возникла ошибка с базой данных");
-        }
-        catch (IOException e)
-        {
-            System.out.println("Возникла ошибка с получением настроек соединения");
-        }
+*/
+        Students list = new Students();
+        Date a = new Date(2019, 4, 15);
+        list.add("Vasya", a, 'M', 0);
+        list.get();
+        list.set("Vasya", a, 'F', 12);
+        list.get();
     }
 }

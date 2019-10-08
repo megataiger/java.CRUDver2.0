@@ -605,14 +605,17 @@ public class DataBase {
      * @throws IOException
      */
     private Connection getConnection(String methodName) throws SQLException, IOException {
+
+        File one = new File ("C:\\Users\\NemolyaevIV\\IdeaProjects\\java.CRUDver2.0\\CRUD\\database.properties");
         Properties props = new Properties();
-        FileInputStream in = new FileInputStream("database.properties");
+        FileInputStream in = new FileInputStream(one);
         props.load(in);
         in.close();
 
         String url = props.getProperty("jdbc.url");
         String username = props.getProperty("jdbc.username");
         String password = props.getProperty("jdbc.password");
+
 
         Connection con = null;
 
