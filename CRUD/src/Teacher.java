@@ -152,15 +152,6 @@ public class Teacher {
     }
 
     public static void main(String[] args) throws IOException, SQLException {
-        Teacher a = new Teacher();
-        Group g = new Group();
-        Group k = new Group();
-        a.get("Немоляев Илья Владиславович");
-        g.get(10);
-        k.get(15);
-        a.deleteGroup(k);
-
-
     }
 
     private int id;
