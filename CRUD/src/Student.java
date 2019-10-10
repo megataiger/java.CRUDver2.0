@@ -45,7 +45,7 @@ class Student {
     int group;
 }
 
-public class Students {
+class Students {
     public void add(String name, Date date, char c, int i)  throws IOException, SQLException{
         Student e = new Student(name, date, c, i);
         students.add(e);
