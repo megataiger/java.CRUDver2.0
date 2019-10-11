@@ -30,11 +30,5 @@ public class Main {
             //Просматриваем информацию о студенте с id=1
             a.executeSelectWithId("student", 1);
 */
-        Students list = new Students();
-        Date a = new Date(2019, 4, 15);
-        list.add("Vasya", a, 'M', 0);
-        list.get();
-        list.set("Vasya", a, 'F', 12);
-        list.get();
     }
 }
