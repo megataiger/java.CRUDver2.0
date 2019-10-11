@@ -90,7 +90,6 @@ public class Teacher {
         Connection con = new Connect().getConnect();
         Statement state = con.createStatement();
         int groupId = g.getId();
-        System.out.println(groupId);
         try {
             String insert = "INSERT INTO `group/teacher` (group_id, teacher_id) VALUES " +
                     "(" + groupId + ", " + id + ")";
@@ -108,9 +107,12 @@ public class Teacher {
         int groupId = g.getId();
         try {
             String insert = "DELETE FROM `group/teacher` WHERE group_id = " + groupId + " AND teacher_id = " + id;
-            System.out.println(insert);
             state.executeUpdate(insert);
-            groups.remove(g);
+            for (int i = 0 ; i < groups.size() ; i ++)
+            {
+                if (groups.get(i) == g)
+                    groups.remove(i);
+            }
         }
         catch (SQLException e){
             System.out.println("Неверный номер группы");
@@ -128,11 +130,10 @@ public class Teacher {
         try {
             String update = "UPDATE `group/teacher` SET group_id = " + newId + " WHERE teacher_id = "
                     + id + " AND group_id = " + oldId;
-            System.out.println(update);
             state.executeUpdate(update);
-            for(Group e : groups){
-                if (e == a)
-                    groups.remove(e);
+            for(int i = 0 ; i < groups.size(); i++){
+                if (groups.get(i) == a)
+                    groups.remove(i);
             }
             groups.add(b);
         }
@@ -151,16 +152,35 @@ public class Teacher {
         this.update();
     }
 
+    public void select() throws SQLException,IOException {
+        Connection con = new Connect().getConnect();
+        Statement state = con.createStatement();
+        String select = "SELECT * FROM teacher";
+        ResultSet result = state.executeQuery(select);
+        ResultSetMetaData rm = result.getMetaData();
+        while (result.next())
+        {
+            for (int i = 1 ; i <= rm.getColumnCount(); i++)
+                System.out.print(result.getString(i) + "\t");
+            System.out.print("\n");
+        }
+        con.close();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean equals( Teacher teacher) {
+        if ((name == teacher.name) && (birthday == teacher.birthday))
+            return true;
+        else
+            return false;
+    }
+
     public static void main(String[] args) throws IOException, SQLException {
         Teacher a = new Teacher();
-        Group g = new Group();
-        Group k = new Group();
-        a.get("Немоляев Илья Владиславович");
-        g.get(10);
-        k.get(15);
-        a.deleteGroup(k);
-
-
+        a.select();
     }
 
     private int id;
