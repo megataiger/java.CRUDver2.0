@@ -5,28 +5,27 @@ import java.util.Date;
 import java.sql.*;
 
 public class Student {
-    Student (){
+    Student (Connection mainCon){
+        con = mainCon;
     }
 
-    Student(String nameSname, int day, int month, int year, String mOrY, int numberGroup) throws IOException, SQLException {
+    Student(String nameSname, int day, int month, int year, String mOrY, int numberGroup, Connection mainCon) throws IOException, SQLException {
+        con = mainCon;
         name = nameSname;
         birthday = LocalDate.of(year, month, day);
         male = mOrY;
         group.get(numberGroup);
     }
     
-    void getId () throws IOException, SQLException {
-        Connection con = new Connect().getConnect();
+    void getId () throws SQLException {
         Statement state =  con.createStatement();
         String select = "SELECT id FROM student WHERE name = '" + name + "'";
         ResultSet res = state.executeQuery(select);
         if(res.next())
             id = res.getInt(1);
-        con.close();
     }
 
-    public void add () throws SQLException, IOException {
-        Connection con = new Connect().getConnect();
+    public void add () throws SQLException {
         Statement state = con.createStatement();
         String query =  "INSERT INTO student " +
                 "(id, name, birthday, male, group_id) VALUES (null, '" + name + "', '"
@@ -38,9 +37,6 @@ public class Student {
         } catch (SQLException e) {
             System.out.println("Неверный номер группы.\n Группы с данным номером не существет.");
         }
-        finally {
-            con.close();
-        }
     }
     
     public void set(String newName, int day, int month, int year, String newMale, int newGroup) throws IOException, SQLException {
@@ -51,14 +47,12 @@ public class Student {
         this.update();
     }
     
-    void update() throws SQLException, IOException {
-        Connection con = new Connect().getConnect();
+    void update() throws SQLException {
         Statement state = con.createStatement();
         String update = "UPDATE student SET name = '" + name + "', birthday = '" +
                 birthday.getYear() + "-" + birthday.getMonthValue() + "-" + birthday.getDayOfMonth() +
                 "', male = '" + male + "', group_id = " + group.getId() + " WHERE id = " + id;
         state.executeUpdate(update);
-        con.close();
     }
 
     public void info(){
@@ -70,7 +64,6 @@ public class Student {
     
     public void get(String nameSname) throws SQLException, IOException {
         int groupId = 0;
-        Connection con = new Connect().getConnect();
         Statement state = con.createStatement();
         String select = "SELECT * FROM student WHERE name = '" + nameSname + "'";
         ResultSet result = state.executeQuery(select);
@@ -83,21 +76,19 @@ public class Student {
         }
         String selectGroup = "SELECT number FROM `group` WHERE id = " + groupId;
         result = state.executeQuery(selectGroup);
+        group = new Group(con);
         if (result.next())
             group.get(result.getInt(1));
-        con.close();
     }
     
-    public void delete() throws SQLException, IOException {
-        Connection con = new Connect().getConnect();
+    public void delete() throws SQLException {
         Statement state = con.createStatement();
         String delete  = "DELETE FROM student WHERE id = " + id;
         state.executeUpdate(delete);
-        con.close();
     }
 
     public void setGroup(int number) throws SQLException, IOException {
-        Group a = new Group();
+        Group a = new Group(con);
         a.get(number);
         group = a;
         update();
@@ -107,6 +98,7 @@ public class Student {
     private String name;
     private LocalDate birthday;
     private String male;
-    private Group group = new Group();
+    private Connection con;
+    private Group group;
 }
 

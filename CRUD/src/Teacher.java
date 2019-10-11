@@ -5,16 +5,18 @@ import java.util.Date;
 import java.sql.*;
 
 public class Teacher {
-    Teacher() {}
-    Teacher(String nameSname, int day, int month, int yaer, String c) throws SQLException, IOException {
+    Teacher(Connection mainCon) {
+        con = mainCon;
+    }
+    Teacher(String nameSname, int day, int month, int yaer, String c, Connection mainCon) throws SQLException {
+        con = mainCon;
         name = nameSname;
         birthday = LocalDate.of(yaer, month, day);
         male = c;
         getId(name);
     }
 
-    public void get(String temp) throws IOException, SQLException {
-        Connection con = new Connect().getConnect();
+    public void get(String temp) throws SQLException {
         Statement state = con.createStatement();
         String select = "SELECT * FROM teacher WHERE name = '" + temp + "'";
         ResultSet result = state.executeQuery(select);
@@ -29,9 +31,8 @@ public class Teacher {
                 "WHERE `group/teacher`.teacher_id = " + this.id;
         result = state.executeQuery(query);
         while (result.next()) {
-            groups.add(new Group(result.getInt("number")));
+            groups.add(new Group(result.getInt("number"), con));
         }
-        con.close();
     }
 
     public void info() {
@@ -45,49 +46,40 @@ public class Teacher {
             e.info();
     }
 
-    void getId(String name) throws SQLException, IOException {
-        Connection con = new Connect().getConnect();
+    void getId(String name) throws SQLException {
         Statement state = con.createStatement();
         String query = "SELECT id FROM teacher WHERE name = '" + name + "'";
         ResultSet res = state.executeQuery(query);
         if (res.next())
             id = res.getInt(1);
-        con.close();
     }
 
-    public void add() throws SQLException, IOException {
-        Connection con = new Connect().getConnect();
+    public void add() throws SQLException {
         Statement state = con.createStatement();
         String insert = "INSERT INTO teacher (id, name, birthday, male) VALUES " +
                 "(null, '" + this.name + "', '" + this.birthday.getYear()
                 + "-" + birthday.getMonthValue() + "-" + birthday.getDayOfMonth() + "', '" + this.male + "')";
         System.out.println(insert);
             state.executeUpdate(insert);
-        con.close();
     }
 
-    public void delete(Group b) throws SQLException, IOException {
-        Connection con = new Connect().getConnect();
+    public void delete(Group b) throws SQLException {
         Statement state = con.createStatement();
         String deleteCom = "DELETE FROM `group/teacher` WHERE teacher_id = " + this.id;
         state.executeUpdate(deleteCom);
         String delete = "DELETE FROM teacher WHERE id = " + this.id;
         state.executeUpdate(delete);
-        con.close();
     }
 
-    void update() throws SQLException, IOException {
-        Connection con = new Connect().getConnect();
+    void update() throws SQLException {
         Statement state = con.createStatement();
         String update = "UPDATE teacher SET name = '" + this.name + "', birthday = '"
                 + this.birthday.getYear() + "-" + this.birthday.getMonthValue() + "-" + this.birthday.getDayOfMonth() +
                  "', male = '" + this.male + "' WHERE id = " + this.id;
         state.executeUpdate(update);
-        con.close();
     }
 
-    public void addGroup(Group g) throws SQLException, IOException {
-        Connection con = new Connect().getConnect();
+    public void addGroup(Group g) throws SQLException {
         Statement state = con.createStatement();
         int groupId = g.getId();
         try {
@@ -101,8 +93,7 @@ public class Teacher {
         }
     }
 
-    public void deleteGroup(Group g) throws SQLException, IOException {
-        Connection con = new Connect().getConnect();
+    public void deleteGroup(Group g) throws SQLException {
         Statement state = con.createStatement();
         int groupId = g.getId();
         try {
@@ -117,13 +108,9 @@ public class Teacher {
         catch (SQLException e){
             System.out.println("Неверный номер группы");
         }
-        finally {
-            con.close();
-        }
     }
 
-    public void setGroup(Group a, Group b) throws SQLException, IOException {
-        Connection con = new Connect().getConnect();
+    public void setGroup(Group a, Group b) throws SQLException {
         Statement state = con.createStatement();
         int newId = b.getId();
         int oldId = a.getId();
@@ -140,20 +127,16 @@ public class Teacher {
         catch (SQLException e){
             System.out.println("Неверный номер группы");
         }
-        finally {
-            con.close();
-        }
     }
 
-    public void set(String nameSname, int day, int month, int year, String c) throws IOException, SQLException {
+    public void set(String nameSname, int day, int month, int year, String c) throws SQLException {
         this.name = nameSname;
         this.birthday = LocalDate.of(year,month,day);
         this.male = c;
         this.update();
     }
 
-    public void select() throws SQLException,IOException {
-        Connection con = new Connect().getConnect();
+    public void select() throws SQLException {
         Statement state = con.createStatement();
         String select = "SELECT * FROM teacher";
         ResultSet result = state.executeQuery(select);
@@ -164,7 +147,6 @@ public class Teacher {
                 System.out.print(result.getString(i) + "\t");
             System.out.print("\n");
         }
-        con.close();
     }
 
     public int getId() {
@@ -178,14 +160,10 @@ public class Teacher {
             return false;
     }
 
-    public static void main(String[] args) throws IOException, SQLException {
-        Teacher a = new Teacher();
-        a.select();
-    }
-
     private int id;
     private String name;
     private LocalDate birthday;
     private String male;
     private ArrayList<Group> groups = new ArrayList<Group>();
+    private Connection con;
 }
