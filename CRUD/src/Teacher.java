@@ -167,6 +167,17 @@ public class Teacher {
         con.close();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public boolean equals( Teacher teacher) {
+        if ((name == teacher.name) && (birthday == teacher.birthday))
+            return true;
+        else
+            return false;
+    }
+
     public static void main(String[] args) throws IOException, SQLException {
         Teacher a = new Teacher();
         a.select();
