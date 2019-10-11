@@ -13,12 +13,5 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) throws SQLException, IOException {
-        Connection mainCon = new Connect().getConnect();
-
-        ArrayList<Student> students = new ArrayList<Student>();
-
-
-
-        mainCon.close();
     }
 }

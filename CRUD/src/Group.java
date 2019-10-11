@@ -1,21 +1,17 @@
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Group {
-    Group(Connection mainCon) {
-        con = mainCon;
+public class Group extends SuperTable {
+    Group() {
     }
-    Group(int i, Connection mainCon) {
+    Group(int i) {
         number = i;
-        con = mainCon;
     }
 
-    public void add() throws SQLException, IOException {
+    public void add() throws SQLException {
         Statement state = con.createStatement();
         String query = "INSERT INTO `group` " +
                 "(id, number) VALUES (null, '" + number + "')";
@@ -23,18 +19,17 @@ public class Group {
         this.getId(number);
     }
 
-    public void set(int temp) throws SQLException, IOException {
+    public void set(int temp) throws SQLException {
         number = temp;
         this.update();
     }
 
-    public void get(int temp) throws IOException, SQLException {
+    public void get(int temp) throws SQLException {
         getId(temp);
         if (id > 0)
             number = temp;
         else
             getId(number);
-        //getLists();
     }
 
     void getId(int number) throws SQLException {
@@ -71,7 +66,7 @@ public class Group {
                 "ON `group/teacher`.teacher_id = teacher.id " +
                 "WHERE group_id = " + id;
         ResultSet result = state.executeQuery(query);
-        Teacher teach = new Teacher(con);
+        Teacher teach = new Teacher();
         while(result.next()) {
             teach.get(result.getString(2));
             teachers.add(teach);
@@ -119,7 +114,7 @@ public class Group {
         Statement state = con.createStatement();
         String query = "SELECT * FROM student WHERE group_id = " + id;
         ResultSet result = state.executeQuery(query);
-        Student stud = new Student(con);
+        Student stud = new Student();
         while(result.next()) {
             stud.get(result.getString(2));
             students.add(stud);
@@ -132,5 +127,4 @@ public class Group {
     private int id;
     private ArrayList<Teacher> teachers = new ArrayList<Teacher>();
     private ArrayList<Student> students = new ArrayList<Student>();
-    private Connection con;
 }

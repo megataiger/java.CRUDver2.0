@@ -1,21 +1,42 @@
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.sql.*;
 
-public class Teacher {
-    Teacher(Connection mainCon) {
-        con = mainCon;
+public class Teacher extends SuperTable {
+    /**
+    * Конструктор Teacher()
+    * служит для создания пустого объекта
+    * и последующей его инициализацией методом get()
+     */
+    Teacher() {
     }
-    Teacher(String nameSname, int day, int month, int yaer, String c, Connection mainCon) throws SQLException {
-        con = mainCon;
+
+    /**
+     * Конструктор с параметрами
+     * для инициализации объекта и последующей вставки
+     * его содержимого в виде записи в базе данных
+     * посредством метода add()
+     * @param nameSname Ф.И.О. преподавателя
+     * @param day день рождения
+     * @param month месяц рождения
+     * @param yaer год рождения
+     * @param c пол М/Ж
+     * @throws SQLException
+     */
+    Teacher(String nameSname, int day, int month, int yaer, String c) throws SQLException {
         name = nameSname;
         birthday = LocalDate.of(yaer, month, day);
         male = c;
         getId(name);
     }
 
+    /**
+     * Метод get(String temp) по заданому Ф.И.О.
+     * ищет в базе данных соответствующего преподавателя,
+     * затем инициализирует экземпляр объекта
+     * @param temp Ф.И.О., по кторому будет вестись поиск
+     * @throws SQLException
+     */
     public void get(String temp) throws SQLException {
         Statement state = con.createStatement();
         String select = "SELECT * FROM teacher WHERE name = '" + temp + "'";
@@ -31,10 +52,13 @@ public class Teacher {
                 "WHERE `group/teacher`.teacher_id = " + this.id;
         result = state.executeQuery(query);
         while (result.next()) {
-            groups.add(new Group(result.getInt("number"), con));
+            groups.add(new Group(result.getInt("number")));
         }
     }
 
+    /**
+     *
+     */
     public void info() {
         System.out.println(this.name + "\t" + this.birthday.getYear() + "-" + this.birthday.getMonthValue()
                 + "-" + this.birthday.getDayOfMonth() + "\t" + this.male);
@@ -59,7 +83,6 @@ public class Teacher {
         String insert = "INSERT INTO teacher (id, name, birthday, male) VALUES " +
                 "(null, '" + this.name + "', '" + this.birthday.getYear()
                 + "-" + birthday.getMonthValue() + "-" + birthday.getDayOfMonth() + "', '" + this.male + "')";
-        System.out.println(insert);
             state.executeUpdate(insert);
     }
 
@@ -165,5 +188,4 @@ public class Teacher {
     private LocalDate birthday;
     private String male;
     private ArrayList<Group> groups = new ArrayList<Group>();
-    private Connection con;
 }

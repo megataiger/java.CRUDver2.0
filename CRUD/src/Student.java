@@ -1,16 +1,12 @@
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.sql.*;
 
-public class Student {
-    Student (Connection mainCon){
-        con = mainCon;
+public class Student extends SuperTable {
+    Student () {
     }
 
-    Student(String nameSname, int day, int month, int year, String mOrY, int numberGroup, Connection mainCon) throws IOException, SQLException {
-        con = mainCon;
+    Student(String nameSname, int day, int month, int year, String mOrY, int numberGroup) throws IOException, SQLException {
         name = nameSname;
         birthday = LocalDate.of(year, month, day);
         male = mOrY;
@@ -76,7 +72,7 @@ public class Student {
         }
         String selectGroup = "SELECT number FROM `group` WHERE id = " + groupId;
         result = state.executeQuery(selectGroup);
-        group = new Group(con);
+        group = new Group();
         if (result.next())
             group.get(result.getInt(1));
     }
@@ -88,7 +84,7 @@ public class Student {
     }
 
     public void setGroup(int number) throws SQLException, IOException {
-        Group a = new Group(con);
+        Group a = new Group();
         a.get(number);
         group = a;
         update();
@@ -98,7 +94,6 @@ public class Student {
     private String name;
     private LocalDate birthday;
     private String male;
-    private Connection con;
-    private Group group;
+    private Group group = new Group();
 }
 
