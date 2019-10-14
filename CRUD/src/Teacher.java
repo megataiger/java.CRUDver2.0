@@ -7,6 +7,13 @@ import java.sql.*;
  * взаимодействия с таблицей преподавателей в базе данных.
  */
 public class Teacher extends SuperTable {
+
+    private int id;
+    private String name;
+    private LocalDate birthday;
+    private Male male;
+    private ArrayList<Group> groups = new ArrayList<Group>();
+
     /**
     * Конструктор Teacher()
     * служит для создания пустого объекта
@@ -23,41 +30,45 @@ public class Teacher extends SuperTable {
      * @param nameSname Ф.И.О. преподавателя
      * @param day день рождения
      * @param month месяц рождения
-     * @param yaer год рождения
-     * @param c пол М/Ж
+     * @param year год рождения
+     * @param value пол М/Ж
      * @throws SQLException
      */
-    Teacher(String nameSname, int day, int month, int yaer, String c)
+    Teacher(String nameSname, int day, int month, int year, Male value)
             throws SQLException {
         name = nameSname;
-        birthday = LocalDate.of(yaer, month, day);
-        male = c;
+        birthday = LocalDate.of(year, month, day);
+        male = value;
         getId(name);
     }
 
     /**
-     * Метод get(String temp) по заданому Ф.И.О.
+     * Метод get(String nameExistingTeacher) по заданому Ф.И.О.
      * ищет в базе данных соответствующего преподавателя,
      * затем инициализирует экземпляр объекта
-     * @param temp Ф.И.О., по кторому будет вестись поиск
+     * @param nameExistingTeacher Ф.И.О., по кторому будет вестись поиск
      * @throws SQLException
      */
-    public void get(String temp) throws SQLException {
+    public void get(String nameExistingTeacher) throws SQLException {
 
         Statement state = con.createStatement();
-        String select = "SELECT * FROM teacher WHERE name = '" + temp + "'";
+        String select = "SELECT * FROM teacher WHERE name = '" + nameExistingTeacher + "'";
         ResultSet result = state.executeQuery(select);
 
         if(result.next()) {
             id = result.getInt(1);
             name = result.getString(2);
             birthday = LocalDate.parse(result.getString(3));
-            male = result.getString(4);
+            if (result.getString(4) == Male.MAN.getValue()) {
+                male = Male.MAN;
+            } else {
+                male = Male.WOMAN;
+            }
         }
 
-        String query = "SELECT number FROM `group` JOIN `group/teacher` " +
-                "ON `group`.id = `group/teacher`.group_id " +
-                "WHERE `group/teacher`.teacher_id = " + id;
+        String query = "SELECT number FROM `group` JOIN `group_teacher` " +
+                "ON `group`.id = `group_teacher`.group_id " +
+                "WHERE `group_teacher`.teacher_id = " + id;
         result = state.executeQuery(query);
 
         while (result.next()) {
@@ -69,10 +80,10 @@ public class Teacher extends SuperTable {
      * Метод info() выводит в консоль
      * значения полей экземпляра объекта
      */
-    public void info() {
-        System.out.println(name + "\t" + birthday.getYear() + "-"
+    public String toString() {
+        return name + "\t" + birthday.getYear() + "-"
                 + birthday.getMonthValue() + "-" + birthday.getDayOfMonth()
-                + "\t" + male);
+                + "\t" + male.getValue();
     }
 
     /**
@@ -82,9 +93,9 @@ public class Teacher extends SuperTable {
      * метода info() класса Group.
      */
     public void groupList() {
-        info();
+        System.out.println(this);
         for (Group e : groups)
-            e.info();
+            System.out.println(e);
     }
 
     /**
@@ -117,20 +128,19 @@ public class Teacher extends SuperTable {
 
         Statement state = con.createStatement();
         String insert = "INSERT INTO teacher (id, name, birthday, male) VALUES "
-                + "(null, '" + this.name + "', '" + this.birthday.getYear()
+                + "(null, '" + name + "', '" + birthday.getYear()
                 + "-" + birthday.getMonthValue() + "-" + birthday.getDayOfMonth()
-                + "', '" + this.male + "')";
+                + "', '" + male.getValue() + "')";
 
         state.executeUpdate(insert);
     }
 
     /**
-     * Метод delete(Group b) удаляет запись об объекте из базы дынных,
+     * Метод delete() удаляет запись об объекте из базы дынных,
      * а также удаляет записи связей с данным объектом.
-     * @param b инициализированный экземпляр Group
      * @throws SQLException
      */
-    public void delete(Group b) throws SQLException {
+    public void delete() throws SQLException {
 
         Statement state = con.createStatement();
         String deleteCom = "DELETE FROM `group/teacher` WHERE teacher_id = " + id;
@@ -153,52 +163,52 @@ public class Teacher extends SuperTable {
         String update = "UPDATE teacher SET name = '" + name + "', birthday = '"
                 + birthday.getYear() + "-" + birthday.getMonthValue()
                 + "-" + birthday.getDayOfMonth() +
-                 "', male = '" + male + "' WHERE id = " + id;
+                 "', male = '" + male.getValue() + "' WHERE id = " + id;
 
         state.executeUpdate(update);
     }
 
     /**
-     * Метод addGroup(Group g) присваивает группу преподавателю
+     * Метод addGroup(Group newGroup) присваивает группу преподавателю
      * и записывает экземпляр Group в поле groups.
-     * @param g экземпляр Group.
+     * @param newGroup экземпляр Group.
      * @throws SQLException
      */
-    public void addGroup(Group g) throws SQLException {
+    public void addGroup(Group newGroup) throws SQLException {
 
         Statement state = con.createStatement();
-        int groupId = g.getId();
+        int groupId = newGroup.getId();
 
         try {
-            String insert = "INSERT INTO `group/teacher` " +
+            String insert = "INSERT INTO `group_teacher` " +
                     "(group_id, teacher_id) VALUES " +
                     "(" + groupId + ", " + id + ")";
             state.executeUpdate(insert);
-            groups.add(g);
+            groups.add(newGroup);
         } catch (SQLException e){
             System.out.println("Неверный номер группы");
         }
     }
 
     /**
-     * Метод deleteGroup(Group g) удаляет связь между преподавателем и группой
+     * Метод deleteGroup(Group existingGroup) удаляет связь между преподавателем и группой
      * и стирает экземпляр группы из поля коллекции.
-     * @param g экземпляр группы
+     * @param existingGroup экземпляр группы
      * @throws SQLException
      */
-    public void deleteGroup(Group g) throws SQLException {
+    public void deleteGroup(Group existingGroup) throws SQLException {
 
         Statement state = con.createStatement();
 
-        int groupId = g.getId();
+        int groupId = existingGroup.getId();
         try {
 
-            String insert = "DELETE FROM `group/teacher` WHERE group_id = "
+            String insert = "DELETE FROM `group_teacher` WHERE group_id = "
                     + groupId + " AND teacher_id = " + id;
             state.executeUpdate(insert);
 
             for (int i = 0 ; i < groups.size() ; i ++) {
-                if (groups.get(i) == g)
+                if (groups.get(i) == existingGroup)
                     groups.remove(i);
             }
         } catch (SQLException e){
@@ -207,32 +217,32 @@ public class Teacher extends SuperTable {
     }
 
     /**
-     * Метод setGroup(Group a, Group b)
+     * Метод setGroup(Group oldGroup, Group newGroup)
      * изменяет запись о связи в соответствии с заданными
      * экземплярами групп, удаляет из коллекции старую группу и
      * записывает новую.
-     * @param a экземпляр существующей группы, которую заменяем
-     * @param b экземпляр новой группы
+     * @param oldGroup экземпляр существующей группы, которую заменяем
+     * @param newGroup экземпляр новой группы
      * @throws SQLException
      */
-    public void setGroup(Group a, Group b) throws SQLException {
+    public void setGroup(Group oldGroup, Group newGroup) throws SQLException {
 
         Statement state = con.createStatement();
-        int newId = b.getId();
-        int oldId = a.getId();
+        int newId = newGroup.getId();
+        int oldId = oldGroup.getId();
 
         try {
 
-            String update = "UPDATE `group/teacher` SET group_id = "
+            String update = "UPDATE `group_teacher` SET group_id = "
                     + newId + " WHERE teacher_id = "
                     + id + " AND group_id = " + oldId;
             state.executeUpdate(update);
 
             for(int i = 0 ; i < groups.size(); i++){
-                if (groups.get(i) == a)
+                if (groups.get(i) == oldGroup)
                     groups.remove(i);
             }
-            groups.add(b);
+            groups.add(newGroup);
 
         } catch (SQLException e){
             System.out.println("Неверный номер группы");
@@ -247,15 +257,15 @@ public class Teacher extends SuperTable {
      * @param day день рождения
      * @param month месяц рождения
      * @param year год рождения
-     * @param c пол М/Ж
+     * @param newMale пол М/Ж
      * @throws SQLException
      */
-    public void set(String nameSname, int day, int month, int year, String c)
+    public void set(String nameSname, int day, int month, int year, Male newMale)
             throws SQLException {
 
         name = nameSname;
         birthday = LocalDate.of(year,month,day);
-        male = c;
+        male = newMale;
 
         update();
     }
@@ -305,9 +315,4 @@ public class Teacher extends SuperTable {
             return false;
     }
 
-    private int id;
-    private String name;
-    private LocalDate birthday;
-    private String male;
-    private ArrayList<Group> groups = new ArrayList<Group>();
 }

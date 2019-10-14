@@ -6,6 +6,13 @@ import java.sql.*;
  * и работы с ними
  */
 public class Student extends SuperTable {
+
+    private  int id;
+    private String name;
+    private LocalDate birthday;
+    private Male male;
+    private Group group = new Group();
+
     /**
      * Пустой конструктор для последующей инициализации
      * существующей записи о студенте.
@@ -19,16 +26,16 @@ public class Student extends SuperTable {
      * @param day день рождения
      * @param month месяц рождения
      * @param year год рождения
-     * @param mOrY пол М/Ж
+     * @param value пол М/Ж
      * @param numberGroup номер группы студента
      * @throws SQLException
      */
     Student(String nameSname, int day, int month, int year,
-            String mOrY, int numberGroup)
+            Male value, int numberGroup)
             throws SQLException {
         name = nameSname;
         birthday = LocalDate.of(year, month, day);
-        male = mOrY;
+        male = value;
         group.get(numberGroup);
     }
 
@@ -80,7 +87,7 @@ public class Student extends SuperTable {
      * @throws SQLException
      */
     public void set(String newName, int day, int month, int year,
-                    String newMale, int newGroup)
+                    Male newMale, int newGroup)
             throws SQLException {
         name = newName;
         birthday = LocalDate.of(year, month, day);
@@ -99,7 +106,7 @@ public class Student extends SuperTable {
         Statement state = con.createStatement();
         String update = "UPDATE student SET name = '" + name + "', birthday = '"
                 + birthday.getYear() + "-" + birthday.getMonthValue() + "-"
-                + birthday.getDayOfMonth() + "', male = '" + male
+                + birthday.getDayOfMonth() + "', male = '" + male.getValue()
                 + "', group_id = " + group.getId() + " WHERE id = " + id;
         state.executeUpdate(update);
     }
@@ -107,33 +114,37 @@ public class Student extends SuperTable {
     /**
      * Выводит в консоль строку информации об объекте.
      */
-    public void info(){
+    public String toString(){
         String info = name + "\t" + birthday.getDayOfMonth() + "/"
                 + birthday.getMonthValue() + "/" + birthday.getYear()
-                + "\t" + "" + male + "\t";
-        System.out.print(info);
-        group.info();
+                + "\t" + "" + male.getValue() + "\t";
+        info += group;
+        return info;
     }
 
     /**
      * Находит запись о студенте и инициализирует значения
      * атрибутов в поля объекта.
-     * @param nameSname Ф.И.О.
+     * @param nameExistingStudent Ф.И.О.
      * @throws SQLException
      */
-    public void get(String nameSname) throws SQLException {
+    public void get(String nameExistingStudent) throws SQLException {
 
         int groupId = 0;
 
         Statement state = con.createStatement();
-        String select = "SELECT * FROM student WHERE name = '" + nameSname + "'";
+        String select = "SELECT * FROM student WHERE name = '" + nameExistingStudent + "'";
 
         ResultSet result = state.executeQuery(select);
         if(result.next()) {
             id = result.getInt(1);
             name = result.getString(2);
             birthday = LocalDate.parse(result.getString(3));
-            male = result.getString(4);
+            if (result.getString(4) == Male.MAN.getValue()) {
+                male = Male.MAN;
+            } else {
+                male = Male.WOMAN;
+            }
             groupId = result.getInt(5);
         }
 
@@ -167,10 +178,5 @@ public class Student extends SuperTable {
         update();
     }
 
-    private  int id;
-    private String name;
-    private LocalDate birthday;
-    private String male;
-    private Group group = new Group();
 }
 

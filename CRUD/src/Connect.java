@@ -19,8 +19,7 @@ public class Connect {
      */
     Connect() throws IOException, SQLException {
         File one =
-                new File ("C:\\Users\\NemolyaevIV" +
-                        "\\IdeaProjects\\java.CRUDver2.0\\CRUD" +
+                new File ("CRUD" +
                         "\\database.properties");
         Properties props = new Properties();
         FileInputStream in = new FileInputStream(one);
