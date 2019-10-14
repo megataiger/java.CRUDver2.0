@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Main {
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String[] args) throws SQLException {
+        Group a = new Group();
+        a.get(15);
+        a.delete();
     }
 }
