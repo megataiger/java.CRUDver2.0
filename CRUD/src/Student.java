@@ -37,6 +37,13 @@ public class Student extends SuperTable {
         birthday = LocalDate.of(year, month, day);
         male = value;
         group.get(numberGroup);
+        if (checkAvailible()) {
+            name = "";
+            birthday = null;
+            male = null;
+            group = null;
+            System.out.println("Студент с такими даннными уже существует");
+        }
     }
 
     /**
@@ -176,6 +183,16 @@ public class Student extends SuperTable {
         a.get(number);
         group = a;
         update();
+    }
+
+    boolean checkAvailible() throws SQLException {
+        Teacher teach = new Teacher();
+        teach.get(name);
+        if (this.equals(teach)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

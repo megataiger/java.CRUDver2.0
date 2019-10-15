@@ -1,3 +1,4 @@
+import javax.crypto.NullCipher;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.*;
@@ -39,7 +40,12 @@ public class Teacher extends SuperTable {
         name = nameSname;
         birthday = LocalDate.of(year, month, day);
         male = value;
-        getId(name);
+        if (this.chekAvailible()) {
+            name = "";
+            birthday = null;
+            male = null;
+            System.out.println("Преподаватель с такими данными уже существует");
+        }
     }
 
     /**
@@ -54,25 +60,31 @@ public class Teacher extends SuperTable {
         Statement state = con.createStatement();
         String select = "SELECT * FROM teacher WHERE name = '" + nameExistingTeacher + "'";
         ResultSet result = state.executeQuery(select);
-
-        if(result.next()) {
-            id = result.getInt(1);
-            name = result.getString(2);
-            birthday = LocalDate.parse(result.getString(3));
-            if (result.getString(4) == Male.MAN.getValue()) {
-                male = Male.MAN;
-            } else {
-                male = Male.WOMAN;
+        result.last();
+        if(result.getRow() > 1) {
+            System.out.println("Под данным имнем существует несколько преподавателей." +
+                    "\nВозпользуйтесь вводом дополнительного критерия.");
+        } else {
+            result.beforeFirst();
+            if (result.next()) {
+                id = result.getInt(1);
+                name = result.getString(2);
+                birthday = LocalDate.parse(result.getString(3));
+                if (result.getString(4) == Male.MAN.getValue()) {
+                    male = Male.MAN;
+                } else {
+                    male = Male.WOMAN;
+                }
             }
-        }
 
-        String query = "SELECT number FROM `group` JOIN `group_teacher` " +
-                "ON `group`.id = `group_teacher`.group_id " +
-                "WHERE `group_teacher`.teacher_id = " + id;
-        result = state.executeQuery(query);
+            String query = "SELECT number FROM `group` JOIN `group_teacher` " +
+                    "ON `group`.id = `group_teacher`.group_id " +
+                    "WHERE `group_teacher`.teacher_id = " + id;
+            result = state.executeQuery(query);
 
-        while (result.next()) {
-            groups.add(new Group(result.getInt("number")));
+            while (result.next()) {
+                groups.add(new Group(result.getInt("number")));
+            }
         }
     }
 
@@ -133,6 +145,7 @@ public class Teacher extends SuperTable {
                 + "', '" + male.getValue() + "')";
 
         state.executeUpdate(insert);
+        getId(name);
     }
 
     /**
@@ -309,10 +322,56 @@ public class Teacher extends SuperTable {
      * равны или не равны объекты
      */
     public boolean equals(Teacher teacher) {
-        if ((name == teacher.name) && (birthday == teacher.birthday))
+        if ((name.equals(teacher.name)) && (birthday.equals(teacher.birthday)))
             return true;
         else
             return false;
     }
+
+    public void get(String nameExistingTeacher, int day, int month, int year) throws SQLException {
+        Statement state = con.createStatement();
+        String select = "SELECT * FROM teacher WHERE name = '" + nameExistingTeacher
+                + "' AND birthday = '" + year
+                + "-" + month + "-" + day
+                + "'";
+        ResultSet result = state.executeQuery(select);
+
+        if(result.next()) {
+            id = result.getInt(1);
+            name = nameExistingTeacher;
+            birthday = LocalDate.of(1996, 06, 27);
+            if (result.getString(4) == Male.MAN.getValue()) {
+                male = Male.MAN;
+            } else {
+                male = Male.WOMAN;
+            }
+        }
+
+        String query = "SELECT number FROM `group` JOIN `group_teacher` " +
+                "ON `group`.id = `group_teacher`.group_id " +
+                "WHERE `group_teacher`.teacher_id = " + id;
+        result = state.executeQuery(query);
+
+        while (result.next()) {
+            groups.add(new Group(result.getInt("number")));
+        }
+    }
+
+    boolean chekAvailible() throws SQLException {
+        Teacher teach = new Teacher();
+        teach.get(name);
+        if (this.equals(teach)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void main(String[] args) throws SQLException {
+        Teacher teach2 = new Teacher();
+        teach2.get("Немоляев Илья Владиславович");
+        System.out.println(teach2);
+    }
+
 
 }

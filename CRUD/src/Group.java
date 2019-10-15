@@ -25,8 +25,12 @@ public class Group extends SuperTable {
      * Создаёт объект группа с её фактическим номером.
      * @param factNumber фактический номер группы
      */
-    Group(int factNumber) {
-        number = factNumber;
+    Group(int factNumber) throws SQLException {
+        if (factNumber == chekAvailable(factNumber)) {
+            number = factNumber;
+        } else {
+            System.out.println("Данный номер группы уже существует");
+        }
     }
 
     /**
@@ -244,6 +248,12 @@ public class Group extends SuperTable {
 
         for (Student e : students)
             System.out.println(e);
+    }
+
+    int chekAvailable(int numberGroup) throws SQLException {
+        Group cheker = new Group();
+        cheker.get(numberGroup);
+        return cheker.id;
     }
 
 }
