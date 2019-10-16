@@ -29,6 +29,7 @@ public class Group extends SuperTable {
         if (factNumber == chekAvailable(factNumber)) {
             number = factNumber;
         } else {
+            number = 0;
             System.out.println("Данный номер группы уже существует");
         }
     }
@@ -134,7 +135,7 @@ public class Group extends SuperTable {
      * Выводит в консоль фактический номер группы
      */
     public String toString(){
-        return "" + number;
+        return " " + number;
     }
 
     /**
@@ -151,8 +152,8 @@ public class Group extends SuperTable {
                 "WHERE group_id = " + id;
         ResultSet result = state.executeQuery(query);
 
-        Teacher teach = new Teacher();
         while(result.next()) {
+            Teacher teach = new Teacher();
             teach.get(result.getString(2));
             teachers.add(teach);
         }
@@ -240,14 +241,15 @@ public class Group extends SuperTable {
         String query = "SELECT * FROM student WHERE group_id = " + id;
         ResultSet result = state.executeQuery(query);
 
-        Student stud = new Student();
         while(result.next()) {
+            Student stud = new Student();
             stud.get(result.getString(2));
             students.add(stud);
         }
 
-        for (Student e : students)
+        for (Student e : students) {
             System.out.println(e);
+        }
     }
 
     int chekAvailable(int numberGroup) throws SQLException {

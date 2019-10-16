@@ -28,6 +28,8 @@ public class Teacher extends SuperTable {
      * для инициализации объекта и последующей вставки
      * его содержимого в виде записи в базе данных
      * посредством метода add()
+     * В случае, если checkAvailible() возвращает истину
+     * поля объекта зануляются
      * @param nameSname Ф.И.О. преподавателя
      * @param day день рождения
      * @param month месяц рождения
@@ -58,11 +60,13 @@ public class Teacher extends SuperTable {
     public void get(String nameExistingTeacher) throws SQLException {
 
         Statement state = con.createStatement();
-        String select = "SELECT * FROM teacher WHERE name = '" + nameExistingTeacher + "'";
+        String select = "SELECT * FROM teacher WHERE name = '"
+                + nameExistingTeacher + "'";
         ResultSet result = state.executeQuery(select);
         result.last();
         if(result.getRow() > 1) {
-            System.out.println("Под данным имнем существует несколько преподавателей." +
+            System.out.println("Под данным именем существует " +
+                    "несколько преподавателей." +
                     "\nВозпользуйтесь вводом дополнительного критерия.");
         } else {
             result.beforeFirst();
@@ -83,7 +87,9 @@ public class Teacher extends SuperTable {
             result = state.executeQuery(query);
 
             while (result.next()) {
-                groups.add(new Group(result.getInt("number")));
+                Group group = new Group();
+                group.get(result.getInt("number"));
+                groups.add(group);
             }
         }
     }
@@ -328,6 +334,15 @@ public class Teacher extends SuperTable {
             return false;
     }
 
+    /**
+     * Вторая версия одноимённого метода,
+     * которая производит поиск по двум критериям
+     * @param nameExistingTeacher Ф.И.О
+     * @param day дата рождения
+     * @param month месяц рождения
+     * @param year год рождения
+     * @throws SQLException
+     */
     public void get(String nameExistingTeacher, int day, int month, int year) throws SQLException {
         Statement state = con.createStatement();
         String select = "SELECT * FROM teacher WHERE name = '" + nameExistingTeacher
@@ -357,21 +372,19 @@ public class Teacher extends SuperTable {
         }
     }
 
+    /**
+     * Проверяет наличие схожей записи по имени и дате рождения
+     * @return существует или нет
+     * @throws SQLException
+     */
     boolean chekAvailible() throws SQLException {
         Teacher teach = new Teacher();
-        teach.get(name);
+        teach.get(name, birthday.getDayOfMonth(), birthday.getMonthValue(),
+                birthday.getYear());
         if (this.equals(teach)) {
             return true;
         } else {
             return false;
         }
     }
-
-    public static void main(String[] args) throws SQLException {
-        Teacher teach2 = new Teacher();
-        teach2.get("Немоляев Илья Владиславович");
-        System.out.println(teach2);
-    }
-
-
 }

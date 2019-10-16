@@ -22,6 +22,8 @@ public class Student extends SuperTable {
 
     /**
      * Конструктор для записи данных о студенте в экземпляр объекта.
+     * В случае, если checkAvailible() возвращает истину
+     * поля объекта зануляются
      * @param nameSname Ф.И.О. студента
      * @param day день рождения
      * @param month месяц рождения
@@ -71,7 +73,7 @@ public class Student extends SuperTable {
                 "(id, name, birthday, male, group_id) VALUES (null, '"
                 + name + "', '" + birthday.getYear() + "-"
                 + birthday.getMonthValue() + "-" + birthday.getDayOfMonth()
-                + "', '" + male + "', '" + group.getId() + "')";
+                + "', '" + male.getValue() + "', '" + group.getId() + "')";
         try {
             state.executeUpdate(query);
             getId();
@@ -143,24 +145,32 @@ public class Student extends SuperTable {
         String select = "SELECT * FROM student WHERE name = '" + nameExistingStudent + "'";
 
         ResultSet result = state.executeQuery(select);
-        if(result.next()) {
-            id = result.getInt(1);
-            name = result.getString(2);
-            birthday = LocalDate.parse(result.getString(3));
-            if (result.getString(4) == Male.MAN.getValue()) {
-                male = Male.MAN;
-            } else {
-                male = Male.WOMAN;
+        result.last();
+        if(result.getRow() > 1) {
+            System.out.println("Под данным именем существует" +
+                    " несколько студентов." +
+                    "\nВозпользуйтесь вводом дополнительного критерия.");
+        } else {
+                result.beforeFirst();
+                if (result.next()) {
+                id = result.getInt(1);
+                name = result.getString(2);
+                birthday = LocalDate.parse(result.getString(3));
+                if (result.getString(4) == Male.MAN.getValue()) {
+                    male = Male.MAN;
+                } else {
+                    male = Male.WOMAN;
+                }
+                groupId = result.getInt(5);
             }
-            groupId = result.getInt(5);
+
+            String selectGroup = "SELECT number FROM `group` WHERE id = " + groupId;
+            result = state.executeQuery(selectGroup);
+
+            group = new Group();
+            if (result.next())
+                group.get(result.getInt(1));
         }
-
-        String selectGroup = "SELECT number FROM `group` WHERE id = " + groupId;
-        result = state.executeQuery(selectGroup);
-
-        group = new Group();
-        if (result.next())
-            group.get(result.getInt(1));
     }
 
     /**
@@ -185,10 +195,71 @@ public class Student extends SuperTable {
         update();
     }
 
+    /**
+     * Вторая версия одноимённого метода,
+     * которая производит поиск по двум критериям
+     * @param nameExistingStudent Ф.И.О
+     * @param day дата рождения
+     * @param month месяц рождения
+     * @param year год рождения
+     * @throws SQLException
+     */
+    public void get(String nameExistingStudent, int day, int month, int year)
+            throws SQLException {
+        int groupId = 0;
+
+        Statement state = con.createStatement();
+        String select = "SELECT * FROM student WHERE name = '" + nameExistingStudent
+                + "' AND birthday = '" + year
+                + "-" + month + "-" + day
+                + "'";
+
+        ResultSet result = state.executeQuery(select);
+        if(result.next()) {
+            id = result.getInt(1);
+            name = result.getString(2);
+            birthday = LocalDate.parse(result.getString(3));
+            if (result.getString(4) == Male.MAN.getValue()) {
+                male = Male.MAN;
+            } else {
+                male = Male.WOMAN;
+            }
+            groupId = result.getInt(5);
+        }
+
+        String selectGroup = "SELECT number FROM `group` WHERE id = " + groupId;
+        result = state.executeQuery(selectGroup);
+
+        group = new Group();
+        if (result.next())
+            group.get(result.getInt(1));
+    }
+
+    /**
+     * Проверяет существует ли запись в базе
+     * с такими же значениями атрибутов
+     * имени и даты рождения
+     * @return существет или нет
+     * @throws SQLException
+     */
     boolean checkAvailible() throws SQLException {
-        Teacher teach = new Teacher();
-        teach.get(name);
-        if (this.equals(teach)) {
+        Student stud = new Student();
+        stud.get(name, birthday.getDayOfMonth(), birthday.getMonthValue(),
+                birthday.getYear());
+        if (this.equals(stud)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Проверяет на идентичность два объекта Student
+     * @param student то, с чем сравниеваем
+     * @return равно или нет
+     */
+    public boolean equals(Student student) {
+        if ((name.equals(student.name)) && (birthday.equals(student.birthday))) {
             return true;
         } else {
             return false;
