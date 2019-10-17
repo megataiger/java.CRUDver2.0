@@ -6,7 +6,14 @@ import java.util.ArrayList;
 /**
  * Класс предназначен для абстракции записей о группах и работы с ними
  */
+
 public class Group extends SuperTable {
+
+    private int number;
+    private int id;
+    private ArrayList<Teacher> teachers = new ArrayList<Teacher>();
+    private ArrayList<Student> students = new ArrayList<Student>();
+
     /**
      * Пустой конструктор служит для дальнейшей инициализации уже имеющейся
      * строки в таблице.
@@ -16,10 +23,15 @@ public class Group extends SuperTable {
 
     /**
      * Создаёт объект группа с её фактическим номером.
-     * @param i фактический номер группы
+     * @param factNumber фактический номер группы
      */
-    Group(int i) {
-        number = i;
+    Group(int factNumber) throws SQLException {
+        if (factNumber == chekAvailable(factNumber)) {
+            number = factNumber;
+        } else {
+            number = 0;
+            System.out.println("Данный номер группы уже существует");
+        }
     }
 
     /**
@@ -37,24 +49,24 @@ public class Group extends SuperTable {
     /**
      * Изменяет фактический номер группы объекта,
      * а затем вызывает метод, который делает тоже самое в таблице.
-     * @param temp новый номер группы
+     * @param newFactNumber новый номер группы
      * @throws SQLException
      */
-    public void set(int temp) throws SQLException {
-        number = temp;
+    public void set(int newFactNumber) throws SQLException {
+        number = newFactNumber;
         update();
     }
 
     /**
      * Метод на основе фактического номер группы, получает данные
      * из атрибутов соответсвующей строки и записывает их в поля объекта.
-     * @param temp фактический номер группы
+     * @param numberExistingGroup фактический номер группы
      * @throws SQLException
      */
-    public void get(int temp) throws SQLException {
-        getId(temp);
+    public void get(int numberExistingGroup) throws SQLException {
+        getId(numberExistingGroup);
         if (id > 0) {
-            number = temp;
+            number = numberExistingGroup;
         } else {
             getId(number);
         }
@@ -87,7 +99,7 @@ public class Group extends SuperTable {
      * Изменяет атрибуты соответсвующей строки используя поля объекта
      * @throws SQLException
      */
-    void update() throws SQLException {
+    public void update() throws SQLException {
         Statement state = con.createStatement();
         String update = "UPDATE `group` SET number = '"
                 + number + "' WHERE id = " + id;
@@ -99,7 +111,7 @@ public class Group extends SuperTable {
      * чтобы освободить память
      * @throws SQLException
      */
-    void delete() throws SQLException {
+    public void delete() throws SQLException {
         Statement state = con.createStatement();
         String delete = "UPDATE student SET group_id = NULL WHERE group_id = "
                 + id;
@@ -122,8 +134,8 @@ public class Group extends SuperTable {
     /**
      * Выводит в консоль фактический номер группы
      */
-    void info(){
-        System.out.println(number);
+    public String toString(){
+        return " " + number;
     }
 
     /**
@@ -135,19 +147,20 @@ public class Group extends SuperTable {
     public void teacherList() throws SQLException {
         Statement state = con.createStatement();
         String query = "SELECT id, name " +
-                "FROM `group/teacher` JOIN teacher " +
-                "ON `group/teacher`.teacher_id = teacher.id " +
+                "FROM `group_teacher` JOIN teacher " +
+                "ON `group_teacher`.teacher_id = teacher.id " +
                 "WHERE group_id = " + id;
         ResultSet result = state.executeQuery(query);
 
-        Teacher teach = new Teacher();
         while(result.next()) {
+            Teacher teach = new Teacher();
             teach.get(result.getString(2));
             teachers.add(teach);
         }
 
-        for(Teacher e : teachers)
-            e.info();
+        for(Teacher e : teachers) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -171,7 +184,7 @@ public class Group extends SuperTable {
      */
     public void addTeacher(Teacher teacher) throws SQLException {
         Statement state = con.createStatement();
-        String insert = "INSERT INTO `group/teacher` " +
+        String insert = "INSERT INTO `group_teacher` " +
                 "(group_id, teacher_id) VALUES " +
                 "(" + id + ", " + teacher.getId() + ")";
 
@@ -186,7 +199,7 @@ public class Group extends SuperTable {
      */
     public void deleteTeacher(Teacher teacher) throws SQLException {
         Statement state = con.createStatement();
-        String delete = "DELETE FROM `group/teacher` WHERE group_id = " + id
+        String delete = "DELETE FROM `group_teacher` WHERE group_id = " + id
                 + " AND teacher_id = " + teacher.getId();
         state.executeUpdate(delete);
 
@@ -206,7 +219,7 @@ public class Group extends SuperTable {
      */
     public void setTeacher (Teacher oldTeacher, Teacher newTeacher) throws SQLException {
         Statement state = con.createStatement();
-        String update = "UPDATE `group/teacher` SET teacher_id = "
+        String update = "UPDATE `group_teacher` SET teacher_id = "
                 + newTeacher.getId()
                 + " WHERE group_id = " + id + " AND teacher_id = "
                 + oldTeacher.getId();
@@ -228,18 +241,21 @@ public class Group extends SuperTable {
         String query = "SELECT * FROM student WHERE group_id = " + id;
         ResultSet result = state.executeQuery(query);
 
-        Student stud = new Student();
         while(result.next()) {
+            Student stud = new Student();
             stud.get(result.getString(2));
             students.add(stud);
         }
 
-        for (Student e : students)
-            e.info();
+        for (Student e : students) {
+            System.out.println(e);
+        }
     }
 
-    private int number;
-    private int id;
-    private ArrayList<Teacher> teachers = new ArrayList<Teacher>();
-    private ArrayList<Student> students = new ArrayList<Student>();
+    int chekAvailable(int numberGroup) throws SQLException {
+        Group cheker = new Group();
+        cheker.get(numberGroup);
+        return cheker.id;
+    }
+
 }
