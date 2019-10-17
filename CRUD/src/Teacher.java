@@ -1,4 +1,3 @@
-import javax.crypto.NullCipher;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.*;
@@ -162,7 +161,7 @@ public class Teacher extends SuperTable {
     public void delete() throws SQLException {
 
         Statement state = con.createStatement();
-        String deleteCom = "DELETE FROM `group/teacher` WHERE teacher_id = " + id;
+        String deleteCom = "DELETE FROM `group_teacher` WHERE teacher_id = " + id;
 
         state.executeUpdate(deleteCom);
 
@@ -387,4 +386,36 @@ public class Teacher extends SuperTable {
             return false;
         }
     }
-}
+
+    public Teacher getById(int idTeacher) throws SQLException {
+
+        Teacher teacher = new Teacher();
+        Statement state = con.createStatement();
+        String select = "SELECT * FROM teacher WHERE id = "
+                + idTeacher;
+        ResultSet result = state.executeQuery(select);
+
+            if (result.next()) {
+                teacher.id = result.getInt(1);
+                teacher.name = result.getString(2);
+                teacher.birthday = LocalDate.parse(result.getString(3));
+                if (result.getString(4) == Male.MAN.getValue()) {
+                    teacher.male = Male.MAN;
+                } else {
+                    teacher.male = Male.WOMAN;
+                }
+            }
+
+            String query = "SELECT number FROM `group` JOIN `group_teacher` " +
+                    "ON `group`.id = `group_teacher`.group_id " +
+                    "WHERE `group_teacher`.teacher_id = " + teacher.id;
+            result = state.executeQuery(query);
+
+            while (result.next()) {
+                Group group = new Group();
+                group.get(result.getInt("number"));
+                teacher.groups.add(group);
+            }
+            return teacher;
+        }
+    }

@@ -1,4 +1,5 @@
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -117,7 +118,7 @@ public class Group extends SuperTable {
                 + id;
         state.executeUpdate(delete);
 
-        delete = "DELETE FROM `group/teacher` WHERE group_id = " + id;
+        delete = "DELETE FROM `group_teacher` WHERE group_id = " + id;
         state.executeUpdate(delete);
 
         delete = "DELETE FROM `group` WHERE id = " + id;
@@ -256,6 +257,18 @@ public class Group extends SuperTable {
         Group cheker = new Group();
         cheker.get(numberGroup);
         return cheker.id;
+    }
+
+    public void select() throws SQLException {
+        Statement state = con.createStatement();
+        ResultSet result = state.executeQuery("SELECT * FROM `group`");
+        ResultSetMetaData rm = result.getMetaData();
+        while (result.next()) {
+            for (int i = 1 ; i <= rm.getColumnCount() ; i++) {
+                System.out.print(result.getString(i) + "\t");
+            }
+            System.out.print("\n");
+        }
     }
 
 }

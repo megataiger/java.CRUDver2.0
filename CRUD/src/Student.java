@@ -266,5 +266,50 @@ public class Student extends SuperTable {
         }
     }
 
+    public void select() throws SQLException {
+        Statement state = con.createStatement();
+        ResultSet result = state.executeQuery("SELECT * FROM student");
+        ResultSetMetaData rm = result.getMetaData();
+        while (result.next()) {
+            for (int i = 1 ; i <= rm.getColumnCount() ; i++) {
+                System.out.print(result.getString(i) + "\t");
+            }
+            System.out.print("\n");
+        }
+    }
+
+    public Student getById(int idStudent) throws SQLException {
+
+        Student student = new Student();
+
+        int groupId = 0;
+
+        Statement state = con.createStatement();
+        String select = "SELECT * FROM student WHERE id = " + idStudent;
+
+        ResultSet result = state.executeQuery(select);
+
+        if (result.next()) {
+            student.id = result.getInt(1);
+            student.name = result.getString(2);
+            student.birthday = LocalDate.parse(result.getString(3));
+            if (result.getString(4) == Male.MAN.getValue()) {
+                student.male = Male.MAN;
+            } else {
+                student.male = Male.WOMAN;
+            }
+            groupId = result.getInt(5);
+        }
+
+        String selectGroup = "SELECT number FROM `group` WHERE id = " + groupId;
+        result = state.executeQuery(selectGroup);
+
+        student.group = new Group();
+        if (result.next())
+            student.group.get(result.getInt(1));
+
+        return student;
+    }
+
 }
 
