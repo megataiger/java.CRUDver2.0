@@ -17,8 +17,7 @@ public class Student extends SuperTable {
      * Пустой конструктор для последующей инициализации
      * существующей записи о студенте.
      */
-    Student () {
-    }
+    Student () {}
 
     /**
      * Конструктор для записи данных о студенте в экземпляр объекта.
@@ -312,4 +311,3 @@ public class Student extends SuperTable {
     }
 
 }
-
