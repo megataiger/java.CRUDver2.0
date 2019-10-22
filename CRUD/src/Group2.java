@@ -23,6 +23,7 @@ public class Group2 {
     }
 
 
+
     public String toString() {
         return id + "\t" + number;
     }
@@ -56,6 +57,28 @@ public class Group2 {
     public void remove() throws SQLException {
         in.delete(this);
     }
+
+    public void viewStudents() throws SQLException {
+        in.selectStudent(this);
+    }
+
+    public void viewTeachers() throws SQLException {
+        in.selectTeacher(this);
+    }
+
+    public void addTeacher(int idTeacher) throws SQLException {
+        in.insertTeacher(this, idTeacher);
+    }
+
+    public void setTeacher(int oldTeacherId, int newTeacherId) throws SQLException {
+        in.updateTeacher(this, oldTeacherId, newTeacherId);
+    }
+
+    public void removeTeacher(int idTeacher) throws SQLException {
+        in.deleteTeacher(this, idTeacher);
+    }
+
+
 
     int getId() {
         return id;
@@ -141,6 +164,47 @@ class GroupBase extends SuperTable {
         prstate.executeUpdate();
         prstate = con.prepareStatement(delete);
         prstate.setInt(1, group.getId());
+        prstate.executeUpdate();
+    }
+
+    void selectStudent(Group2 group) throws SQLException {
+        PreparedStatement prstate = con.prepareStatement(selectStudent);
+        prstate.setInt(1, group.getId());
+        ResultSet result = prstate.executeQuery();
+        while (result.next()) {
+            System.out.println(result.getString(2));
+        }
+    }
+
+    void selectTeacher(Group2 group) throws SQLException {
+        PreparedStatement prstate = con.prepareStatement(selectTeachers);
+        prstate.setInt(1, group.getId());
+        ResultSet result = prstate.executeQuery();
+        while(result.next()) {
+            System.out.println(result.getString(2));
+        }
+    }
+
+    void insertTeacher(Group2 group, int idTeacher) throws SQLException {
+        PreparedStatement prstate = con.prepareStatement(insertTeacher);
+        prstate.setInt(1, group.getId());
+        prstate.setInt(2, idTeacher);
+        prstate.executeUpdate();
+    }
+
+    void updateTeacher(Group2 group, int oldTeacherId, int newTeacherId)
+            throws SQLException {
+        PreparedStatement prstate = con.prepareStatement(updateTeacher);
+        prstate.setInt(1, newTeacherId);
+        prstate.setInt(2, group.getId());
+        prstate.setInt(3, oldTeacherId);
+        prstate.executeUpdate();
+    }
+
+    void deleteTeacher(Group2 group, int idTeacher) throws SQLException {
+        PreparedStatement prstate = con.prepareStatement(deleteTeacher);
+        prstate.setInt(1, group.getId());
+        prstate.setInt(2, idTeacher);
         prstate.executeUpdate();
     }
 

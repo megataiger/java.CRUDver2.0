@@ -61,6 +61,10 @@ public class Student2 {
         in.selectStudent(date);
     }
 
+    public void viewGroupSteudent(int idGroup) throws SQLException {
+        in.selectGroup(idGroup);
+    }
+
     public void add() throws SQLException {
         in.insert(this);
     }
@@ -140,6 +144,7 @@ class StudentBase extends SuperTable {
 
         result.next();
         Student2 student = recordResult(result);
+        prstate.close();
         return student;
     }
 
@@ -150,6 +155,7 @@ class StudentBase extends SuperTable {
         while(result.next()) {
             System.out.println(recordResult(result));
         }
+        state.close();
     }
 
     void selectStudent(String nameStudent) throws SQLException {
@@ -161,6 +167,7 @@ class StudentBase extends SuperTable {
         while(result.next()) {
             System.out.println(recordResult(result));
         }
+        prstate.close();
     }
 
     void selectStudent(LocalDate birthday) throws SQLException {
@@ -174,6 +181,18 @@ class StudentBase extends SuperTable {
         while(result.next()) {
             System.out.println(recordResult(result));
         }
+        prstate.close();
+    }
+
+    void selectGroup(int idGroup) throws SQLException {
+        select += " WHERE group_id = ?";
+        PreparedStatement prstate = con.prepareStatement(select);
+        prstate.setInt(1, idGroup);
+        ResultSet result = prstate.executeQuery();
+        while (result.next()) {
+            System.out.println(recordResult(result));
+        }
+        prstate.close();
     }
 
     void insert(Student2 student) throws SQLException {
@@ -184,6 +203,7 @@ class StudentBase extends SuperTable {
         prstate.setInt(4, student.getGroupId());
 
         prstate.executeUpdate();
+        prstate.close();
         }
 
     void update(Student2 student) throws SQLException {
@@ -195,12 +215,14 @@ class StudentBase extends SuperTable {
         prstate.setInt(5, student.getId());
 
         prstate.executeUpdate();
+        prstate.close();
     }
 
     void delete(Student2 student) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(delete);
         prstate.setInt(1, student.getId());
         prstate.executeUpdate();
+        prstate.close();
     }
 
     Student2 recordResult(ResultSet result) throws SQLException {
