@@ -16,7 +16,8 @@ public class Student2 {
 
     Student2() {}
 
-    Student2(int idStudent, String nameStudent, LocalDate birthday, Male male, int groupId) {
+    Student2(int idStudent, String nameStudent, LocalDate birthday, Male male,
+             int groupId) {
         id = idStudent;
         name = nameStudent;
         date = birthday;
@@ -115,21 +116,13 @@ public class Student2 {
     int getId() {
         return id;
     }
-
-
-
-    public static void main (String[] args) throws SQLException {
-        Student2 student = new Student2();
-        student.get(22);
-        student.remove();
-    }
-
 }
 
 class StudentBase extends SuperTable {
+
     private String select = "SELECT * FROM student";
-    private String insert = "INSERT INTO student (id, name, birthday, male, group_id) " +
-            "VALUES (null, ?, ?, ?, ?)";
+    private String insert = "INSERT INTO student (id, name, birthday, male," +
+            " group_id) VALUES (null, ?, ?, ?, ?)";
     private String update = "UPDATE student SET name = ?, birthday = ?, " +
             "male = ?, group_id = ? WHERE id = ?";
     private String delete = "DELETE FROM student WHERE id = ?";
@@ -164,6 +157,7 @@ class StudentBase extends SuperTable {
         prstate.setString(1, nameStudent);
 
         ResultSet result = prstate.executeQuery();
+
         while(result.next()) {
             System.out.println(recordResult(result));
         }
