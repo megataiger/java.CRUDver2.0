@@ -1,6 +1,6 @@
 package workWithBase;
 
-import objectForStrokeBase.Student2;
+import objectForStrokeBase.Student;
 import objectForStrokeBase.Gender;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ public class StudentBase extends SuperTable {
     private String delete = "DELETE FROM student WHERE id = ?";
 
 
-    public Student2 selectStudent(int idStudent) throws SQLException {
+    public Student selectStudent(int idStudent) throws SQLException {
         select += " WHERE id = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         prstate.setInt(1, idStudent);
@@ -26,7 +26,7 @@ public class StudentBase extends SuperTable {
         ResultSet result = prstate.executeQuery();
 
         result.next();
-        Student2 student = recordResult(result);
+        Student student = recordResult(result);
         prstate.close();
         return student;
     }
@@ -79,7 +79,7 @@ public class StudentBase extends SuperTable {
         prstate.close();
     }
 
-    public void insert(Student2 student) throws SQLException {
+    public void insert(Student student) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(insert);
         prstate.setString(1, student.getName());
         prstate.setString(2, student.getDate());
@@ -90,7 +90,7 @@ public class StudentBase extends SuperTable {
         prstate.close();
     }
 
-    public void update(Student2 student) throws SQLException {
+    public void update(Student student) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(update);
         prstate.setString(1, student.getName());
         prstate.setString(2, student.getDate());
@@ -102,14 +102,14 @@ public class StudentBase extends SuperTable {
         prstate.close();
     }
 
-    public void delete(Student2 student) throws SQLException {
+    public void delete(Student student) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(delete);
         prstate.setInt(1, student.getId());
         prstate.executeUpdate();
         prstate.close();
     }
 
-    Student2 recordResult(ResultSet result) throws SQLException {
+    Student recordResult(ResultSet result) throws SQLException {
         int id = result.getInt(1);
         String name = result.getString(2);
         LocalDate birthday = LocalDate.parse(result.getString(3));
@@ -120,7 +120,7 @@ public class StudentBase extends SuperTable {
             gender = Gender.WOMAN;
         }
         int group_id = result.getInt(5);
-        Student2 student = new Student2(id, name, birthday, gender, group_id);
+        Student student = new Student(id, name, birthday, gender, group_id);
         return student;
     }
 }

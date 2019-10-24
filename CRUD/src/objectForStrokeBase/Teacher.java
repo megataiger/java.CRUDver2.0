@@ -5,7 +5,7 @@ import workWithBase.TeacherBase;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class Teacher2 {
+public class Teacher {
     private int id;
     private String name;
     private LocalDate date;
@@ -13,17 +13,17 @@ public class Teacher2 {
     private TeacherBase in = new TeacherBase();
 
 
-    public Teacher2() {
+    public Teacher() {
     }
 
-    public Teacher2(int idTeacher, String nameTeacher, LocalDate birthday, Gender gender) {
+    public Teacher(int idTeacher, String nameTeacher, LocalDate birthday, Gender gender) {
         id = idTeacher;
         name = nameTeacher;
         date = birthday;
         this.gender = gender;
     }
 
-    public Teacher2(String nameTeacher, LocalDate birthday, Gender gender) {
+    public Teacher(String nameTeacher, LocalDate birthday, Gender gender) {
         name = nameTeacher;
         date = birthday;
         this.gender = gender;
@@ -40,7 +40,7 @@ public class Teacher2 {
     }
 
     public void get(int idTeacher) throws SQLException {
-        Teacher2 teacher = in.selectTeacher(idTeacher);
+        Teacher teacher = in.selectTeacher(idTeacher);
         id = teacher.id;
         name = teacher.name;
         date = teacher.date;

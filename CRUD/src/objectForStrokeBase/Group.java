@@ -4,27 +4,27 @@ import workWithBase.GroupBase;
 
 import java.sql.SQLException;
 
-public class Group2 {
+public class Group {
     private int id;
     private int number;
     private GroupBase in = new GroupBase();
 
 
 
-    public Group2() {
+    public Group() {
     }
 
-    public Group2(int idGroup, int numberGroup) {
+    public Group(int idGroup, int numberGroup) {
         id = idGroup;
         number = numberGroup;
     }
 
-    public Group2(int numberGroup) {
+    public Group(int numberGroup) {
         number = numberGroup;
     }
 
 
-    public boolean equals(Group2 group) {
+    public boolean equals(Group group) {
         if (number == group.number) {
             return true;
         } else {
@@ -41,14 +41,14 @@ public class Group2 {
     }
 
     public void getById(int idGroup) throws SQLException {
-        Group2 group = in.selectGroupById(idGroup);
+        Group group = in.selectGroupById(idGroup);
         id = group.id;
         number = group.number;
         System.out.println(this);
     }
 
     public void getByNumber(int numberGroup) throws SQLException {
-        Group2 group = in.selectGroupByNumber(numberGroup);
+        Group group = in.selectGroupByNumber(numberGroup);
         id = group.id;
         number = group.number;
     }

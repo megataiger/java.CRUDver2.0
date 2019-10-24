@@ -1,6 +1,6 @@
 package workWithBase;
 
-import objectForStrokeBase.Teacher2;
+import objectForStrokeBase.Teacher;
 import objectForStrokeBase.Gender;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +28,7 @@ public class TeacherBase extends SuperTable {
             "WHERE group_id ? AND teacher_id = ?";
 
 
-    public Teacher2 selectTeacher(int idTeacher) throws SQLException {
+    public Teacher selectTeacher(int idTeacher) throws SQLException {
         select += " WHERE id = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         prstate.setInt(1, idTeacher);
@@ -36,7 +36,7 @@ public class TeacherBase extends SuperTable {
         ResultSet result = prstate.executeQuery();
 
         result.next();
-        Teacher2 teacher = recordResult(result);
+        Teacher teacher = recordResult(result);
         return teacher;
     }
 
@@ -76,7 +76,7 @@ public class TeacherBase extends SuperTable {
         }
     }
 
-    public void insert(Teacher2 teacher) throws SQLException {
+    public void insert(Teacher teacher) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(insert);
 
         prstate.setString(1, teacher.getName());
@@ -86,7 +86,7 @@ public class TeacherBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    public void update(Teacher2 teacher) throws SQLException {
+    public void update(Teacher teacher) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(update);
 
         prstate.setString(1, teacher.getName());
@@ -97,7 +97,7 @@ public class TeacherBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    public void delete(Teacher2 teacher) throws SQLException {
+    public void delete(Teacher teacher) throws SQLException {
         String deleteRel = "DELETE FROM `group_teacher` WHERE teacher_id = ?";
         PreparedStatement prstate = con.prepareStatement(deleteRel);
 
@@ -110,7 +110,7 @@ public class TeacherBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    public void selectGroups(Teacher2 teacher) throws SQLException {
+    public void selectGroups(Teacher teacher) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(selectGroups);
         prstate.setInt(1, teacher.getId());
 
@@ -121,7 +121,7 @@ public class TeacherBase extends SuperTable {
         }
     }
 
-    public void insertGroup(Teacher2 teacher, int groupId) throws SQLException {
+    public void insertGroup(Teacher teacher, int groupId) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(insertGroup);
 
         prstate.setInt(1, groupId);
@@ -130,7 +130,7 @@ public class TeacherBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    public void updateGroup(Teacher2 teacher, int oldGroupId, int newGroupId)
+    public void updateGroup(Teacher teacher, int oldGroupId, int newGroupId)
             throws SQLException {
         PreparedStatement prstate = con.prepareStatement(updateGroup);
 
@@ -141,7 +141,7 @@ public class TeacherBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    public void deleteGroup(Teacher2 teacher, int groupId) throws SQLException {
+    public void deleteGroup(Teacher teacher, int groupId) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(deleteGroup);
 
         prstate.setInt(1, groupId);
@@ -150,7 +150,7 @@ public class TeacherBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    Teacher2 recordResult(ResultSet result) throws SQLException {
+    Teacher recordResult(ResultSet result) throws SQLException {
         int id = result.getInt(1);
         String name = result.getString(2);
         LocalDate birthday = LocalDate.parse(result.getString(3));
@@ -162,7 +162,7 @@ public class TeacherBase extends SuperTable {
             gender = Gender.WOMAN;
         }
 
-        Teacher2 teacher = new Teacher2(id, name, birthday, gender);
+        Teacher teacher = new Teacher(id, name, birthday, gender);
         return teacher;
     }
 }

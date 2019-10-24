@@ -1,7 +1,7 @@
-import objectForStrokeBase.Group2;
+import objectForStrokeBase.Group;
 import objectForStrokeBase.Gender;
-import objectForStrokeBase.Student2;
-import objectForStrokeBase.Teacher2;
+import objectForStrokeBase.Student;
+import objectForStrokeBase.Teacher;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -50,7 +50,7 @@ public class Main {
             in.nextLine();
             switch (operation) {
                 case 1 : {
-                    Student2 student = new Student2();
+                    Student student = new Student();
                     System.out.println("Выберите критерий поиска" +
                             "\n1 - ID \t 2 - Ф.И.О. \t 3 - Дата рождения" +
                             "\t 4 - Группа \t 5 - Все");
@@ -88,7 +88,7 @@ public class Main {
 
                             int numberGroup = in.nextInt();
                             in.nextLine();
-                            Group2 group = new Group2();
+                            Group group = new Group();
                             group.getByNumber(numberGroup);
 
                             student.viewGroupSteudent(group.getId());
@@ -123,10 +123,10 @@ public class Main {
                     System.out.println("Введите номер группы");
                     int numberGroup = in.nextInt();
                     in.nextLine();
-                    Group2 group = new Group2();
+                    Group group = new Group();
                     group.getByNumber(numberGroup);
 
-                    Student2 student = new Student2(name,
+                    Student student = new Student(name,
                             LocalDate.of(year,month,day), male, group.getId());
                     student.add();
                     break;
@@ -145,7 +145,7 @@ public class Main {
                             System.out.println("Новое Ф.И.О.");
                             String name = in.nextLine();
 
-                            Student2 student = new Student2();
+                            Student student = new Student();
                             student.get(id);
                             student.setNameStudent(name);
                             break;
@@ -160,7 +160,7 @@ public class Main {
                             int year = in.nextInt();
                             in.nextLine();
 
-                            Student2 student = new Student2();
+                            Student student = new Student();
                             student.get(id);
                             student.setBirthdayStudent(LocalDate.of(year, month, day));
                             break;
@@ -179,7 +179,7 @@ public class Main {
                                 male = Gender.WOMAN;
                             }
 
-                            Student2 student = new Student2();
+                            Student student = new Student();
                             student.get(id);
                             student.setGenderStudent(male);
                             break;
@@ -192,10 +192,10 @@ public class Main {
                             int number = in.nextInt();
                             in.nextLine();
 
-                            Group2 group = new Group2();
+                            Group group = new Group();
                             group.getByNumber(number);
 
-                            Student2 student = new Student2();
+                            Student student = new Student();
                             student.get(id);
                             student.setGroupStudent(group.getId());
                             break;
@@ -215,7 +215,7 @@ public class Main {
                     String answer = in.nextLine();
                     switch (answer) {
                         case "Y" : {
-                            Student2 student = new Student2();
+                            Student student = new Student();
                             student.get(id);
                             student.remove();
                             break;
@@ -244,7 +244,7 @@ public class Main {
             in.nextLine();
             switch (operation) {
                 case 1 : {
-                    Teacher2 teacher = new Teacher2();
+                    Teacher teacher = new Teacher();
                     System.out.println("Выберите критерий поиска" +
                             "\n1 - ID \t 2 - Ф.И.О. \t 3 - Дата рождения" +
                             "\t 4 - Все");
@@ -304,7 +304,7 @@ public class Main {
                         male = Gender.WOMAN;
                     }
 
-                    Teacher2 teacher = new Teacher2(name,
+                    Teacher teacher = new Teacher(name,
                             LocalDate.of(year,month,day), male);
                     teacher.add();
                     break;
@@ -323,7 +323,7 @@ public class Main {
                             System.out.println("Новое Ф.И.О.");
                             String name = in.nextLine();
 
-                            Teacher2 teacher = new Teacher2();
+                            Teacher teacher = new Teacher();
                             teacher.get(id);
                             teacher.setNameTeacher(name);
                             break;
@@ -338,7 +338,7 @@ public class Main {
                             int year = in.nextInt();
                             in.nextLine();
 
-                            Teacher2 teacher = new Teacher2();
+                            Teacher teacher = new Teacher();
                             teacher.get(id);
                             teacher.setBirthdayTeacher(LocalDate.of(year, month, day));
                             break;
@@ -357,7 +357,7 @@ public class Main {
                                 male = Gender.WOMAN;
                             }
 
-                            Teacher2 teacher = new Teacher2();
+                            Teacher teacher = new Teacher();
                             teacher.get(id);
                             teacher.setGenderTeacher(male);
                             break;
@@ -376,7 +376,7 @@ public class Main {
                     String answer = in.nextLine();
                     switch (answer) {
                         case "Y" : {
-                            Teacher2 teacher = new Teacher2();
+                            Teacher teacher = new Teacher();
                             teacher.get(id);
                             teacher.remove();
                             break;
@@ -396,7 +396,7 @@ public class Main {
                         int operationWithListGroup = in.nextInt();
                         in.nextLine();
 
-                        Teacher2 teacher = new Teacher2();
+                        Teacher teacher = new Teacher();
 
                         switch (operationWithListGroup) {
                             case 1 : {
@@ -418,7 +418,7 @@ public class Main {
                                         " преподавателю");
                                 int number = in.nextInt();
                                 in.nextLine();
-                                Group2 group = new Group2();
+                                Group group = new Group();
                                 group.getByNumber(number);
 
                                 teacher.addGroup(group.getId());
@@ -439,12 +439,12 @@ public class Main {
                                 int numberNewGroup = in.nextInt();
                                 in.nextLine();
 
-                                Group2 group1 = new Group2();
+                                Group group1 = new Group();
                                 group1.getByNumber(numberOldGroup);
                                 numberOldGroup = group1.getId();
-                                Group2 group2 = new Group2();
-                                group2.getByNumber(numberNewGroup);
-                                numberNewGroup = group2.getId();
+                                Group group = new Group();
+                                group.getByNumber(numberNewGroup);
+                                numberNewGroup = group.getId();
 
                                 teacher.setGroup(numberOldGroup, numberNewGroup);
                                 break;
@@ -459,7 +459,7 @@ public class Main {
                                         " преподавателю");
                                 int number = in.nextInt();
                                 in.nextLine();
-                                Group2 group = new Group2();
+                                Group group = new Group();
                                 group.getByNumber(number);
 
                                 teacher.removeGroup(group.getId());
@@ -489,7 +489,7 @@ public class Main {
             in.nextLine();
             switch (operation) {
                 case 1: {
-                    Group2 group = new Group2();
+                    Group group = new Group();
                     System.out.println("Выберите критерий поиска" +
                             "\n1 - ID \t 2 - Номер группы \t 3 - Все");
                     int criterion = in.nextInt();
@@ -525,7 +525,7 @@ public class Main {
                     int number = in.nextInt();
                     in.nextLine();
 
-                    Group2 group = new Group2(number);
+                    Group group = new Group(number);
                     group.add();
                     break;
                 }
@@ -538,7 +538,7 @@ public class Main {
                     int newNumber = in.nextInt();
                     in.nextLine();
 
-                    Group2 group = new Group2();
+                    Group group = new Group();
                     group.getByNumber(number);
                     group.set(newNumber);
                     break;
@@ -552,7 +552,7 @@ public class Main {
                     String answer = in.nextLine();
                     switch (answer) {
                         case "Y" : {
-                            Group2 group = new Group2();
+                            Group group = new Group();
                             group.getByNumber(number);
                             group.remove();
                             break;
@@ -572,7 +572,7 @@ public class Main {
                         int operationWithListTeacher = in.nextInt();
                         in.nextLine();
 
-                        Group2 group = new Group2();
+                        Group group = new Group();
 
                         switch (operationWithListTeacher) {
                             case 1 : {

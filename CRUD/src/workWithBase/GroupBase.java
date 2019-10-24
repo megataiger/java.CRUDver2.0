@@ -1,6 +1,6 @@
 package workWithBase;
 
-import objectForStrokeBase.Group2;
+import objectForStrokeBase.Group;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +25,7 @@ public class GroupBase extends SuperTable {
             "WHERE group_id = ? AND teacher_id = ?";
 
 
-    public Group2 selectGroupById(int idGroup) throws SQLException {
+    public Group selectGroupById(int idGroup) throws SQLException {
         select += " WHERE id = ?";
         PreparedStatement prstate = SuperTable.con.prepareStatement(select);
         prstate.setInt(1, idGroup);
@@ -33,11 +33,11 @@ public class GroupBase extends SuperTable {
         ResultSet result = prstate.executeQuery();
 
         result.next();
-        Group2 group = recordResult(result);
+        Group group = recordResult(result);
         return group;
     }
 
-    public Group2 selectGroupByNumber(int numberGroup) throws SQLException {
+    public Group selectGroupByNumber(int numberGroup) throws SQLException {
         select += " WHERE number = ?";
         PreparedStatement prstate = SuperTable.con.prepareStatement(select);
         prstate.setInt(1, numberGroup);
@@ -45,7 +45,7 @@ public class GroupBase extends SuperTable {
         ResultSet result = prstate.executeQuery();
 
         result.next();
-        Group2 group = recordResult(result);
+        Group group = recordResult(result);
         return group;
     }
 
@@ -57,7 +57,7 @@ public class GroupBase extends SuperTable {
         }
     }
 
-    public void insert(Group2 group) throws SQLException {
+    public void insert(Group group) throws SQLException {
         PreparedStatement prstate = SuperTable.con.prepareStatement(insert);
         prstate.setInt(1, group.getNumber());
         if(selectGroupByNumber(group.getNumber()).equals(group)) {
@@ -67,7 +67,7 @@ public class GroupBase extends SuperTable {
         }
     }
 
-    public void update(Group2 group) throws SQLException {
+    public void update(Group group) throws SQLException {
         PreparedStatement prstate = SuperTable.con.prepareStatement(update);
         prstate.setInt(1, group.getNumber());
         prstate.setInt(2, group.getId());
@@ -75,7 +75,7 @@ public class GroupBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    public void delete(Group2 group) throws SQLException {
+    public void delete(Group group) throws SQLException {
         String deleteRel = "DELETE FROM `group_teacher` WHERE group_id = ?";
         PreparedStatement prstate = SuperTable.con.prepareStatement(deleteRel);
 
@@ -87,7 +87,7 @@ public class GroupBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    public void selectStudent(Group2 group) throws SQLException {
+    public void selectStudent(Group group) throws SQLException {
         PreparedStatement prstate = SuperTable.con.prepareStatement(selectStudent);
         prstate.setInt(1, group.getId());
 
@@ -98,7 +98,7 @@ public class GroupBase extends SuperTable {
         }
     }
 
-    public void selectTeacher(Group2 group) throws SQLException {
+    public void selectTeacher(Group group) throws SQLException {
         PreparedStatement prstate = SuperTable.con.prepareStatement(selectTeachers);
         prstate.setInt(1, group.getId());
 
@@ -109,7 +109,7 @@ public class GroupBase extends SuperTable {
         }
     }
 
-    public void insertTeacher(Group2 group, int idTeacher) throws SQLException {
+    public void insertTeacher(Group group, int idTeacher) throws SQLException {
         PreparedStatement prstate = SuperTable.con.prepareStatement(insertTeacher);
 
         prstate.setInt(1, group.getId());
@@ -118,7 +118,7 @@ public class GroupBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    public void updateTeacher(Group2 group, int oldTeacherId, int newTeacherId)
+    public void updateTeacher(Group group, int oldTeacherId, int newTeacherId)
             throws SQLException {
         PreparedStatement prstate = SuperTable.con.prepareStatement(updateTeacher);
 
@@ -129,7 +129,7 @@ public class GroupBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    public void deleteTeacher(Group2 group, int idTeacher) throws SQLException {
+    public void deleteTeacher(Group group, int idTeacher) throws SQLException {
         PreparedStatement prstate = SuperTable.con.prepareStatement(deleteTeacher);
 
         prstate.setInt(1, group.getId());
@@ -138,11 +138,11 @@ public class GroupBase extends SuperTable {
         prstate.executeUpdate();
     }
 
-    Group2 recordResult(ResultSet result) throws SQLException {
+    Group recordResult(ResultSet result) throws SQLException {
         int id = result.getInt(1);
         int number = result.getInt(2);
 
-        Group2 group = new Group2(id, number);
+        Group group = new Group(id, number);
         return group;
     }
 }
