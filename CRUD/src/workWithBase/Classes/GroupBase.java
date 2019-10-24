@@ -1,12 +1,15 @@
-package workWithBase;
+package workWithBase.Classes;
 
 import objectForStrokeBase.Group;
+import workWithBase.Interfaces.GroupInterface;
+import workWithBase.SuperTable;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class GroupBase extends SuperTable {
+public class GroupBase extends SuperTable implements GroupInterface {
     private String select = "SELECT * FROM `group`";
     private String insert = "INSERT INTO `group` (id, number) VALUES" +
             "(null, ?)";

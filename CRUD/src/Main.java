@@ -2,6 +2,8 @@ import objectForStrokeBase.Group;
 import objectForStrokeBase.Gender;
 import objectForStrokeBase.Student;
 import objectForStrokeBase.Teacher;
+import workWithBase.Classes.GroupBase;
+import workWithBase.Classes.StudentBase;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -68,7 +70,9 @@ public class Main {
                         } case 2 : {
                             System.out.println("Введите Ф.И.О. студента");
                             String nameSearch = in.nextLine();
-                            student.get(nameSearch);
+
+                            StudentBase studentBase = new StudentBase();
+                            studentBase.selectStudent(nameSearch);
                             break;
                         } case 3 : {
                             System.out.println("Введите дату рождения студента");
@@ -91,10 +95,12 @@ public class Main {
                             Group group = new Group();
                             group.getByNumber(numberGroup);
 
-                            student.viewGroupSteudent(group.getId());
+                            StudentBase studentBase = new StudentBase();
+                            studentBase.selectGroup(group.getId());
                             break;
                         } case 5 : {
-                            student.get();
+                            StudentBase studentBase = new StudentBase();
+                            studentBase.selectStudent();
                             break;
                         }
                     }
@@ -128,7 +134,8 @@ public class Main {
 
                     Student student = new Student(name,
                             LocalDate.of(year,month,day), male, group.getId());
-                    student.add();
+                    StudentBase studentBase = new StudentBase();
+                    studentBase.insert(student);
                     break;
                 } case 3 : {
                     System.out.println("Введите номер поля для изменения записи о студенте" +
@@ -148,6 +155,8 @@ public class Main {
                             Student student = new Student();
                             student.get(id);
                             student.setNameStudent(name);
+                            StudentBase studentBase = new StudentBase();
+                            studentBase.update(student);
                             break;
                         } case 2 : {
                             System.out.println("Введите ID студента");
@@ -163,6 +172,8 @@ public class Main {
                             Student student = new Student();
                             student.get(id);
                             student.setBirthdayStudent(LocalDate.of(year, month, day));
+                            StudentBase studentBase = new StudentBase();
+                            studentBase.update(student);
                             break;
                         } case 3 : {
                             System.out.println("Введите ID студента");
@@ -182,6 +193,8 @@ public class Main {
                             Student student = new Student();
                             student.get(id);
                             student.setGenderStudent(male);
+                            StudentBase studentBase = new StudentBase();
+                            studentBase.update(student);
                             break;
                         } case 4 : {
                             System.out.println("Введите ID студента");
@@ -198,8 +211,9 @@ public class Main {
                             Student student = new Student();
                             student.get(id);
                             student.setGroupStudent(group.getId());
+                            StudentBase studentBase = new StudentBase();
+                            studentBase.update(student);
                             break;
-
                         } case 0 : {
                             break;
                         }
@@ -217,7 +231,8 @@ public class Main {
                         case "Y" : {
                             Student student = new Student();
                             student.get(id);
-                            student.remove();
+                            StudentBase studentBase = new StudentBase();
+                            studentBase.delete(student);
                             break;
                         }
                         case "N" : {
@@ -514,7 +529,8 @@ public class Main {
                             break;
                         }
                         case 3: {
-                            group.get();
+                            GroupBase groupBase = new GroupBase();
+                            groupBase.select();
                             break;
                         }
                     }
@@ -526,7 +542,8 @@ public class Main {
                     in.nextLine();
 
                     Group group = new Group(number);
-                    group.add();
+                    GroupBase groupBase = new GroupBase();
+                    groupBase.insert(group);
                     break;
                 }
                 case 3: {
@@ -541,6 +558,8 @@ public class Main {
                     Group group = new Group();
                     group.getByNumber(number);
                     group.set(newNumber);
+                    GroupBase groupBase = new GroupBase();
+                    groupBase.update(group);
                     break;
                 } case 4 : {
                     System.out.println("Введите номер группы");
@@ -554,7 +573,8 @@ public class Main {
                         case "Y" : {
                             Group group = new Group();
                             group.getByNumber(number);
-                            group.remove();
+                            GroupBase groupBase = new GroupBase();
+                            groupBase.delete(group);
                             break;
                         }
                         case "N" : {
@@ -581,7 +601,8 @@ public class Main {
                                 in.nextLine();
 
                                 group.getByNumber(number);
-                                group.viewTeachers();
+                                GroupBase groupBase = new GroupBase();
+                                groupBase.selectTeacher(group);
                                 break;
                             } case 2 : {
                                 System.out.println("Введите номер группы");
@@ -595,7 +616,8 @@ public class Main {
                                 int id = in.nextInt();
                                 in.nextLine();
 
-                                group.addTeacher(id);
+                                GroupBase groupBase = new GroupBase();
+                                groupBase.insertTeacher(group, id);
                                 break;
                             } case 3 : {
                                 System.out.println("Введите номер группы");
@@ -613,7 +635,8 @@ public class Main {
                                 int idNewTeacher = in.nextInt();
                                 in.nextLine();
 
-                                group.setTeacher(idOldTeacher, idNewTeacher);
+                                GroupBase groupBase = new GroupBase();
+                                groupBase.updateTeacher(group, idOldTeacher, idNewTeacher);
                                 break;
                             } case 4 : {
                                 System.out.println("Введите номер группы");
@@ -627,7 +650,8 @@ public class Main {
                                 int idTeacher = in.nextInt();
                                 in.nextLine();
 
-                                group.removeTeacher(idTeacher);
+                                GroupBase groupBase = new GroupBase();
+                                groupBase.deleteTeacher(group, idTeacher);
                                 break;
                             } case 0 : {
                                 backMenuTeacherGroup = 0;

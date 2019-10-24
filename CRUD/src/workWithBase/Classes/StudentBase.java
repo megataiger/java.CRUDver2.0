@@ -1,14 +1,17 @@
-package workWithBase;
+package workWithBase.Classes;
 
 import objectForStrokeBase.Student;
 import objectForStrokeBase.Gender;
+import workWithBase.Interfaces.StudentInterface;
+import workWithBase.SuperTable;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-public class StudentBase extends SuperTable {
+public class StudentBase extends SuperTable implements StudentInterface {
 
     private String select = "SELECT * FROM student";
     private String insert = "INSERT INTO student (id, name, birthday, male," +

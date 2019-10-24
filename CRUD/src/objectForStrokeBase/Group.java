@@ -1,6 +1,6 @@
 package objectForStrokeBase;
 
-import workWithBase.GroupBase;
+import workWithBase.Classes.GroupBase;
 
 import java.sql.SQLException;
 
@@ -36,10 +36,6 @@ public class Group {
         return id + "\t" + number;
     }
 
-    public void get() throws SQLException {
-        in.select();
-    }
-
     public void getById(int idGroup) throws SQLException {
         Group group = in.selectGroupById(idGroup);
         id = group.id;
@@ -53,41 +49,9 @@ public class Group {
         number = group.number;
     }
 
-    public void add() throws SQLException {
-        in.insert(this);
-    }
-
     public void set(int newNumber) throws SQLException {
         number = newNumber;
-        in.update(this);
     }
-
-    public void remove() throws SQLException {
-        in.delete(this);
-    }
-
-    public void viewStudents() throws SQLException {
-        in.selectStudent(this);
-    }
-
-    public void viewTeachers() throws SQLException {
-        in.selectTeacher(this);
-    }
-
-    public void addTeacher(int idTeacher) throws SQLException {
-        in.insertTeacher(this, idTeacher);
-    }
-
-    public void setTeacher(int oldTeacherId, int newTeacherId)
-            throws SQLException {
-        in.updateTeacher(this, oldTeacherId, newTeacherId);
-    }
-
-    public void removeTeacher(int idTeacher) throws SQLException {
-        in.deleteTeacher(this, idTeacher);
-    }
-
-
 
     public int getId() {
         return id;
