@@ -1,11 +1,13 @@
-public enum Male {
+package objectForStrokeBase;
+
+public enum Gender {
 
     MAN ("М"),
     WOMAN ("Ж");
 
     private String male;
 
-    Male(String value) {
+    Gender(String value) {
         this.male = value;
     }
 

@@ -1,8 +1,7 @@
-/**
- * Данный класс демонстрирует исполнения методов из класса DataBase.
- * @author Илья Немоляев
- * @version 2.0
- */
+import objectForStrokeBase.Group2;
+import objectForStrokeBase.Gender;
+import objectForStrokeBase.Student2;
+import objectForStrokeBase.Teacher2;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -18,24 +17,26 @@ public class Main {
             System.out.println("Выберите номер таблицы, с которой хотите работать" +
                     "\n1 - Студенты \t 2 - Группы \t 3 - Преподаватели" +
                     "\nДля выхода из программы введите 0");
-            int choose = in.nextInt();
-            in.nextLine();
-            switch(choose) {
-                case 1 : {
-                    studentWork();
-                    break;
-                } case 2 : {
-                    groupWork();
-                    break;
-                } case 3 : {
-                    teacherWork();
-                    break;
-                } case 0 : {
-                    exit = 0;
-                    break;
-
+                int choose = in.nextInt();
+                in.nextLine();
+                switch (choose) {
+                    case 1: {
+                        studentWork();
+                        break;
+                    }
+                    case 2: {
+                        groupWork();
+                        break;
+                    }
+                    case 3: {
+                        teacherWork();
+                        break;
+                    }
+                    case 0: {
+                        exit = 0;
+                        break;
+                    }
                 }
-            }
         }
     }
 
@@ -112,11 +113,11 @@ public class Main {
 
                     System.out.println("Пол одной буквой");
                     String gender = in.nextLine();
-                    Male male;
-                    if (Male.MAN.getValue().equals(gender)) {
-                        male = Male.MAN;
+                    Gender male;
+                    if (Gender.MAN.getValue().equals(gender)) {
+                        male = Gender.MAN;
                     } else {
-                        male = Male.WOMAN;
+                        male = Gender.WOMAN;
                     }
 
                     System.out.println("Введите номер группы");
@@ -171,11 +172,11 @@ public class Main {
                             System.out.println("Пол (Одной буквой)");
                             String gender = in.nextLine();
 
-                            Male male;
-                            if (Male.MAN.getValue().equals(gender)) {
-                                male = Male.MAN;
+                            Gender male;
+                            if (Gender.MAN.getValue().equals(gender)) {
+                                male = Gender.MAN;
                             } else {
-                                male = Male.WOMAN;
+                                male = Gender.WOMAN;
                             }
 
                             Student2 student = new Student2();
@@ -296,11 +297,11 @@ public class Main {
 
                     System.out.println("Пол одной буквой");
                     String gender = in.nextLine();
-                    Male male;
-                    if (Male.MAN.getValue().equals(gender)) {
-                        male = Male.MAN;
+                    Gender male;
+                    if (Gender.MAN.getValue().equals(gender)) {
+                        male = Gender.MAN;
                     } else {
-                        male = Male.WOMAN;
+                        male = Gender.WOMAN;
                     }
 
                     Teacher2 teacher = new Teacher2(name,
@@ -349,11 +350,11 @@ public class Main {
                             System.out.println("Пол (Одной буквой)");
                             String gender = in.nextLine();
 
-                            Male male;
-                            if (Male.MAN.getValue().equals(gender)) {
-                                male = Male.MAN;
+                            Gender male;
+                            if (Gender.MAN.getValue().equals(gender)) {
+                                male = Gender.MAN;
                             } else {
-                                male = Male.WOMAN;
+                                male = Gender.WOMAN;
                             }
 
                             Teacher2 teacher = new Teacher2();

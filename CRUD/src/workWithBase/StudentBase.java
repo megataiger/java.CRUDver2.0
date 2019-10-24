@@ -1,124 +1,14 @@
+package workWithBase;
+
+import objectForStrokeBase.Student2;
+import objectForStrokeBase.Gender;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-public class Student2 {
-    private int id;
-    private String name;
-    private LocalDate date;
-    private Male gender;
-    private int group;
-    private StudentBase in = new StudentBase();
-
-
-
-    Student2() {}
-
-    Student2(int idStudent, String nameStudent, LocalDate birthday, Male male,
-             int groupId) {
-        id = idStudent;
-        name = nameStudent;
-        date = birthday;
-        gender = male;
-        group = groupId;
-    }
-
-    Student2(String nameStudent, LocalDate birthday, Male male, int groupId) {
-        name = nameStudent;
-        date = birthday;
-        gender = male;
-        group = groupId;
-    }
-
-
-
-    public String toString() {
-        return id + "\t" + name + "\t" + date + "\t" + gender.getValue() +
-                "\t" + group;
-    }
-
-    public void get() throws SQLException {
-        in.selectStudent();
-    }
-
-    public void get(int idStudent) throws SQLException {
-        Student2 student = in.selectStudent(idStudent);
-        id = student.id;
-        name = student.name;
-        date = student.date;
-        gender = student.gender;
-        group = student.group;
-        System.out.println(this);
-    }
-
-    public void get(String nameStudent) throws SQLException {
-        in.selectStudent(nameStudent);
-    }
-
-    public void get(int day, int month, int year) throws SQLException {
-        LocalDate date = LocalDate.of(year, month, day);
-        in.selectStudent(date);
-    }
-
-    public void viewGroupSteudent(int idGroup) throws SQLException {
-        in.selectGroup(idGroup);
-    }
-
-    public void add() throws SQLException {
-        in.insert(this);
-    }
-
-    public void setNameStudent(String newName) throws SQLException {
-        name = newName;
-        in.update(this);
-    }
-
-    public void setBirthdayStudent(LocalDate newDate) throws SQLException {
-        date = newDate;
-        in.update(this);
-    }
-
-    public void setGenderStudent(Male newGender) throws SQLException {
-        gender = newGender;
-        in.update(this);
-    }
-
-    public void setGroupStudent(int newGroup) throws SQLException {
-        group = newGroup;
-        in.update(this);
-    }
-
-    public void remove() throws SQLException {
-        in.delete(this);
-    }
-
-
-
-    String getName() {
-        return name;
-    }
-
-    String getDate() {
-        return date.getYear() + "-" + date.getMonthValue() +
-                "-" + date.getDayOfMonth();
-    }
-
-    String getGender() {
-        return gender.getValue();
-    }
-
-    int getGroupId() {
-        return group;
-    }
-
-    int getId() {
-        return id;
-    }
-}
-
-class StudentBase extends SuperTable {
+public class StudentBase extends SuperTable {
 
     private String select = "SELECT * FROM student";
     private String insert = "INSERT INTO student (id, name, birthday, male," +
@@ -128,7 +18,7 @@ class StudentBase extends SuperTable {
     private String delete = "DELETE FROM student WHERE id = ?";
 
 
-    Student2 selectStudent(int idStudent) throws SQLException {
+    public Student2 selectStudent(int idStudent) throws SQLException {
         select += " WHERE id = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         prstate.setInt(1, idStudent);
@@ -141,7 +31,7 @@ class StudentBase extends SuperTable {
         return student;
     }
 
-    void selectStudent() throws SQLException {
+    public void selectStudent() throws SQLException {
         Statement state = con.createStatement();
         ResultSet result = state.executeQuery(select);
 
@@ -151,7 +41,7 @@ class StudentBase extends SuperTable {
         state.close();
     }
 
-    void selectStudent(String nameStudent) throws SQLException {
+    public void selectStudent(String nameStudent) throws SQLException {
         select += " WHERE name = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         prstate.setString(1, nameStudent);
@@ -164,7 +54,7 @@ class StudentBase extends SuperTable {
         prstate.close();
     }
 
-    void selectStudent(LocalDate birthday) throws SQLException {
+    public void selectStudent(LocalDate birthday) throws SQLException {
         select += " WHERE birthday = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         String value = birthday.getYear() + "-" + birthday.getMonthValue() +
@@ -178,7 +68,7 @@ class StudentBase extends SuperTable {
         prstate.close();
     }
 
-    void selectGroup(int idGroup) throws SQLException {
+    public void selectGroup(int idGroup) throws SQLException {
         select += " WHERE group_id = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         prstate.setInt(1, idGroup);
@@ -189,7 +79,7 @@ class StudentBase extends SuperTable {
         prstate.close();
     }
 
-    void insert(Student2 student) throws SQLException {
+    public void insert(Student2 student) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(insert);
         prstate.setString(1, student.getName());
         prstate.setString(2, student.getDate());
@@ -198,9 +88,9 @@ class StudentBase extends SuperTable {
 
         prstate.executeUpdate();
         prstate.close();
-        }
+    }
 
-    void update(Student2 student) throws SQLException {
+    public void update(Student2 student) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(update);
         prstate.setString(1, student.getName());
         prstate.setString(2, student.getDate());
@@ -212,7 +102,7 @@ class StudentBase extends SuperTable {
         prstate.close();
     }
 
-    void delete(Student2 student) throws SQLException {
+    public void delete(Student2 student) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(delete);
         prstate.setInt(1, student.getId());
         prstate.executeUpdate();
@@ -223,14 +113,14 @@ class StudentBase extends SuperTable {
         int id = result.getInt(1);
         String name = result.getString(2);
         LocalDate birthday = LocalDate.parse(result.getString(3));
-        Male male;
-        if (result.getString(4).equals(Male.MAN.getValue())) {
-            male = Male.MAN;
+        Gender gender;
+        if (result.getString(4).equals(Gender.MAN.getValue())) {
+            gender = Gender.MAN;
         } else {
-            male = Male.WOMAN;
+            gender = Gender.WOMAN;
         }
         int group_id = result.getInt(5);
-        Student2 student = new Student2(id, name, birthday, male, group_id);
+        Student2 student = new Student2(id, name, birthday, gender, group_id);
         return student;
     }
 }
