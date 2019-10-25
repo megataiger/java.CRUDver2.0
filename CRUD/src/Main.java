@@ -1,4 +1,3 @@
-import com.mysql.cj.xdevapi.SqlDataResult;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Gender;
 import objectForStrokeBase.Student;
