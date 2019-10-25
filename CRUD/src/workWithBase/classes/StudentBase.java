@@ -1,9 +1,9 @@
-package workWithBase.Classes;
+package workWithBase.classes;
 
 import objectForStrokeBase.Student;
 import objectForStrokeBase.Gender;
-import workWithBase.Interfaces.StudentInterface;
-import workWithBase.SuperTable;
+import workWithBase.interfaces.StudentInterface;
+import workWithBase.connectWithBase.SuperTable;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

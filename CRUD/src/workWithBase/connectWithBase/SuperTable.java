@@ -1,4 +1,6 @@
-package workWithBase;
+package workWithBase.connectWithBase;
+
+import workWithBase.connectWithBase.Connect;
 
 import java.io.IOException;
 import java.sql.Connection;

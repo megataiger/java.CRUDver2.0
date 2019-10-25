@@ -1,8 +1,8 @@
-package workWithBase.Classes;
+package workWithBase.classes;
 
 import objectForStrokeBase.Group;
-import workWithBase.Interfaces.GroupInterface;
-import workWithBase.SuperTable;
+import workWithBase.interfaces.GroupInterface;
+import workWithBase.connectWithBase.SuperTable;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

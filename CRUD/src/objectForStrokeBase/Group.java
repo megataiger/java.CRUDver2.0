@@ -1,6 +1,6 @@
 package objectForStrokeBase;
 
-import workWithBase.Classes.GroupBase;
+import workWithBase.classes.GroupBase;
 
 import java.sql.SQLException;
 

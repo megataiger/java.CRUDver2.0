@@ -1,6 +1,6 @@
 package objectForStrokeBase;
 
-import workWithBase.Classes.StudentBase;
+import workWithBase.classes.StudentBase;
 
 import java.sql.SQLException;
 import java.time.LocalDate;

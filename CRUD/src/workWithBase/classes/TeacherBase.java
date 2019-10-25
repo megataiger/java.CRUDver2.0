@@ -1,14 +1,17 @@
-package workWithBase;
+package workWithBase.classes;
 
 import objectForStrokeBase.Teacher;
 import objectForStrokeBase.Gender;
+import workWithBase.interfaces.TeacherInterface;
+import workWithBase.connectWithBase.SuperTable;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-public class TeacherBase extends SuperTable {
+public class TeacherBase extends SuperTable implements TeacherInterface {
     private String select = "SELECT * FROM teacher";
     private String insert = "INSERT INTO teacher (id, name, birthday, male)" +
             "VALUES (null, ?, ?, ?)";
@@ -25,7 +28,7 @@ public class TeacherBase extends SuperTable {
     private String updateGroup = "UPDATE `group_teacher` SET group_id = ? " +
             "WHERE teacher_id = ? AND group_id = ?";
     private String deleteGroup = "DELETE FROM `group_teacher` " +
-            "WHERE group_id ? AND teacher_id = ?";
+            "WHERE group_id = ? AND teacher_id = ?";
 
 
     public Teacher selectTeacher(int idTeacher) throws SQLException {
@@ -62,7 +65,7 @@ public class TeacherBase extends SuperTable {
         }
     }
 
-    public void selectStudent(LocalDate birthday) throws SQLException {
+    public void selectTeacher(LocalDate birthday) throws SQLException {
         select += " WHERE birthday = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         String value = birthday.getYear() + "-" + birthday.getMonthValue() +

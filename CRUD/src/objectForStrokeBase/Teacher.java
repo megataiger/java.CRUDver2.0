@@ -1,6 +1,6 @@
 package objectForStrokeBase;
 
-import workWithBase.TeacherBase;
+import workWithBase.classes.TeacherBase;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -35,10 +35,6 @@ public class Teacher {
         return id + "\t" + name + "\t" + date + "\t" + gender.getValue();
     }
 
-    public void get() throws SQLException {
-        in.selectTeacher();
-    }
-
     public void get(int idTeacher) throws SQLException {
         Teacher teacher = in.selectTeacher(idTeacher);
         id = teacher.id;
@@ -48,53 +44,21 @@ public class Teacher {
         System.out.println(this);
     }
 
-    public void get(String nameTeacher) throws SQLException {
-        in.selectTeacher(nameTeacher);
-    }
-
     public void get(int day, int month, int year) throws SQLException {
         LocalDate date = LocalDate.of(year, month, day);
-        in.selectStudent(date);
+        in.selectTeacher(date);
     }
 
-    public void add() throws SQLException {
-        in.insert(this);
-    }
-
-    public void setNameTeacher(String newName) throws SQLException {
+    public void setNameTeacher(String newName) {
         name = newName;
-        in.update(this);
     }
 
     public void setBirthdayTeacher(LocalDate newDate) throws SQLException {
         date = newDate;
-        in.update(this);
     }
 
     public void setGenderTeacher(Gender newGender) throws SQLException {
         gender = newGender;
-        in.update(this);
-    }
-
-    public void remove() throws SQLException {
-        in.delete(this);
-    }
-
-    public void viewGroups() throws SQLException {
-        in.selectGroups(this);
-    }
-
-    public void addGroup(int idGroup) throws SQLException {
-        in.insertGroup(this, idGroup);
-    }
-
-    public void setGroup(int oldGroupId, int newGroupId)
-            throws SQLException {
-        in.updateGroup(this, oldGroupId, newGroupId);
-    }
-
-    public void removeGroup(int idGroup) throws SQLException {
-        in.deleteGroup(this, idGroup);
     }
 
 

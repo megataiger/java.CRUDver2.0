@@ -1,4 +1,4 @@
-package workWithBase.Interfaces;
+package workWithBase.interfaces;
 
 import objectForStrokeBase.Group;
 import java.sql.SQLException;
