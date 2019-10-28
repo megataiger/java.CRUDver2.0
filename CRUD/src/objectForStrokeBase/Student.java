@@ -4,6 +4,7 @@ import workWithBase.classes.StudentBase;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Student {
     private int id;
@@ -50,9 +51,9 @@ public class Student {
         System.out.println(this);
     }
 
-    public void get(int day, int month, int year) throws SQLException {
+    public List<Student> get(int day, int month, int year) throws SQLException {
         LocalDate date = LocalDate.of(year, month, day);
-        in.selectStudent(date);
+        return in.selectStudent(date);
     }
 
     public void setNameStudent(String newName) throws SQLException {

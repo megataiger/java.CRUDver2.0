@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeacherBase extends SuperTable implements TeacherInterface {
     private String select = "SELECT * FROM teacher";
@@ -30,6 +32,7 @@ public class TeacherBase extends SuperTable implements TeacherInterface {
     private String deleteGroup = "DELETE FROM `group_teacher` " +
             "WHERE group_id = ? AND teacher_id = ?";
 
+    List<Teacher> teachers = new ArrayList<>();
 
     public Teacher selectTeacher(int idTeacher) throws SQLException {
         select += " WHERE id = ?";
@@ -43,17 +46,18 @@ public class TeacherBase extends SuperTable implements TeacherInterface {
         return teacher;
     }
 
-    public void selectTeacher() throws SQLException {
+    public List<Teacher> selectTeacher() throws SQLException {
         Statement state = con.createStatement();
 
         ResultSet result = state.executeQuery(select);
 
         while(result.next()) {
-            System.out.println(recordResult(result));
+            teachers.add(recordResult(result));
         }
+        return teachers;
     }
 
-    public void selectTeacher(String nameTeacher) throws SQLException {
+    public List<Teacher> selectTeacher(String nameTeacher) throws SQLException {
         select += " WHERE name = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         prstate.setString(1, nameTeacher);
@@ -61,11 +65,12 @@ public class TeacherBase extends SuperTable implements TeacherInterface {
         ResultSet result = prstate.executeQuery();
 
         while(result.next()) {
-            System.out.println(recordResult(result));
+            teachers.add(recordResult(result));
         }
+        return teachers;
     }
 
-    public void selectTeacher(LocalDate birthday) throws SQLException {
+    public List<Teacher> selectTeacher(LocalDate birthday) throws SQLException {
         select += " WHERE birthday = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         String value = birthday.getYear() + "-" + birthday.getMonthValue() +
@@ -75,8 +80,9 @@ public class TeacherBase extends SuperTable implements TeacherInterface {
         ResultSet result = prstate.executeQuery();
 
         while (result.next()) {
-            System.out.println(recordResult(result));
+            teachers.add(recordResult(result));
         }
+        return teachers;
     }
 
     public void insert(Teacher teacher) throws SQLException {

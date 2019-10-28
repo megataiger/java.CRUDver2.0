@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentBase extends SuperTable implements StudentInterface {
 
@@ -19,6 +21,8 @@ public class StudentBase extends SuperTable implements StudentInterface {
     private String update = "UPDATE student SET name = ?, birthday = ?, " +
             "male = ?, group_id = ? WHERE id = ?";
     private String delete = "DELETE FROM student WHERE id = ?";
+    private List<Student> students = new ArrayList<>();
+
 
 
     public Student selectStudent(int idStudent) throws SQLException {
@@ -34,17 +38,18 @@ public class StudentBase extends SuperTable implements StudentInterface {
         return student;
     }
 
-    public void selectStudent() throws SQLException {
+    public List<Student> selectStudent() throws SQLException {
         Statement state = con.createStatement();
         ResultSet result = state.executeQuery(select);
 
         while(result.next()) {
-            System.out.println(recordResult(result));
+            students.add(recordResult(result));
         }
         state.close();
+        return students;
     }
 
-    public void selectStudent(String nameStudent) throws SQLException {
+    public List<Student> selectStudent(String nameStudent) throws SQLException {
         select += " WHERE name = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         prstate.setString(1, nameStudent);
@@ -52,12 +57,13 @@ public class StudentBase extends SuperTable implements StudentInterface {
         ResultSet result = prstate.executeQuery();
 
         while(result.next()) {
-            System.out.println(recordResult(result));
+            students.add(recordResult(result));
         }
         prstate.close();
+        return students;
     }
 
-    public void selectStudent(LocalDate birthday) throws SQLException {
+    public List<Student> selectStudent(LocalDate birthday) throws SQLException {
         select += " WHERE birthday = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         String value = birthday.getYear() + "-" + birthday.getMonthValue() +
@@ -66,20 +72,22 @@ public class StudentBase extends SuperTable implements StudentInterface {
 
         ResultSet result = prstate.executeQuery();
         while(result.next()) {
-            System.out.println(recordResult(result));
+            students.add(recordResult(result));
         }
         prstate.close();
+        return students;
     }
 
-    public void selectGroup(int idGroup) throws SQLException {
+    public List<Student> selectGroup(int idGroup) throws SQLException {
         select += " WHERE group_id = ?";
         PreparedStatement prstate = con.prepareStatement(select);
         prstate.setInt(1, idGroup);
         ResultSet result = prstate.executeQuery();
         while (result.next()) {
-            System.out.println(recordResult(result));
+            students.add(recordResult(result));
         }
         prstate.close();
+        return students;
     }
 
     public void insert(Student student) throws SQLException {

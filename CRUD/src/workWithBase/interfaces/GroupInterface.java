@@ -2,13 +2,14 @@ package workWithBase.interfaces;
 
 import objectForStrokeBase.Group;
 import java.sql.SQLException;
+import java.util.List;
 
 public interface GroupInterface {
     Group selectGroupById (int idGroup) throws SQLException;
 
     Group selectGroupByNumber(int numberGroup) throws SQLException;
 
-    void select() throws SQLException;
+    List<Group> select() throws SQLException;
 
     void insert(Group group) throws SQLException;
 

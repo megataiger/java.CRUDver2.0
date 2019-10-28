@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupBase extends SuperTable implements GroupInterface {
     private String select = "SELECT * FROM `group`";
@@ -26,6 +28,8 @@ public class GroupBase extends SuperTable implements GroupInterface {
             "SET teacher_id = ? WHERE group_id = ? AND teacher_id = ?";
     private String deleteTeacher = "DELETE FROM `group_teacher` " +
             "WHERE group_id = ? AND teacher_id = ?";
+
+    private List<Group> groups = new ArrayList<>();
 
 
     public Group selectGroupById(int idGroup) throws SQLException {
@@ -52,18 +56,24 @@ public class GroupBase extends SuperTable implements GroupInterface {
         return group;
     }
 
-    public void select() throws SQLException {
+    public List<Group> select() throws SQLException {
         Statement state = SuperTable.con.createStatement();
         ResultSet result = state.executeQuery(select);
         while (result.next()) {
-            System.out.println(recordResult(result));
+            groups.add(recordResult(result));
         }
+        return groups;
     }
 
     public void insert(Group group) throws SQLException {
+        Statement state = con.createStatement();
+        String query = "SELECT COUNT(*) FROM `group` WHERE number = "
+                + group.getNumber();
+        ResultSet result = state.executeQuery(query);
+        result.next();
         PreparedStatement prstate = SuperTable.con.prepareStatement(insert);
         prstate.setInt(1, group.getNumber());
-        if(selectGroupByNumber(group.getNumber()).equals(group)) {
+        if(result.getInt(1) > 0) {
             System.out.println("Группа с таким номером уже существует");
         } else {
             prstate.executeUpdate();

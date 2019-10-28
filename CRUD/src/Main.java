@@ -10,6 +10,7 @@ import java.sql.*;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -91,7 +92,11 @@ public class Main {
                                     String nameSearch = in.nextLine();
 
                                     StudentBase studentBase = new StudentBase();
-                                    studentBase.selectStudent(nameSearch);
+                                    List<Student> students =
+                                            studentBase.selectStudent(nameSearch);
+                                    for(Student e : students){
+                                        System.out.println(e);
+                                    }
                                     break;
                                 }
                                 case 3: {
@@ -103,7 +108,11 @@ public class Main {
                                         int year = in.nextInt();
                                         in.nextLine();
 
-                                        student.get(day, month, year);
+                                        List<Student> students =
+                                                student.get(day, month, year);
+                                        for(Student e : students){
+                                            System.out.println(e);
+                                        }
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
@@ -123,7 +132,11 @@ public class Main {
                                         group.getByNumber(numberGroup);
 
                                         StudentBase studentBase = new StudentBase();
-                                        studentBase.selectGroup(group.getId());
+                                        List<Student> students =
+                                                studentBase.selectGroup(group.getId());
+                                        for(Student e : students){
+                                            System.out.println(e);
+                                        }
                                     } catch (InputMismatchException e) {
                                         System.out.println("Неккоректный ввод");
                                         in.nextLine();
@@ -132,7 +145,11 @@ public class Main {
                                 }
                                 case 5: {
                                     StudentBase studentBase = new StudentBase();
-                                    studentBase.selectStudent();
+                                    List<Student> students =
+                                            studentBase.selectStudent();
+                                    for(Student e : students){
+                                        System.out.println(e);
+                                    }
                                     break;
                                 } default : {
                                     System.out.println("Вами был выбран" +
@@ -401,7 +418,11 @@ public class Main {
                                     System.out.println("Введите Ф.И.О. преподавателя");
                                     String nameSearch = in.nextLine();
                                     TeacherBase teacherBase = new TeacherBase();
-                                    teacherBase.selectTeacher(nameSearch);
+                                    List<Teacher> teachers =
+                                            teacherBase.selectTeacher(nameSearch);
+                                    for(Teacher e : teachers){
+                                        System.out.println(e);
+                                    }
                                     break;
                                 }
                                 case 3: {
@@ -414,7 +435,11 @@ public class Main {
                                         int year = in.nextInt();
                                         in.nextLine();
 
-                                        teacher.get(day, month, year);
+                                        List<Teacher> teachers =
+                                                teacher.get(day, month, year);
+                                        for(Teacher e : teachers){
+                                            System.out.println(e);
+                                        }
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
@@ -423,7 +448,11 @@ public class Main {
                                 }
                                 case 4: {
                                     TeacherBase teacherBase = new TeacherBase();
-                                    teacherBase.selectTeacher();
+                                    List<Teacher> teachers =
+                                        teacherBase.selectTeacher();
+                                    for(Teacher e : teachers){
+                                        System.out.println(e);
+                                    }
                                     break;
                                 } default : {
                                     System.out.println("Введён номер " +
@@ -804,7 +833,10 @@ public class Main {
                                 }
                                 case 3: {
                                     GroupBase groupBase = new GroupBase();
-                                    groupBase.select();
+                                    List<Group> groups = groupBase.select();
+                                    for(Group e : groups) {
+                                        System.out.println(e);
+                                    }
                                     break;
                                 }
                             }

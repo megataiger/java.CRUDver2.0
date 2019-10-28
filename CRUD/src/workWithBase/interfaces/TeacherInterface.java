@@ -4,15 +4,16 @@ import objectForStrokeBase.Teacher;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 public interface TeacherInterface {
     Teacher selectTeacher(int idTeacher) throws SQLException;
 
-    void selectTeacher() throws SQLException;
+    List<Teacher> selectTeacher() throws SQLException;
 
-    void selectTeacher(String nameTeacher) throws SQLException;
+    List<Teacher> selectTeacher(String nameTeacher) throws SQLException;
 
-    void selectTeacher(LocalDate birthday) throws SQLException;
+    List<Teacher> selectTeacher(LocalDate birthday) throws SQLException;
 
     void insert(Teacher teacher) throws SQLException;
 
