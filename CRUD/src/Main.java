@@ -96,8 +96,10 @@ public class Main {
                                     String nameSearch = in.nextLine();
 
                                     StudentDAO studentBase = new StudentDAO();
+
                                     List<Student> students =
                                             studentBase.selectStudent(nameSearch);
+
                                     for(Student e : students){
                                         System.out.println(e);
                                     }
@@ -138,8 +140,10 @@ public class Main {
                                                 new GroapDAO().selectGroupByNumber(numberGroup);
 
                                         StudentDAO studentBase = new StudentDAO();
+
                                         List<Student> students =
                                                 studentBase.selectGroup(group.getId());
+
                                         for(Student e : students){
                                             System.out.println(e);
                                         }
@@ -151,8 +155,10 @@ public class Main {
                                 }
                                 case 5: {
                                     StudentDAO studentBase = new StudentDAO();
+
                                     List<Student> students =
                                             studentBase.selectStudent();
+
                                     for(Student e : students){
                                         System.out.println(e);
                                     }
@@ -194,12 +200,15 @@ public class Main {
                             System.out.println("Введите номер группы");
                             int numberGroup = in.nextInt();
                             in.nextLine();
+
                             Group group =
                                     new GroapDAO().selectGroupByNumber(numberGroup);
 
                             Student student = new Student(name,
                                     date, male, group.getId());
+
                             StudentDAO studentBase = new StudentDAO();
+
                             studentBase.insert(student);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
@@ -230,7 +239,9 @@ public class Main {
                                         String name = in.nextLine();
 
                                         student.setNameStudent(name);
+
                                         StudentDAO studentBase = new StudentDAO();
+
                                         studentBase.update(student);
                                     } catch (SQLException e) {
                                         System.out.println("Студента с данным ID " +
@@ -257,7 +268,9 @@ public class Main {
                                         LocalDate date = LocalDate.of(year, month, day);
 
                                         student.setBirthdayStudent(date);
+
                                         StudentDAO studentBase = new StudentDAO();
+
                                         studentBase.update(student);
                                     } catch (SQLException e) {
                                         System.out.println("Студента с данным ID " +
@@ -288,7 +301,9 @@ public class Main {
                                         }
 
                                         student.setGenderStudent(male);
+
                                         StudentDAO studentBase = new StudentDAO();
+
                                         studentBase.update(student);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
@@ -304,17 +319,21 @@ public class Main {
                                     try {
                                         int id = in.nextInt();
                                         in.nextLine();
+
                                         Student student =
                                                 new StudentDAO().selectStudent(id);
 
                                         System.out.println("Новый номер группы");
                                         int number = in.nextInt();
                                         in.nextLine();
+
                                         Group group =
                                                 new GroapDAO().selectGroupByNumber(number);
 
                                         student.setGroupStudent(group.getId());
+
                                         StudentDAO studentBase = new StudentDAO();
+
                                         studentBase.update(student);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
@@ -410,6 +429,7 @@ public class Main {
 
                                         Teacher teacher =
                                                 new TeacherDAO().selectTeacher(id);
+
                                         System.out.println(teacher);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
@@ -424,8 +444,10 @@ public class Main {
                                     System.out.println("Введите Ф.И.О. преподавателя");
                                     String nameSearch = in.nextLine();
                                     TeacherDAO teacherBase = new TeacherDAO();
+
                                     List<Teacher> teachers =
                                             teacherBase.selectTeacher(nameSearch);
+
                                     for(Teacher e : teachers){
                                         System.out.println(e);
                                     }
@@ -445,6 +467,7 @@ public class Main {
                                                 new TeacherDAO().selectTeacher(
                                                         LocalDate.of(year, month, day)
                                                 );
+
                                         for(Teacher e : teachers){
                                             System.out.println(e);
                                         }
@@ -456,8 +479,10 @@ public class Main {
                                 }
                                 case 4: {
                                     TeacherDAO teacherBase = new TeacherDAO();
+
                                     List<Teacher> teachers =
                                         teacherBase.selectTeacher();
+
                                     for(Teacher e : teachers){
                                         System.out.println(e);
                                     }
@@ -498,7 +523,9 @@ public class Main {
 
                             Teacher teacher = new Teacher(name,
                                     date, male);
+
                             TeacherDAO teacherBase = new TeacherDAO();
+
                             teacherBase.insert(teacher);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
@@ -528,7 +555,9 @@ public class Main {
                                         String name = in.nextLine();
 
                                         teacher.setNameTeacher(name);
+
                                         TeacherDAO teacherBase = new TeacherDAO();
+
                                         teacherBase.update(teacher);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
@@ -544,6 +573,7 @@ public class Main {
                                     try {
                                         int id = in.nextInt();
                                         in.nextLine();
+
                                         Teacher teacher =
                                                 new TeacherDAO().selectTeacher(id);
 
@@ -555,7 +585,9 @@ public class Main {
                                         LocalDate date = LocalDate.of(year, month, day);
 
                                         teacher.setBirthdayTeacher(date);
+
                                         TeacherDAO teacherBase = new TeacherDAO();
+
                                         teacherBase.update(teacher);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
@@ -573,6 +605,7 @@ public class Main {
                                     try {
                                         int id = in.nextInt();
                                         in.nextLine();
+
                                         Teacher teacher =
                                                 new TeacherDAO().selectTeacher(id);
 
@@ -587,7 +620,9 @@ public class Main {
                                         }
 
                                         teacher.setGenderTeacher(male);
+
                                         TeacherDAO teacherBase = new TeacherDAO();
+
                                         teacherBase.update(teacher);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
@@ -613,6 +648,7 @@ public class Main {
                         try {
                             int id = in.nextInt();
                             in.nextLine();
+
                             Teacher teacher =
                                     new TeacherDAO().selectTeacher(id);
 
@@ -660,6 +696,7 @@ public class Main {
                                                     new TeacherDAO().selectTeacher(id);
 
                                             TeacherDAO teacherBase = new TeacherDAO();
+
                                             teacherBase.selectGroups(teacher);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
@@ -688,6 +725,7 @@ public class Main {
                                                     new GroapDAO().selectGroupByNumber(number);
 
                                             TeacherDAO teacherBase = new TeacherDAO();
+
                                             teacherBase.insertGroup(teacher, group.getId());
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
@@ -720,12 +758,14 @@ public class Main {
                                             Group oldGroup =
                                                     new GroapDAO().selectGroupByNumber(numberOldGroup);
                                             numberOldGroup = oldGroup.getId();
+
                                             Group newGroup =
                                                     new GroapDAO().selectGroupByNumber(numberNewGroup);
                                             numberNewGroup = newGroup.getId();
 
 
                                             TeacherDAO teacherBase = new TeacherDAO();
+
                                             teacherBase.updateGroup(teacher, numberOldGroup, numberNewGroup);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
@@ -754,6 +794,7 @@ public class Main {
                                                     new GroapDAO().selectGroupByNumber(number);
 
                                             TeacherDAO teacherBase = new TeacherDAO();
+
                                             teacherBase.deleteGroup(teacher, group.getId());
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
@@ -820,6 +861,7 @@ public class Main {
                                         in.nextLine();
 
                                         Group group = new GroapDAO().selectGroupById(id);
+
                                         System.out.println(group);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
@@ -838,6 +880,7 @@ public class Main {
 
                                         Group group =
                                                 new GroapDAO().selectGroupByNumber(number);
+
                                         System.out.println(group);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
@@ -849,7 +892,9 @@ public class Main {
                                 }
                                 case 3: {
                                     GroapDAO groupBase = new GroapDAO();
+
                                     List<Group> groups = groupBase.select();
+
                                     for(Group e : groups) {
                                         System.out.println(e);
                                     }
@@ -869,7 +914,9 @@ public class Main {
                             in.nextLine();
 
                             Group group = new Group(number);
+
                             GroapDAO groupBase = new GroapDAO();
+
                             groupBase.insert(group);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
@@ -882,6 +929,7 @@ public class Main {
                         try {
                             int number = in.nextInt();
                             in.nextLine();
+
                             Group group =
                                     new GroapDAO().selectGroupByNumber(number);
 
@@ -890,7 +938,9 @@ public class Main {
                             in.nextLine();
 
                             group.set(newNumber);
+
                             GroapDAO groupBase = new GroapDAO();
+
                             groupBase.update(group);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
@@ -905,6 +955,7 @@ public class Main {
                         try {
                             int number = in.nextInt();
                             in.nextLine();
+
                             Group group =
                                     new GroapDAO().selectGroupByNumber(number);
 
@@ -951,6 +1002,7 @@ public class Main {
                                                     new GroapDAO().selectGroupByNumber(number);
 
                                             GroapDAO groupBase = new GroapDAO();
+
                                             groupBase.selectTeacher(group);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
@@ -976,6 +1028,7 @@ public class Main {
                                             in.nextLine();
 
                                             GroapDAO groupBase = new GroapDAO();
+
                                             groupBase.insertTeacher(group, id);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
@@ -1007,6 +1060,7 @@ public class Main {
                                             in.nextLine();
 
                                             GroapDAO groupBase = new GroapDAO();
+
                                             groupBase.updateTeacher(group, idOldTeacher, idNewTeacher);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
@@ -1033,6 +1087,7 @@ public class Main {
                                             in.nextLine();
 
                                             GroapDAO groupBase = new GroapDAO();
+
                                             groupBase.deleteTeacher(group, idTeacher);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
