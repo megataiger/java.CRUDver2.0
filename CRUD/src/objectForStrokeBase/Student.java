@@ -1,10 +1,6 @@
 package objectForStrokeBase;
 
-import workWithBase.classes.StudentBase;
-
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
 
 public class Student {
     private int id;
@@ -12,7 +8,6 @@ public class Student {
     private LocalDate date;
     private Gender gender;
     private int group;
-    private StudentBase in = new StudentBase();
 
 
 
@@ -41,34 +36,19 @@ public class Student {
                 "\t" + group;
     }
 
-    public void get(int idStudent) throws SQLException {
-        Student student = in.selectStudent(idStudent);
-        id = student.id;
-        name = student.name;
-        date = student.date;
-        gender = student.gender;
-        group = student.group;
-        System.out.println(this);
-    }
-
-    public List<Student> get(int day, int month, int year) throws SQLException {
-        LocalDate date = LocalDate.of(year, month, day);
-        return in.selectStudent(date);
-    }
-
-    public void setNameStudent(String newName) throws SQLException {
+    public void setNameStudent(String newName) {
         name = newName;
     }
 
-    public void setBirthdayStudent(LocalDate newDate) throws SQLException {
+    public void setBirthdayStudent(LocalDate newDate) {
         date = newDate;
     }
 
-    public void setGenderStudent(Gender newGender) throws SQLException {
+    public void setGenderStudent(Gender newGender) {
         gender = newGender;
     }
 
-    public void setGroupStudent(int newGroup) throws SQLException {
+    public void setGroupStudent(int newGroup) {
         group = newGroup;
     }
 

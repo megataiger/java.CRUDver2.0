@@ -1,7 +1,7 @@
-package workWithBase.classes;
+package workWithBase.daoClasses;
 
 import objectForStrokeBase.Group;
-import workWithBase.interfaces.GroupInterface;
+import workWithBase.daoInterfaces.GroapDAOInterface;
 import workWithBase.connectWithBase.SuperTable;
 
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupBase extends SuperTable implements GroupInterface {
+public class GroapDAO extends SuperTable implements GroapDAOInterface {
     private String select = "SELECT * FROM `group`";
     private String insert = "INSERT INTO `group` (id, number) VALUES" +
             "(null, ?)";

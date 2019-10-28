@@ -21,8 +21,7 @@ public class Connect {
      */
     Connect() throws IOException, SQLException {
         File one =
-                new File ("CRUD" +
-                        "\\database.properties");
+                new File ("database.properties");
         Properties props = new Properties();
         FileInputStream in = new FileInputStream(one);
         props.load(in);

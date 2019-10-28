@@ -1,8 +1,8 @@
-package workWithBase.classes;
+package workWithBase.daoClasses;
 
 import objectForStrokeBase.Teacher;
 import objectForStrokeBase.Gender;
-import workWithBase.interfaces.TeacherInterface;
+import workWithBase.daoInterfaces.TeacherDAOInterface;
 import workWithBase.connectWithBase.SuperTable;
 
 import java.sql.PreparedStatement;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherBase extends SuperTable implements TeacherInterface {
+public class TeacherDAO extends SuperTable implements TeacherDAOInterface {
     private String select = "SELECT * FROM teacher";
     private String insert = "INSERT INTO teacher (id, name, birthday, male)" +
             "VALUES (null, ?, ?, ?)";

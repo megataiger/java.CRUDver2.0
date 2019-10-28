@@ -1,4 +1,4 @@
-package workWithBase.interfaces;
+package workWithBase.daoInterfaces;
 
 import objectForStrokeBase.Student;
 
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface StudentInterface {
+public interface StudentDAOInterface {
     Student selectStudent(int idStudent) throws SQLException;
 
     List<Student> selectStudent() throws SQLException;
