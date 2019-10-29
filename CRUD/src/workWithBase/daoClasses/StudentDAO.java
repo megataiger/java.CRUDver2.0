@@ -1,5 +1,6 @@
 package workWithBase.daoClasses;
 
+import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 import objectForStrokeBase.Gender;
 import workWithBase.daoInterfaces.StudentDAOInterface;
@@ -50,9 +51,9 @@ public class StudentDAO extends SuperTable implements StudentDAOInterface {
     }
 
     public List<Student> selectStudent(String nameStudent) throws SQLException {
-        select += " WHERE name = ?";
+        select += " WHERE name LIKE ?";
         PreparedStatement prstate = con.prepareStatement(select);
-        prstate.setString(1, nameStudent);
+        prstate.setString(1, "%" + nameStudent + "%");
 
         ResultSet result = prstate.executeQuery();
 
@@ -131,7 +132,8 @@ public class StudentDAO extends SuperTable implements StudentDAOInterface {
             gender = Gender.WOMAN;
         }
         int group_id = result.getInt(5);
-        Student student = new Student(id, name, birthday, gender, group_id);
+        Group group = new GroapDAO().selectGroupById(group_id);
+        Student student = new Student(id, name, birthday, gender, group);
         return student;
     }
 }

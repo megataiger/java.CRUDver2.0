@@ -205,7 +205,7 @@ public class Main {
                                     new GroapDAO().selectGroupByNumber(numberGroup);
 
                             Student student = new Student(name,
-                                    date, male, group.getId());
+                                    date, male, group);
 
                             StudentDAO studentBase = new StudentDAO();
 

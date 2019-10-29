@@ -7,26 +7,26 @@ public class Student {
     private String name;
     private LocalDate date;
     private Gender gender;
-    private int group;
+    private Group group;
 
 
 
     public Student() {}
 
     public Student(int idStudent, String nameStudent, LocalDate birthday, Gender gender,
-                   int groupId) {
+                   Group group) {
         id = idStudent;
         name = nameStudent;
         date = birthday;
         this.gender = gender;
-        group = groupId;
+        this.group = group;
     }
 
-    public Student(String nameStudent, LocalDate birthday, Gender gender, int groupId) {
+    public Student(String nameStudent, LocalDate birthday, Gender gender, Group group) {
         name = nameStudent;
         date = birthday;
         this.gender = gender;
-        group = groupId;
+        this.group = group;
     }
 
 
@@ -49,7 +49,7 @@ public class Student {
     }
 
     public void setGroupStudent(int newGroup) {
-        group = newGroup;
+        group = new Group (0, newGroup);
     }
 
 
@@ -68,7 +68,7 @@ public class Student {
     }
 
     public int getGroupId() {
-        return group;
+        return group.getId();
     }
 
     public int getId() {
