@@ -3,3 +3,9 @@ codestyles
 lib
 out
 .idea
+/checkstyle-idea.xml
+/colors.scheme.xml
+/debugger.xml
+/github.xml
+/ide.general.xml
+/vcs.xml
