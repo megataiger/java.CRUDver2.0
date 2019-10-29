@@ -1,6 +1,7 @@
 package workWithBase.daoClasses;
 
 import objectForStrokeBase.Group;
+import objectForStrokeBase.Teacher;
 import workWithBase.daoInterfaces.GroapDAOInterface;
 import workWithBase.connectWithBase.SuperTable;
 
@@ -17,8 +18,7 @@ public class GroapDAO extends SuperTable implements GroapDAOInterface {
             "(null, ?)";
     private String update = "UPDATE `group` SET number = ? WHERE id = ?";
     private String delete = "DELETE FROM `group` WHERE id = ?";
-    private String selectStudent = "SELECT * FROM student WHERE group_id = ?";
-    private String selectTeachers = "SELECT id, name " +
+    private String selectTeachers = "SELECT teacher.id, name, birthday, male " +
             "FROM `group_teacher` JOIN teacher " +
             "ON `group_teacher`.teacher_id = teacher.id " +
             "WHERE group_id = ?";
@@ -100,26 +100,18 @@ public class GroapDAO extends SuperTable implements GroapDAOInterface {
         prstate.executeUpdate();
     }
 
-    public void selectStudent(Group group) throws SQLException {
-        PreparedStatement prstate = SuperTable.con.prepareStatement(selectStudent);
-        prstate.setInt(1, group.getId());
-
-        ResultSet result = prstate.executeQuery();
-
-        while (result.next()) {
-            System.out.println(result.getString(2));
-        }
-    }
-
-    public void selectTeacher(Group group) throws SQLException {
+    public List<Teacher> selectTeacher(Group group) throws SQLException {
         PreparedStatement prstate = SuperTable.con.prepareStatement(selectTeachers);
         prstate.setInt(1, group.getId());
 
         ResultSet result = prstate.executeQuery();
+        TeacherDAO teach = new TeacherDAO();
 
+        List<Teacher> teachers = new ArrayList<>();
         while(result.next()) {
-            System.out.println(result.getString(2));
+            teachers.add(teach.recordResult(result));
         }
+        return teachers;
     }
 
     public void insertTeacher(Group group, int idTeacher) throws SQLException {

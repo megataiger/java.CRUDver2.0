@@ -697,7 +697,11 @@ public class Main {
 
                                             TeacherDAO teacherBase = new TeacherDAO();
 
-                                            teacherBase.selectGroups(teacher);
+                                            List<Group> groups =
+                                                teacherBase.selectGroups(teacher);
+                                            for(Group e : groups) {
+                                                System.out.println(e);
+                                            }
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
                                             in.nextLine();
@@ -1003,7 +1007,11 @@ public class Main {
 
                                             GroapDAO groupBase = new GroapDAO();
 
-                                            groupBase.selectTeacher(group);
+                                            List<Teacher> teachers =
+                                                    groupBase.selectTeacher(group);
+                                            for(Teacher e : teachers) {
+                                                System.out.println(e);
+                                            }
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
                                             in.nextLine();

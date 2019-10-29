@@ -1,5 +1,6 @@
 package workWithBase.daoInterfaces;
 
+import objectForStrokeBase.Group;
 import objectForStrokeBase.Teacher;
 
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public interface TeacherDAOInterface {
 
     void delete(Teacher teacher) throws SQLException;
 
-    void selectGroups(Teacher teacher) throws SQLException;
+    List<Group> selectGroups(Teacher teacher) throws SQLException;
 
     void insertGroup(Teacher teacher, int groupId) throws SQLException;
 

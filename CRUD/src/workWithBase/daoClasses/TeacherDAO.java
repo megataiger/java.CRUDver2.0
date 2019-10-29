@@ -1,5 +1,6 @@
 package workWithBase.daoClasses;
 
+import objectForStrokeBase.Group;
 import objectForStrokeBase.Teacher;
 import objectForStrokeBase.Gender;
 import workWithBase.daoInterfaces.TeacherDAOInterface;
@@ -20,7 +21,7 @@ public class TeacherDAO extends SuperTable implements TeacherDAOInterface {
     private String update = "UPDATE teacher " +
             "SET name = ?, birthday = ?, male = ? WHERE id = ?";
     private String delete = "DELETE FROM teacher WHERE id = ?";
-    private String selectGroups = "SELECT number " +
+    private String selectGroups = "SELECT `group`.`id`, `number` " +
             "FROM `group` JOIN `group_teacher` " +
             "ON `group`.id = `group_teacher`.group_id " +
             "WHERE `group_teacher`.teacher_id = ?";
@@ -119,15 +120,17 @@ public class TeacherDAO extends SuperTable implements TeacherDAOInterface {
         prstate.executeUpdate();
     }
 
-    public void selectGroups(Teacher teacher) throws SQLException {
+    public List<Group> selectGroups(Teacher teacher) throws SQLException {
         PreparedStatement prstate = con.prepareStatement(selectGroups);
         prstate.setInt(1, teacher.getId());
 
         ResultSet result = prstate.executeQuery();
-
+        GroapDAO group = new GroapDAO();
+        List<Group> groups = new ArrayList<>();
         while (result.next()) {
-            System.out.println(result.getString(1));
+            groups.add(group.recordResult(result));
         }
+        return groups;
     }
 
     public void insertGroup(Teacher teacher, int groupId) throws SQLException {
