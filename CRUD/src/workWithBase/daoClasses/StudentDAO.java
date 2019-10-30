@@ -51,7 +51,7 @@ public class StudentDAO extends SuperTable implements StudentDAOInterface {
     }
 
     public List<Student> selectStudent(String nameStudent) throws SQLException {
-        select += " WHERE name LIKE ?";
+        select += " WHERE LOWER(`name`) LIKE ?";
         PreparedStatement prstate = con.prepareStatement(select);
         prstate.setString(1, "%" + nameStudent + "%");
 

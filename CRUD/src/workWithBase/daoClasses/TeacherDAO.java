@@ -59,9 +59,9 @@ public class TeacherDAO extends SuperTable implements TeacherDAOInterface {
     }
 
     public List<Teacher> selectTeacher(String nameTeacher) throws SQLException {
-        select += " WHERE name = ?";
+        select += " WHERE LOWER(`name`) LIKE ?";
         PreparedStatement prstate = con.prepareStatement(select);
-        prstate.setString(1, nameTeacher);
+        prstate.setString(1, "%" + nameTeacher + "%");
 
         ResultSet result = prstate.executeQuery();
 

@@ -20,7 +20,8 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         while (exit) {
-            System.out.println("Выберите номер таблицы, с которой хотите работать" +
+            System.out.println("\nMAIN MENU\n" +
+                    "Выберите номер таблицы, с которой хотите работать" +
                     "\n1 - Студенты \t 2 - Группы \t 3 - Преподаватели" +
                     "\nДля выхода из программы введите 0");
                 try {
@@ -57,7 +58,8 @@ public class Main {
     public static void studentWork() throws SQLException {
         boolean back = true;
         while (back) {
-            System.out.println("Выберите операцию для дальнейшей работы" +
+            System.out.println("\nSTUDENTS\n" +
+                    "Выберите операцию для дальнейшей работы" +
                     "\n 1 - Поиск \t 2 - Вставка \t 3 - Изменение \t 4 - Удаление" +
                     "\nДля выхода из таблицы введите 0");
             try {
@@ -99,9 +101,12 @@ public class Main {
 
                                     List<Student> students =
                                             studentBase.selectStudent(nameSearch);
-
-                                    for(Student e : students){
-                                        System.out.println(e);
+                                    if(students.size() > 0) {
+                                        for (Student e : students) {
+                                            System.out.println(e);
+                                        }
+                                    } else {
+                                        System.out.println("Нет записей");
                                     }
                                     break;
                                 }
@@ -118,8 +123,12 @@ public class Main {
                                                 new StudentDAO().selectStudent(
                                                         LocalDate.of(year, month, day)
                                                 );
-                                        for(Student e : students){
-                                            System.out.println(e);
+                                        if(students.size() > 0) {
+                                            for (Student e : students) {
+                                                System.out.println(e);
+                                            }
+                                        } else {
+                                            System.out.println("Нет записей");
                                         }
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
@@ -143,13 +152,18 @@ public class Main {
 
                                         List<Student> students =
                                                 studentBase.selectGroup(group.getId());
-
-                                        for(Student e : students){
-                                            System.out.println(e);
+                                        if(students.size() > 0) {
+                                            for (Student e : students) {
+                                                System.out.println(e);
+                                            }
+                                        } else {
+                                            System.out.println("Нет записей");
                                         }
                                     } catch (InputMismatchException e) {
                                         System.out.println("Неккоректный ввод");
                                         in.nextLine();
+                                    } catch (SQLException e) {
+                                        System.out.println("Возможно вы ввели неверный номер группы");
                                     }
                                     break;
                                 }
@@ -158,9 +172,12 @@ public class Main {
 
                                     List<Student> students =
                                             studentBase.selectStudent();
-
-                                    for(Student e : students){
-                                        System.out.println(e);
+                                    if(students.size() > 0) {
+                                        for (Student e : students) {
+                                            System.out.println(e);
+                                        }
+                                    } else {
+                                        System.out.println("Нет записей");
                                     }
                                     break;
                                 } default : {
@@ -404,7 +421,8 @@ public class Main {
     public static void teacherWork() throws SQLException {
         boolean back = true;
         while (back) {
-            System.out.println("Выберите операцию для дальнейшей работы" +
+            System.out.println("\nTEACHERS\n" +
+                    "Выберите операцию для дальнейшей работы" +
                     "\n 1 - Поиск \t 2 - Вставка \t 3 - Изменение \t " +
                     "4 - Удаление \t 5 - Группы преподвателя" +
                     "\nДля выхода из таблицы введите 0");
@@ -447,9 +465,12 @@ public class Main {
 
                                     List<Teacher> teachers =
                                             teacherBase.selectTeacher(nameSearch);
-
-                                    for(Teacher e : teachers){
-                                        System.out.println(e);
+                                    if(teachers.size() > 0) {
+                                        for (Teacher e : teachers) {
+                                            System.out.println(e);
+                                        }
+                                    } else {
+                                        System.out.println("Нет записей");
                                     }
                                     break;
                                 }
@@ -468,8 +489,12 @@ public class Main {
                                                         LocalDate.of(year, month, day)
                                                 );
 
-                                        for(Teacher e : teachers){
-                                            System.out.println(e);
+                                        if(teachers.size() > 0) {
+                                            for (Teacher e : teachers) {
+                                                System.out.println(e);
+                                            }
+                                        } else {
+                                            System.out.println("Нет записей");
                                         }
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
@@ -483,8 +508,12 @@ public class Main {
                                     List<Teacher> teachers =
                                         teacherBase.selectTeacher();
 
-                                    for(Teacher e : teachers){
-                                        System.out.println(e);
+                                    if(teachers.size() > 0) {
+                                        for (Teacher e : teachers) {
+                                            System.out.println(e);
+                                        }
+                                    } else {
+                                        System.out.println("Нет записей");
                                     }
                                     break;
                                 } default : {
@@ -677,7 +706,8 @@ public class Main {
                     case 5: {
                         boolean backMenuGroupTeacher = true;
                         while (backMenuGroupTeacher) {
-                            System.out.println("Выберите операцию для дальнейшей работы" +
+                            System.out.println("\nGROUPS OF TEACHERS\n" +
+                                    "Выберите операцию для дальнейшей работы" +
                                     "\n 1 - Поиск \t 2 - Вставка \t 3 - Изменение \t " +
                                     "4 - Удаление" +
                                     "\nДля выхода из таблицы введите 0");
@@ -699,8 +729,12 @@ public class Main {
 
                                             List<Group> groups =
                                                 teacherBase.selectGroups(teacher);
-                                            for(Group e : groups) {
-                                                System.out.println(e);
+                                            if(groups.size() > 0) {
+                                                for (Group e : groups) {
+                                                    System.out.println(e);
+                                                }
+                                            } else {
+                                                System.out.println("Нет записей");
                                             }
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
@@ -822,6 +856,7 @@ public class Main {
                                 in.nextLine();
                             }
                         }
+                        break;
                     }
                     case 0: {
                         back = false;
@@ -842,7 +877,8 @@ public class Main {
     public static void groupWork() throws SQLException {
         boolean back = true;
         while (back) {
-            System.out.println("Выберите операцию для дальнейшей работы" +
+            System.out.println("\nGROUPS\n" +
+                    "Выберите операцию для дальнейшей работы" +
                     "\n 1 - Поиск \t 2 - Вставка \t 3 - Изменение \t " +
                     "4 - Удаление \t 5 - Прпеодаватели группы" +
                     "\nДля выхода из таблицы введите 0");
@@ -899,8 +935,12 @@ public class Main {
 
                                     List<Group> groups = groupBase.select();
 
-                                    for(Group e : groups) {
-                                        System.out.println(e);
+                                    if(groups.size() > 0) {
+                                        for (Group e : groups) {
+                                            System.out.println(e);
+                                        }
+                                    } else {
+                                        System.out.println("Нет записей");
                                     }
                                     break;
                                 }
@@ -987,7 +1027,8 @@ public class Main {
                     case 5: {
                         boolean backMenuTeacherGroup = true;
                         while (backMenuTeacherGroup) {
-                            System.out.println("Выберите операцию для дальнейшей работы" +
+                            System.out.println("\nTEACHERS OF GROUPS\n" +
+                                    "Выберите операцию для дальнейшей работы" +
                                     "\n 1 - Поиск \t 2 - Вставка \t 3 - Изменение \t " +
                                     "4 - Удаление" +
                                     "\nДля выхода из таблицы введите 0");
@@ -1009,8 +1050,12 @@ public class Main {
 
                                             List<Teacher> teachers =
                                                     groupBase.selectTeacher(group);
-                                            for(Teacher e : teachers) {
-                                                System.out.println(e);
+                                            if(teachers.size() > 0) {
+                                                for (Teacher e : teachers) {
+                                                    System.out.println(e);
+                                                }
+                                            } else {
+                                                System.out.println("Нет записей");
                                             }
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
@@ -1118,6 +1163,7 @@ public class Main {
                                 in.nextLine();
                             }
                         }
+                        break;
                     }
                     case 0: {
                         back = !back;
