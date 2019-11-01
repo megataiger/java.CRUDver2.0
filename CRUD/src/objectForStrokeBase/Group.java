@@ -1,5 +1,7 @@
 package objectForStrokeBase;
 
+import workWithBase.daoClasses.GroupDAO;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,5 +60,19 @@ public class Group {
 
     public int getNumber() {
         return number;
+    }
+
+    public List<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public static void main(String[] args) {
+        GroupDAO tc = new GroupDAO();
+        for (Group e : tc.getAll()) {
+            System.out.println(e);
+            for(Teacher k : e.getTeachers()) {
+                System.out.println(k);
+            }
+        }
     }
 }

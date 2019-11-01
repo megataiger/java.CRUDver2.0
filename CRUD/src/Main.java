@@ -1,17 +1,5 @@
-import objectForStrokeBase.Group;
-import objectForStrokeBase.Gender;
-import objectForStrokeBase.Student;
-import objectForStrokeBase.Teacher;
-import workWithBase.daoClasses.GroapDAO;
-import workWithBase.daoClasses.StudentDAO;
-import workWithBase.daoClasses.TeacherDAO;
+//import workWithBase.daoClasses.TeacherDAO;
 
-import java.sql.*;
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
 
 /*public class Main {
 

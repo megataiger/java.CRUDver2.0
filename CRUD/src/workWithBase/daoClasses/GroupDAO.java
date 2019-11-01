@@ -13,9 +13,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroapDAO {
+public class GroupDAO {
     public Group findById(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Group.class, id);
+    }
+
+    public List<Group> getAll() {
+        List<Group> groups = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("from Group").list();
+        return groups;
     }
 
 }

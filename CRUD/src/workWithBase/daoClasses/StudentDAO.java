@@ -1,21 +1,11 @@
 package workWithBase.daoClasses;
 
-import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
-import objectForStrokeBase.Gender;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import workWithBase.connectWithBase.HibernateSessionFactoryUtil;
-import workWithBase.daoInterfaces.StudentDAOInterface;
-import workWithBase.connectWithBase.SuperTable;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO {
@@ -60,4 +50,13 @@ public class StudentDAO {
         session.close();
     }
 
+    public List<Student> selectByName (String name) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().
+                openSession();
+        Query query = session.createQuery("from Student where lower(name) like :id");
+        String param = "%" + name + "%";
+        query.setParameter("id", param);
+        List<Student> students = query.list();
+        return students;
+    }
 }

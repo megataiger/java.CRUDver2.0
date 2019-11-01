@@ -1,6 +1,6 @@
 package objectForStrokeBase;
 
-import workWithBase.daoClasses.GroapDAO;
+import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.StudentDAO;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class Student {
     private LocalDate date;
 
     @Enumerated (EnumType.STRING)
-    @Column (name = "male")
+    @Column (name = "gender")
     private Gender gender;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -99,10 +99,12 @@ public class Student {
     }
 
     public static void main(String[] args) {
+
         StudentDAO stud = new StudentDAO();
-        for (Student e : new StudentDAO().getAll()) {
-            stud.delete(e);
-        }
+        Student student1 = new Student("Primer",
+                LocalDate.of(1999, 12, 1), Gender.MAN, new GroupDAO().findById(34));
+        stud.save(student1);
     }
 
 }
+

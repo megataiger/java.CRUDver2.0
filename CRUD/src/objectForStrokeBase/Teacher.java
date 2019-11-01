@@ -1,7 +1,11 @@
 package objectForStrokeBase;
 
+import workWithBase.daoClasses.GroupDAO;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -11,12 +15,18 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
+
     @Column (name = "birthday")
     private LocalDate date;
-    @Column (name = "male")
+
     @Enumerated (EnumType.STRING)
+    @Column (name = "gender")
     private Gender gender;
+
+    @ManyToMany(mappedBy = "teachers")
+    List<Group> groups = new ArrayList<>();
 
 
 
@@ -71,5 +81,20 @@ public class Teacher {
 
     public int getId() {
         return id;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+
+    public static void main(String[] args) {
+        GroupDAO tc = new GroupDAO();
+        for (Group e : tc.getAll()) {
+            System.out.println(e);
+            for(Teacher k : e.getTeachers()) {
+                System.out.println(k);
+            }
+        }
     }
 }
