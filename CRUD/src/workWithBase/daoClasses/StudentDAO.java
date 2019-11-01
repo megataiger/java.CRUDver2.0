@@ -3,6 +3,10 @@ package workWithBase.daoClasses;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 import objectForStrokeBase.Gender;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import workWithBase.connectWithBase.HibernateSessionFactoryUtil;
 import workWithBase.daoInterfaces.StudentDAOInterface;
 import workWithBase.connectWithBase.SuperTable;
 
@@ -14,126 +18,46 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentDAO extends SuperTable implements StudentDAOInterface {
+public class StudentDAO {
 
-    private String select = "SELECT * FROM student";
-    private String insert = "INSERT INTO student (id, name, birthday, male," +
-            " group_id) VALUES (null, ?, ?, ?, ?)";
-    private String update = "UPDATE student SET name = ?, birthday = ?, " +
-            "male = ?, group_id = ? WHERE id = ?";
-    private String delete = "DELETE FROM student WHERE id = ?";
-    private List<Student> students = new ArrayList<>();
-
-
-
-    public Student selectStudent(int idStudent) throws SQLException {
-        select += " WHERE id = ?";
-        PreparedStatement prstate = con.prepareStatement(select);
-        prstate.setInt(1, idStudent);
-
-        ResultSet result = prstate.executeQuery();
-
-        result.next();
-        Student student = recordResult(result);
-        prstate.close();
-        return student;
+    public Student findById(int id) {
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Student.class, id);
+    }
+    public void save(Student student) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.save(student);
+        tx1.commit();
+        session.close();
     }
 
-    public List<Student> selectStudent() throws SQLException {
-        Statement state = con.createStatement();
-        ResultSet result = state.executeQuery(select);
-
-        while(result.next()) {
-            students.add(recordResult(result));
-        }
-        state.close();
+    public List<Student> getAll() {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().
+                openSession();
+        List<Student> students = session.createQuery("From Student").list();
+        session.close();
         return students;
     }
 
-    public List<Student> selectStudent(String nameStudent) throws SQLException {
-        select += " WHERE LOWER(`name`) LIKE ?";
-        PreparedStatement prstate = con.prepareStatement(select);
-        prstate.setString(1, "%" + nameStudent + "%");
+    public void update(Student student) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.merge(student);
+        transaction.commit();
+        session.close();
+    }
 
-        ResultSet result = prstate.executeQuery();
-
-        while(result.next()) {
-            students.add(recordResult(result));
+    public void delete(Student student) {
+        Session session;
+        try {
+            session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();
+        } catch (HibernateException e) {
+            session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         }
-        prstate.close();
-        return students;
+        Transaction transaction = session.beginTransaction();
+        session.delete(student);
+        transaction.commit();
+        session.close();
     }
 
-    public List<Student> selectStudent(LocalDate birthday) throws SQLException {
-        select += " WHERE birthday = ?";
-        PreparedStatement prstate = con.prepareStatement(select);
-        String value = birthday.getYear() + "-" + birthday.getMonthValue() +
-                "-" + birthday.getDayOfMonth();
-        prstate.setString(1, value);
-
-        ResultSet result = prstate.executeQuery();
-        while(result.next()) {
-            students.add(recordResult(result));
-        }
-        prstate.close();
-        return students;
-    }
-
-    public List<Student> selectGroup(int idGroup) throws SQLException {
-        select += " WHERE group_id = ?";
-        PreparedStatement prstate = con.prepareStatement(select);
-        prstate.setInt(1, idGroup);
-        ResultSet result = prstate.executeQuery();
-        while (result.next()) {
-            students.add(recordResult(result));
-        }
-        prstate.close();
-        return students;
-    }
-
-    public void insert(Student student) throws SQLException {
-        PreparedStatement prstate = con.prepareStatement(insert);
-        prstate.setString(1, student.getName());
-        prstate.setString(2, student.getDate());
-        prstate.setString(3, student.getGender());
-        prstate.setInt(4, student.getGroupId());
-
-        prstate.executeUpdate();
-        prstate.close();
-    }
-
-    public void update(Student student) throws SQLException {
-        PreparedStatement prstate = con.prepareStatement(update);
-        prstate.setString(1, student.getName());
-        prstate.setString(2, student.getDate());
-        prstate.setString(3, student.getGender());
-        prstate.setInt(4, student.getGroupId());
-        prstate.setInt(5, student.getId());
-
-        prstate.executeUpdate();
-        prstate.close();
-    }
-
-    public void delete(Student student) throws SQLException {
-        PreparedStatement prstate = con.prepareStatement(delete);
-        prstate.setInt(1, student.getId());
-        prstate.executeUpdate();
-        prstate.close();
-    }
-
-    Student recordResult(ResultSet result) throws SQLException {
-        int id = result.getInt(1);
-        String name = result.getString(2);
-        LocalDate birthday = LocalDate.parse(result.getString(3));
-        Gender gender;
-        if (result.getString(4).equals(Gender.MAN.getValue())) {
-            gender = Gender.MAN;
-        } else {
-            gender = Gender.WOMAN;
-        }
-        int group_id = result.getInt(5);
-        Group group = new GroapDAO().selectGroupById(group_id);
-        Student student = new Student(id, name, birthday, gender, group);
-        return student;
-    }
 }

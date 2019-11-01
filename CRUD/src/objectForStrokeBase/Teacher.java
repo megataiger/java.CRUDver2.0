@@ -1,11 +1,21 @@
 package objectForStrokeBase;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+
+@Entity
+@Table (name = "teacher")
 public class Teacher {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    @Column (name = "birthday")
     private LocalDate date;
+    @Column (name = "male")
+    @Enumerated (EnumType.STRING)
     private Gender gender;
 
 
@@ -29,7 +39,7 @@ public class Teacher {
 
 
     public String toString() {
-        return id + "\t" + name + "\t" + date + "\t" + gender.getValue();
+        return id + "\t" + name + "\t" + date + "\t" + gender;
     }
 
     public void setNameTeacher(String newName) {
@@ -56,7 +66,7 @@ public class Teacher {
     }
 
     public String getGender() {
-        return gender.getValue();
+        return gender.toString();
     }
 
     public int getId() {

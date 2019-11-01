@@ -13,8 +13,8 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-public class TeacherDAO extends SuperTable implements TeacherDAOInterface {
+/*
+public class TeacherDAO extends SuperTable  {
     private String select = "SELECT * FROM teacher";
     private String insert = "INSERT INTO teacher (id, name, birthday, male)" +
             "VALUES (null, ?, ?, ?)";
@@ -161,7 +161,6 @@ public class TeacherDAO extends SuperTable implements TeacherDAOInterface {
 
         prstate.executeUpdate();
     }
-
     Teacher recordResult(ResultSet result) throws SQLException {
         int id = result.getInt(1);
         String name = result.getString(2);
@@ -177,4 +176,4 @@ public class TeacherDAO extends SuperTable implements TeacherDAOInterface {
         Teacher teacher = new Teacher(id, name, birthday, gender);
         return teacher;
     }
-}
+} */

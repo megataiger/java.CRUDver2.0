@@ -13,7 +13,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+/*public class Main {
 
     static boolean exit = true;
     static Scanner in = new Scanner(System.in);
@@ -1177,3 +1177,4 @@ public class Main {
         }
     }
 }
+*/
