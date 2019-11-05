@@ -1,6 +1,7 @@
 package workWithBase.daoClasses;
 
 import objectForStrokeBase.Group;
+import objectForStrokeBase.Student;
 import objectForStrokeBase.Teacher;
 import objectForStrokeBase.Gender;
 import org.hibernate.Session;
@@ -19,6 +20,10 @@ import java.util.List;
 
 public class TeacherDAO  {
 
+    public Teacher findById(int id) {
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Teacher.class, id);
+    }
+
     public void save(Teacher teacher) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -32,4 +37,19 @@ public class TeacherDAO  {
         return teachers;
     }
 
+    public void update(Teacher teacher) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.merge(teacher);
+        tx1.commit();
+        session.close();
+    }
+
+    public void delete(Teacher teacher) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.delete(teacher);
+        tx1.commit();
+        session.close();
+    }
 }

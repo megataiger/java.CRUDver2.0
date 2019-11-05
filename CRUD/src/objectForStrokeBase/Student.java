@@ -98,12 +98,21 @@ public class Student {
         return group;
     }
 
-    public static void main(String[] args) {
+    @Override
+    public boolean equals(Object obj) {
+        Student student = (Student) obj;
+        if(id == student.id) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    public static void main(String[] args) {
         StudentDAO stud = new StudentDAO();
-        Student student1 = new Student("Primer",
-                LocalDate.of(1999, 12, 1), Gender.MAN, new GroupDAO().findById(34));
-        stud.save(student1);
+        for (Student e : stud.findByName("Иль")) {
+            System.out.println(e);
+        }
     }
 
 }

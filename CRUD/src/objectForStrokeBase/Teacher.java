@@ -1,6 +1,7 @@
 package objectForStrokeBase;
 
 import workWithBase.daoClasses.GroupDAO;
+import workWithBase.daoClasses.TeacherDAO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,7 +26,11 @@ public class Teacher {
     @Column (name = "gender")
     private Gender gender;
 
-    @ManyToMany(mappedBy = "teachers")
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "group_teacher",
+            joinColumns = {@JoinColumn(name = "teacher_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")}
+            )
     List<Group> groups = new ArrayList<>();
 
 
@@ -87,14 +92,29 @@ public class Teacher {
         return groups;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Teacher teacher = (Teacher) obj;
+        if(id == teacher.id) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void removeGroup(Group group) {
+        groups.remove(group);
+    }
+
+    public void removeAllGroups() {
+        groups = null;
+    }
+
 
     public static void main(String[] args) {
-        GroupDAO tc = new GroupDAO();
-        for (Group e : tc.getAll()) {
-            System.out.println(e);
-            for(Teacher k : e.getTeachers()) {
-                System.out.println(k);
-            }
-        }
+        Teacher teacher = new TeacherDAO().findById(27);
+        teacher.removeAllGroups();
+        TeacherDAO tc = new TeacherDAO();
+        tc.delete(teacher);
     }
 }

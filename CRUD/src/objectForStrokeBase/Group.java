@@ -1,6 +1,7 @@
 package objectForStrokeBase;
 
 import workWithBase.daoClasses.GroupDAO;
+import workWithBase.daoClasses.TeacherDAO;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -66,13 +67,25 @@ public class Group {
         return teachers;
     }
 
+    public void removeTeacher(Teacher teacher) {
+        teachers.remove(teacher);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Group group = (Group) obj;
+        if(id == group.id) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         GroupDAO tc = new GroupDAO();
-        for (Group e : tc.getAll()) {
-            System.out.println(e);
-            for(Teacher k : e.getTeachers()) {
-                System.out.println(k);
-            }
-        }
+        Group group = tc.findById(40);
+        Teacher teacher = new TeacherDAO().findById(22);
+        group.removeTeacher(teacher);
+        tc.update(group);
     }
 }
