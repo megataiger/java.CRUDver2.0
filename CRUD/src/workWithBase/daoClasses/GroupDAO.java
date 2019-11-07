@@ -1,36 +1,42 @@
 package workWithBase.daoClasses;
 
 import objectForStrokeBase.Group;
-import objectForStrokeBase.Teacher;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import workWithBase.connectWithBase.HibernateSessionFactoryUtil;
-import workWithBase.daoInterfaces.GroapDAOInterface;
-import workWithBase.connectWithBase.SuperTable;
+import workWithBase.connectWithBase.FactoryForDAO;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
-public class GroupDAO {
+public class GroupDAO extends FactoryForDAO {
     public Group findById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Group.class, id);
+        EntityManager entityManager = factory.createEntityManager();
+        Group group = entityManager.find(Group.class, id);
+        entityManager.close();
+        return group;
     }
 
     public List<Group> getAll() {
-        List<Group> groups = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("from Group").list();
+        EntityManager entityManager = factory.createEntityManager();
+        List<Group> groups = entityManager.createQuery("From Group").getResultList();
         return groups;
     }
 
     public void update(Group group) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
-        session.merge(group);
-        tx1.commit();
-        session.close();
+        EntityManager entityManager = factory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(group);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
+    public Group selectGroupByNumber(int number) {
+        EntityManager entityManager = factory.createEntityManager();
+        Query query = entityManager.createQuery("from Group where number = :number");
+        query.setParameter("number", number);
+        Group group = (Group) query.getSingleResult();
+        return group;
     }
 
 }

@@ -1,49 +1,62 @@
-//import workWithBase.daoClasses.TeacherDAO;
+import objectForStrokeBase.Gender;
+import objectForStrokeBase.Group;
+import objectForStrokeBase.Student;
+import workWithBase.daoClasses.GroupDAO;
+import workWithBase.daoClasses.StudentDAO;
+import workWithBase.daoClasses.TeacherDAO;
+
+import javax.persistence.PersistenceException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 
-/*public class Main {
+public class Main {
 
     static boolean exit = true;
     static Scanner in = new Scanner(System.in);
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         while (exit) {
             System.out.println("\nMAIN MENU\n" +
                     "Выберите номер таблицы, с которой хотите работать" +
                     "\n1 - Студенты \t 2 - Группы \t 3 - Преподаватели" +
                     "\nДля выхода из программы введите 0");
-                try {
-                    int choose = in.nextInt();
-                    in.nextLine();
-                    switch (choose) {
-                        case 1: {
-                            studentWork();
-                            break;
-                        }
-                        case 2: {
-                            groupWork();
-                            break;
-                        }
-                        case 3: {
-                            teacherWork();
-                            break;
-                        }
-                        case 0: {
-                            exit = !exit;
-                            break;
-                        } default : {
-                            System.out.println("Введите номер таблицы из " +
-                                    "представленных ниже");
-                        }
+            try {
+                int choose = in.nextInt();
+                in.nextLine();
+                switch (choose) {
+                    case 1: {
+                        studentWork();
+                        break;
                     }
-                } catch (InputMismatchException e) {
-                    System.out.println("Некорректный ввод");
-                    in.nextLine();
+                    case 2: {
+                        // groupWork();
+                        break;
+                    }
+                    case 3: {
+                        //  teacherWork();
+                        break;
+                    }
+                    case 0: {
+                        exit = !exit;
+                        break;
+                    }
+                    default: {
+                        System.out.println("Введите номер таблицы из " +
+                                "представленных ниже");
+                    }
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Некорректный ввод");
+                in.nextLine();
+            }
         }
     }
 
-    public static void studentWork() throws SQLException {
+    public static void studentWork() {
         boolean back = true;
         while (back) {
             System.out.println("\nSTUDENTS\n" +
@@ -70,12 +83,12 @@
                                         in.nextLine();
 
                                         Student student =
-                                                new StudentDAO().selectStudent(id);
+                                                new StudentDAO().findById(id);
                                         System.out.println(student);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Студента " +
                                                 "с данным ID не существует");
                                     }
@@ -88,8 +101,8 @@
                                     StudentDAO studentBase = new StudentDAO();
 
                                     List<Student> students =
-                                            studentBase.selectStudent(nameSearch);
-                                    if(students.size() > 0) {
+                                            studentBase.findByName(nameSearch);
+                                    if (students.size() > 0) {
                                         for (Student e : students) {
                                             System.out.println(e);
                                         }
@@ -108,10 +121,10 @@
                                         in.nextLine();
 
                                         List<Student> students =
-                                                new StudentDAO().selectStudent(
+                                                new StudentDAO().findByDate(
                                                         LocalDate.of(year, month, day)
                                                 );
-                                        if(students.size() > 0) {
+                                        if (students.size() > 0) {
                                             for (Student e : students) {
                                                 System.out.println(e);
                                             }
@@ -134,13 +147,13 @@
                                         int numberGroup = in.nextInt();
                                         in.nextLine();
                                         Group group =
-                                                new GroapDAO().selectGroupByNumber(numberGroup);
+                                                new GroupDAO().selectGroupByNumber(numberGroup);
 
                                         StudentDAO studentBase = new StudentDAO();
 
                                         List<Student> students =
-                                                studentBase.selectGroup(group.getId());
-                                        if(students.size() > 0) {
+                                                studentBase.findByGroup(group);
+                                        if (students.size() > 0) {
                                             for (Student e : students) {
                                                 System.out.println(e);
                                             }
@@ -150,7 +163,7 @@
                                     } catch (InputMismatchException e) {
                                         System.out.println("Неккоректный ввод");
                                         in.nextLine();
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Возможно вы ввели неверный номер группы");
                                     }
                                     break;
@@ -159,8 +172,8 @@
                                     StudentDAO studentBase = new StudentDAO();
 
                                     List<Student> students =
-                                            studentBase.selectStudent();
-                                    if(students.size() > 0) {
+                                            studentBase.getAll();
+                                    if (students.size() > 0) {
                                         for (Student e : students) {
                                             System.out.println(e);
                                         }
@@ -168,7 +181,8 @@
                                         System.out.println("Нет записей");
                                     }
                                     break;
-                                } default : {
+                                }
+                                default: {
                                     System.out.println("Вами был выбран" +
                                             " неверный критерий");
                                 }
@@ -196,7 +210,7 @@
                             System.out.println("Пол одной буквой");
                             String gender = in.nextLine();
                             Gender male;
-                            if (Gender.MAN.getValue().equals(gender)) {
+                            if (Gender.MAN.toString().equals(gender)) {
                                 male = Gender.MAN;
                             } else {
                                 male = Gender.WOMAN;
@@ -207,18 +221,18 @@
                             in.nextLine();
 
                             Group group =
-                                    new GroapDAO().selectGroupByNumber(numberGroup);
+                                    new GroupDAO().selectGroupByNumber(numberGroup);
 
                             Student student = new Student(name,
                                     date, male, group);
 
                             StudentDAO studentBase = new StudentDAO();
 
-                            studentBase.insert(student);
+                            studentBase.save(student);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
-                        } catch (SQLException e) {
-                            System.out.println("Группы с данным номером не существует");
+                       // } //catch (PersistenceException e) {
+                           // System.out.println("Группы с данным номером не существует");
                         } catch (DateTimeException e) {
                             System.out.println("Некорректный ввод");
                         }
@@ -238,7 +252,7 @@
                                         int id = in.nextInt();
                                         in.nextLine();
                                         Student student =
-                                                new StudentDAO().selectStudent(id);
+                                                new StudentDAO().findById(id);
 
                                         System.out.println("Новое Ф.И.О.");
                                         String name = in.nextLine();
@@ -248,7 +262,7 @@
                                         StudentDAO studentBase = new StudentDAO();
 
                                         studentBase.update(student);
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Студента с данным ID " +
                                                 "не существует");
                                     } catch (InputMismatchException e) {
@@ -263,7 +277,7 @@
                                         int id = in.nextInt();
                                         in.nextLine();
                                         Student student =
-                                                new StudentDAO().selectStudent(id);
+                                                new StudentDAO().findById(id);
 
                                         System.out.println("Новая дата рождения");
                                         int day = in.nextInt();
@@ -277,13 +291,13 @@
                                         StudentDAO studentBase = new StudentDAO();
 
                                         studentBase.update(student);
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Студента с данным ID " +
                                                 "не существует");
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (DateTimeException e){
+                                    } catch (DateTimeException e) {
                                         System.out.println("Некорректный ввод");
                                     }
                                     break;
@@ -297,9 +311,9 @@
                                         System.out.println("Пол (Одной буквой)");
                                         String gender = in.nextLine();
                                         Student student =
-                                                new StudentDAO().selectStudent(id);
+                                                new StudentDAO().findById(id);
                                         Gender male;
-                                        if (Gender.MAN.getValue().equals(gender)) {
+                                        if (Gender.MAN.toString().equals(gender)) {
                                             male = Gender.MAN;
                                         } else {
                                             male = Gender.WOMAN;
@@ -313,7 +327,7 @@
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Студента с данным ID " +
                                                 "не существует");
                                     }
@@ -326,14 +340,14 @@
                                         in.nextLine();
 
                                         Student student =
-                                                new StudentDAO().selectStudent(id);
+                                                new StudentDAO().findById(id);
 
                                         System.out.println("Новый номер группы");
                                         int number = in.nextInt();
                                         in.nextLine();
 
                                         Group group =
-                                                new GroapDAO().selectGroupByNumber(number);
+                                                new GroupDAO().selectGroupByNumber(number);
 
                                         student.setGroupStudent(group.getId());
 
@@ -343,14 +357,14 @@
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Студента или группы" +
                                                 " с данным ID " +
                                                 "не существует");
                                     }
                                     break;
                                 }
-                                default : {
+                                default: {
                                     System.out.println("Введён неверный номер атрибута");
                                     break;
                                 }
@@ -367,7 +381,7 @@
                             int id = in.nextInt();
                             in.nextLine();
                             Student student =
-                                    new StudentDAO().selectStudent(id);
+                                    new StudentDAO().findById(id);
 
                             System.out.println("Вы уверены, что хотите удалить запись " +
                                     "об этом студенте\n Y/N");
@@ -385,7 +399,7 @@
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
                             in.nextLine();
-                        } catch (SQLException e) {
+                        } catch (PersistenceException e) {
                             System.out.println("Студента с данным ID " +
                                     "не существует");
                         }
@@ -394,7 +408,8 @@
                     case 0: {
                         back = !back;
                         break;
-                    } default : {
+                    }
+                    default: {
                         System.out.println("Введите номер операции " +
                                 "из представленных ниже");
                     }
@@ -405,8 +420,9 @@
             }
         }
     }
+}
 
-    public static void teacherWork() throws SQLException {
+  /*  public static void teacherWork() throws SQLException {
         boolean back = true;
         while (back) {
             System.out.println("\nTEACHERS\n" +

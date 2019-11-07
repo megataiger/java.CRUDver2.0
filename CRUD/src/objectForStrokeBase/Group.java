@@ -83,9 +83,7 @@ public class Group {
 
     public static void main(String[] args) {
         GroupDAO tc = new GroupDAO();
-        Group group = tc.findById(40);
-        Teacher teacher = new TeacherDAO().findById(22);
-        group.removeTeacher(teacher);
-        tc.update(group);
+        Group group = tc.selectGroupByNumber(441);
+        System.out.println(group);
     }
 }

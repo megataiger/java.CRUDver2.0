@@ -7,7 +7,7 @@
 
         <property name="hbm2ddl.auto">update</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="connection.url">jdbc:mysql://212.193.37.75/student-group-teacher</property>
+        <property name="connection.url">jdbc:mysql://10.0.16.10/student-group-teacher</property>
         <property name="connection.username">megataiger</property>
         <property name="connection.password"></property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>

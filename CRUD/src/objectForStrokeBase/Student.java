@@ -24,7 +24,7 @@ public class Student {
     @Column (name = "gender")
     private Gender gender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
     private Group group;
 
@@ -110,9 +110,8 @@ public class Student {
 
     public static void main(String[] args) {
         StudentDAO stud = new StudentDAO();
-        for (Student e : stud.findByName("Иль")) {
-            System.out.println(e);
-        }
+        Student student = stud.findById(33);
+        stud.delete(student);
     }
 
 }

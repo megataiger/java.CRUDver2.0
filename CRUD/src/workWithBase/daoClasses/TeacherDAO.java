@@ -1,55 +1,50 @@
 package workWithBase.daoClasses;
 
-import objectForStrokeBase.Group;
-import objectForStrokeBase.Student;
 import objectForStrokeBase.Teacher;
-import objectForStrokeBase.Gender;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import workWithBase.connectWithBase.HibernateSessionFactoryUtil;
-import workWithBase.daoInterfaces.TeacherDAOInterface;
-import workWithBase.connectWithBase.SuperTable;
+import workWithBase.connectWithBase.FactoryForDAO;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
 import java.util.List;
 
-public class TeacherDAO  {
+public class TeacherDAO extends FactoryForDAO {
 
     public Teacher findById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Teacher.class, id);
+        EntityManager entityManager = factory.createEntityManager();
+        Teacher teacher = entityManager.find(Teacher.class, id);
+        return teacher;
     }
 
     public void save(Teacher teacher) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(teacher);
-        transaction.commit();
-        session.close();
+        EntityManager entityManager = factory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(teacher);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     public List<Teacher> getAll() {
-        List<Teacher> teachers = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("from Teacher").list();
+        EntityManager entityManager = factory.createEntityManager();
+        List<Teacher> teachers = entityManager.createQuery("From Teacher").getResultList();
+        entityManager.close();
         return teachers;
     }
 
     public void update(Teacher teacher) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
-        session.merge(teacher);
-        tx1.commit();
-        session.close();
+        EntityManager entityManager = factory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(teacher);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     public void delete(Teacher teacher) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
-        session.delete(teacher);
-        tx1.commit();
-        session.close();
+        EntityManager entityManager = factory.createEntityManager();
+        entityManager.getTransaction().begin();
+        teacher = entityManager.merge(teacher);
+        entityManager.remove(teacher);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 }
