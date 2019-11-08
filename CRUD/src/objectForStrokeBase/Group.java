@@ -4,6 +4,7 @@ import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.TeacherDAO;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +21,12 @@ public class Group {
 
     @OneToMany (
             mappedBy = "group",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.DETACH,
             orphanRemoval = true
     )
     private List<Student> students = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "group_teacher",
             joinColumns = {@JoinColumn(name = "group_id")},
@@ -67,6 +68,10 @@ public class Group {
         return teachers;
     }
 
+    public void addTeacher(Teacher teacher) {
+        teachers.add(teacher);
+    }
+
     public void removeTeacher(Teacher teacher) {
         teachers.remove(teacher);
     }
@@ -84,6 +89,10 @@ public class Group {
     public static void main(String[] args) {
         GroupDAO tc = new GroupDAO();
         Group group = tc.selectGroupByNumber(441);
-        System.out.println(group);
+        TeacherDAO teachD = new TeacherDAO();
+        Teacher teach = teachD.findById(30);
+        group.removeTeacher(teach);
+        tc.update(group);
+
     }
 }

@@ -14,13 +14,12 @@ public class StudentDAO extends FactoryForDAO {
     public Student findById(int id) {
         EntityManager entityManager = factory.createEntityManager();
         Student stud = entityManager.find(Student.class, id);
-        entityManager.close();
         return stud;
     }
     public void save(Student student) {
         EntityManager entityManager = factory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.persist(student);
+        entityManager.merge(student);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
@@ -45,6 +44,7 @@ public class StudentDAO extends FactoryForDAO {
         EntityManager entityManager = factory.createEntityManager();
         entityManager.getTransaction().begin();
         student = entityManager.merge(student);
+        System.out.println(student);
         entityManager.remove(student);
         entityManager.getTransaction().commit();
         entityManager.close();

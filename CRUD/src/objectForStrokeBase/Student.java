@@ -24,7 +24,7 @@ public class Student {
     @Column (name = "gender")
     private Gender gender;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "group_id")
     private Group group;
 
@@ -67,8 +67,8 @@ public class Student {
         gender = newGender;
     }
 
-    public void setGroupStudent(int newGroup) {
-        group = new Group (0, newGroup);
+    public void setGroupStudent(Group newGroup) {
+        group = newGroup;
     }
 
 
@@ -110,8 +110,11 @@ public class Student {
 
     public static void main(String[] args) {
         StudentDAO stud = new StudentDAO();
-        Student student = stud.findById(33);
-        stud.delete(student);
+        GroupDAO gr = new GroupDAO();
+        Group group = gr.selectGroupByNumber(441);
+        Student student = new Student("dasjdhlas",
+                LocalDate.of(1996, 06, 27), Gender.MAN, gr.selectGroupByNumber(441));
+        stud.save(student);
     }
 
 }

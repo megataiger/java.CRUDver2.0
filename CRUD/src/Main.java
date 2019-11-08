@@ -349,7 +349,7 @@ public class Main {
                                         Group group =
                                                 new GroupDAO().selectGroupByNumber(number);
 
-                                        student.setGroupStudent(group.getId());
+                                        student.setGroupStudent(group);
 
                                         StudentDAO studentBase = new StudentDAO();
 

@@ -26,7 +26,7 @@ public class Teacher {
     @Column (name = "gender")
     private Gender gender;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(name = "group_teacher",
             joinColumns = {@JoinColumn(name = "teacher_id")},
             inverseJoinColumns = {@JoinColumn(name = "group_id")}

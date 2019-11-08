@@ -39,5 +39,25 @@ public class GroupDAO extends FactoryForDAO {
         return group;
     }
 
+    public void save(Group group) {
+        EntityManager entityManager = factory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(group);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
+    public void delete(Group group) {
+        EntityManager entityManager = factory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("update Student set group_id = null where group_id = :id");
+        query.setParameter("id", group.getId());
+        query.executeUpdate();
+        group = entityManager.merge(group);
+        entityManager.remove(group);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
 }
 
