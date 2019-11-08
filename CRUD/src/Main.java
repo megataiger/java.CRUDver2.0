@@ -2,6 +2,7 @@ import objectForStrokeBase.Gender;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 import objectForStrokeBase.Teacher;
+import workWithBase.connectWithBase.FactoryForDAO;
 import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.StudentDAO;
 import workWithBase.daoClasses.TeacherDAO;
@@ -20,6 +21,7 @@ public class Main {
     static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
+        FactoryForDAO f = new FactoryForDAO();
         while (exit) {
             System.out.println("\nMAIN MENU\n" +
                     "Выберите номер таблицы, с которой хотите работать" +
@@ -114,7 +116,7 @@ public class Main {
                                 }
                                 case 3: {
                                     System.out.println("Введите дату рождения студента " +
-                                            "через пробел");
+                                            "через пробел DD MM YYYY");
                                     try {
                                         int day = in.nextInt();
                                         int month = in.nextInt();
@@ -201,14 +203,14 @@ public class Main {
                             System.out.println("Ф.И.О.");
                             String name = in.nextLine();
 
-                            System.out.println("Дату рождения через пробел");
+                            System.out.println("Дату рождения через пробел DD MM YYYY");
                             int day = in.nextInt();
                             int month = in.nextInt();
                             int year = in.nextInt();
                             in.nextLine();
                             LocalDate date = LocalDate.of(year, month, day);
 
-                            System.out.println("Пол одной буквой");
+                            System.out.println("Пол MAN/WOMAN");
                             String gender = in.nextLine();
                             Gender male;
                             if (Gender.MAN.toString().equals(gender)) {
@@ -232,8 +234,8 @@ public class Main {
                             studentBase.save(student);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
-                       // } //catch (PersistenceException e) {
-                           // System.out.println("Группы с данным номером не существует");
+                        } catch (PersistenceException e) {
+                            System.out.println("Группы с данным номером не существует");
                         } catch (DateTimeException e) {
                             System.out.println("Некорректный ввод");
                         }
@@ -280,7 +282,7 @@ public class Main {
                                         Student student =
                                                 new StudentDAO().findById(id);
 
-                                        System.out.println("Новая дата рождения");
+                                        System.out.println("Новая дата рождения DD MM YYYY");
                                         int day = in.nextInt();
                                         int month = in.nextInt();
                                         int year = in.nextInt();
@@ -309,7 +311,7 @@ public class Main {
                                         int id = in.nextInt();
                                         in.nextLine();
 
-                                        System.out.println("Пол (Одной буквой)");
+                                        System.out.println("Пол MAN/WOMAN");
                                         String gender = in.nextLine();
                                         Student student =
                                                 new StudentDAO().findById(id);
@@ -428,7 +430,7 @@ public class Main {
             System.out.println("\nTEACHERS\n" +
                     "Выберите операцию для дальнейшей работы" +
                     "\n 1 - Поиск \t 2 - Вставка \t 3 - Изменение \t " +
-                    "4 - Удаление \t 5 - Группы преподвателя" +
+                    "4 - Удаление \t 5 - Группы преподавателя" +
                     "\nДля выхода из таблицы введите 0");
             try {
                 int operation = in.nextInt();
@@ -480,7 +482,7 @@ public class Main {
                                 }
                                 case 3: {
                                     System.out.println("Введите дату рождения " +
-                                            "преподавателя через пробел");
+                                            "преподавателя через пробел DD MM YYYY");
 
                                     try {
                                         int day = in.nextInt();
@@ -538,14 +540,14 @@ public class Main {
                             System.out.println("Ф.И.О.");
                             String name = in.nextLine();
 
-                            System.out.println("Дату рождения через пробел");
+                            System.out.println("Дату рождения через пробел DD MM YYYY");
                             int day = in.nextInt();
                             int month = in.nextInt();
                             int year = in.nextInt();
                             in.nextLine();
                             LocalDate date = LocalDate.of(year, month, day);
 
-                            System.out.println("Пол одной буквой");
+                            System.out.println("Пол MAN/WOMAN");
                             String gender = in.nextLine();
                             Gender male;
                             if (Gender.MAN.toString().equals(gender)) {
@@ -610,7 +612,7 @@ public class Main {
                                         Teacher teacher =
                                                 new TeacherDAO().findById(id);
 
-                                        System.out.println("Новая дата рождения");
+                                        System.out.println("Новая дата рождения DD MM YYYY");
                                         int day = in.nextInt();
                                         int month = in.nextInt();
                                         int year = in.nextInt();
@@ -642,7 +644,7 @@ public class Main {
                                         Teacher teacher =
                                                 new TeacherDAO().findById(id);
 
-                                        System.out.println("Пол (Одной буквой)");
+                                        System.out.println("Пол MAN/WOMAN");
                                         String gender = in.nextLine();
 
                                         Gender male;
@@ -883,7 +885,7 @@ public class Main {
             System.out.println("\nGROUPS\n" +
                     "Выберите операцию для дальнейшей работы" +
                     "\n 1 - Поиск \t 2 - Вставка \t 3 - Изменение \t " +
-                    "4 - Удаление \t 5 - Прпеодаватели группы" +
+                    "4 - Удаление \t 5 - Преподаватели группы" +
                     "\nДля выхода из таблицы введите 0");
             try {
                 int operation = in.nextInt();
