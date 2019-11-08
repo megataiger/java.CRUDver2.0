@@ -6,6 +6,8 @@ import org.hibernate.Transaction;
 import workWithBase.connectWithBase.FactoryForDAO;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.time.LocalDate;
 import java.util.List;
 
 public class TeacherDAO extends FactoryForDAO {
@@ -46,5 +48,27 @@ public class TeacherDAO extends FactoryForDAO {
         entityManager.remove(teacher);
         entityManager.getTransaction().commit();
         entityManager.close();
+    }
+
+    public List<Teacher> findByName (String name) {
+        EntityManager entityManager = factory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("from Teacher where lower(name) like :name");
+        String param = "%" + name + "%";
+        query.setParameter("name", param);
+        List<Teacher> students = query.getResultList();
+        entityManager.close();
+        return students;
+    }
+
+    public List<Teacher> findByDate (LocalDate date) {
+        EntityManager entityManager = factory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("from Teacher where lower(birthday) like :date");
+        String param = "%" + date + "%";
+        query.setParameter("date", param);
+        List<Teacher> students = query.getResultList();
+        entityManager.close();
+        return students;
     }
 }

@@ -51,8 +51,12 @@ public class Student {
 
 
     public String toString() {
-        return id + "\t" + name + "\t" + date + "\t" + gender +
-                "\t" + group.getNumber();
+        if (group == null) {
+            return id + "\t" + name + "\t" + date + "\t" + gender;
+        } else {
+            return id + "\t" + name + "\t" + date + "\t" + gender +
+                    "\t" + group.getNumber();
+        }
     }
 
     public void setNameStudent(String newName) {

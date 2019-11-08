@@ -56,6 +56,11 @@ public class Group {
         number = newNumber;
     }
 
+    public void setTeacher(Teacher oldTeacher, Teacher newTeacher) {
+        teachers.remove(oldTeacher);
+        teachers.add(newTeacher);
+    }
+
     public int getId() {
         return id;
     }

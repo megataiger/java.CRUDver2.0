@@ -69,6 +69,11 @@ public class Teacher {
         gender = newGender;
     }
 
+    public void setGroup(Group oldGroup, Group newGroup) {
+        groups.remove(oldGroup);
+        groups.add(newGroup);
+    }
+
 
 
     public String getName() {
@@ -90,6 +95,10 @@ public class Teacher {
 
     public List<Group> getGroups() {
         return groups;
+    }
+
+    public void addGroup(Group group) {
+        groups.add(group);
     }
 
     @Override

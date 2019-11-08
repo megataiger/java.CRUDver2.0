@@ -1,6 +1,7 @@
 import objectForStrokeBase.Gender;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
+import objectForStrokeBase.Teacher;
 import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.StudentDAO;
 import workWithBase.daoClasses.TeacherDAO;
@@ -33,11 +34,11 @@ public class Main {
                         break;
                     }
                     case 2: {
-                        // groupWork();
+                         groupWork();
                         break;
                     }
                     case 3: {
-                        //  teacherWork();
+                          teacherWork();
                         break;
                     }
                     case 0: {
@@ -420,9 +421,8 @@ public class Main {
             }
         }
     }
-}
 
-  /*  public static void teacherWork() throws SQLException {
+    public static void teacherWork() {
         boolean back = true;
         while (back) {
             System.out.println("\nTEACHERS\n" +
@@ -450,13 +450,13 @@ public class Main {
                                         in.nextLine();
 
                                         Teacher teacher =
-                                                new TeacherDAO().selectTeacher(id);
+                                                new TeacherDAO().findById(id);
 
                                         System.out.println(teacher);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Преподавателя " +
                                                 "с данным ID е существует");
                                     }
@@ -468,7 +468,7 @@ public class Main {
                                     TeacherDAO teacherBase = new TeacherDAO();
 
                                     List<Teacher> teachers =
-                                            teacherBase.selectTeacher(nameSearch);
+                                            teacherBase.findByName(nameSearch);
                                     if(teachers.size() > 0) {
                                         for (Teacher e : teachers) {
                                             System.out.println(e);
@@ -489,7 +489,7 @@ public class Main {
                                         in.nextLine();
 
                                         List<Teacher> teachers =
-                                                new TeacherDAO().selectTeacher(
+                                                new TeacherDAO().findByDate(
                                                         LocalDate.of(year, month, day)
                                                 );
 
@@ -510,7 +510,7 @@ public class Main {
                                     TeacherDAO teacherBase = new TeacherDAO();
 
                                     List<Teacher> teachers =
-                                        teacherBase.selectTeacher();
+                                        teacherBase.getAll();
 
                                     if(teachers.size() > 0) {
                                         for (Teacher e : teachers) {
@@ -548,7 +548,7 @@ public class Main {
                             System.out.println("Пол одной буквой");
                             String gender = in.nextLine();
                             Gender male;
-                            if (Gender.MAN.getValue().equals(gender)) {
+                            if (Gender.MAN.toString().equals(gender)) {
                                 male = Gender.MAN;
                             } else {
                                 male = Gender.WOMAN;
@@ -559,7 +559,7 @@ public class Main {
 
                             TeacherDAO teacherBase = new TeacherDAO();
 
-                            teacherBase.insert(teacher);
+                            teacherBase.save(teacher);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
                             in.nextLine();
@@ -582,7 +582,7 @@ public class Main {
                                         int id = in.nextInt();
                                         in.nextLine();
                                         Teacher teacher =
-                                                new TeacherDAO().selectTeacher(id);
+                                                new TeacherDAO().findById(id);
 
                                         System.out.println("Новое Ф.И.О.");
                                         String name = in.nextLine();
@@ -595,7 +595,7 @@ public class Main {
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Преподавателя " +
                                                 "с данным ID не существует");
                                     }
@@ -608,7 +608,7 @@ public class Main {
                                         in.nextLine();
 
                                         Teacher teacher =
-                                                new TeacherDAO().selectTeacher(id);
+                                                new TeacherDAO().findById(id);
 
                                         System.out.println("Новая дата рождения");
                                         int day = in.nextInt();
@@ -625,7 +625,7 @@ public class Main {
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Преподавателя " +
                                                 "с данным ID не существует");
                                     } catch (DateTimeException e) {
@@ -640,13 +640,13 @@ public class Main {
                                         in.nextLine();
 
                                         Teacher teacher =
-                                                new TeacherDAO().selectTeacher(id);
+                                                new TeacherDAO().findById(id);
 
                                         System.out.println("Пол (Одной буквой)");
                                         String gender = in.nextLine();
 
                                         Gender male;
-                                        if (Gender.MAN.getValue().equals(gender)) {
+                                        if (Gender.MAN.toString().equals(gender)) {
                                             male = Gender.MAN;
                                         } else {
                                             male = Gender.WOMAN;
@@ -660,7 +660,7 @@ public class Main {
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Преподавателя " +
                                                 "с данным ID не существует");
                                     }
@@ -683,7 +683,7 @@ public class Main {
                             in.nextLine();
 
                             Teacher teacher =
-                                    new TeacherDAO().selectTeacher(id);
+                                    new TeacherDAO().findById(id);
 
                             System.out.println("Вы уверены, что хотите удалить запись " +
                                     "об этом преподавателе\n Y/N");
@@ -701,7 +701,7 @@ public class Main {
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
                             in.nextLine();
-                        } catch (SQLException e) {
+                        } catch (PersistenceException e) {
                             System.out.println("Преподавателя " +
                                     "с данным ID не существует");
                         }
@@ -727,12 +727,10 @@ public class Main {
                                             in.nextLine();
 
                                             Teacher teacher =
-                                                    new TeacherDAO().selectTeacher(id);
-
-                                            TeacherDAO teacherBase = new TeacherDAO();
+                                                    new TeacherDAO().findById(id);
 
                                             List<Group> groups =
-                                                teacherBase.selectGroups(teacher);
+                                                teacher.getGroups();
                                             if(groups.size() > 0) {
                                                 for (Group e : groups) {
                                                     System.out.println(e);
@@ -743,7 +741,7 @@ public class Main {
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
                                             in.nextLine();
-                                        } catch (SQLException e) {
+                                        } catch (PersistenceException e) {
                                             System.out.println("Преподавателя " +
                                                     "с данным ID не существует");
                                         }
@@ -756,7 +754,7 @@ public class Main {
                                             in.nextLine();
 
                                             Teacher teacher =
-                                                    new TeacherDAO().selectTeacher(id);
+                                                    new TeacherDAO().findById(id);
 
                                             System.out.println("Введите номер группы," +
                                                     " который вы хотите присвоить" +
@@ -764,15 +762,15 @@ public class Main {
                                             int number = in.nextInt();
                                             in.nextLine();
                                             Group group =
-                                                    new GroapDAO().selectGroupByNumber(number);
+                                                    new GroupDAO().selectGroupByNumber(number);
+                                            teacher.addGroup(group);
 
-                                            TeacherDAO teacherBase = new TeacherDAO();
-
-                                            teacherBase.insertGroup(teacher, group.getId());
+                                            TeacherDAO teach = new TeacherDAO();
+                                            teach.update(teacher);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
                                             in.nextLine();
-                                        } catch (SQLException e) {
+                                        } catch (PersistenceException e) {
                                             System.out.println("Преподавателя или группы " +
                                                     "с данным ID не существует");
                                         }
@@ -785,7 +783,7 @@ public class Main {
                                             in.nextLine();
 
                                             Teacher teacher =
-                                                    new TeacherDAO().selectTeacher(id);
+                                                    new TeacherDAO().findById(id);
 
                                             System.out.println("Введите номер группы," +
                                                     " который вы хотите изменить" +
@@ -798,21 +796,20 @@ public class Main {
                                             in.nextLine();
 
                                             Group oldGroup =
-                                                    new GroapDAO().selectGroupByNumber(numberOldGroup);
-                                            numberOldGroup = oldGroup.getId();
+                                                    new GroupDAO().selectGroupByNumber(numberOldGroup);
 
                                             Group newGroup =
-                                                    new GroapDAO().selectGroupByNumber(numberNewGroup);
-                                            numberNewGroup = newGroup.getId();
+                                                    new GroupDAO().selectGroupByNumber(numberNewGroup);
 
+                                            teacher.setGroup(oldGroup, newGroup);
 
                                             TeacherDAO teacherBase = new TeacherDAO();
 
-                                            teacherBase.updateGroup(teacher, numberOldGroup, numberNewGroup);
+                                            teacherBase.update(teacher);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
                                             in.nextLine();
-                                        } catch (SQLException e) {
+                                        } catch (PersistenceException e) {
                                             System.out.println("Преподавателя или группы " +
                                                     "с данным ID не существует");
                                         }
@@ -825,7 +822,7 @@ public class Main {
                                             in.nextLine();
 
                                             Teacher teacher =
-                                                    new TeacherDAO().selectTeacher(id);
+                                                    new TeacherDAO().findById(id);
 
                                             System.out.println("Введите номер группы," +
                                                     " который вы хотите удалить" +
@@ -833,15 +830,17 @@ public class Main {
                                             int number = in.nextInt();
                                             in.nextLine();
                                             Group group =
-                                                    new GroapDAO().selectGroupByNumber(number);
+                                                    new GroupDAO().selectGroupByNumber(number);
+
+                                            teacher.removeGroup(group);
 
                                             TeacherDAO teacherBase = new TeacherDAO();
 
-                                            teacherBase.deleteGroup(teacher, group.getId());
+                                            teacherBase.update(teacher);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
                                             in.nextLine();
-                                        } catch (SQLException e) {
+                                        } catch (PersistenceException e) {
                                             System.out.println("Преподавателя или группы " +
                                                     "с данным ID не существует");
                                         }
@@ -878,7 +877,7 @@ public class Main {
         }
     }
 
-    public static void groupWork() throws SQLException {
+    public static void groupWork() {
         boolean back = true;
         while (back) {
             System.out.println("\nGROUPS\n" +
@@ -904,13 +903,13 @@ public class Main {
                                         int id = in.nextInt();
                                         in.nextLine();
 
-                                        Group group = new GroapDAO().selectGroupById(id);
+                                        Group group = new GroupDAO().findById(id);
 
                                         System.out.println(group);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Группы с данным ID не существует");
                                     }
                                     break;
@@ -923,21 +922,21 @@ public class Main {
                                         in.nextLine();
 
                                         Group group =
-                                                new GroapDAO().selectGroupByNumber(number);
+                                                new GroupDAO().selectGroupByNumber(number);
 
                                         System.out.println(group);
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (SQLException e) {
+                                    } catch (PersistenceException e) {
                                         System.out.println("Группы с данным номером не существует");
                                     }
                                     break;
                                 }
                                 case 3: {
-                                    GroapDAO groupBase = new GroapDAO();
+                                    GroupDAO groupBase = new GroupDAO();
 
-                                    List<Group> groups = groupBase.select();
+                                    List<Group> groups = groupBase.getAll();
 
                                     if(groups.size() > 0) {
                                         for (Group e : groups) {
@@ -963,9 +962,9 @@ public class Main {
 
                             Group group = new Group(number);
 
-                            GroapDAO groupBase = new GroapDAO();
+                            GroupDAO groupBase = new GroupDAO();
 
-                            groupBase.insert(group);
+                            groupBase.save(group);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
                             in.nextLine();
@@ -979,7 +978,7 @@ public class Main {
                             in.nextLine();
 
                             Group group =
-                                    new GroapDAO().selectGroupByNumber(number);
+                                    new GroupDAO().selectGroupByNumber(number);
 
                             System.out.println("Новый номер группы");
                             int newNumber = in.nextInt();
@@ -987,13 +986,13 @@ public class Main {
 
                             group.set(newNumber);
 
-                            GroapDAO groupBase = new GroapDAO();
+                            GroupDAO groupBase = new GroupDAO();
 
                             groupBase.update(group);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
                             in.nextLine();
-                        } catch (SQLException e) {
+                        } catch (PersistenceException e) {
                             System.out.println("Группы с данным номером не существует");
                         }
                         break;
@@ -1005,14 +1004,14 @@ public class Main {
                             in.nextLine();
 
                             Group group =
-                                    new GroapDAO().selectGroupByNumber(number);
+                                    new GroupDAO().selectGroupByNumber(number);
 
                             System.out.println("Вы уверены, что хотите удалить запись " +
                                     "об этой группе\n Y/N");
                             String answer = in.nextLine();
                             switch (answer) {
                                 case "Y": {
-                                    GroapDAO groupBase = new GroapDAO();
+                                    GroupDAO groupBase = new GroupDAO();
                                     groupBase.delete(group);
                                     break;
                                 }
@@ -1023,7 +1022,7 @@ public class Main {
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
                             in.nextLine();
-                        } catch (SQLException e) {
+                        } catch (PersistenceException e) {
                             System.out.println("Группы с данным номером не существует");
                         }
                         break;
@@ -1048,12 +1047,12 @@ public class Main {
                                             in.nextLine();
 
                                             Group group =
-                                                    new GroapDAO().selectGroupByNumber(number);
+                                                    new GroupDAO().selectGroupByNumber(number);
 
-                                            GroapDAO groupBase = new GroapDAO();
+                                            GroupDAO groupBase = new GroupDAO();
 
                                             List<Teacher> teachers =
-                                                    groupBase.selectTeacher(group);
+                                                    group.getTeachers();
                                             if(teachers.size() > 0) {
                                                 for (Teacher e : teachers) {
                                                     System.out.println(e);
@@ -1064,7 +1063,7 @@ public class Main {
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
                                             in.nextLine();
-                                        } catch (SQLException e) {
+                                        } catch (PersistenceException e) {
                                             System.out.println("Группы с данным номером не существует");
                                         }
                                         break;
@@ -1076,21 +1075,23 @@ public class Main {
                                             in.nextLine();
 
                                             Group group =
-                                                    new GroapDAO().selectGroupByNumber(number);
+                                                    new GroupDAO().selectGroupByNumber(number);
 
                                             System.out.println("Введите ID реподавателя," +
                                                     " которого вы хотите присвоить" +
                                                     " группе");
                                             int id = in.nextInt();
                                             in.nextLine();
+                                            Teacher teacher = new TeacherDAO().findById(id);
+                                            group.addTeacher(teacher);
 
-                                            GroapDAO groupBase = new GroapDAO();
+                                            GroupDAO groupBase = new GroupDAO();
 
-                                            groupBase.insertTeacher(group, id);
+                                            groupBase.update(group);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
                                             in.nextLine();
-                                        } catch (SQLException e) {
+                                        } catch (PersistenceException e) {
                                             System.out.println("Группы или преподавателя " +
                                                     "с данным номером или ID не существует");
                                         }
@@ -1104,25 +1105,29 @@ public class Main {
                                             in.nextLine();
 
                                             Group group =
-                                                    new GroapDAO().selectGroupByNumber(number);
+                                                    new GroupDAO().selectGroupByNumber(number);
 
                                             System.out.println("Введите ID преподавателя," +
                                                     " которого вы хотите заменить" +
                                                     " группе");
                                             int idOldTeacher = in.nextInt();
                                             in.nextLine();
+                                            Teacher oldTeacher = new TeacherDAO().findById(idOldTeacher);
 
                                             System.out.println("Введите ID нового преподавателя");
                                             int idNewTeacher = in.nextInt();
                                             in.nextLine();
+                                            Teacher newTeacher = new TeacherDAO().findById(idNewTeacher);
 
-                                            GroapDAO groupBase = new GroapDAO();
+                                            group.setTeacher(oldTeacher, newTeacher);
 
-                                            groupBase.updateTeacher(group, idOldTeacher, idNewTeacher);
+                                            GroupDAO groupBase = new GroupDAO();
+
+                                            groupBase.update(group);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
                                             in.nextLine();
-                                        } catch (SQLException e) {
+                                        } catch (PersistenceException e) {
                                             System.out.println("Группы или преподавателя " +
                                                     "с данным номером или ID не существует");
                                         }
@@ -1135,21 +1140,23 @@ public class Main {
                                             in.nextLine();
 
                                             Group group =
-                                                    new GroapDAO().selectGroupByNumber(number);
+                                                    new GroupDAO().selectGroupByNumber(number);
 
                                             System.out.println("Введите ID преподавателя," +
                                                     " которого вы хотите удалить" +
                                                     " группе");
                                             int idTeacher = in.nextInt();
                                             in.nextLine();
+                                            Teacher teacher = new TeacherDAO().findById(idTeacher);
+                                            group.removeTeacher(teacher);
 
-                                            GroapDAO groupBase = new GroapDAO();
+                                            GroupDAO groupBase = new GroupDAO();
 
-                                            groupBase.deleteTeacher(group, idTeacher);
+                                            groupBase.update(group);
                                         } catch (InputMismatchException e) {
                                             System.out.println("Некорректный ввод");
                                             in.nextLine();
-                                        } catch (SQLException e) {
+                                        } catch (PersistenceException e) {
                                             System.out.println("Группы или преподавателя " +
                                                     "с данным номером или ID не существует");
                                         }
@@ -1181,4 +1188,3 @@ public class Main {
         }
     }
 }
-*/
