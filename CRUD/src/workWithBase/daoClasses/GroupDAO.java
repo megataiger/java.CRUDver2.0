@@ -1,15 +1,14 @@
 package workWithBase.daoClasses;
 
 import objectForStrokeBase.Group;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import workWithBase.connectWithBase.FactoryForDAO;
+import workWithBase.daoInterfaces.GroapDAOInterface;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class GroupDAO extends FactoryForDAO {
+public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
     public Group findById(int id) {
         EntityManager entityManager = factory.createEntityManager();
         Group group = entityManager.find(Group.class, id);
@@ -20,6 +19,7 @@ public class GroupDAO extends FactoryForDAO {
     public List<Group> getAll() {
         EntityManager entityManager = factory.createEntityManager();
         List<Group> groups = entityManager.createQuery("From Group").getResultList();
+        entityManager.close();
         return groups;
     }
 

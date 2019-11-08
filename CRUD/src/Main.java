@@ -2,7 +2,6 @@ import objectForStrokeBase.Gender;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 import objectForStrokeBase.Teacher;
-import workWithBase.connectWithBase.FactoryForDAO;
 import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.StudentDAO;
 import workWithBase.daoClasses.TeacherDAO;
@@ -17,11 +16,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    static boolean exit = true;
-    static Scanner in = new Scanner(System.in);
+    private static boolean exit = true;
+    private static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
-        FactoryForDAO f = new FactoryForDAO();
         while (exit) {
             System.out.println("\nMAIN MENU\n" +
                     "Выберите номер таблицы, с которой хотите работать" +
@@ -59,7 +57,7 @@ public class Main {
         }
     }
 
-    public static void studentWork() {
+    private static void studentWork() {
         boolean back = true;
         while (back) {
             System.out.println("\nSTUDENTS\n" +
@@ -232,12 +230,10 @@ public class Main {
                             StudentDAO studentBase = new StudentDAO();
 
                             studentBase.save(student);
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException | DateTimeException e) {
                             System.out.println("Некорректный ввод");
                         } catch (PersistenceException e) {
                             System.out.println("Группы с данным номером не существует");
-                        } catch (DateTimeException e) {
-                            System.out.println("Некорректный ввод");
                         }
                         break;
                     }
@@ -409,7 +405,7 @@ public class Main {
                         break;
                     }
                     case 0: {
-                        back = !back;
+                        back = false;
                         break;
                     }
                     default: {
@@ -424,7 +420,7 @@ public class Main {
         }
     }
 
-    public static void teacherWork() {
+    private static void teacherWork() {
         boolean back = true;
         while (back) {
             System.out.println("\nTEACHERS\n" +
@@ -849,7 +845,7 @@ public class Main {
                                         break;
                                     }
                                     case 0 : {
-                                        backMenuGroupTeacher = !backMenuGroupTeacher;
+                                        backMenuGroupTeacher = false;
                                         break;
                                     } default : {
                                         System.out.println("Введите номер операции " +
@@ -879,7 +875,7 @@ public class Main {
         }
     }
 
-    public static void groupWork() {
+    private static void groupWork() {
         boolean back = true;
         while (back) {
             System.out.println("\nGROUPS\n" +
@@ -1051,8 +1047,6 @@ public class Main {
                                             Group group =
                                                     new GroupDAO().selectGroupByNumber(number);
 
-                                            GroupDAO groupBase = new GroupDAO();
-
                                             List<Teacher> teachers =
                                                     group.getTeachers();
                                             if(teachers.size() > 0) {
@@ -1165,7 +1159,7 @@ public class Main {
                                         break;
                                     }
                                     case 0: {
-                                        backMenuTeacherGroup = !backMenuTeacherGroup;
+                                        backMenuTeacherGroup = false;
                                         break;
                                     } default : {
                                         break;
@@ -1179,7 +1173,7 @@ public class Main {
                         break;
                     }
                     case 0: {
-                        back = !back;
+                        back = false;
                         break;
                     }
                 }

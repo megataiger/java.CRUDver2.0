@@ -1,8 +1,5 @@
 package objectForStrokeBase;
 
-import workWithBase.daoClasses.GroupDAO;
-import workWithBase.daoClasses.StudentDAO;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -27,19 +24,6 @@ public class Student {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "group_id")
     private Group group;
-
-
-
-    public Student() {}
-
-    public Student(int idStudent, String nameStudent, LocalDate birthday, Gender gender,
-                   Group group) {
-        id = idStudent;
-        name = nameStudent;
-        date = birthday;
-        this.gender = gender;
-        this.group = group;
-    }
 
     public Student(String nameStudent, LocalDate birthday, Gender gender, Group group) {
         name = nameStudent;
@@ -90,10 +74,6 @@ public class Student {
         return "" + gender;
     }
 
-    public int getGroupId() {
-        return group.getId();
-    }
-
     public int getId() {
         return id;
     }
@@ -105,21 +85,11 @@ public class Student {
     @Override
     public boolean equals(Object obj) {
         Student student = (Student) obj;
-        if(id == student.id) {
+        if (id == student.id) {
             return true;
         } else {
             return false;
         }
     }
-
-    public static void main(String[] args) {
-        StudentDAO stud = new StudentDAO();
-        GroupDAO gr = new GroupDAO();
-        Group group = gr.selectGroupByNumber(441);
-        Student student = new Student("dasjdhlas",
-                LocalDate.of(1996, 06, 27), Gender.MAN, gr.selectGroupByNumber(441));
-        stud.save(student);
-    }
-
 }
 

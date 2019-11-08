@@ -7,24 +7,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface GroapDAOInterface {
-    Group selectGroupById (int idGroup) throws SQLException;
+    Group findById (int idGroup);
 
-    Group selectGroupByNumber(int numberGroup) throws SQLException;
+    Group selectGroupByNumber(int numberGroup);
 
-    List<Group> select() throws SQLException;
+    List<Group> getAll();
 
-    void insert(Group group) throws SQLException;
+    void save(Group group);
 
-    void update(Group group) throws SQLException;
+    void update(Group group);
 
-    void delete(Group group) throws SQLException;
-
-    List<Teacher> selectTeacher(Group group) throws SQLException;
-
-    void insertTeacher(Group group, int idTeacher) throws SQLException;
-
-    void updateTeacher(Group group, int oldTeacherId, int newTeacherId)
-            throws SQLException;
-
-    void deleteTeacher(Group group, int idTeacher) throws SQLException;
+    void delete(Group group);
 }

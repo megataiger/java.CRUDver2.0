@@ -1,5 +1,6 @@
 package workWithBase.daoInterfaces;
 
+import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 
 import java.sql.SQLException;
@@ -7,19 +8,19 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface StudentDAOInterface {
-    Student selectStudent(int idStudent) throws SQLException;
+    Student findById(int idStudent);
 
-    List<Student> selectStudent() throws SQLException;
+    List<Student> getAll();
 
-    List<Student> selectStudent(String nameStudent) throws SQLException;
+    List<Student> findByName(String nameStudent);
 
-    List<Student> selectStudent(LocalDate birthday) throws SQLException;
+    List<Student> findByDate(LocalDate birthday);
 
-    List<Student> selectGroup(int idGroup) throws SQLException;
+    List<Student> findByGroup(Group group);
 
-    void insert(Student student) throws SQLException;
+    void save(Student student);
 
-    void update(Student student) throws SQLException;
+    void update(Student student);
 
-    void delete(Student student) throws SQLException;
+    void delete(Student student);
 }

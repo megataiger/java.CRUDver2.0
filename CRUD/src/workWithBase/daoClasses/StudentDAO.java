@@ -3,17 +3,19 @@ package workWithBase.daoClasses;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 import workWithBase.connectWithBase.FactoryForDAO;
+import workWithBase.daoInterfaces.StudentDAOInterface;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
 
-public class StudentDAO extends FactoryForDAO {
+public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
 
     public Student findById(int id) {
         EntityManager entityManager = factory.createEntityManager();
         Student stud = entityManager.find(Student.class, id);
+        entityManager.close();
         return stud;
     }
     public void save(Student student) {

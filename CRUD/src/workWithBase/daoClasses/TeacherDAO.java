@@ -4,17 +4,19 @@ import objectForStrokeBase.Teacher;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import workWithBase.connectWithBase.FactoryForDAO;
+import workWithBase.daoInterfaces.TeacherDAOInterface;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
 
-public class TeacherDAO extends FactoryForDAO {
+public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
 
     public Teacher findById(int id) {
         EntityManager entityManager = factory.createEntityManager();
         Teacher teacher = entityManager.find(Teacher.class, id);
+        entityManager.close();
         return teacher;
     }
 
