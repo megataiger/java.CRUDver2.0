@@ -2014,3 +2014,624 @@
 2019-11-11 16:46:00 TRACE BasicExtractor:60 - extracted value ([number2_0_0_] : [INTEGER]) - [421]
 2019-11-11 16:46:00 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#52]
 2019-11-11 16:46:00 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#52]
+2019-11-11 17:28:08 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: com.jvc_sgu.intern]
+2019-11-11 17:28:08 INFO  Version:46 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-11-11 17:28:09 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration boolean -> org.hibernate.type.BooleanType@69ee81fc
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration boolean -> org.hibernate.type.BooleanType@69ee81fc
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@69ee81fc
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@1224144a
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration true_false -> org.hibernate.type.TrueFalseType@9816741
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration yes_no -> org.hibernate.type.YesNoType@7dc3712
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration byte -> org.hibernate.type.ByteType@311bf055
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration byte -> org.hibernate.type.ByteType@311bf055
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@311bf055
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration character -> org.hibernate.type.CharacterType@448c8166
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration char -> org.hibernate.type.CharacterType@448c8166
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@448c8166
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration short -> org.hibernate.type.ShortType@3bcd05cb
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration short -> org.hibernate.type.ShortType@3bcd05cb
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Short -> org.hibernate.type.ShortType@3bcd05cb
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration integer -> org.hibernate.type.IntegerType@41f69e84
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration int -> org.hibernate.type.IntegerType@41f69e84
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@41f69e84
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration long -> org.hibernate.type.LongType@3e2055d6
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration long -> org.hibernate.type.LongType@3e2055d6
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Long -> org.hibernate.type.LongType@3e2055d6
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration float -> org.hibernate.type.FloatType@1a5b6f42
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration float -> org.hibernate.type.FloatType@1a5b6f42
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Float -> org.hibernate.type.FloatType@1a5b6f42
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration double -> org.hibernate.type.DoubleType@4b8729ff
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration double -> org.hibernate.type.DoubleType@4b8729ff
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@4b8729ff
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@2bdd8394
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@2bdd8394
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration big_integer -> org.hibernate.type.BigIntegerType@2eea88a1
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@2eea88a1
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration string -> org.hibernate.type.StringType@2c78324b
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.String -> org.hibernate.type.StringType@2c78324b
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration nstring -> org.hibernate.type.StringNVarcharType@238d68ff
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@9cb8225
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration url -> org.hibernate.type.UrlType@34129c78
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.net.URL -> org.hibernate.type.UrlType@34129c78
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration Duration -> org.hibernate.type.DurationType@7283d3eb
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.Duration -> org.hibernate.type.DurationType@7283d3eb
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration Instant -> org.hibernate.type.InstantType@2e570ded
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.Instant -> org.hibernate.type.InstantType@2e570ded
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration LocalDateTime -> org.hibernate.type.LocalDateTimeType@70e38ce1
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.LocalDateTime -> org.hibernate.type.LocalDateTimeType@70e38ce1
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration LocalDate -> org.hibernate.type.LocalDateType@163370c2
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.LocalDate -> org.hibernate.type.LocalDateType@163370c2
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration LocalTime -> org.hibernate.type.LocalTimeType@6ca18a14
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.LocalTime -> org.hibernate.type.LocalTimeType@6ca18a14
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@64ec96c6
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@64ec96c6
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration OffsetTime -> org.hibernate.type.OffsetTimeType@6f8e8894
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.OffsetTime -> org.hibernate.type.OffsetTimeType@6f8e8894
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@2f666ebb
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@2f666ebb
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration date -> org.hibernate.type.DateType@3eb91815
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Date -> org.hibernate.type.DateType@3eb91815
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration time -> org.hibernate.type.TimeType@4bbf6d0e
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Time -> org.hibernate.type.TimeType@4bbf6d0e
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration timestamp -> org.hibernate.type.TimestampType@cd1e646
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@cd1e646
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Date -> org.hibernate.type.TimestampType@cd1e646
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@16c069df
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration calendar -> org.hibernate.type.CalendarType@6dd7b5a3
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@6dd7b5a3
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@6dd7b5a3
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@7bf3a5d8
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration locale -> org.hibernate.type.LocaleType@5e21e98f
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@5e21e98f
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration currency -> org.hibernate.type.CurrencyType@7d94beb9
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@7d94beb9
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration timezone -> org.hibernate.type.TimeZoneType@4d6025c5
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@4d6025c5
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration class -> org.hibernate.type.ClassType@4f4c4b1a
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Class -> org.hibernate.type.ClassType@4f4c4b1a
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@3116c353
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@3116c353
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@3224a577
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration binary -> org.hibernate.type.BinaryType@895e367
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration byte[] -> org.hibernate.type.BinaryType@895e367
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration [B -> org.hibernate.type.BinaryType@895e367
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@5456afaa
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@5456afaa
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@5456afaa
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration row_version -> org.hibernate.type.RowVersionType@52815fa3
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration image -> org.hibernate.type.ImageType@14a50707
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration characters -> org.hibernate.type.CharArrayType@4ef782af
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration char[] -> org.hibernate.type.CharArrayType@4ef782af
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration [C -> org.hibernate.type.CharArrayType@4ef782af
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@12299890
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@12299890
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@12299890
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration text -> org.hibernate.type.TextType@1c39680d
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration ntext -> org.hibernate.type.NTextType@5d99c6b5
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration blob -> org.hibernate.type.BlobType@4e07b95f
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@4e07b95f
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@48c76607
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration clob -> org.hibernate.type.ClobType@5a37d3ed
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@5a37d3ed
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration nclob -> org.hibernate.type.NClobType@44a59da3
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@44a59da3
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@4f704591
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@704deff2
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration serializable -> org.hibernate.type.SerializableType@6c61a903
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration object -> org.hibernate.type.ObjectType@6c372fe6
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@6c372fe6
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@14fa86ae
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@6e15fe2
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@68f1b17f
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@1722011b
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@57ad2aa7
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@5b3f61ff
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@3e2059ae
+2019-11-11 17:28:09 DEBUG BasicTypeRegistry:156 - Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@398dada8
+2019-11-11 17:28:09 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-11-11 17:28:09 INFO  pooling:115 - HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://10.0.16.10/student-group-teacher]
+2019-11-11 17:28:09 INFO  pooling:124 - HHH10001001: Connection properties: {user=megataiger}
+2019-11-11 17:28:09 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2019-11-11 17:28:09 INFO  DriverManagerConnectionProviderImpl:239 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-11-11 17:28:10 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-11-11 17:28:10 DEBUG TypeConfiguration$Scope:152 - Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@1c98290c] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@172ca72b]
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG TypeConfiguration$Scope:157 - Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@1c98290c] to SessionFactoryImpl [org.hibernate.internal.SessionFactoryImpl@2b97cc1f]
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 17:28:10 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5e7c141d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-11-11 17:28:11 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-11-11 17:28:11 TRACE TypeConfiguration$Scope:205 - Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@2b97cc1f] for TypeConfiguration
+2019-11-11 17:28:28 DEBUG SQL:103 - select group0_.id as id1_0_, group0_.number as number2_0_ from `group` group0_ where group0_.number=?
+2019-11-11 17:28:28 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [987]
+2019-11-11 17:28:40 DEBUG SQL:103 - select group0_.id as id1_0_, group0_.number as number2_0_ from `group` group0_ where group0_.number=?
+2019-11-11 17:28:40 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [441]
+2019-11-11 17:28:40 TRACE BasicExtractor:60 - extracted value ([id1_0_] : [INTEGER]) - [51]
+2019-11-11 17:28:40 TRACE BasicExtractor:60 - extracted value ([number2_0_] : [INTEGER]) - [441]
+2019-11-11 17:28:40 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#51]
+2019-11-11 17:28:40 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#51]
+2019-11-11 17:28:40 DEBUG SQL:103 - insert into student (birthday, gender, group_id, name) values (?, ?, ?, ?)
+2019-11-11 17:28:40 TRACE BasicBinder:64 - binding parameter [1] as [DATE] - [2000-01-01]
+2019-11-11 17:28:40 TRACE BasicBinder:64 - binding parameter [2] as [VARCHAR] - [MAN]
+2019-11-11 17:28:40 TRACE BasicBinder:64 - binding parameter [3] as [INTEGER] - [51]
+2019-11-11 17:28:40 TRACE BasicBinder:64 - binding parameter [4] as [VARCHAR] - [Ivanov Ivan]
+2019-11-11 17:28:44 DEBUG SQL:103 - select student0_.id as id1_2_, student0_.birthday as birthday2_2_, student0_.gender as gender3_2_, student0_.group_id as group_id5_2_, student0_.name as name4_2_ from student student0_
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [63]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1996-06-27]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [MAN]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [52]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Немоляев Илья Владиславович]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [68]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1999-06-09]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [WOMAN]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [51]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Родина Виктория Александровна]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [69]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1999-02-02]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [MAN]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [52]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Филипенков Антон Сергеевич]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [71]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1999-04-05]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [WOMAN]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [51]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Михайлова Валерия Александровна]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [74]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [2000-01-01]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [MAN]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [51]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Ivanov Ivan]
+2019-11-11 17:28:44 DEBUG SQL:103 - select group0_.id as id1_0_0_, group0_.number as number2_0_0_ from `group` group0_ where group0_.id=?
+2019-11-11 17:28:44 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [52]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([number2_0_0_] : [INTEGER]) - [421]
+2019-11-11 17:28:44 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#52]
+2019-11-11 17:28:44 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#52]
+2019-11-11 17:28:44 DEBUG SQL:103 - select group0_.id as id1_0_0_, group0_.number as number2_0_0_ from `group` group0_ where group0_.id=?
+2019-11-11 17:28:44 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [51]
+2019-11-11 17:28:44 TRACE BasicExtractor:60 - extracted value ([number2_0_0_] : [INTEGER]) - [441]
+2019-11-11 17:28:44 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#51]
+2019-11-11 17:28:44 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#51]
+2019-11-11 17:28:48 DEBUG SQL:103 - select student0_.id as id1_2_0_, student0_.birthday as birthday2_2_0_, student0_.gender as gender3_2_0_, student0_.group_id as group_id5_2_0_, student0_.name as name4_2_0_ from student student0_ where student0_.id=?
+2019-11-11 17:28:48 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [74]
+2019-11-11 17:28:48 TRACE BasicExtractor:60 - extracted value ([birthday2_2_0_] : [DATE]) - [2000-01-01]
+2019-11-11 17:28:48 TRACE BasicExtractor:60 - extracted value ([gender3_2_0_] : [VARCHAR]) - [MAN]
+2019-11-11 17:28:48 TRACE BasicExtractor:60 - extracted value ([group_id5_2_0_] : [INTEGER]) - [51]
+2019-11-11 17:28:48 TRACE BasicExtractor:60 - extracted value ([name4_2_0_] : [VARCHAR]) - [Ivanov Ivan]
+2019-11-11 17:28:50 DEBUG SQL:103 - select student0_.id as id1_2_0_, student0_.birthday as birthday2_2_0_, student0_.gender as gender3_2_0_, student0_.group_id as group_id5_2_0_, student0_.name as name4_2_0_ from student student0_ where student0_.id=?
+2019-11-11 17:28:50 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [74]
+2019-11-11 17:28:50 TRACE BasicExtractor:60 - extracted value ([birthday2_2_0_] : [DATE]) - [2000-01-01]
+2019-11-11 17:28:50 TRACE BasicExtractor:60 - extracted value ([gender3_2_0_] : [VARCHAR]) - [MAN]
+2019-11-11 17:28:50 TRACE BasicExtractor:60 - extracted value ([group_id5_2_0_] : [INTEGER]) - [51]
+2019-11-11 17:28:50 TRACE BasicExtractor:60 - extracted value ([name4_2_0_] : [VARCHAR]) - [Ivanov Ivan]
+2019-11-11 17:28:50 DEBUG SQL:103 - select group0_.id as id1_0_0_, group0_.number as number2_0_0_ from `group` group0_ where group0_.id=?
+2019-11-11 17:28:50 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [51]
+2019-11-11 17:28:50 TRACE BasicExtractor:60 - extracted value ([number2_0_0_] : [INTEGER]) - [441]
+2019-11-11 17:28:50 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#51]
+2019-11-11 17:28:50 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#51]
+2019-11-11 17:28:50 DEBUG SQL:103 - delete from student where id=?
+2019-11-11 17:28:50 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [74]
+2019-11-11 18:20:52 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: com.jvc_sgu.intern]
+2019-11-11 18:20:52 INFO  Version:46 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-11-11 18:20:52 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration boolean -> org.hibernate.type.BooleanType@69ee81fc
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration boolean -> org.hibernate.type.BooleanType@69ee81fc
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@69ee81fc
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@1224144a
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration true_false -> org.hibernate.type.TrueFalseType@9816741
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration yes_no -> org.hibernate.type.YesNoType@7dc3712
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration byte -> org.hibernate.type.ByteType@311bf055
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration byte -> org.hibernate.type.ByteType@311bf055
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@311bf055
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration character -> org.hibernate.type.CharacterType@448c8166
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration char -> org.hibernate.type.CharacterType@448c8166
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@448c8166
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration short -> org.hibernate.type.ShortType@3bcd05cb
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration short -> org.hibernate.type.ShortType@3bcd05cb
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Short -> org.hibernate.type.ShortType@3bcd05cb
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration integer -> org.hibernate.type.IntegerType@41f69e84
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration int -> org.hibernate.type.IntegerType@41f69e84
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@41f69e84
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration long -> org.hibernate.type.LongType@3e2055d6
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration long -> org.hibernate.type.LongType@3e2055d6
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Long -> org.hibernate.type.LongType@3e2055d6
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration float -> org.hibernate.type.FloatType@1a5b6f42
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration float -> org.hibernate.type.FloatType@1a5b6f42
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Float -> org.hibernate.type.FloatType@1a5b6f42
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration double -> org.hibernate.type.DoubleType@4b8729ff
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration double -> org.hibernate.type.DoubleType@4b8729ff
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@4b8729ff
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@2bdd8394
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@2bdd8394
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration big_integer -> org.hibernate.type.BigIntegerType@2eea88a1
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@2eea88a1
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration string -> org.hibernate.type.StringType@2c78324b
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.String -> org.hibernate.type.StringType@2c78324b
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration nstring -> org.hibernate.type.StringNVarcharType@238d68ff
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@9cb8225
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration url -> org.hibernate.type.UrlType@34129c78
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.net.URL -> org.hibernate.type.UrlType@34129c78
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration Duration -> org.hibernate.type.DurationType@7283d3eb
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.Duration -> org.hibernate.type.DurationType@7283d3eb
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration Instant -> org.hibernate.type.InstantType@2e570ded
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.Instant -> org.hibernate.type.InstantType@2e570ded
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration LocalDateTime -> org.hibernate.type.LocalDateTimeType@70e38ce1
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.LocalDateTime -> org.hibernate.type.LocalDateTimeType@70e38ce1
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration LocalDate -> org.hibernate.type.LocalDateType@163370c2
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.LocalDate -> org.hibernate.type.LocalDateType@163370c2
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration LocalTime -> org.hibernate.type.LocalTimeType@6ca18a14
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.LocalTime -> org.hibernate.type.LocalTimeType@6ca18a14
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@64ec96c6
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@64ec96c6
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration OffsetTime -> org.hibernate.type.OffsetTimeType@6f8e8894
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.OffsetTime -> org.hibernate.type.OffsetTimeType@6f8e8894
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@2f666ebb
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@2f666ebb
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration date -> org.hibernate.type.DateType@3eb91815
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Date -> org.hibernate.type.DateType@3eb91815
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration time -> org.hibernate.type.TimeType@4bbf6d0e
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Time -> org.hibernate.type.TimeType@4bbf6d0e
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration timestamp -> org.hibernate.type.TimestampType@cd1e646
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@cd1e646
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Date -> org.hibernate.type.TimestampType@cd1e646
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@16c069df
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration calendar -> org.hibernate.type.CalendarType@6dd7b5a3
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@6dd7b5a3
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@6dd7b5a3
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@7bf3a5d8
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration locale -> org.hibernate.type.LocaleType@5e21e98f
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@5e21e98f
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration currency -> org.hibernate.type.CurrencyType@7d94beb9
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@7d94beb9
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration timezone -> org.hibernate.type.TimeZoneType@4d6025c5
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@4d6025c5
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration class -> org.hibernate.type.ClassType@4f4c4b1a
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Class -> org.hibernate.type.ClassType@4f4c4b1a
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@3116c353
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@3116c353
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@3224a577
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration binary -> org.hibernate.type.BinaryType@895e367
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration byte[] -> org.hibernate.type.BinaryType@895e367
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration [B -> org.hibernate.type.BinaryType@895e367
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@5456afaa
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@5456afaa
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@5456afaa
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration row_version -> org.hibernate.type.RowVersionType@52815fa3
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration image -> org.hibernate.type.ImageType@14a50707
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration characters -> org.hibernate.type.CharArrayType@4ef782af
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration char[] -> org.hibernate.type.CharArrayType@4ef782af
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration [C -> org.hibernate.type.CharArrayType@4ef782af
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@12299890
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@12299890
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@12299890
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration text -> org.hibernate.type.TextType@1c39680d
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration ntext -> org.hibernate.type.NTextType@5d99c6b5
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration blob -> org.hibernate.type.BlobType@4e07b95f
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@4e07b95f
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@48c76607
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration clob -> org.hibernate.type.ClobType@5a37d3ed
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@5a37d3ed
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration nclob -> org.hibernate.type.NClobType@44a59da3
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@44a59da3
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@4f704591
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@704deff2
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration serializable -> org.hibernate.type.SerializableType@6c61a903
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration object -> org.hibernate.type.ObjectType@6c372fe6
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@6c372fe6
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@14fa86ae
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@6e15fe2
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@68f1b17f
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@1722011b
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@57ad2aa7
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@5b3f61ff
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@3e2059ae
+2019-11-11 18:20:53 DEBUG BasicTypeRegistry:156 - Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@398dada8
+2019-11-11 18:20:53 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-11-11 18:20:53 INFO  pooling:115 - HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://10.0.16.10/student-group-teacher]
+2019-11-11 18:20:53 INFO  pooling:124 - HHH10001001: Connection properties: {user=megataiger}
+2019-11-11 18:20:53 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2019-11-11 18:20:53 INFO  DriverManagerConnectionProviderImpl:239 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-11-11 18:20:53 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-11-11 18:20:53 DEBUG TypeConfiguration$Scope:152 - Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@1c98290c] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@172ca72b]
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG TypeConfiguration$Scope:157 - Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@1c98290c] to SessionFactoryImpl [org.hibernate.internal.SessionFactoryImpl@2b97cc1f]
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:20:54 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5e7c141d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-11-11 18:20:54 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-11-11 18:20:54 TRACE TypeConfiguration$Scope:205 - Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@2b97cc1f] for TypeConfiguration
+2019-11-11 18:21:00 DEBUG SQL:103 - select student0_.id as id1_2_, student0_.birthday as birthday2_2_, student0_.gender as gender3_2_, student0_.group_id as group_id5_2_, student0_.name as name4_2_ from student student0_
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [63]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1996-06-27]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [MAN]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [52]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Немоляев Илья Владиславович]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [68]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1999-06-09]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [WOMAN]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [51]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Родина Виктория Александровна]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [69]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1999-02-02]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [MAN]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [52]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Филипенков Антон Сергеевич]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [71]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1999-04-05]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [WOMAN]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [51]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Михайлова Валерия Александровна]
+2019-11-11 18:21:00 DEBUG SQL:103 - select group0_.id as id1_0_0_, group0_.number as number2_0_0_ from `group` group0_ where group0_.id=?
+2019-11-11 18:21:00 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [52]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([number2_0_0_] : [INTEGER]) - [421]
+2019-11-11 18:21:00 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#52]
+2019-11-11 18:21:00 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#52]
+2019-11-11 18:21:00 DEBUG SQL:103 - select group0_.id as id1_0_0_, group0_.number as number2_0_0_ from `group` group0_ where group0_.id=?
+2019-11-11 18:21:00 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [51]
+2019-11-11 18:21:00 TRACE BasicExtractor:60 - extracted value ([number2_0_0_] : [INTEGER]) - [441]
+2019-11-11 18:21:00 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#51]
+2019-11-11 18:21:00 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#51]
+2019-11-11 18:21:07 DEBUG SQL:103 - select student0_.id as id1_2_, student0_.birthday as birthday2_2_, student0_.gender as gender3_2_, student0_.group_id as group_id5_2_, student0_.name as name4_2_ from student student0_ where lower(student0_.name) like ?
+2019-11-11 18:21:07 TRACE BasicBinder:64 - binding parameter [1] as [VARCHAR] - [%Илья%]
+2019-11-11 18:21:07 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [63]
+2019-11-11 18:21:07 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1996-06-27]
+2019-11-11 18:21:07 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [MAN]
+2019-11-11 18:21:07 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [52]
+2019-11-11 18:21:07 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Немоляев Илья Владиславович]
+2019-11-11 18:21:07 DEBUG SQL:103 - select group0_.id as id1_0_0_, group0_.number as number2_0_0_ from `group` group0_ where group0_.id=?
+2019-11-11 18:21:07 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [52]
+2019-11-11 18:21:07 TRACE BasicExtractor:60 - extracted value ([number2_0_0_] : [INTEGER]) - [421]
+2019-11-11 18:21:07 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#52]
+2019-11-11 18:21:07 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#52]
+2019-11-11 18:42:45 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: com.jvc_sgu.intern]
+2019-11-11 18:42:45 INFO  Version:46 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-11-11 18:42:45 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration boolean -> org.hibernate.type.BooleanType@69ee81fc
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration boolean -> org.hibernate.type.BooleanType@69ee81fc
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@69ee81fc
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@1224144a
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration true_false -> org.hibernate.type.TrueFalseType@9816741
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration yes_no -> org.hibernate.type.YesNoType@7dc3712
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration byte -> org.hibernate.type.ByteType@311bf055
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration byte -> org.hibernate.type.ByteType@311bf055
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@311bf055
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration character -> org.hibernate.type.CharacterType@448c8166
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration char -> org.hibernate.type.CharacterType@448c8166
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@448c8166
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration short -> org.hibernate.type.ShortType@3bcd05cb
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration short -> org.hibernate.type.ShortType@3bcd05cb
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Short -> org.hibernate.type.ShortType@3bcd05cb
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration integer -> org.hibernate.type.IntegerType@41f69e84
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration int -> org.hibernate.type.IntegerType@41f69e84
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@41f69e84
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration long -> org.hibernate.type.LongType@3e2055d6
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration long -> org.hibernate.type.LongType@3e2055d6
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Long -> org.hibernate.type.LongType@3e2055d6
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration float -> org.hibernate.type.FloatType@1a5b6f42
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration float -> org.hibernate.type.FloatType@1a5b6f42
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Float -> org.hibernate.type.FloatType@1a5b6f42
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration double -> org.hibernate.type.DoubleType@4b8729ff
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration double -> org.hibernate.type.DoubleType@4b8729ff
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@4b8729ff
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@2bdd8394
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@2bdd8394
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration big_integer -> org.hibernate.type.BigIntegerType@2eea88a1
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@2eea88a1
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration string -> org.hibernate.type.StringType@2c78324b
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.String -> org.hibernate.type.StringType@2c78324b
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration nstring -> org.hibernate.type.StringNVarcharType@238d68ff
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@9cb8225
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration url -> org.hibernate.type.UrlType@34129c78
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.net.URL -> org.hibernate.type.UrlType@34129c78
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration Duration -> org.hibernate.type.DurationType@7283d3eb
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.Duration -> org.hibernate.type.DurationType@7283d3eb
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration Instant -> org.hibernate.type.InstantType@2e570ded
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.Instant -> org.hibernate.type.InstantType@2e570ded
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration LocalDateTime -> org.hibernate.type.LocalDateTimeType@70e38ce1
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.LocalDateTime -> org.hibernate.type.LocalDateTimeType@70e38ce1
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration LocalDate -> org.hibernate.type.LocalDateType@163370c2
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.LocalDate -> org.hibernate.type.LocalDateType@163370c2
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration LocalTime -> org.hibernate.type.LocalTimeType@6ca18a14
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.LocalTime -> org.hibernate.type.LocalTimeType@6ca18a14
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@64ec96c6
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@64ec96c6
+2019-11-11 18:42:45 DEBUG BasicTypeRegistry:156 - Adding type registration OffsetTime -> org.hibernate.type.OffsetTimeType@6f8e8894
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.OffsetTime -> org.hibernate.type.OffsetTimeType@6f8e8894
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@2f666ebb
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.time.ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@2f666ebb
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration date -> org.hibernate.type.DateType@3eb91815
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Date -> org.hibernate.type.DateType@3eb91815
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration time -> org.hibernate.type.TimeType@4bbf6d0e
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Time -> org.hibernate.type.TimeType@4bbf6d0e
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration timestamp -> org.hibernate.type.TimestampType@cd1e646
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@cd1e646
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Date -> org.hibernate.type.TimestampType@cd1e646
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@16c069df
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration calendar -> org.hibernate.type.CalendarType@6dd7b5a3
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@6dd7b5a3
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@6dd7b5a3
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@7bf3a5d8
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration locale -> org.hibernate.type.LocaleType@5e21e98f
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@5e21e98f
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration currency -> org.hibernate.type.CurrencyType@7d94beb9
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@7d94beb9
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration timezone -> org.hibernate.type.TimeZoneType@4d6025c5
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@4d6025c5
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration class -> org.hibernate.type.ClassType@4f4c4b1a
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Class -> org.hibernate.type.ClassType@4f4c4b1a
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@3116c353
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@3116c353
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@3224a577
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration binary -> org.hibernate.type.BinaryType@895e367
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration byte[] -> org.hibernate.type.BinaryType@895e367
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration [B -> org.hibernate.type.BinaryType@895e367
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@5456afaa
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@5456afaa
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@5456afaa
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration row_version -> org.hibernate.type.RowVersionType@52815fa3
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration image -> org.hibernate.type.ImageType@14a50707
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration characters -> org.hibernate.type.CharArrayType@4ef782af
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration char[] -> org.hibernate.type.CharArrayType@4ef782af
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration [C -> org.hibernate.type.CharArrayType@4ef782af
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@12299890
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@12299890
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@12299890
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration text -> org.hibernate.type.TextType@1c39680d
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration ntext -> org.hibernate.type.NTextType@5d99c6b5
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration blob -> org.hibernate.type.BlobType@4e07b95f
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@4e07b95f
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@48c76607
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration clob -> org.hibernate.type.ClobType@5a37d3ed
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@5a37d3ed
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration nclob -> org.hibernate.type.NClobType@44a59da3
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@44a59da3
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@4f704591
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@704deff2
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration serializable -> org.hibernate.type.SerializableType@6c61a903
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration object -> org.hibernate.type.ObjectType@6c372fe6
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@6c372fe6
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@14fa86ae
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@6e15fe2
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@68f1b17f
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@1722011b
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@57ad2aa7
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@5b3f61ff
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@3e2059ae
+2019-11-11 18:42:46 DEBUG BasicTypeRegistry:156 - Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@398dada8
+2019-11-11 18:42:46 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-11-11 18:42:46 INFO  pooling:115 - HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://10.0.16.10/student-group-teacher]
+2019-11-11 18:42:46 INFO  pooling:124 - HHH10001001: Connection properties: {user=megataiger}
+2019-11-11 18:42:46 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2019-11-11 18:42:46 INFO  DriverManagerConnectionProviderImpl:239 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-11-11 18:42:46 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-11-11 18:42:46 DEBUG TypeConfiguration$Scope:152 - Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@1c98290c] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@172ca72b]
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG TypeConfiguration$Scope:157 - Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@1c98290c] to SessionFactoryImpl [org.hibernate.internal.SessionFactoryImpl@2b97cc1f]
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 DEBUG EnumType:126 - Using NAMED-based conversion for Enum objectForStrokeBase.Gender
+2019-11-11 18:42:47 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5e7c141d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-11-11 18:42:47 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-11-11 18:42:47 TRACE TypeConfiguration$Scope:205 - Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@2b97cc1f] for TypeConfiguration
+2019-11-11 18:42:53 DEBUG SQL:103 - select student0_.id as id1_2_, student0_.birthday as birthday2_2_, student0_.gender as gender3_2_, student0_.group_id as group_id5_2_, student0_.name as name4_2_ from student student0_
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [63]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1996-06-27]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [MAN]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [52]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Немоляев Илья Владиславович]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [68]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1999-06-09]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [WOMAN]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [51]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Родина Виктория Александровна]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [69]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1999-02-02]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [MAN]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [52]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Филипенков Антон Сергеевич]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([id1_2_] : [INTEGER]) - [71]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([birthday2_2_] : [DATE]) - [1999-04-05]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([gender3_2_] : [VARCHAR]) - [WOMAN]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([group_id5_2_] : [INTEGER]) - [51]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([name4_2_] : [VARCHAR]) - [Михайлова Валерия Александровна]
+2019-11-11 18:42:53 DEBUG SQL:103 - select group0_.id as id1_0_0_, group0_.number as number2_0_0_ from `group` group0_ where group0_.id=?
+2019-11-11 18:42:53 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [52]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([number2_0_0_] : [INTEGER]) - [421]
+2019-11-11 18:42:53 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#52]
+2019-11-11 18:42:53 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#52]
+2019-11-11 18:42:53 DEBUG SQL:103 - select group0_.id as id1_0_0_, group0_.number as number2_0_0_ from `group` group0_ where group0_.id=?
+2019-11-11 18:42:53 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [51]
+2019-11-11 18:42:53 TRACE BasicExtractor:60 - extracted value ([number2_0_0_] : [INTEGER]) - [441]
+2019-11-11 18:42:53 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#51]
+2019-11-11 18:42:53 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#51]
+2019-11-11 18:42:58 DEBUG SQL:103 - select group0_.id as id1_0_, group0_.number as number2_0_ from `group` group0_
+2019-11-11 18:42:58 TRACE BasicExtractor:60 - extracted value ([id1_0_] : [INTEGER]) - [51]
+2019-11-11 18:42:58 TRACE BasicExtractor:60 - extracted value ([number2_0_] : [INTEGER]) - [441]
+2019-11-11 18:42:58 TRACE BasicExtractor:60 - extracted value ([id1_0_] : [INTEGER]) - [52]
+2019-11-11 18:42:58 TRACE BasicExtractor:60 - extracted value ([number2_0_] : [INTEGER]) - [421]
+2019-11-11 18:42:58 TRACE BasicExtractor:60 - extracted value ([id1_0_] : [INTEGER]) - [59]
+2019-11-11 18:42:58 TRACE BasicExtractor:60 - extracted value ([number2_0_] : [INTEGER]) - [451]
+2019-11-11 18:42:58 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#51]
+2019-11-11 18:42:58 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#51]
+2019-11-11 18:42:58 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#52]
+2019-11-11 18:42:58 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#52]
+2019-11-11 18:42:58 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#59]
+2019-11-11 18:42:58 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#59]
+2019-11-11 18:43:04 DEBUG SQL:103 - select group0_.id as id1_0_, group0_.number as number2_0_ from `group` group0_ where group0_.number=?
+2019-11-11 18:43:04 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [421]
+2019-11-11 18:43:04 TRACE BasicExtractor:60 - extracted value ([id1_0_] : [INTEGER]) - [52]
+2019-11-11 18:43:04 TRACE BasicExtractor:60 - extracted value ([number2_0_] : [INTEGER]) - [421]
+2019-11-11 18:43:04 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#52]
+2019-11-11 18:43:04 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#52]
+2019-11-11 18:43:04 DEBUG SQL:103 - select teachers0_.group_id as group_id1_1_0_, teachers0_.teacher_id as teacher_2_1_0_, teacher1_.id as id1_3_1_, teacher1_.birthday as birthday2_3_1_, teacher1_.gender as gender3_3_1_, teacher1_.name as name4_3_1_ from group_teacher teachers0_ inner join teacher teacher1_ on teachers0_.teacher_id=teacher1_.id where teachers0_.group_id=?
+2019-11-11 18:43:04 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [52]
+2019-11-11 18:43:04 TRACE BasicExtractor:60 - extracted value ([id1_3_1_] : [INTEGER]) - [29]
+2019-11-11 18:43:04 TRACE BasicExtractor:60 - extracted value ([birthday2_3_1_] : [DATE]) - [1978-02-10]
+2019-11-11 18:43:04 TRACE BasicExtractor:60 - extracted value ([gender3_3_1_] : [VARCHAR]) - [MAN]
+2019-11-11 18:43:04 TRACE BasicExtractor:60 - extracted value ([name4_3_1_] : [VARCHAR]) - [Лукомксий Дмитрий Сергеевич]
+2019-11-11 18:43:04 TRACE BasicExtractor:60 - extracted value ([group_id1_1_0_] : [INTEGER]) - [52]
+2019-11-11 18:43:04 TRACE BasicExtractor:60 - extracted value ([teacher_2_1_0_] : [INTEGER]) - [29]
+2019-11-11 18:43:04 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Teacher.groups#29]
+2019-11-11 18:43:11 DEBUG SQL:103 - select teacher0_.id as id1_3_, teacher0_.birthday as birthday2_3_, teacher0_.gender as gender3_3_, teacher0_.name as name4_3_ from teacher teacher0_
+2019-11-11 18:43:11 TRACE BasicExtractor:60 - extracted value ([id1_3_] : [INTEGER]) - [29]
+2019-11-11 18:43:11 TRACE BasicExtractor:60 - extracted value ([birthday2_3_] : [DATE]) - [1978-02-10]
+2019-11-11 18:43:11 TRACE BasicExtractor:60 - extracted value ([gender3_3_] : [VARCHAR]) - [MAN]
+2019-11-11 18:43:11 TRACE BasicExtractor:60 - extracted value ([name4_3_] : [VARCHAR]) - [Лукомксий Дмитрий Сергеевич]
+2019-11-11 18:43:11 TRACE BasicExtractor:60 - extracted value ([id1_3_] : [INTEGER]) - [30]
+2019-11-11 18:43:11 TRACE BasicExtractor:60 - extracted value ([birthday2_3_] : [DATE]) - [1980-06-27]
+2019-11-11 18:43:11 TRACE BasicExtractor:60 - extracted value ([gender3_3_] : [VARCHAR]) - [WOMAN]
+2019-11-11 18:43:11 TRACE BasicExtractor:60 - extracted value ([name4_3_] : [VARCHAR]) - [Амелина Юлия Викторовна]
+2019-11-11 18:43:11 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Teacher.groups#29]
+2019-11-11 18:43:11 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Teacher.groups#30]
+2019-11-11 18:43:19 DEBUG SQL:103 - select teacher0_.id as id1_3_0_, teacher0_.birthday as birthday2_3_0_, teacher0_.gender as gender3_3_0_, teacher0_.name as name4_3_0_ from teacher teacher0_ where teacher0_.id=?
+2019-11-11 18:43:19 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [29]
+2019-11-11 18:43:19 TRACE BasicExtractor:60 - extracted value ([birthday2_3_0_] : [DATE]) - [1978-02-10]
+2019-11-11 18:43:19 TRACE BasicExtractor:60 - extracted value ([gender3_3_0_] : [VARCHAR]) - [MAN]
+2019-11-11 18:43:19 TRACE BasicExtractor:60 - extracted value ([name4_3_0_] : [VARCHAR]) - [Лукомксий Дмитрий Сергеевич]
+2019-11-11 18:43:19 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Teacher.groups#29]
+2019-11-11 18:43:19 DEBUG SQL:103 - select groups0_.teacher_id as teacher_2_1_0_, groups0_.group_id as group_id1_1_0_, group1_.id as id1_0_1_, group1_.number as number2_0_1_ from group_teacher groups0_ inner join `group` group1_ on groups0_.group_id=group1_.id where groups0_.teacher_id=?
+2019-11-11 18:43:19 TRACE BasicBinder:64 - binding parameter [1] as [INTEGER] - [29]
+2019-11-11 18:43:19 TRACE BasicExtractor:60 - extracted value ([id1_0_1_] : [INTEGER]) - [52]
+2019-11-11 18:43:19 TRACE BasicExtractor:60 - extracted value ([number2_0_1_] : [INTEGER]) - [421]
+2019-11-11 18:43:19 TRACE BasicExtractor:60 - extracted value ([teacher_2_1_0_] : [INTEGER]) - [29]
+2019-11-11 18:43:19 TRACE BasicExtractor:60 - extracted value ([group_id1_1_0_] : [INTEGER]) - [52]
+2019-11-11 18:43:19 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.students#52]
+2019-11-11 18:43:19 TRACE CollectionType:817 - Created collection wrapper: [objectForStrokeBase.Group.teachers#52]

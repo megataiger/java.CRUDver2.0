@@ -26,7 +26,6 @@ public class Student {
     private Group group;
 
     public Student() {
-
     }
 
     public Student(String nameStudent, LocalDate birthday, Gender gender, Group group) {
