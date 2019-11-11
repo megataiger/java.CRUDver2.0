@@ -25,6 +25,10 @@ public class Student {
     @JoinColumn(name = "group_id")
     private Group group;
 
+    public Student() {
+
+    }
+
     public Student(String nameStudent, LocalDate birthday, Gender gender, Group group) {
         name = nameStudent;
         date = birthday;

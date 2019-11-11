@@ -16,7 +16,6 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     public Teacher findById(int id) {
         EntityManager entityManager = factory.createEntityManager();
         Teacher teacher = entityManager.find(Teacher.class, id);
-        entityManager.close();
         return teacher;
     }
 
@@ -31,7 +30,6 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     public List<Teacher> getAll() {
         EntityManager entityManager = factory.createEntityManager();
         List<Teacher> teachers = entityManager.createQuery("From Teacher").getResultList();
-        entityManager.close();
         return teachers;
     }
 

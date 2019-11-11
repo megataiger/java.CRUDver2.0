@@ -1,8 +1,5 @@
 package objectForStrokeBase;
 
-import workWithBase.daoClasses.GroupDAO;
-import workWithBase.daoClasses.TeacherDAO;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -117,13 +114,5 @@ public class Teacher {
 
     public void removeAllGroups() {
         groups = null;
-    }
-
-
-    public static void main(String[] args) {
-        Teacher teacher = new TeacherDAO().findById(27);
-        teacher.removeAllGroups();
-        TeacherDAO tc = new TeacherDAO();
-        tc.delete(teacher);
     }
 }

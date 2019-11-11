@@ -15,7 +15,6 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
     public Student findById(int id) {
         EntityManager entityManager = factory.createEntityManager();
         Student stud = entityManager.find(Student.class, id);
-        entityManager.close();
         return stud;
     }
     public void save(Student student) {

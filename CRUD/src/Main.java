@@ -1,7 +1,16 @@
+/**
+ * @author Nemolyaev Ilya Vladislavovich
+ * @version 4.0
+ * This project can work with SQL data base
+ * "student-group-teacher". You can make
+ * all CRUD-operations with this.
+ */
+
 import objectForStrokeBase.Gender;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 import objectForStrokeBase.Teacher;
+import workWithBase.connectWithBase.FactoryForDAO;
 import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.StudentDAO;
 import workWithBase.daoClasses.TeacherDAO;
@@ -13,13 +22,17 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * Main class output in console
+ * main menu, where you can work with base
+ */
 public class Main {
 
     private static boolean exit = true;
     private static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
+        FactoryForDAO startConnect = new FactoryForDAO();
         while (exit) {
             System.out.println("\nMAIN MENU\n" +
                     "Выберите номер таблицы, с которой хотите работать" +
@@ -57,6 +70,10 @@ public class Main {
         }
     }
 
+    /**
+     * Algorithm for work with CRUD-operations
+     * table "student".
+     */
     private static void studentWork() {
         boolean back = true;
         while (back) {
@@ -420,6 +437,10 @@ public class Main {
         }
     }
 
+    /**
+     * Algorithm for work with CRUD-operations
+     * table "teacher"
+     */
     private static void teacherWork() {
         boolean back = true;
         while (back) {
@@ -875,6 +896,10 @@ public class Main {
         }
     }
 
+    /**
+     * Algorithm for work with CRUD-operations
+     * table "group"
+     */
     private static void groupWork() {
         boolean back = true;
         while (back) {

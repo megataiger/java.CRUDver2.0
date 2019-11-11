@@ -90,14 +90,4 @@ public class Group {
             return false;
         }
     }
-
-    public static void main(String[] args) {
-        GroupDAO tc = new GroupDAO();
-        Group group = tc.selectGroupByNumber(441);
-        TeacherDAO teachD = new TeacherDAO();
-        Teacher teach = teachD.findById(30);
-        group.removeTeacher(teach);
-        tc.update(group);
-
-    }
 }
