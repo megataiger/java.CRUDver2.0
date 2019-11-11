@@ -130,18 +130,13 @@ public class Main {
                                     break;
                                 }
                                 case 3: {
-                                    System.out.println("Введите дату рождения студента " +
-                                            "через пробел DD MM YYYY");
-                                    try {
-                                        int day = in.nextInt();
-                                        int month = in.nextInt();
-                                        int year = in.nextInt();
-                                        in.nextLine();
+                                        LocalDate birthday = null;
+                                        while (birthday == null) {
+                                            birthday = checkCorrectDate();
+                                        }
 
                                         List<Student> students =
-                                                new StudentDAO().findByDate(
-                                                        LocalDate.of(year, month, day)
-                                                );
+                                                new StudentDAO().findByDate(birthday);
                                         if (students.size() > 0) {
                                             for (Student e : students) {
                                                 System.out.println(e);
@@ -149,40 +144,24 @@ public class Main {
                                         } else {
                                             System.out.println("Нет записей");
                                         }
-                                    } catch (InputMismatchException e) {
-                                        System.out.println("Некорректный ввод");
-                                        in.nextLine();
-                                    } catch (DateTimeException e) {
-                                        System.out.println("Неккоректный ввод");
-                                        in.nextLine();
-                                    }
                                     break;
                                 }
                                 case 4: {
-                                    System.out.println("Введите номер группы");
+                                    Group group = null;
+                                    while (group == null) {
+                                        group = checkGroup();
+                                    }
 
-                                    try {
-                                        int numberGroup = in.nextInt();
-                                        in.nextLine();
-                                        Group group =
-                                                new GroupDAO().selectGroupByNumber(numberGroup);
+                                    StudentDAO studentBase = new StudentDAO();
 
-                                        StudentDAO studentBase = new StudentDAO();
-
-                                        List<Student> students =
-                                                studentBase.findByGroup(group);
-                                        if (students.size() > 0) {
-                                            for (Student e : students) {
-                                                System.out.println(e);
-                                            }
-                                        } else {
-                                            System.out.println("Нет записей");
+                                    List<Student> students =
+                                            studentBase.findByGroup(group);
+                                    if (students.size() > 0) {
+                                        for (Student e : students) {
+                                            System.out.println(e);
                                         }
-                                    } catch (InputMismatchException e) {
-                                        System.out.println("Неккоректный ввод");
-                                        in.nextLine();
-                                    } catch (PersistenceException e) {
-                                        System.out.println("Возможно вы ввели неверный номер группы");
+                                    } else {
+                                        System.out.println("Нет записей");
                                     }
                                     break;
                                 }
@@ -218,37 +197,27 @@ public class Main {
                             System.out.println("Ф.И.О.");
                             String name = in.nextLine();
 
-                            System.out.println("Дату рождения через пробел DD MM YYYY");
-                            int day = in.nextInt();
-                            int month = in.nextInt();
-                            int year = in.nextInt();
-                            in.nextLine();
-                            LocalDate date = LocalDate.of(year, month, day);
-
-                            System.out.println("Пол MAN/WOMAN");
-                            String gender = in.nextLine();
-                            Gender male;
-                            if (Gender.MAN.toString().equals(gender)) {
-                                male = Gender.MAN;
-                            } else {
-                                male = Gender.WOMAN;
+                            LocalDate date = null;
+                            while (date == null) {
+                                date = checkCorrectDate();
                             }
 
-                            System.out.println("Введите номер группы");
-                            int numberGroup = in.nextInt();
-                            in.nextLine();
+                            Gender gender = null;
+                            while (gender == null) {
+                                gender = checkCorrectGender();
+                            }
 
-                            Group group =
-                                    new GroupDAO().selectGroupByNumber(numberGroup);
+                            Group group = null;
+                            while (group == null) {
+                                group = checkGroup();
+                            }
 
                             Student student = new Student(name,
-                                    date, male, group);
+                                    date, gender, group);
 
                             StudentDAO studentBase = new StudentDAO();
 
                             studentBase.save(student);
-                        } catch (InputMismatchException | DateTimeException e) {
-                            System.out.println("Некорректный ввод");
                         } catch (PersistenceException e) {
                             System.out.println("Группы с данным номером не существует");
                         }
@@ -295,12 +264,10 @@ public class Main {
                                         Student student =
                                                 new StudentDAO().findById(id);
 
-                                        System.out.println("Новая дата рождения DD MM YYYY");
-                                        int day = in.nextInt();
-                                        int month = in.nextInt();
-                                        int year = in.nextInt();
-                                        in.nextLine();
-                                        LocalDate date = LocalDate.of(year, month, day);
+                                        LocalDate date = null;
+                                        while (date == null) {
+                                            date = checkCorrectDate();
+                                        }
 
                                         student.setBirthdayStudent(date);
 
@@ -313,8 +280,6 @@ public class Main {
                                     } catch (InputMismatchException e) {
                                         System.out.println("Некорректный ввод");
                                         in.nextLine();
-                                    } catch (DateTimeException e) {
-                                        System.out.println("Некорректный ввод");
                                     }
                                     break;
                                 }
@@ -324,18 +289,14 @@ public class Main {
                                         int id = in.nextInt();
                                         in.nextLine();
 
-                                        System.out.println("Пол MAN/WOMAN");
-                                        String gender = in.nextLine();
                                         Student student =
                                                 new StudentDAO().findById(id);
-                                        Gender male;
-                                        if (Gender.MAN.toString().equals(gender)) {
-                                            male = Gender.MAN;
-                                        } else {
-                                            male = Gender.WOMAN;
+                                        Gender gender = null;
+                                        while (gender == null) {
+                                            gender = checkCorrectGender();
                                         }
 
-                                        student.setGenderStudent(male);
+                                        student.setGenderStudent(gender);
 
                                         StudentDAO studentBase = new StudentDAO();
 
@@ -358,12 +319,10 @@ public class Main {
                                         Student student =
                                                 new StudentDAO().findById(id);
 
-                                        System.out.println("Новый номер группы");
-                                        int number = in.nextInt();
-                                        in.nextLine();
-
-                                        Group group =
-                                                new GroupDAO().selectGroupByNumber(number);
+                                        Group group = null;
+                                        while (group == null) {
+                                            group = checkGroup();
+                                        }
 
                                         student.setGroupStudent(group);
 
@@ -501,15 +460,14 @@ public class Main {
                                     System.out.println("Введите дату рождения " +
                                             "преподавателя через пробел DD MM YYYY");
 
-                                    try {
-                                        int day = in.nextInt();
-                                        int month = in.nextInt();
-                                        int year = in.nextInt();
-                                        in.nextLine();
+                                        LocalDate birthday = null;
+                                        while (birthday == null) {
+                                            birthday = checkCorrectDate();
+                                        }
 
                                         List<Teacher> teachers =
                                                 new TeacherDAO().findByDate(
-                                                        LocalDate.of(year, month, day)
+                                                        birthday
                                                 );
 
                                         if(teachers.size() > 0) {
@@ -519,10 +477,6 @@ public class Main {
                                         } else {
                                             System.out.println("Нет записей");
                                         }
-                                    } catch (InputMismatchException e) {
-                                        System.out.println("Некорректный ввод");
-                                        in.nextLine();
-                                    }
                                     break;
                                 }
                                 case 4: {
@@ -552,39 +506,25 @@ public class Main {
                     }
                     case 2: {
                         System.out.println("Введите данные о преподавателе");
+                        System.out.println("Ф.И.О.");
+                        String name = in.nextLine();
 
-                        try {
-                            System.out.println("Ф.И.О.");
-                            String name = in.nextLine();
-
-                            System.out.println("Дату рождения через пробел DD MM YYYY");
-                            int day = in.nextInt();
-                            int month = in.nextInt();
-                            int year = in.nextInt();
-                            in.nextLine();
-                            LocalDate date = LocalDate.of(year, month, day);
-
-                            System.out.println("Пол MAN/WOMAN");
-                            String gender = in.nextLine();
-                            Gender male;
-                            if (Gender.MAN.toString().equals(gender)) {
-                                male = Gender.MAN;
-                            } else {
-                                male = Gender.WOMAN;
-                            }
-
-                            Teacher teacher = new Teacher(name,
-                                    date, male);
-
-                            TeacherDAO teacherBase = new TeacherDAO();
-
-                            teacherBase.save(teacher);
-                        } catch (InputMismatchException e) {
-                            System.out.println("Некорректный ввод");
-                            in.nextLine();
-                        } catch (DateTimeException e) {
-                            System.out.println("Некорректный ввод");
+                        LocalDate date = null;
+                        while (date == null) {
+                            date = checkCorrectDate();
                         }
+
+                        Gender gender = null;
+                        while (gender == null) {
+                            gender = checkCorrectGender();
+                        }
+
+                        Teacher teacher = new Teacher(name,
+                                date, gender);
+
+                        TeacherDAO teacherBase = new TeacherDAO();
+
+                        teacherBase.save(teacher);
                         break;
                     }
                     case 3: {
@@ -629,12 +569,10 @@ public class Main {
                                         Teacher teacher =
                                                 new TeacherDAO().findById(id);
 
-                                        System.out.println("Новая дата рождения DD MM YYYY");
-                                        int day = in.nextInt();
-                                        int month = in.nextInt();
-                                        int year = in.nextInt();
-                                        in.nextLine();
-                                        LocalDate date = LocalDate.of(year, month, day);
+                                        LocalDate date = null;
+                                        while (date == null) {
+                                            date = checkCorrectDate();
+                                        }
 
                                         teacher.setBirthdayTeacher(date);
 
@@ -647,8 +585,6 @@ public class Main {
                                     } catch (PersistenceException e) {
                                         System.out.println("Преподавателя " +
                                                 "с данным ID не существует");
-                                    } catch (DateTimeException e) {
-                                        System.out.println("Некорректный ввод");
                                     }
                                     break;
                                 }
@@ -661,17 +597,12 @@ public class Main {
                                         Teacher teacher =
                                                 new TeacherDAO().findById(id);
 
-                                        System.out.println("Пол MAN/WOMAN");
-                                        String gender = in.nextLine();
-
-                                        Gender male;
-                                        if (Gender.MAN.toString().equals(gender)) {
-                                            male = Gender.MAN;
-                                        } else {
-                                            male = Gender.WOMAN;
+                                        Gender gender = null;
+                                        while (gender == null) {
+                                            gender = checkCorrectGender();
                                         }
 
-                                        teacher.setGenderTeacher(male);
+                                        teacher.setGenderTeacher(gender);
 
                                         TeacherDAO teacherBase = new TeacherDAO();
 
@@ -1206,6 +1137,58 @@ public class Main {
                 System.out.println("Некорректный ввод");
                 in.nextLine();
             }
+        }
+    }
+
+    private static LocalDate checkCorrectDate() {
+            LocalDate date = null;
+            System.out.println("Введите дату рождения студента " +
+                    "через пробел DD MM YYYY");
+            try {
+                int day = in.nextInt();
+                int month = in.nextInt();
+                int year = in.nextInt();
+                in.nextLine();
+                date = LocalDate.of(year, month, day);
+            } catch (InputMismatchException | DateTimeException e) {
+                in.nextLine();
+                System.out.println("Некорректный ввод");
+            } finally {
+                return date;
+        }
+    }
+
+    private static Gender checkCorrectGender() {
+        System.out.println("Пол MAN/WOMAN");
+        String gender = in.nextLine();
+        Gender male;
+        if (Gender.MAN.toString().equals(gender)) {
+            male = Gender.MAN;
+        } else if (Gender.WOMAN.toString().equals(gender)) {
+            male = Gender.WOMAN;
+        } else {
+            male = null;
+            System.out.println("Пожалуйста введите одно из " +
+                    "значений приведённых в образце выше");
+        }
+        return male;
+    }
+
+    private static Group checkGroup() {
+        Group group = null;
+        try {
+            System.out.println("Введите номер группы");
+            int numberGroup = in.nextInt();
+            in.nextLine();
+            group =
+                    new GroupDAO().selectGroupByNumber(numberGroup);
+        } catch (InputMismatchException e) {
+            System.out.println("Некорректный ввод");
+            in.nextLine();
+        } catch (PersistenceException e) {
+            System.out.println("Группы с данным номером не существует");
+        } finally {
+            return group;
         }
     }
 }

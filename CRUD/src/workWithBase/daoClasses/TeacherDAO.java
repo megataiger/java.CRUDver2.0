@@ -1,8 +1,6 @@
 package workWithBase.daoClasses;
 
 import objectForStrokeBase.Teacher;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import workWithBase.connectWithBase.FactoryForDAO;
 import workWithBase.daoInterfaces.TeacherDAOInterface;
 

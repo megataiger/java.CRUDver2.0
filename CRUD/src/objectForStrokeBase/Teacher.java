@@ -100,6 +100,12 @@ public class Teacher {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == null) {
+            return false;
+        }
+        if (obj == null) {
+            return false;
+        }
         Teacher teacher = (Teacher) obj;
         if(id == teacher.id) {
             return true;

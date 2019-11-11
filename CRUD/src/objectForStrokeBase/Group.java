@@ -1,10 +1,6 @@
 package objectForStrokeBase;
 
-import workWithBase.daoClasses.GroupDAO;
-import workWithBase.daoClasses.TeacherDAO;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +79,12 @@ public class Group {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == null) {
+            return false;
+        }
+        if (obj == null) {
+            return false;
+        }
         Group group = (Group) obj;
         if(id == group.id) {
             return true;
