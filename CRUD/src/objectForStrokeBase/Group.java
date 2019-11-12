@@ -3,6 +3,7 @@ package objectForStrokeBase;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table (name = "`group`")
@@ -78,18 +79,18 @@ public class Group {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == null) {
-            return false;
-        }
-        if (obj == null) {
-            return false;
-        }
-        Group group = (Group) obj;
-        if(id == group.id) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return id == group.id &&
+                number == group.number &&
+                students.equals(group.students) &&
+                teachers.equals(group.teachers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, number, students, teachers);
     }
 }

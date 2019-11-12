@@ -2,6 +2,7 @@ package objectForStrokeBase;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table (name = "student")
@@ -86,13 +87,20 @@ public class Student {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        Student student = (Student) obj;
-        if (id == student.id) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id &&
+                name.equals(student.name) &&
+                date.equals(student.date) &&
+                gender == student.gender &&
+                group.equals(student.group);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, date, gender, group);
     }
 }
 
