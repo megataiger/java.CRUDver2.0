@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -98,27 +99,28 @@ public class Teacher {
         groups.add(group);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == null) {
-            return false;
-        }
-        if (obj == null) {
-            return false;
-        }
-        Teacher teacher = (Teacher) obj;
-        if(id == teacher.id) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public void removeGroup(Group group) {
         groups.remove(group);
     }
 
     public void removeAllGroups() {
         groups = null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Teacher teacher = (Teacher) o;
+        return id == teacher.id &&
+                name.equals(teacher.name) &&
+                date.equals(teacher.date) &&
+                gender == teacher.gender &&
+                groups.equals(teacher.groups);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, date, gender, groups);
     }
 }
