@@ -23,6 +23,7 @@ public class GroupMenu {
     }
 
     public void groupWork() {
+        GroupDAO groupDAO = new GroupDAO();
         boolean back = true;
         while (back) {
             System.out.println("\nGROUPS\n" +
@@ -35,23 +36,23 @@ public class GroupMenu {
                 in.nextLine();
                 switch (operation) {
                     case 1: {
-                        selectGroup();
+                        selectGroup(groupDAO);
                         break;
                     }
                     case 2: {
-                        insertGroup();
+                        insertGroup(groupDAO);
                         break;
                     }
                     case 3: {
-                        updateGroup();
+                        updateGroup(groupDAO);
                         break;
                     }
                     case 4: {
-                        deleteGroup();
+                        deleteGroup(groupDAO);
                         break;
                     }
                     case 5: {
-                        workWithTeachersOfGroup();
+                        workWithTeachersOfGroup(groupDAO);
                         break;
                     }
                     case 0: {
@@ -66,7 +67,7 @@ public class GroupMenu {
         }
     }
 
-    public void selectGroup() {
+    public void selectGroup(GroupDAO groupDAO) {
         System.out.println("Выберите критерий поиска" +
                 "\n1 - ID \t 2 - Номер группы \t 3 - Все");
         try {
@@ -80,7 +81,7 @@ public class GroupMenu {
                         int id = in.nextInt();
                         in.nextLine();
 
-                        Group group = new GroupDAO().findById(id);
+                        Group group = groupDAO.findById(id);
 
                         System.out.println(group);
                     } catch (InputMismatchException e) {
@@ -99,7 +100,7 @@ public class GroupMenu {
                         in.nextLine();
 
                         Group group =
-                                new GroupDAO().selectGroupByNumber(number);
+                                groupDAO.selectGroupByNumber(number);
 
                         System.out.println(group);
                     } catch (InputMismatchException e) {
@@ -111,9 +112,7 @@ public class GroupMenu {
                     break;
                 }
                 case 3: {
-                    GroupDAO groupBase = new GroupDAO();
-
-                    List<Group> groups = groupBase.getAll();
+                    List<Group> groups = groupDAO.getAll();
 
                     if(groups.size() > 0) {
                         for (Group e : groups) {
@@ -131,7 +130,7 @@ public class GroupMenu {
         }
     }
 
-    public void insertGroup() {
+    public void insertGroup(GroupDAO groupDAO) {
         System.out.println("Введите номер группы");
         try {
             int number = in.nextInt();
@@ -139,23 +138,21 @@ public class GroupMenu {
 
             Group group = new Group(number);
 
-            GroupDAO groupBase = new GroupDAO();
-
-            groupBase.save(group);
+            groupDAO.save(group);
         } catch (InputMismatchException e) {
             System.out.println("Некорректный ввод");
             in.nextLine();
         }
     }
 
-    public void updateGroup() {
+    public void updateGroup(GroupDAO groupDAO) {
         System.out.println("Введите номер группы");
         try {
             int number = in.nextInt();
             in.nextLine();
 
             Group group =
-                    new GroupDAO().selectGroupByNumber(number);
+                    groupDAO.selectGroupByNumber(number);
 
             System.out.println("Новый номер группы");
             int newNumber = in.nextInt();
@@ -163,9 +160,7 @@ public class GroupMenu {
 
             group.set(newNumber);
 
-            GroupDAO groupBase = new GroupDAO();
-
-            groupBase.update(group);
+            groupDAO.update(group);
         } catch (InputMismatchException e) {
             System.out.println("Некорректный ввод");
             in.nextLine();
@@ -174,22 +169,21 @@ public class GroupMenu {
         }
     }
 
-    public void deleteGroup() {
+    public void deleteGroup(GroupDAO groupDAO) {
         System.out.println("Введите номер группы");
         try {
             int number = in.nextInt();
             in.nextLine();
 
             Group group =
-                    new GroupDAO().selectGroupByNumber(number);
+                    groupDAO.selectGroupByNumber(number);
 
             System.out.println("Вы уверены, что хотите удалить запись " +
                     "об этой группе\n Y/N");
             String answer = in.nextLine();
             switch (answer) {
                 case "Y": {
-                    GroupDAO groupBase = new GroupDAO();
-                    groupBase.delete(group);
+                    groupDAO.delete(group);
                     break;
                 }
                 case "N": {
@@ -204,7 +198,7 @@ public class GroupMenu {
         }
     }
 
-    public void workWithTeachersOfGroup() {
+    public void workWithTeachersOfGroup(GroupDAO groupDAO) {
         boolean backMenuTeacherGroup = true;
         while (backMenuTeacherGroup) {
             System.out.println("\nTEACHERS OF GROUPS\n" +
@@ -224,7 +218,7 @@ public class GroupMenu {
                             in.nextLine();
 
                             Group group =
-                                    new GroupDAO().selectGroupByNumber(number);
+                                    groupDAO.selectGroupByNumber(number);
 
                             List<Teacher> teachers =
                                     group.getTeachers();
@@ -250,7 +244,7 @@ public class GroupMenu {
                             in.nextLine();
 
                             Group group =
-                                    new GroupDAO().selectGroupByNumber(number);
+                                    groupDAO.selectGroupByNumber(number);
 
                             System.out.println("Введите ID реподавателя," +
                                     " которого вы хотите присвоить" +
@@ -260,9 +254,7 @@ public class GroupMenu {
                             Teacher teacher = new TeacherDAO().findById(id);
                             group.addTeacher(teacher);
 
-                            GroupDAO groupBase = new GroupDAO();
-
-                            groupBase.update(group);
+                            groupDAO.update(group);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
                             in.nextLine();
@@ -280,7 +272,7 @@ public class GroupMenu {
                             in.nextLine();
 
                             Group group =
-                                    new GroupDAO().selectGroupByNumber(number);
+                                    groupDAO.selectGroupByNumber(number);
 
                             System.out.println("Введите ID преподавателя," +
                                     " которого вы хотите заменить" +
@@ -296,9 +288,7 @@ public class GroupMenu {
 
                             group.setTeacher(oldTeacher, newTeacher);
 
-                            GroupDAO groupBase = new GroupDAO();
-
-                            groupBase.update(group);
+                            groupDAO.update(group);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
                             in.nextLine();
@@ -315,7 +305,7 @@ public class GroupMenu {
                             in.nextLine();
 
                             Group group =
-                                    new GroupDAO().selectGroupByNumber(number);
+                                    groupDAO.selectGroupByNumber(number);
 
                             System.out.println("Введите ID преподавателя," +
                                     " которого вы хотите удалить" +
@@ -325,9 +315,7 @@ public class GroupMenu {
                             Teacher teacher = new TeacherDAO().findById(idTeacher);
                             group.removeTeacher(teacher);
 
-                            GroupDAO groupBase = new GroupDAO();
-
-                            groupBase.update(group);
+                            groupDAO.update(group);
                         } catch (InputMismatchException e) {
                             System.out.println("Некорректный ввод");
                             in.nextLine();
@@ -339,6 +327,7 @@ public class GroupMenu {
                     }
                     case 0: {
                         backMenuTeacherGroup = false;
+                        groupDAO.close();
                         break;
                     } default : {
                         break;
