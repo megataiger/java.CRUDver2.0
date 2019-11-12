@@ -54,7 +54,6 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
         Query query = entityManager.createQuery("update Student set group_id = null where group_id = :id");
         query.setParameter("id", group.getId());
         query.executeUpdate();
-        group = entityManager.merge(group);
         entityManager.remove(group);
         entityManager.getTransaction().commit();
     }

@@ -57,6 +57,7 @@ public class GroupMenu {
                     }
                     case 0: {
                         back = false;
+                        groupDAO.close();
                         break;
                     }
                 }
@@ -327,7 +328,6 @@ public class GroupMenu {
                     }
                     case 0: {
                         backMenuTeacherGroup = false;
-                        groupDAO.close();
                         break;
                     } default : {
                         break;

@@ -37,7 +37,6 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
 
     public void delete(Teacher teacher) {
         entityManager.getTransaction().begin();
-        teacher = entityManager.merge(teacher);
         entityManager.remove(teacher);
         entityManager.getTransaction().commit();
     }

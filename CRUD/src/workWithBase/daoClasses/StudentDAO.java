@@ -39,8 +39,6 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
 
     public void delete(Student student) {
         entityManager.getTransaction().begin();
-        student = entityManager.merge(student);
-        System.out.println(student);
         entityManager.remove(student);
         entityManager.getTransaction().commit();
     }
