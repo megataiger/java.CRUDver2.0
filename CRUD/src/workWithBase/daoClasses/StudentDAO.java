@@ -15,8 +15,7 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
     private EntityManager entityManager = factory.createEntityManager();
 
     public Student findById(int id) {
-        Student stud = entityManager.find(Student.class, id);
-        return stud;
+        return entityManager.find(Student.class, id);
     }
     public void save(Student student) {
         entityManager.getTransaction().begin();
@@ -24,10 +23,9 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
         entityManager.getTransaction().commit();
     }
 
-    public List<Student> getAll() {
-        List<Student> students = entityManager.createQuery("From Student")
+    public List getAll() {
+        return entityManager.createQuery("From Student")
                 .getResultList();
-        return students;
 
     }
 
@@ -43,29 +41,26 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
         entityManager.getTransaction().commit();
     }
 
-    public List<Student> findByName (String name) {
+    public List findByName (String name) {
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Student where lower(name) like :name");
         String param = "%" + name + "%";
         query.setParameter("name", param);
-        List<Student> students = query.getResultList();
-        return students;
+        return query.getResultList();
     }
 
-    public List<Student> findByDate (LocalDate date) {
+    public List findByDate (LocalDate date) {
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Student where lower(birthday) like :date");
         String param = "%" + date + "%";
         query.setParameter("date", param);
-        List<Student> students = query.getResultList();
-        return students;
+        return query.getResultList();
     }
 
-    public List<Student> findByGroup (Group group) {
+    public List findByGroup (Group group) {
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Student where group_id = :id");
         query.setParameter("id", group.getId());
-        List<Student> students = query.getResultList();
-        return students;
+        return query.getResultList();
     }
 }

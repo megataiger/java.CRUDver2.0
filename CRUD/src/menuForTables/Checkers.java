@@ -10,14 +10,14 @@ import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Checkers {
+class Checkers {
     private Scanner in;
 
-    public Checkers (Scanner in) {
+    Checkers (Scanner in) {
         this.in = in;
     }
 
-    public LocalDate checkCorrectDate() {
+    LocalDate checkCorrectDate() {
         LocalDate date = null;
         System.out.println("Введите дату рождения студента " +
                 "через пробел DD MM YYYY");
@@ -30,12 +30,11 @@ public class Checkers {
         } catch (InputMismatchException | DateTimeException e) {
             in.nextLine();
             System.out.println("Некорректный ввод");
-        } finally {
-            return date;
         }
+        return date;
     }
 
-    public Gender checkCorrectGender() {
+    Gender checkCorrectGender() {
         System.out.println("Пол MAN/WOMAN");
         String gender = in.nextLine();
         Gender male;
@@ -51,7 +50,7 @@ public class Checkers {
         return male;
     }
 
-    public Group checkGroup() {
+    Group checkGroup() {
         Group group = null;
         try {
             System.out.println("Введите номер группы");
@@ -64,8 +63,7 @@ public class Checkers {
             in.nextLine();
         } catch (PersistenceException e) {
             System.out.println("Группы с данным номером не существует");
-        } finally {
-            return group;
         }
+        return group;
     }
 }

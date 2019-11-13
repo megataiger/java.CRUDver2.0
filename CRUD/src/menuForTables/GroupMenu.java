@@ -17,13 +17,13 @@ import java.util.Scanner;
 
 public class GroupMenu {
     private Scanner in;
+    private GroupDAO groupDAO = new GroupDAO();
 
     public GroupMenu(Scanner in) {
         this.in = in;
     }
 
     public void groupWork() {
-        GroupDAO groupDAO = new GroupDAO();
         boolean back = true;
         while (back) {
             System.out.println("\nGROUPS\n" +
@@ -36,23 +36,23 @@ public class GroupMenu {
                 in.nextLine();
                 switch (operation) {
                     case 1: {
-                        selectGroup(groupDAO);
+                        selectGroup();
                         break;
                     }
                     case 2: {
-                        insertGroup(groupDAO);
+                        insertGroup();
                         break;
                     }
                     case 3: {
-                        updateGroup(groupDAO);
+                        updateGroup();
                         break;
                     }
                     case 4: {
-                        deleteGroup(groupDAO);
+                        deleteGroup();
                         break;
                     }
                     case 5: {
-                        workWithTeachersOfGroup(groupDAO);
+                        workWithTeachersOfGroup();
                         break;
                     }
                     case 0: {
@@ -68,7 +68,7 @@ public class GroupMenu {
         }
     }
 
-    public void selectGroup(GroupDAO groupDAO) {
+    private void selectGroup() {
         System.out.println("Выберите критерий поиска" +
                 "\n1 - ID \t 2 - Номер группы \t 3 - Все");
         try {
@@ -113,10 +113,10 @@ public class GroupMenu {
                     break;
                 }
                 case 3: {
-                    List<Group> groups = groupDAO.getAll();
+                    List groups = groupDAO.getAll();
 
                     if(groups.size() > 0) {
-                        for (Group e : groups) {
+                        for (Object e : groups) {
                             System.out.println(e);
                         }
                     } else {
@@ -131,7 +131,7 @@ public class GroupMenu {
         }
     }
 
-    public void insertGroup(GroupDAO groupDAO) {
+    private void insertGroup() {
         System.out.println("Введите номер группы");
         try {
             int number = in.nextInt();
@@ -146,7 +146,7 @@ public class GroupMenu {
         }
     }
 
-    public void updateGroup(GroupDAO groupDAO) {
+    private void updateGroup() {
         System.out.println("Введите номер группы");
         try {
             int number = in.nextInt();
@@ -170,7 +170,7 @@ public class GroupMenu {
         }
     }
 
-    public void deleteGroup(GroupDAO groupDAO) {
+    private void deleteGroup() {
         System.out.println("Введите номер группы");
         try {
             int number = in.nextInt();
@@ -180,8 +180,8 @@ public class GroupMenu {
                     groupDAO.selectGroupByNumber(number);
 
             System.out.println("Вы уверены, что хотите удалить запись " +
-                    "об этой группе\n Y/N");
-            String answer = in.nextLine();
+                    "об этой группе\n Y/N?");
+            String answer = in.nextLine().toUpperCase();
             switch (answer) {
                 case "Y": {
                     groupDAO.delete(group);
@@ -189,6 +189,8 @@ public class GroupMenu {
                 }
                 case "N": {
                     break;
+                } default : {
+                    System.out.println("Вы ввели неверный ответ");
                 }
             }
         } catch (InputMismatchException e) {
@@ -199,7 +201,7 @@ public class GroupMenu {
         }
     }
 
-    public void workWithTeachersOfGroup(GroupDAO groupDAO) {
+    private void workWithTeachersOfGroup() {
         boolean backMenuTeacherGroup = true;
         while (backMenuTeacherGroup) {
             System.out.println("\nTEACHERS OF GROUPS\n" +

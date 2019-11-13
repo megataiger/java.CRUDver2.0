@@ -1,9 +1,6 @@
 package workWithBase.daoInterfaces;
 
 import objectForStrokeBase.Group;
-import objectForStrokeBase.Teacher;
-
-import java.sql.SQLException;
 import java.util.List;
 
 public interface GroapDAOInterface {
@@ -11,7 +8,7 @@ public interface GroapDAOInterface {
 
     Group selectGroupByNumber(int numberGroup);
 
-    List<Group> getAll();
+    List getAll();
 
     void save(Group group);
 

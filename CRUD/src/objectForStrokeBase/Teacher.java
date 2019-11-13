@@ -29,7 +29,7 @@ public class Teacher {
             joinColumns = {@JoinColumn(name = "teacher_id")},
             inverseJoinColumns = {@JoinColumn(name = "group_id")}
             )
-    List<Group> groups = new ArrayList<>();
+    private List<Group> groups = new ArrayList<>();
 
 
 
@@ -101,10 +101,6 @@ public class Teacher {
 
     public void removeGroup(Group group) {
         groups.remove(group);
-    }
-
-    public void removeAllGroups() {
-        groups = null;
     }
 
     @Override

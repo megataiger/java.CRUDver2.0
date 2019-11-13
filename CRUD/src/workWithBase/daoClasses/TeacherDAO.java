@@ -14,8 +14,7 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     private EntityManager entityManager = factory.createEntityManager();
 
     public Teacher findById(int id) {
-        Teacher teacher = entityManager.find(Teacher.class, id);
-        return teacher;
+        return entityManager.find(Teacher.class, id);
     }
 
     public void save(Teacher teacher) {
@@ -24,9 +23,8 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         entityManager.getTransaction().commit();
     }
 
-    public List<Teacher> getAll() {
-        List<Teacher> teachers = entityManager.createQuery("From Teacher").getResultList();
-        return teachers;
+    public List getAll() {
+        return entityManager.createQuery("From Teacher").getResultList();
     }
 
     public void update(Teacher teacher) {
@@ -41,21 +39,19 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         entityManager.getTransaction().commit();
     }
 
-    public List<Teacher> findByName (String name) {
+    public List findByName (String name) {
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Teacher where lower(name) like :name");
         String param = "%" + name + "%";
         query.setParameter("name", param);
-        List<Teacher> teachers = query.getResultList();
-        return teachers;
+        return query.getResultList();
     }
 
-    public List<Teacher> findByDate (LocalDate date) {
+    public List findByDate (LocalDate date) {
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Teacher where lower(birthday) like :date");
         String param = "%" + date + "%";
         query.setParameter("date", param);
-        List<Teacher> teachers = query.getResultList();
-        return teachers;
+        return query.getResultList();
     }
 }

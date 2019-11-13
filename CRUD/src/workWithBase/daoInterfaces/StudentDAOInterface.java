@@ -2,21 +2,19 @@ package workWithBase.daoInterfaces;
 
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
-
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
 public interface StudentDAOInterface {
     Student findById(int idStudent);
 
-    List<Student> getAll();
+    List getAll();
 
-    List<Student> findByName(String nameStudent);
+    List findByName(String nameStudent);
 
-    List<Student> findByDate(LocalDate birthday);
+    List findByDate(LocalDate birthday);
 
-    List<Student> findByGroup(Group group);
+    List findByGroup(Group group);
 
     void save(Student student);
 

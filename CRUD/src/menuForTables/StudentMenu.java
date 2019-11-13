@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class StudentMenu {
     private Scanner in;
     private Checkers check;
+    private StudentDAO studentDAO = new StudentDAO();
 
     public StudentMenu(Scanner in) {
         this.in = in;
@@ -27,7 +28,6 @@ public class StudentMenu {
 
     public void studentWork() {
         boolean back = true;
-        StudentDAO studentDAO = new StudentDAO();
         while (back) {
             System.out.println("\nSTUDENTS\n" +
                     "Выберите операцию для дальнейшей работы" +
@@ -38,19 +38,19 @@ public class StudentMenu {
                 in.nextLine();
                 switch (operation) {
                     case 1: {
-                        selectStudent(studentDAO);
+                        selectStudent();
                         break;
                     }
                     case 2: {
-                        insertStudent(studentDAO);
+                        insertStudent();
                         break;
                     }
                     case 3: {
-                        updateStudent(studentDAO);
+                        updateStudent();
                         break;
                     }
                     case 4: {
-                        deleteStudent(studentDAO);
+                        deleteStudent();
                         break;
                     }
                     case 0: {
@@ -69,7 +69,7 @@ public class StudentMenu {
         }
     }
 
-    public void selectStudent(StudentDAO studentDAO) {
+    private void selectStudent() {
         System.out.println("Выберите критерий поиска" +
                 "\n1 - ID \t 2 - Ф.И.О. \t 3 - Дата рождения" +
                 "\t 4 - Группа \t 5 - Все");
@@ -100,10 +100,10 @@ public class StudentMenu {
                     System.out.println("Введите Ф.И.О. студента");
                     String nameSearch = in.nextLine();
 
-                    List<Student> students =
+                    List students =
                             studentDAO.findByName(nameSearch);
                     if (students.size() > 0) {
-                        for (Student e : students) {
+                        for (Object e : students) {
                             System.out.println(e);
                         }
                     } else {
@@ -117,10 +117,10 @@ public class StudentMenu {
                         birthday = check.checkCorrectDate();
                     }
 
-                    List<Student> students =
+                    List students =
                             studentDAO.findByDate(birthday);
                     if (students.size() > 0) {
-                        for (Student e : students) {
+                        for (Object e : students) {
                             System.out.println(e);
                         }
                     } else {
@@ -134,10 +134,10 @@ public class StudentMenu {
                         group = check.checkGroup();
                     }
 
-                    List<Student> students =
+                    List students =
                             studentDAO.findByGroup(group);
                     if (students.size() > 0) {
-                        for (Student e : students) {
+                        for (Object e : students) {
                             System.out.println(e);
                         }
                     } else {
@@ -146,10 +146,10 @@ public class StudentMenu {
                     break;
                 }
                 case 5: {
-                    List<Student> students =
+                    List students =
                             studentDAO.getAll();
                     if (students.size() > 0) {
-                        for (Student e : students) {
+                        for (Object e : students) {
                             System.out.println(e);
                         }
                     } else {
@@ -168,7 +168,7 @@ public class StudentMenu {
         }
     }
 
-    public void insertStudent(StudentDAO studentDAO) {
+    private void insertStudent() {
         System.out.println("Введите данные о студенте");
 
         try {
@@ -199,7 +199,7 @@ public class StudentMenu {
         }
     }
 
-    public void updateStudent(StudentDAO studentDAO) {
+    private void updateStudent() {
         System.out.println("Введите номер поля для изменения записи о студенте" +
                 "\n1 - Ф.И.О. \t 2 - Дата рождения \t 3 - Пол \t 4 - Группа" +
                 "\n Введите 0, чтобы вернуться");
@@ -318,7 +318,7 @@ public class StudentMenu {
         }
     }
 
-    public void deleteStudent(StudentDAO studentDAO) {
+    private void deleteStudent() {
         System.out.println("Введите ID студента");
         try {
             int id = in.nextInt();
@@ -327,8 +327,8 @@ public class StudentMenu {
                     studentDAO.findById(id);
 
             System.out.println("Вы уверены, что хотите удалить запись " +
-                    "об этом студенте\n Y/N");
-            String answer = in.nextLine();
+                    "об этом студенте\n Y/N?");
+            String answer = in.nextLine().toUpperCase();
             switch (answer) {
                 case "Y": {
                     studentDAO.delete(student);
@@ -336,6 +336,8 @@ public class StudentMenu {
                 }
                 case "N": {
                     break;
+                } default : {
+                    System.out.println("Вы ввели неверный ответ");
                 }
             }
         } catch (InputMismatchException e) {

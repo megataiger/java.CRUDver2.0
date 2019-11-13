@@ -1,24 +1,21 @@
 package workWithBase.daoInterfaces;
 
-import objectForStrokeBase.Group;
 import objectForStrokeBase.Teacher;
-
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
 public interface TeacherDAOInterface {
-    Teacher findById(int idTeacher) throws SQLException;
+    Teacher findById(int idTeacher);
 
-    List<Teacher> getAll() throws SQLException;
+    List getAll();
 
-    List<Teacher> findByName(String nameTeacher) throws SQLException;
+    List findByName(String nameTeacher);
 
-    List<Teacher> findByDate(LocalDate birthday) throws SQLException;
+    List findByDate(LocalDate birthday);
 
-    void save(Teacher teacher) throws SQLException;
+    void save(Teacher teacher);
 
-    void update(Teacher teacher) throws SQLException;
+    void update(Teacher teacher);
 
-    void delete(Teacher teacher) throws SQLException;
+    void delete(Teacher teacher);
 }

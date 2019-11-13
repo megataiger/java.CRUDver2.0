@@ -1,11 +1,3 @@
-/**
- * @author Nemolyaev Ilya Vladislavovich
- * @version 4.0
- * This project can work with SQL data base
- * "student-group-teacher". You can make
- * all CRUD-operations with this.
- */
-
 import menuForTables.GroupMenu;
 import menuForTables.StudentMenu;
 import menuForTables.TeacherMenu;
@@ -14,9 +6,15 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
+ * @author Nemolyaev Ilya Vladislavovich
+ * @version 4.0
+ * This project can work with SQL data base
+ * "student-group-teacher". You can make
+ * all CRUD-operations with this.
  * Main class output in console
  * main menu, where you can work with base
  */
+
 public class Main {
 
     private static boolean exit = true;
@@ -50,6 +48,7 @@ public class Main {
                     }
                     case 0: {
                         exit = !exit;
+                        startConnect.close();
                         break;
                     }
                     default: {

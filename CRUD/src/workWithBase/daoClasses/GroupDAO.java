@@ -14,13 +14,11 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
     private EntityManager entityManager = factory.createEntityManager();
 
     public Group findById(int id) {
-        Group group = entityManager.find(Group.class, id);
-        return group;
+        return entityManager.find(Group.class, id);
     }
 
-    public List<Group> getAll() {
-        List<Group> groups = entityManager.createQuery("From Group").getResultList();
-        return groups;
+    public List getAll() {
+        return entityManager.createQuery("From Group").getResultList();
     }
 
     public void update(Group group) {
@@ -32,8 +30,7 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
     public Group selectGroupByNumber(int number) {
         Query query = entityManager.createQuery("from Group where number = :number");
         query.setParameter("number", number);
-        Group group = (Group) query.getSingleResult();
-        return group;
+        return (Group) query.getSingleResult();
     }
 
     public void save(Group group) {

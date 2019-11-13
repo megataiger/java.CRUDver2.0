@@ -20,6 +20,7 @@ import java.util.Scanner;
 public class TeacherMenu {
     private Scanner in;
     private Checkers check;
+    private TeacherDAO teacherDAO = new TeacherDAO();
 
     public TeacherMenu(Scanner in) {
         this.in = in;
@@ -28,7 +29,6 @@ public class TeacherMenu {
 
     public void teacherWork() {
         boolean back = true;
-        TeacherDAO teacherDAO = new TeacherDAO();
         while (back) {
             System.out.println("\nTEACHERS\n" +
                     "Выберите операцию для дальнейшей работы" +
@@ -40,23 +40,23 @@ public class TeacherMenu {
                 in.nextLine();
                 switch (operation) {
                     case 1: {
-                        selectTeacher(teacherDAO);
+                        selectTeacher();
                         break;
                     }
                     case 2: {
-                        insertTeacher(teacherDAO);
+                        insertTeacher();
                         break;
                     }
                     case 3: {
-                        updateTeacher(teacherDAO);
+                        updateTeacher();
                         break;
                     }
                     case 4: {
-                        deleteTeacher(teacherDAO);
+                        deleteTeacher();
                         break;
                     }
                     case 5: {
-                        workWithGroupsOfTeacher(teacherDAO);
+                        workWithGroupsOfTeacher();
                         break;
                     }
                     case 0: {
@@ -75,7 +75,7 @@ public class TeacherMenu {
         }
     }
 
-    public void selectTeacher(TeacherDAO teacherDAO) {
+    private void selectTeacher() {
         System.out.println("Выберите критерий поиска" +
                 "\n1 - ID \t 2 - Ф.И.О. \t 3 - Дата рождения" +
                 "\t 4 - Все");
@@ -107,10 +107,10 @@ public class TeacherMenu {
                     System.out.println("Введите Ф.И.О. преподавателя");
                     String nameSearch = in.nextLine();
 
-                    List<Teacher> teachers =
+                    List teachers =
                             teacherDAO.findByName(nameSearch);
                     if(teachers.size() > 0) {
-                        for (Teacher e : teachers) {
+                        for (Object e : teachers) {
                             System.out.println(e);
                         }
                     } else {
@@ -127,13 +127,13 @@ public class TeacherMenu {
                         birthday = check.checkCorrectDate();
                     }
 
-                    List<Teacher> teachers =
+                    List teachers =
                             teacherDAO.findByDate(
                                     birthday
                             );
 
                     if(teachers.size() > 0) {
-                        for (Teacher e : teachers) {
+                        for (Object e : teachers) {
                             System.out.println(e);
                         }
                     } else {
@@ -142,11 +142,11 @@ public class TeacherMenu {
                     break;
                 }
                 case 4: {
-                    List<Teacher> teachers =
+                    List teachers =
                             teacherDAO.getAll();
 
                     if(teachers.size() > 0) {
-                        for (Teacher e : teachers) {
+                        for (Object e : teachers) {
                             System.out.println(e);
                         }
                     } else {
@@ -164,7 +164,7 @@ public class TeacherMenu {
         }
     }
 
-    public void insertTeacher(TeacherDAO teacherDAO) {
+    private void insertTeacher() {
         System.out.println("Введите данные о преподавателе");
         System.out.println("Ф.И.О.");
         String name = in.nextLine();
@@ -185,7 +185,7 @@ public class TeacherMenu {
         teacherDAO.save(teacher);
     }
 
-    public void updateTeacher(TeacherDAO teacherDAO) {
+    private void updateTeacher() {
         System.out.println("Введите номер поля для изменения записи о преподавтеле" +
                 "\n1 - Ф.И.О. \t 2 - Дата рождения \t 3 - Пол" +
                 "\n Введите 0, чтобы вернуться");
@@ -278,7 +278,7 @@ public class TeacherMenu {
         }
     }
 
-    public void deleteTeacher(TeacherDAO teacherDAO) {
+    private void deleteTeacher() {
         System.out.println("Введите ID преподавателя");
         try {
             int id = in.nextInt();
@@ -288,8 +288,8 @@ public class TeacherMenu {
                     teacherDAO.findById(id);
 
             System.out.println("Вы уверены, что хотите удалить запись " +
-                    "об этом преподавателе\n Y/N");
-            String answer = in.nextLine();
+                    "об этом преподавателе\n Y/N?");
+            String answer = in.nextLine().toUpperCase();
             switch (answer) {
                 case "Y": {
                     teacherDAO.delete(teacher);
@@ -297,6 +297,8 @@ public class TeacherMenu {
                 }
                 case "N": {
                     break;
+                } default : {
+                    System.out.println("Вы ввели неверный ответ");
                 }
             }
         } catch (InputMismatchException e) {
@@ -308,7 +310,7 @@ public class TeacherMenu {
         }
     }
 
-    public void workWithGroupsOfTeacher(TeacherDAO teacherDAO) {
+    private void workWithGroupsOfTeacher() {
         boolean backMenuGroupTeacher = true;
         while (backMenuGroupTeacher) {
             System.out.println("\nGROUPS OF TEACHERS\n" +
