@@ -1,0 +1,9 @@
+<application>
+  <component name="TomcatInfoConfigs">
+    <option name="current">
+      <TomcatInfo>
+        <option name="path" value="C:\Program Files\Apache Software Foundation\Tomcat 9.0" />
+      </TomcatInfo>
+    </option>
+  </component>
+</application>
