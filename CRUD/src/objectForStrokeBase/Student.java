@@ -1,8 +1,15 @@
 package objectForStrokeBase;
 
+import workWithBase.daoClasses.StudentDAO;
+
 import javax.persistence.*;
+import java.time.Clock;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 
 @Entity
 @Table (name = "student")
@@ -40,9 +47,9 @@ public class Student {
 
     public String toString() {
         if (group == null) {
-            return id + "\t" + name + "\t" + date + "\t" + gender;
+            return id + "\t" + name + "\t" + date.toString() + "\t" + gender;
         } else {
-            return id + "\t" + name + "\t" + date + "\t" + gender +
+            return id + "\t" + name + "\t" + date.toString() + "\t" + gender +
                     "\t" + group.getNumber();
         }
     }
@@ -69,9 +76,8 @@ public class Student {
         return name;
     }
 
-    public String getDate() {
-        return date.getYear() + "-" + date.getMonthValue() +
-                "-" + date.getDayOfMonth();
+    public LocalDate getDate() {
+        return date;
     }
 
     public String getGender() {
@@ -101,6 +107,9 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, date, gender, group);
+    }
+    public static void main(String[] args) {
+        System.out.println(TimeZone.getDefault().getDisplayName());
     }
 }
 
