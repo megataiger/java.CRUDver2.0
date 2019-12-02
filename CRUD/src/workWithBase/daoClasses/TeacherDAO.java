@@ -54,4 +54,24 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         query.setParameter("date", param);
         return query.getResultList();
     }
+
+    public List<Object[]> findByWithoutConWithGroup(int id) {
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createNativeQuery("SELECT teacher.id, name from Teacher WHERE teacher.id NOT IN " +
+                "(SELECT teacher_id FROM group_teacher WHERE group_id = :id)");
+        int param = id;
+        query.setParameter("id", param);
+        return query.getResultList();
+    }
+
+    public void close() {
+        entityManager.close();
+    }
+
+    public static void main(String[] args) {
+        TeacherDAO teacherDAO = new TeacherDAO();
+        for (Object[] e : teacherDAO.findByWithoutConWithGroup(68)) {
+            System.out.println(e[0] + " " + e[1]);
+        }
+    }
 }

@@ -21,6 +21,19 @@ $(document).ready(function () {
                 date : $(result[2]).text()
             }, updateResult);
         })
+        $(input).keypress(function (evt) {
+            if (evt.keyCode == 13) {
+                var text = $(this).val();
+                var td = $(this).parent();
+                $(td).html(text);
+                var result = $(tr).children();
+                $.post("up", {
+                    id: $(result[0]).text(),
+                    name: $(result[1]).text(),
+                    date: $(result[2]).text()
+                }, updateResult);
+            }
+        })
     })
     function updateResult(data) {
             console.log(data);

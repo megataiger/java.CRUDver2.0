@@ -21,6 +21,7 @@
     </head>
     <body>
     <div>
+        <h4 align="center"><a href="index.jsp">Главная</a></h4>
         <div class="search">
             Выберите критерий для поиска и введите запрос:
             <select name="field">
