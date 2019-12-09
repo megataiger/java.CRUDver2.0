@@ -58,7 +58,7 @@
                             out.println("<td class=\"group\"> - </td>");
                         }
                         out.println("<td><a href=\"" + adress + e.getId()
-                                + "\">Удалить</td>");
+                                + "\"><img src=\"bascet.png\"></td>");
                         out.println("</tr>");
                     }
                 %>

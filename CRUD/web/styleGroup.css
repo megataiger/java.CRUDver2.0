@@ -1,16 +1,25 @@
 .number {
     font-size: 16pt;
 }
+
 .main_div {
     width: 40%;
     margin-left: 30%;
     margin-right: 30%;
 }
 
-table {
-    margin-top: 10px;
+td {
+    border: 2px double black;
 }
 
 .menu {
     margin-top: 20px;
+}
+
+h4 {
+    text-align: center;
+}
+
+#divSearch {
+    margin-top: 5px;
 }

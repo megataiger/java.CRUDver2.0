@@ -84,9 +84,7 @@ public class Group {
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
         return id == group.id &&
-                number == group.number &&
-                students.equals(group.students) &&
-                teachers.equals(group.teachers);
+                number == group.number;
     }
 
     @Override

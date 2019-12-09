@@ -149,4 +149,31 @@
         <servlet-class>servlets.group.getNewTeachers</servlet-class>
     </servlet>
 
+    <servlet-mapping>
+        <servlet-name>addTeacherForGroup</servlet-name>
+        <url-pattern>/addTeacherForGroup</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addTeacherForGroup</servlet-name>
+        <servlet-class>servlets.group.addTeacherForGroup</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteTeacherForGroup</servlet-name>
+        <url-pattern>/deleteTeacherForGroup</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>deleteTeacherForGroup</servlet-name>
+        <servlet-class>servlets.group.deleteTeacherForGroup</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>selectAllGroup</servlet-name>
+        <url-pattern>/selectAllGroup</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>selectAllGroup</servlet-name>
+        <servlet-class>servlets.group.selectAllGroup</servlet-class>
+    </servlet>
+
 </web-app>

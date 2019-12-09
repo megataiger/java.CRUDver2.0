@@ -40,7 +40,6 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     }
 
     public List findByName (String name) {
-        entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Teacher where lower(name) like :name");
         String param = "%" + name + "%";
         query.setParameter("name", param);
@@ -48,7 +47,6 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     }
 
     public List findByDate (LocalDate date) {
-        entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Teacher where lower(birthday) like :date");
         String param = "%" + date + "%";
         query.setParameter("date", param);
@@ -56,7 +54,6 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     }
 
     public List<Object[]> findByWithoutConWithGroup(int id) {
-        entityManager.getTransaction().begin();
         Query query = entityManager.createNativeQuery("SELECT teacher.id, name from Teacher WHERE teacher.id NOT IN " +
                 "(SELECT teacher_id FROM group_teacher WHERE group_id = :id)");
         int param = id;
@@ -64,14 +61,29 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         return query.getResultList();
     }
 
-    public void close() {
-        entityManager.close();
+    public List<Object[]> findByWithoutConWithGroup(int id, String name) {
+        Query query = entityManager.createNativeQuery("SELECT teacher.id, name from Teacher " +
+                "WHERE lower(name) like :string AND teacher.id NOT IN " +
+                "(SELECT teacher_id FROM group_teacher WHERE group_id = :id)");
+        int param = id;
+        query.setParameter("id", param);
+        String paramName = "%" + name + "%";
+        query.setParameter("string", paramName);
+        return query.getResultList();
     }
 
-    public static void main(String[] args) {
-        TeacherDAO teacherDAO = new TeacherDAO();
-        for (Object[] e : teacherDAO.findByWithoutConWithGroup(68)) {
-            System.out.println(e[0] + " " + e[1]);
-        }
+    public List<Object[]> findByWithConGroup(int id, String name) {
+        Query query = entityManager.createNativeQuery("SELECT teacher.id, name from Teacher" +
+                " WHERE lower(name) like :string AND teacher.id IN " +
+                "(SELECT teacher_id FROM group_teacher WHERE group_id = :id)");
+        int param = id;
+        String paramName = "%" + name + "%";
+        query.setParameter("string", paramName);
+        query.setParameter("id", param);
+        return query.getResultList();
+    }
+
+    public void close() {
+        entityManager.close();
     }
 }

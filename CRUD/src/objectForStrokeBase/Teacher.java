@@ -111,8 +111,7 @@ public class Teacher {
         return id == teacher.id &&
                 name.equals(teacher.name) &&
                 date.equals(teacher.date) &&
-                gender == teacher.gender &&
-                groups.equals(teacher.groups);
+                gender == teacher.gender;
     }
 
     @Override

@@ -100,8 +100,7 @@ public class Student {
         return id == student.id &&
                 name.equals(student.name) &&
                 date.equals(student.date) &&
-                gender == student.gender &&
-                group.equals(student.group);
+                gender == student.gender;
     }
 
     @Override

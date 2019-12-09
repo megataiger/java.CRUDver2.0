@@ -1,15 +1,21 @@
 $(document).ready(function () {
+
     $("td.id").hide();
+
     $("td.open").click(function () {
         var text = $(this).text();
         $(this).html("<input type='text' value='" + text + "'>");
         var input = $(this).children();
         var tr = $(this).parent();
+
         $(tr).click();
+
         $(input).click(function (evt) {
             evt.stopPropagation();
         })
+
         $(input).select();
+
         $(input).blur(function (evt) {
             var text = $(this).val();
             var td = $(this).parent();
@@ -21,6 +27,7 @@ $(document).ready(function () {
                 date : $(result[2]).text()
             }, updateResult);
         })
+
         $(input).keypress(function (evt) {
             if (evt.keyCode == 13) {
                 var text = $(this).val();
@@ -35,6 +42,7 @@ $(document).ready(function () {
             }
         })
     })
+
     function updateResult(data) {
             console.log(data);
     }
@@ -43,22 +51,31 @@ $(document).ready(function () {
         var text = $(this).text();
         var td = $(this);
         var tr = $(this).parent();
+
         $(tr).click();
+
         $(this).html("<select></select>");
         var select = $(td).children();
+
         $.post("gen", {
             gender : text
         }, function (data) {
             $(select).html(data);
         });
+
         $(select).click(function (evt) {
             evt.stopPropagation();
         })
+
         $(select).focus();
+
         $(select).change(function (){
             var gender = $(this).val()
+
             $(td).html(gender);
+
             var cells = $(tr).children();
+
             $.post("stg", {
                 id : $(cells[0]).text(),
                 gender : gender
@@ -66,6 +83,7 @@ $(document).ready(function () {
                 console.log(data);
             })
         })
+
         $(select).blur(function (){
             $(td).html($(this).val());
         })
@@ -75,17 +93,22 @@ $(document).ready(function () {
         var group = $(this).text();
         var td = $(this);
         var tr = $(this).parent();
+
         $(this).html("<select></select>");
         var select = $(this).children();
+
         $.post("getGroups", {
             number : group
         }, function (data) {
             $(select).html(data);
         })
+
         $(select).click(function (evt) {
             evt.stopPropagation();
         })
+
         $(select).focus();
+
         $(select).change(function () {
             var text = $(select).val();
             $(td).html(text);

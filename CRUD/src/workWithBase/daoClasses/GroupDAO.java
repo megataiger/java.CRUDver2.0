@@ -55,6 +55,12 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
         entityManager.getTransaction().commit();
     }
 
+    public List<Object[]> searchGroup (int number) {
+        Query query = entityManager.createNativeQuery("SELECT * from `group` where " +
+                "`group`.number like \"%" + number + "%\"");
+        return query.getResultList();
+    }
+
     public void close() {
         entityManager.close();
     }

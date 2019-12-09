@@ -1,4 +1,4 @@
-<%--
+<%@ page import="workWithBase.connectWithBase.FactoryForDAO" %><%--
   Created by IntelliJ IDEA.
   User: NemolyaevIV
   Date: 21.11.2019
@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  FactoryForDAO factory = new FactoryForDAO();
+%>
 <html>
   <head>
     <title>Веб-приложение</title>

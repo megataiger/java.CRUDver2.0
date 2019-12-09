@@ -42,7 +42,6 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
     }
 
     public List findByName (String name) {
-        entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Student where lower(name) like :name");
         String param = "%" + name + "%";
         query.setParameter("name", param);
@@ -50,7 +49,6 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
     }
 
     public List findByDate (LocalDate date) {
-        entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Student where lower(birthday) like :date");
         String param = "%" + date + "%";
         query.setParameter("date", param);
@@ -58,7 +56,6 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
     }
 
     public List findByGroup (Group group) {
-        entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Student where group_id = :id");
         query.setParameter("id", group.getId());
         return query.getResultList();
