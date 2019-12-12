@@ -1,9 +1,43 @@
-form {
+body {
+    font-family: "Arial";
+    font-size: 10pt;
+}
+
+#addStudent {
     margin: 10pt;
     float: left;
 }
 
 table {
+    width: 60%;
     margin: 10pt;
     float: left;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    font-size: 10pt;
+}
+
+th {
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    font-size: 10pt;
+}
+
+td:hover {
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    background-color: #f0f0f0;
+}
+
+#mainDiv {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }

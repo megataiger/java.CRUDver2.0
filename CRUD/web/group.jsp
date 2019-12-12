@@ -20,13 +20,12 @@
                     <h4><a href="index.jsp">Главная</a></h4>
                 </div>
                 <div>
-                    Поиск: <br>
-                    <input id="search" type="text">
-                </div>
-                <br>
-                <div>
-                    Добавить новую группу: <br>
+                    <label for="addGroup">Добавить новую группу:</label>
                     <input id="addGroup" type="text">
+                </div>
+                <div>
+                    <label for="search">Поиск:</label>
+                    <input id="search" type="text">
                 </div>
             </div>
             <br>
@@ -35,9 +34,9 @@
 
                 </tbody>
             </table>
+            <h3 id="num"></h3>
             <div id="newMenu">
-                <h3 id="num"></h3>
-                <div>
+                <div id="options">
                     <button id="view">Просмотр</button>
                     <button id="add">Добавление</button>
                 </div>
@@ -46,6 +45,14 @@
                 </div>
                 <table>
                     <tbody id="teachers">
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="students">
+                <input id="searchStudent" type="text" placeholder="Найти студента">
+                <table id="studentsOfGroup">
+                    <tbody>
 
                     </tbody>
                 </table>

@@ -79,8 +79,7 @@ public class Teacher {
     }
 
     public String getDate() {
-        return date.getYear() + "-" + date.getMonthValue() +
-                "-" + date.getDayOfMonth();
+        return date.toString();
     }
 
     public String getGender() {

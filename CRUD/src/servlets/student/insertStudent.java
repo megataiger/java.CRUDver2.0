@@ -16,27 +16,44 @@ import java.time.LocalDate;
 public class insertStudent extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost
+            (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+
         response.setContentType("text/html");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+
+        GroupDAO groupDAO = new GroupDAO();
+
+        Group group = null;
+
         Gender gender;
+
         String name = request.getParameter("studentName");
+
         if (request.getParameter("gender").equals(Gender.MAN.toString())) {
             gender = Gender.MAN;
         } else {
             gender = Gender.WOMAN;
         }
-        int number = Integer.parseInt(request.getParameter("group"));
+
+        if (!request.getParameter("group").equals("-")) {
+            int number = Integer.parseInt(request.getParameter("group"));
+            group = groupDAO.selectGroupByNumber(number);
+        }
+
         LocalDate date = LocalDate.parse(request.getParameter("birthday"));
-        GroupDAO groupDAO = new GroupDAO();
-        Group group = groupDAO.selectGroupByNumber(number);
+
         Student student = new Student(name,
                 date,
                 gender, group);
+
         StudentDAO studentDAO = new StudentDAO();
+
         studentDAO.save(student);
-        response.sendRedirect("http://10.0.16.10:8080/TestProject_war_exploded/basic.jsp");
+
+        studentDAO.close();
+        groupDAO.close();
     }
 }

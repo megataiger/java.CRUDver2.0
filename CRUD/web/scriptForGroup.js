@@ -4,19 +4,20 @@ $(document).ready(function () {
         $("#groups").html(data);
         $("td.id").hide();
         $("#newMenu").hide();
-    })
+        $("#students").hide();
+    });
 
     $("#groups").on("click", ".number", function () {
         var text = $(this).text();
         var tr = $(this).parent();
         var td = $(this);
 
-        $(this).html("<input type='text' value='" + text + "'>");
+        $(this).html("<input class='number' type='text' value='" + text + "'>");
         var input = $(this).children();
 
         $(input).click(function (evt) {
             evt.stopPropagation();
-        })
+        });
 
         $(input).select();
 
@@ -30,10 +31,10 @@ $(document).ready(function () {
             }, function (data) {
                 console.log(data)
             })
-        })
+        });
 
         $(input).keypress(function (evt) {
-            if (evt.keyCode == 13) {
+            if (evt.keyCode === 13) {
                 text = $(this).val();
 
                 (td).html(text);
@@ -47,7 +48,7 @@ $(document).ready(function () {
                 })
             }
         })
-    })
+    });
 
     $("#groups").on("click", ".del", function (evt) {
         evt.preventDefault();
@@ -68,31 +69,28 @@ $(document).ready(function () {
                 $("td.id").hide();
             })
         })
-    })
+    });
 
     $("#addGroup").keydown(function (evt) {
-        if (evt.keyCode == 13) {
+        if (evt.keyCode === 13) {
 
             $.post("insGroup", {
                 number: $(this).val()
-            }, function (data) {
+            });
 
-                $.post("selectAllGroup", function (data) {
-                    $("#groups").html(data);
-                    $("td.id").hide();
-                })
-
-                $(this).val("");
-            })
+            $.post("selectAllGroup", function (data) {
+                $("#groups").html(data);
+                $("td.id").hide();
+            });
         }
-    })
+    });
 
     $("#addGroup").blur(function () {
         $(this).val("");
-    })
+    });
 
     $("#search").keyup(function () {
-        if ($(this).val() == "") {
+        if ($(this).val() === "") {
 
             $.post("selectAllGroup", function (data) {
 
@@ -111,7 +109,7 @@ $(document).ready(function () {
                 $("td.id").hide();
             })
         }
-    })
+    });
 
     $("#groups").on("click", ".teachers", function (evt) {
         evt.preventDefault();
@@ -124,13 +122,38 @@ $(document).ready(function () {
 
         $("#view").click();
 
-        $("#divSearch").html("<input id='searchTeacher' type='text' class='view'>");
+        $("#divSearch").html("<input id='searchTeacher' type='text' class='view' placeholder=\"Найти преподавателя\">");
 
         $("#newMenu").show();
-    })
+
+        $("#students").hide();
+    });
+
+    $("#groups").on("click", ".students", function (evt) {
+        evt.preventDefault();
+        var td = $(this).parent();
+        var tr = $(td).parent();
+        var tds = $(tr).children();
+        var number = $(tds[1]).text();
+
+        $("#num").html(number)
+
+        $("#students").show();
+
+        $("#newMenu").hide();
+
+        $.post("selectStudent", {
+            groupNumber : number
+        }, function (data) {
+            $("#studentsOfGroup").html(data);
+        })
+    });
 
     $("#view").on("click", function () {
         var number = $("#num").text();
+
+        $(this).css({"border" : "0px"});
+        $("#add").css({"border" : "1px solid black"});
 
         $.get("getTeachers", {
             number: number
@@ -140,10 +163,13 @@ $(document).ready(function () {
 
             $("#searchTeacher").attr("class", "view");
         })
-    })
+    });
 
         $("#add").on("click", function () {
             var number = $("#num").text();
+
+            $(this).css({"border" : "0px"});
+            $("#view").css({"border" : "1px solid black"});
 
             $.get("getNewTeachers", {
                 number: number
@@ -153,7 +179,7 @@ $(document).ready(function () {
 
                 $("#searchTeacher").attr("class", "add");
             })
-        })
+        });
 
         $("#teachers").on("click", ".add", function (evt) {
             evt.preventDefault();
@@ -167,7 +193,7 @@ $(document).ready(function () {
 
                 $("#add").click();
             })
-        })
+        });
 
         $("#teachers").on("click", ".del", function (evt) {
             evt.preventDefault();
@@ -181,13 +207,13 @@ $(document).ready(function () {
 
                 $("#view").click();
             })
-        })
+        });
 
         $("#divSearch").on("keyup", "#searchTeacher", function () {
 
             var list = $(this).attr("class");
 
-            if (list == "view") {
+            if (list === "view") {
 
                 $.get("getTeachers", {
                     number: $("#num").text(),
@@ -206,5 +232,24 @@ $(document).ready(function () {
                     $("#teachers").html(data);
                 })
             }
+        });
+
+    $("#searchStudent").on("keyup", function (evt) {
+
+        $.post("selectStudent", {
+            groupNumber : $("#num").text(),
+            name : $(this).val()
+        }, function (data) {
+            $("#studentsOfGroup").html(data);
         })
-    })
+    });
+
+    $("#groups").on("mouseenter", "tr", function () {
+        $(this).css("background-color: grey")
+    });
+
+    $("#groups").on("mouseleave", "tr", function () {
+        $(this).css("background-color: white")
+    });
+
+});

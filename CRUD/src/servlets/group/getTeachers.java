@@ -30,9 +30,15 @@ public class getTeachers extends HttpServlet {
         StringBuilder result = new StringBuilder();
 
         if (request.getParameter("name") == null) {
+            List<Teacher> teachers = group.getTeachers();
+
+            if (teachers.size() != 0) {
                 writer.println(
-                        constructResultByTeachers(result, group.getTeachers())
+                        constructResultByTeachers(result, teachers)
                 );
+            } else {
+                writer.println("<tr>\n<td>У данной группы нет преподавателей</td>\n</tr>\n");
+            }
         } else {
             TeacherDAO teacherDAO = new TeacherDAO();
             String name = request.getParameter("name");
@@ -46,10 +52,11 @@ public class getTeachers extends HttpServlet {
                             constructResult(result, teachers)
                     );
                 } else {
-                    writer.println("Результатов нет1");
+                    writer.println("<tr>\n<td>Преподвателя с данным именем нет в списке" +
+                            ", либо он ещё не добавлен</td>\n</tr>\n");
                 }
             } catch (Exception e) {
-                writer.println("Результатов нет2");
+                writer.println("Потеряна связь с сервером");
             }
             teacherDAO.close();
         }
@@ -62,6 +69,9 @@ public class getTeachers extends HttpServlet {
                 string.append("<tr>\n");
                 string.append("<td>");
                 string.append(e.getName());
+                string.append("</td>\n");
+                string.append("<td>");
+                string.append(e.getDate());
                 string.append("</td>\n");
                 string.append("<td class=\"");
                 string.append(e.getId());
@@ -80,6 +90,9 @@ public class getTeachers extends HttpServlet {
                 string.append("<tr>\n");
                 string.append("<td>");
                 string.append(e[1]);
+                string.append("</td>\n");
+                string.append("<td>");
+                string.append(e[2]);
                 string.append("</td>\n");
                 string.append("<td class=\"");
                 string.append(e[0]);

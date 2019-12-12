@@ -19,9 +19,11 @@
       }
     </style>
   </head>
-  <body>
+  <body style="font-family: 'Arial'; font-size: 8pt">
   <h1><a href="student.jsp">Студенты</a></h1>
   <br>
   <h1><a href="group.jsp">Группы</a></h1>
+  <br>
+  <h1><a href="teacher.jsp">Преподаватели</a></h1>
   </body>
 </html>

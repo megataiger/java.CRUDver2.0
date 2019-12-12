@@ -1,15 +1,37 @@
+body {
+    font-family: "Arial";
+    font-size: 10pt;
+}
+
 .number {
     font-size: 16pt;
+    width: 100px;
+    text-align: center;
 }
 
 .main_div {
     width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: 100%;
 }
 
 td {
-    border: 2px double black;
+    border: 1px solid black;
+    padding: 3px;
+    text-align: center;
+    font-size: 10pt;
+}
+
+td:hover {
+    text-align: center;
+    padding: 3px;
+    background-color: #f0f0f0;
 }
 
 .menu {
@@ -21,5 +43,32 @@ h4 {
 }
 
 #divSearch {
-    margin-top: 5px;
+    width: 200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
+
+#searchStudent {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: 175px;
+}
+
+#addGroup {
+    margin-bottom: 10px;
+}
+
+#num {
+    text-align: center;
+}
+
+#options {
+     width: 175px;
+     margin-left: auto;
+     margin-right: auto;
+ }

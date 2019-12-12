@@ -60,4 +60,21 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
         query.setParameter("id", group.getId());
         return query.getResultList();
     }
+
+    public List findByGroupAndName (String name, Group group) {
+        Query query = entityManager.createQuery("from Student where lower(name) like :name AND group_id = :id");
+        String param = "%" + name + "%";
+        query.setParameter("name", param);
+        query.setParameter("id", group.getId());
+        return query.getResultList();
+    }
+
+    public List findByFilter (String filter) {
+        Query query = entityManager.createQuery(filter);
+        return query.getResultList();
+    }
+
+    public void close() {
+        entityManager.close();
+    }
 }

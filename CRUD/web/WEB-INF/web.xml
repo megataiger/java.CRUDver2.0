@@ -114,24 +114,6 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>selectGroup</servlet-name>
-        <url-pattern>/selGroup</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>selectGroup</servlet-name>
-        <servlet-class>servlets.group.selectGroup</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>searchGroup</servlet-name>
-        <url-pattern>/searchGroup</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>searchGroup</servlet-name>
-        <servlet-class>servlets.group.searchGroup</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
         <servlet-name>getTeachers</servlet-name>
         <url-pattern>/getTeachers</url-pattern>
     </servlet-mapping>
@@ -174,6 +156,24 @@
     <servlet>
         <servlet-name>selectAllGroup</servlet-name>
         <servlet-class>servlets.group.selectAllGroup</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>selectStudent</servlet-name>
+        <url-pattern>/selectStudent</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>selectStudent</servlet-name>
+        <servlet-class>servlets.group.selectStudent</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>selectAllTeachers</servlet-name>
+        <url-pattern>/selectAllTeachers</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>selectAllTeachers</servlet-name>
+        <servlet-class>servlets.teacher.selectAllTeachers</servlet-class>
     </servlet>
 
 </web-app>

@@ -22,24 +22,28 @@ public class selectAllGroup extends HttpServlet {
         PrintWriter writer = response.getWriter();
         StringBuilder result = new StringBuilder();
 
+        GroupDAO groupDAO = new GroupDAO();
+
         if (request.getParameter("number") == null) {
 
-            GroupDAO groupDAO = new GroupDAO();
             List<Group> groups = groupDAO.getAll();
 
             writer.println(
                     constructResult(result, groups)
             );
+
         } else {
             int number = Integer.parseInt(request.getParameter("number"));
 
-            GroupDAO groupDAO = new GroupDAO();
             List<Object[]> groups = groupDAO.searchGroup(number);
 
             writer.println(
                     constructResultForSearch(result, groups)
             );
+
         }
+
+        groupDAO.close();
     }
 
     private StringBuilder constructResult

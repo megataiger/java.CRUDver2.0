@@ -20,69 +20,44 @@
         <script type="text/javascript" src="script.js"></script>
     </head>
     <body>
-    <div>
+    <div id="mainDiv">
         <h4 align="center"><a href="index.jsp">Главная</a></h4>
         <div class="search">
-            Выберите критерий для поиска и введите запрос:
-            <select name="field">
-                <option value="name">Ф.И.О</option>
-                <option value="date">Дата рождения</option>
-                <option value="group">Группы</option>
-            </select>
-            <input type="text" name="query">
-            <button>Поиск</button>
+            <form id="st" action="" method="post">
+                <label for="nameStudent">Ф.И.О</label>
+                <input id="nameStudent" type="text" name="nameStudent">
+                <label for="dateStudent">Дата рождения</label>
+                <input id="dateStudent" name="dateStudent" type="date">
+                <label for="genderStudent">Пол</label>
+                <select id="genderStudent" name="genderStudent">
+                    <option value="-">-</option>
+                    <option value="WOMAN">WOMAN</option>
+                    <option value="MAN">MAN</option>
+                </select>
+                <label for="groupStudent">Группа</label>
+                <select id="groupStudent" class="allGroup" name="groupStudent">
+
+                </select>
+                <input id="search" type="submit" value="Поиск" />
+            </form>
         </div>
         <div class="data">
-            <table border="2pt">
-                <tr>
-                    <td>Ф.И.О.</td>
-                    <td>Дата пождения</td>
-                    <td>Пол</td>
-                    <td>Группа</td>
-                    <td>Действие</td>
-                </tr>
-                <%
-                    String adress = "del?number=";
-                    StudentDAO studentDAO = new StudentDAO();
-                    List list = studentDAO.getAll();
-                    List<Student> students = list;
-                    for (Student e: students) {
-                        out.println("<tr>");
-                        out.println("<td class=\"id\">" + e.getId() + "</td>");
-                        out.println("<td class=\"open\">" + e.getName() + "</td>");
-                        out.println("<td class=\"date\">" +  e.getDate() + "</td>");
-                        out.println("<td class=\"gender\">" + e.getGender() + "</td>");
-                        if (e.getGroup() != null) {
-                            out.println("<td class=\"group\">" + e.getGroup().getNumber() + "</td>");
-                        } else {
-                            out.println("<td class=\"group\"> - </td>");
-                        }
-                        out.println("<td><a href=\"" + adress + e.getId()
-                                + "\"><img src=\"bascet.png\"></td>");
-                        out.println("</tr>");
-                    }
-                %>
+            <table id="students">
+                <tbody>
+
+                </tbody>
             </table>
-            <form action="ins" method="POST">
+            <form action="" id="addStudent" method="POST">
                 Имя студента: <input type="text" name="studentName" /><br><br>
                 Дата рождения: <input type="date" name="birthday" /><br><br>
                 Пол: <input type="radio" name="gender" value="WOMAN" checked />Woman
                 <input type="radio" name="gender" value="MAN" />Man<br><br>
                 Группа:
-                <select name="group">
-                    <%
-                        GroupDAO groupDAO = new GroupDAO();
-                        List<Group> groups = groupDAO.getAll();
-                        StringBuffer options = new StringBuffer();
-                        for(Group e : groups) {
-                                options.append("<option value=\"" + e.getNumber()
-                                        + "\">" + e.getNumber() + "</option>");
-                        }
-                        out.println(options);
-                    %>
+                <select class="allGroup" name="group">
+
                 </select>
                 <br><br>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Добавить" />
             </form>
     </div>
     </div>

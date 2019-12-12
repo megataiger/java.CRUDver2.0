@@ -54,7 +54,7 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     }
 
     public List<Object[]> findByWithoutConWithGroup(int id) {
-        Query query = entityManager.createNativeQuery("SELECT teacher.id, name from Teacher WHERE teacher.id NOT IN " +
+        Query query = entityManager.createNativeQuery("SELECT teacher.id, name, birthday from Teacher WHERE teacher.id NOT IN " +
                 "(SELECT teacher_id FROM group_teacher WHERE group_id = :id)");
         int param = id;
         query.setParameter("id", param);
@@ -62,7 +62,7 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     }
 
     public List<Object[]> findByWithoutConWithGroup(int id, String name) {
-        Query query = entityManager.createNativeQuery("SELECT teacher.id, name from Teacher " +
+        Query query = entityManager.createNativeQuery("SELECT teacher.id, name, birthday from Teacher " +
                 "WHERE lower(name) like :string AND teacher.id NOT IN " +
                 "(SELECT teacher_id FROM group_teacher WHERE group_id = :id)");
         int param = id;
@@ -73,7 +73,7 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     }
 
     public List<Object[]> findByWithConGroup(int id, String name) {
-        Query query = entityManager.createNativeQuery("SELECT teacher.id, name from Teacher" +
+        Query query = entityManager.createNativeQuery("SELECT teacher.id, name, birthday from Teacher" +
                 " WHERE lower(name) like :string AND teacher.id IN " +
                 "(SELECT teacher_id FROM group_teacher WHERE group_id = :id)");
         int param = id;

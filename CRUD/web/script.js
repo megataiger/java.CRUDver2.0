@@ -1,8 +1,17 @@
 $(document).ready(function () {
 
-    $("td.id").hide();
+    $.post("selByCrit", function (data) {
 
-    $("td.open").click(function () {
+        $("#students").html(data);
+
+        $("td.id").hide();
+    });
+
+    $.post("getGroups", function (data) {
+        $(".allGroup").html(data);
+    });
+
+    $("#students").on("click", ".open", function () {
         var text = $(this).text();
         $(this).html("<input type='text' value='" + text + "'>");
         var input = $(this).children();
@@ -12,7 +21,7 @@ $(document).ready(function () {
 
         $(input).click(function (evt) {
             evt.stopPropagation();
-        })
+        });
 
         $(input).select();
 
@@ -26,7 +35,7 @@ $(document).ready(function () {
                 name : $(result[1]).text(),
                 date : $(result[2]).text()
             }, updateResult);
-        })
+        });
 
         $(input).keypress(function (evt) {
             if (evt.keyCode == 13) {
@@ -40,14 +49,14 @@ $(document).ready(function () {
                     date: $(result[2]).text()
                 }, updateResult);
             }
-        })
-    })
+        });
+    });
 
     function updateResult(data) {
             console.log(data);
     }
 
-    $("td.gender").click(function () {
+    $("#students").on("click", ".gender", function () {
         var text = $(this).text();
         var td = $(this);
         var tr = $(this).parent();
@@ -65,7 +74,7 @@ $(document).ready(function () {
 
         $(select).click(function (evt) {
             evt.stopPropagation();
-        })
+        });
 
         $(select).focus();
 
@@ -81,15 +90,15 @@ $(document).ready(function () {
                 gender : gender
             }, function (data) {
                 console.log(data);
-            })
-        })
+            });
+        });
 
         $(select).blur(function (){
             $(td).html($(this).val());
-        })
-    })
+        });
+    });
 
-    $("td.group").click(function () {
+    $("#students").on("click", ".group", function () {
         var group = $(this).text();
         var td = $(this);
         var tr = $(this).parent();
@@ -101,11 +110,11 @@ $(document).ready(function () {
             number : group
         }, function (data) {
             $(select).html(data);
-        })
+        });
 
         $(select).click(function (evt) {
             evt.stopPropagation();
-        })
+        });
 
         $(select).focus();
 
@@ -118,50 +127,84 @@ $(document).ready(function () {
                 number : text
             }, function (data) {
                 console.log(data);
-            })
-        })
+            });
+        });
         $(select).blur(function () {
             $(td).html(group);
-        })
-    })
+        });
+    });
 
-    $("td.date").click(function () {
+    $("#students").on("click", ".date", function () {
         var date = $(this).text();
         var tr = $(this).parent();
         $(this).html("<input type=\"date\" value=\"" + date + "\">");
         var input = $(this).children();
         $(input).click(function (evt) {
             evt.stopPropagation();
-        })
+        });
         var td = $(this);
         var res = $(tr).children();
         $(input).focus();
-        $(input).change(function () {
-            var newDate = $(this).val();
-            console.log(newDate);
-            $.post("setDate", {
-                id : $(res[0]).text(),
-                newDate : newDate
-            }, function (data) {
-                console.log(data);
-            })
-            $(td).html(newDate);
-        })
+        $(input).keypress(function (evt) {
+            if (evt.keyCode === 13) {
+                var newDate = $(this).val();
+                console.log(newDate);
+                $.post("setDate", {
+                    id: $(res[0]).text(),
+                    newDate: newDate
+                }, function (data) {
+                    console.log(data);
+                });
+                $(td).html(newDate);
+            }
+        });
         $(input).blur(function () {
             $(td).html(date);
-        })
-    })
+        });
+    });
 
-    $("button").click(function () {
-        var param = $("div.search").children();
-        var crit = $(param[0]).val();
-        var field = $(param[1]).val();
-        $.post("selByCrit", {
-            crit : crit,
-            field : field
-        }, function (data) {
-            $("tbody").html(data);
-            $("td.id").hide();
-        })
-    })
-})
+    $("#st").submit(function (evt) {
+        evt.preventDefault();
+        var form = $(this);
+        $.post(
+            "selByCrit",
+            form.serializeArray(),
+            function (data) {
+                $("#students").html(data);
+
+                $("td.id").hide();
+            });
+    });
+
+    $("#addStudent").submit(function (evt) {
+        evt.preventDefault();
+        $.post(
+            "ins",
+            $(this).serialize(),
+            function () {
+                $.post("selByCrit", function (data) {
+
+                    $("#students").html(data);
+
+                    $("td.id").hide();
+                });
+            }
+            );
+    });
+
+    $("#students").on("click", "#del", function (evt) {
+        evt.preventDefault();
+        var id = $(this).attr("href");
+        $.get("del", {
+            number : id
+        }, function () {
+            $.post("selByCrit", function (data) {
+
+                $("#students").html(data);
+
+                $("td.id").hide();
+            });
+        });
+    });
+});
+

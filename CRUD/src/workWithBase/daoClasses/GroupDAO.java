@@ -34,13 +34,13 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
     }
 
     public void save(Group group) {
-        entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Group where number = :number");
         query.setParameter("number", group.getNumber());
         try {
             query.getSingleResult();
             System.out.println("Группа с данным номером уже существует");
         } catch (NoResultException e) {
+            entityManager.getTransaction().begin();
             entityManager.persist(group);
             entityManager.getTransaction().commit();
         }

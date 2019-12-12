@@ -42,9 +42,14 @@ public class getNewTeachers extends HttpServlet {
             String name = request.getParameter("name");
             List<Object[]> teachers =
                     teacherDAO.findByWithoutConWithGroup(id, name);
-            writer.println(
-                    constructResult(result, teachers)
-            );
+            if (teachers.size() != 0) {
+                writer.println(
+                        constructResult(result, teachers)
+                );
+            } else {
+                writer.println("<tr>\n<td>Преподваетеля с данным именем нет в списке" +
+                        ", либо он уже добавлен</td>\n</tr>\n");
+            }
         }
         teacherDAO.close();
     }
@@ -56,6 +61,9 @@ public class getNewTeachers extends HttpServlet {
             string.append("<tr>\n");
             string.append("<td>");
             string.append(e[1]);
+            string.append("</td>\n");
+            string.append("<td>");
+            string.append(e[2]);
             string.append("</td>\n");
             string.append("<td><a class=\"add\" href=\"");
             string.append(e[0]);
