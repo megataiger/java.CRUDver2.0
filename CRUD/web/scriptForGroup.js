@@ -243,13 +243,4 @@ $(document).ready(function () {
             $("#studentsOfGroup").html(data);
         })
     });
-
-    $("#groups").on("mouseenter", "tr", function () {
-        $(this).css("background-color: grey")
-    });
-
-    $("#groups").on("mouseleave", "tr", function () {
-        $(this).css("background-color: white")
-    });
-
 });

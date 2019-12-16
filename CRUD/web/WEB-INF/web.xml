@@ -176,4 +176,67 @@
         <servlet-class>servlets.teacher.selectAllTeachers</servlet-class>
     </servlet>
 
+    <servlet-mapping>
+        <servlet-name>updateTeacher</servlet-name>
+        <url-pattern>/updateTeacher</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>updateTeacher</servlet-name>
+        <servlet-class>servlets.teacher.updateTeacher</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteTeacher</servlet-name>
+        <url-pattern>/deleteTeacher</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>deleteTeacher</servlet-name>
+        <servlet-class>servlets.teacher.deleteTeacher</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>insertTeacher</servlet-name>
+        <url-pattern>/insertTeacher</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>insertTeacher</servlet-name>
+        <servlet-class>servlets.teacher.insertTeacher</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>getGroup</servlet-name>
+        <url-pattern>/getGroup</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>getGroup</servlet-name>
+        <servlet-class>servlets.teacher.getGroup</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>getNewGroups</servlet-name>
+        <url-pattern>/getNewGroups</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>getNewGroups</servlet-name>
+        <servlet-class>servlets.teacher.getNewGroups</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteGroupForTeacher</servlet-name>
+        <url-pattern>/deleteGroupForTeacher</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>deleteGroupForTeacher</servlet-name>
+        <servlet-class>servlets.teacher.deleteGroupForTeacher</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addGroupForTeacher</servlet-name>
+        <url-pattern>/addGroupForTeacher</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addGroupForTeacher</servlet-name>
+        <servlet-class>servlets.teacher.addGroupForTeacher</servlet-class>
+    </servlet>
+
 </web-app>

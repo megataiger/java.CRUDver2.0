@@ -58,7 +58,7 @@ public class selectAllGroup extends HttpServlet {
             string.append("</td>\n");
             string.append("<td><a class=\"students\" href=\"\">Студенты</a></td>\n");
             string.append("<td><a class=\"teachers\" href=\"\">Преподаватели</a></td>\n");
-            string.append("<td><a class=\"del\" href=\"\"><img src=\"bascet.png\"></a></td>\n");
+            string.append("<td><a class=\"del\" href=\"\"><img title='Удалить' src=\"bascet.png\"></a></td>\n");
             string.append("</tr>");
         }
 
@@ -77,7 +77,7 @@ public class selectAllGroup extends HttpServlet {
             string.append("</td>\n");
             string.append("<td><a class=\"students\" href=\"\">Студенты</a></td>\n");
             string.append("<td><a class=\"teachers\" href=\"\">Преподаватели</a></td>\n");
-            string.append("<td><a class=\"del\" href=\"\"><img src=\"bascet.png\"></a></td>\n");
+            string.append("<td><a class=\"del\" href=\"\"><img title='Удалить' src=\"bascet.png\"></a></td>\n");
             string.append("</tr>");
         }
 

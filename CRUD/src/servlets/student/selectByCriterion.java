@@ -106,7 +106,7 @@ public class selectByCriterion extends HttpServlet {
                 }
                 string.append("<td><a id='del' href=\"");
                 string.append(e.getId());
-                string.append("\"><img src=\"bascet.png\"></td>");
+                string.append("\"><img title='Удалить' src=\"bascet.png\"></td>");
                 string.append("</tr>");
             }
 

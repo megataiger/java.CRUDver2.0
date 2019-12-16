@@ -24,8 +24,41 @@ public class selectAllTeachers extends HttpServlet {
 
         PrintWriter writer = response.getWriter();
 
-        writer.println(getResult(result, teacherDAO.getAll()));
+        if (request.getParameter("nameTeacher") == null) {
+            List<Teacher> teachers = teacherDAO.getAll();
+            writer.println(getResult(result, teachers));
+        } else {
 
+            StringBuilder query = new StringBuilder();
+            query.append("FROM Teacher WHERE LOWER(name) LIKE ");
+
+            if (request.getParameter("nameTeacher").equals("")) {
+                String name = "'%" + request.getParameter("nameTeacher") + "%'";
+                query.append(name);
+            } else {
+                String name = "'%" + request.getParameter("nameTeacher") + "%'";
+                query.append(name);
+            }
+
+            if (!request.getParameter("dateTeacher").equals("")) {
+                String date = "'%" + request.getParameter("dateTeacher") + "%'";
+                query.append("AND LOWER(birthday) LIKE ");
+                query.append(date);
+                query.append(" ");
+            }
+
+            if (!request.getParameter("genderTeacher").equals("-")) {
+                String gender = request.getParameter("genderTeacher");
+                query.append("AND gender = '");
+                query.append(gender);
+                query.append("' ");
+            }
+
+            String filter = query.toString();
+
+            List<Teacher> teachers = teacherDAO.findByFilter(filter);
+            writer.println(getResult(result, teachers));
+        }
     }
 
     private StringBuilder getResult
@@ -39,15 +72,16 @@ public class selectAllTeachers extends HttpServlet {
         string.append("</tr>");
 
         for (Teacher e : resultList) {
-            string.append("<tr>\n<td>");
+            string.append("<tr>\n<td class='id'>");
             string.append(e.getId());
-            string.append("</td>\n<td>");
+            string.append("</td>\n<td class='name'>");
             string.append(e.getName());
-            string.append("</td>\n<td>");
+            string.append("</td>\n<td class='date'>");
             string.append(e.getDate());
-            string.append("</td>\n<td>");
+            string.append("</td>\n<td class='gender'>");
             string.append(e.getGender());
-            string.append("</td>\n<td><img src=\"bascet.png\"></td>\n");
+            string.append("</td>\n<td><a class=\"del\" href=\"\"><img title='Удалить' src=\"bascet.png\"></a>" +
+                    "<a class=\"list\" href=\"\"><img src=\"list.png\" title='Список групп'></a></td>\n");
             string.append("</tr>");
         }
 

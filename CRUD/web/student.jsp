@@ -19,7 +19,6 @@
         <script type="text/javascript" src="jquery-3.4.1.js"></script>
         <script type="text/javascript" src="script.js"></script>
     </head>
-    <body>
     <div id="mainDiv">
         <h4 align="center"><a href="index.jsp">Главная</a></h4>
         <div class="search">
@@ -41,25 +40,28 @@
                 <input id="search" type="submit" value="Поиск" />
             </form>
         </div>
-        <div class="data">
+        <div id="data">
             <table id="students">
                 <tbody>
 
                 </tbody>
             </table>
-            <form action="" id="addStudent" method="POST">
-                Имя студента: <input type="text" name="studentName" /><br><br>
-                Дата рождения: <input type="date" name="birthday" /><br><br>
-                Пол: <input type="radio" name="gender" value="WOMAN" checked />Woman
-                <input type="radio" name="gender" value="MAN" />Man<br><br>
-                Группа:
-                <select class="allGroup" name="group">
+            <div>Для редактирования ячеек таблицы просто нажмите на саму ячейку,
+                а затем подтвердите изменения, нажав Ввод или просто выйдите из режима редактирования,
+                нажав в пустаю часть экрана</div>
+        </div>
+        <form action="" id="addStudent" method="POST">
+            Имя студента: <input type="text" name="studentName" /><br><br>
+            Дата рождения: <input type="date" name="birthday" /><br><br>
+            Пол: <input type="radio" name="gender" value="WOMAN" checked />Woman
+            <input type="radio" name="gender" value="MAN" />Man<br><br>
+            Группа:
+            <select class="allGroup" name="group">
 
-                </select>
-                <br><br>
-                <input type="submit" value="Добавить" />
-            </form>
-    </div>
+            </select>
+            <br><br>
+            <input type="submit" value="Добавить" />
+        </form>
     </div>
     </body>
 </html>

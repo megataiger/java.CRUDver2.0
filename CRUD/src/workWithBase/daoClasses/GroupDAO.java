@@ -61,6 +61,32 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
         return query.getResultList();
     }
 
+    public List<Object> findByConWithTeacher(int id, String filter) {
+        Query query = entityManager.createNativeQuery("SELECT number from `group` " +
+                "WHERE `group`.`number` like \"%" + filter +  "%\" AND `group`.`id` IN " +
+                "(SELECT group_id FROM group_teacher WHERE teacher_id = :id)");
+        int param = id;
+        query.setParameter("id", param);
+        return query.getResultList();
+    }
+
+    public List<Object> findByWithoutConWithTeacher(int id) {
+        Query query = entityManager.createNativeQuery("SELECT number from `group` WHERE `group`.`id` NOT IN " +
+                "(SELECT group_id FROM group_teacher WHERE teacher_id = :id)");
+        int param = id;
+        query.setParameter("id", param);
+        return query.getResultList();
+    }
+
+    public List<Object> findByWithoutConWithTeacher(int id, String filter) {
+        Query query = entityManager.createNativeQuery("SELECT number from `group` " +
+                "WHERE `group`.`number` like \"%" + filter +  "%\" AND `group`.`id` NOT IN " +
+                "(SELECT group_id FROM group_teacher WHERE teacher_id = :id)");
+        int param = id;
+        query.setParameter("id", param);
+        return query.getResultList();
+    }
+
     public void close() {
         entityManager.close();
     }

@@ -35,16 +35,20 @@ td:hover {
     margin-right: auto;
 }
 
+#tableGroup {
+    width: 30%;
+}
+
 #data {
     width: 70%;
     float: left;
 }
 
-#addStudent {
+#bar {
     float: left;
     width: 30%;
 }
 
-#students {
+#teachers {
     width: 90%;
 }

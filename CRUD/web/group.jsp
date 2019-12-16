@@ -13,7 +13,6 @@
         <script type="text/javascript" src="jquery-3.4.1.js"></script>
         <script type="text/javascript" src="scriptForGroup.js"></script>
     </head>
-    <body>
         <div class="main_div">
             <div>
                 <div>
@@ -34,6 +33,9 @@
 
                 </tbody>
             </table>
+            <div>Для редактирования ячеек таблицы просто нажмите на саму ячейку,
+                а затем подтвердите изменения, нажав Ввод или просто выйдите из режима редактирования,
+                нажав в пустаю часть экрана</div>
             <h3 id="num"></h3>
             <div id="newMenu">
                 <div id="options">

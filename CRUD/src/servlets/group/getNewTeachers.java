@@ -67,7 +67,7 @@ public class getNewTeachers extends HttpServlet {
             string.append("</td>\n");
             string.append("<td><a class=\"add\" href=\"");
             string.append(e[0]);
-            string.append("\"><img src=\"plus.png\"></a></td>\n");
+            string.append("\"><img title='Добавить' src=\"plus.png\"></a></td>\n");
             string.append("</tr>\n");
         }
 

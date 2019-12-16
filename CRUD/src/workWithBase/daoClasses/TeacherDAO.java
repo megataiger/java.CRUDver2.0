@@ -83,6 +83,11 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         return query.getResultList();
     }
 
+    public List findByFilter (String filter) {
+        Query query = entityManager.createQuery(filter);
+        return query.getResultList();
+    }
+
     public void close() {
         entityManager.close();
     }

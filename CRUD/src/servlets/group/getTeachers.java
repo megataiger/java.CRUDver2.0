@@ -77,7 +77,7 @@ public class getTeachers extends HttpServlet {
                 string.append(e.getId());
                 string.append("\"><a class=\"del\" href=\"");
                 string.append(e.getId());
-                string.append("\"><img src=\"bascet.png\"></a></td>\n");
+                string.append("\"><img title='Удалить' src=\"bascet.png\"></a></td>\n");
                 string.append("</tr>");
             }
 
