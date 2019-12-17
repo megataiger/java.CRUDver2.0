@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class selectByCriterion extends HttpServlet {
+public class selectStudentsByCriterion extends HttpServlet {
     @Override
     protected void doPost
             (HttpServletRequest request, HttpServletResponse response)
@@ -88,10 +88,10 @@ public class selectByCriterion extends HttpServlet {
                 string.append("<td class=\"id\">");
                 string.append(e.getId());
                 string.append("</td>");
-                string.append("<td class=\"open\">");
+                string.append("<td class=\"name\">");
                 string.append(e.getName());
                 string.append("</td>");
-                string.append("<td class=\"date\">");
+                string.append("<td class=\"birthday\">");
                 string.append(e.getDate());
                 string.append("</td>");
                 string.append("<td class=\"gender\">");
@@ -104,7 +104,7 @@ public class selectByCriterion extends HttpServlet {
                 } else {
                     string.append("<td class=\"group\"> - </td>");
                 }
-                string.append("<td><a id='del' href=\"");
+                string.append("<td><a class='deleteStudent' href=\"");
                 string.append(e.getId());
                 string.append("\"><img title='Удалить' src=\"bascet.png\"></td>");
                 string.append("</tr>");

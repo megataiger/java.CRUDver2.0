@@ -44,7 +44,7 @@
             <h3 id="name"></h3>
             <button id="viewGroup">Просмотр</button>
             <button id="addGroup">Добавление</button>
-            <input id="searchGroup" type="text">
+            <input id="searchGroup" placeholder="Найти группу" type="text">
             <table id="tableGroup">
             </table>
         </div>

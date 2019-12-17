@@ -17,12 +17,12 @@
         <title>Студенты</title>
         <link rel="stylesheet" href="style.css">
         <script type="text/javascript" src="jquery-3.4.1.js"></script>
-        <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="scriptForStudent.js"></script>
     </head>
     <div id="mainDiv">
         <h4 align="center"><a href="index.jsp">Главная</a></h4>
         <div class="search">
-            <form id="st" action="" method="post">
+            <form id="searchStudents" action="" method="post">
                 <label for="nameStudent">Ф.И.О</label>
                 <input id="nameStudent" type="text" name="nameStudent">
                 <label for="dateStudent">Дата рождения</label>
@@ -51,12 +51,12 @@
                 нажав в пустаю часть экрана</div>
         </div>
         <form action="" id="addStudent" method="POST">
-            Имя студента: <input type="text" name="studentName" /><br><br>
-            Дата рождения: <input type="date" name="birthday" /><br><br>
-            Пол: <input type="radio" name="gender" value="WOMAN" checked />Woman
-            <input type="radio" name="gender" value="MAN" />Man<br><br>
+            Имя студента: <input type="text" name="nameStudent" /><br><br>
+            Дата рождения: <input type="date" name="birthdayStudent" /><br><br>
+            Пол: <input type="radio" name="genderStudent" value="WOMAN" checked />Woman
+            <input type="radio" name="genderStudent" value="MAN" />Man<br><br>
             Группа:
-            <select class="allGroup" name="group">
+            <select class="allGroup" name="groupStudent">
 
             </select>
             <br><br>

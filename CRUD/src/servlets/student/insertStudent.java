@@ -30,20 +30,20 @@ public class insertStudent extends HttpServlet {
 
         Gender gender;
 
-        String name = request.getParameter("studentName");
+        String name = request.getParameter("nameStudent");
 
-        if (request.getParameter("gender").equals(Gender.MAN.toString())) {
+        if (request.getParameter("genderStudent").equals(Gender.MAN.toString())) {
             gender = Gender.MAN;
         } else {
             gender = Gender.WOMAN;
         }
 
-        if (!request.getParameter("group").equals("-")) {
-            int number = Integer.parseInt(request.getParameter("group"));
+        if (!request.getParameter("groupStudent").equals("-")) {
+            int number = Integer.parseInt(request.getParameter("groupStudent"));
             group = groupDAO.selectGroupByNumber(number);
         }
 
-        LocalDate date = LocalDate.parse(request.getParameter("birthday"));
+        LocalDate date = LocalDate.parse(request.getParameter("birthdayStudent"));
 
         Student student = new Student(name,
                 date,

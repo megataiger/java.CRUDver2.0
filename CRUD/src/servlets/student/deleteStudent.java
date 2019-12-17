@@ -13,7 +13,7 @@ public class deleteStudent extends HttpServlet {
     protected void doGet
             (HttpServletRequest req, HttpServletResponse resp) {
 
-        int id = Integer.parseInt(req.getParameter("number"));
+        int id = Integer.parseInt(req.getParameter("idStudent"));
 
         StudentDAO studentDAO = new StudentDAO();
         Student student = studentDAO.findById(id);

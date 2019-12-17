@@ -5,29 +5,30 @@ import objectForStrokeBase.Student;
 import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.StudentDAO;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-public class setGroup extends HttpServlet {
+public class setGroupStudent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html");
-        int id = Integer.parseInt(request.getParameter("id"));
-        int number = Integer.parseInt(request.getParameter("number"));
+
+        int id = Integer.parseInt(request.getParameter("idStudent"));
+        int number = Integer.parseInt(request.getParameter("numberGroup"));
+
         StudentDAO studentDAO = new StudentDAO();
         Student student = studentDAO.findById(id);
+
         GroupDAO groupDAO = new GroupDAO();
         Group group = groupDAO.selectGroupByNumber(number);
+
         student.setGroupStudent(group);
         studentDAO.update(student);
-        PrintWriter writer = response.getWriter();
-        writer.println("GOOD");
+
+        studentDAO.close();
+        groupDAO.close();
     }
 }

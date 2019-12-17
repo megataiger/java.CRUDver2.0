@@ -5,45 +5,44 @@
          version="4.0">
 
     <servlet-mapping>
-        <servlet-name>insert</servlet-name>
-        <url-pattern>/ins</url-pattern>
+        <servlet-name>insertStudent</servlet-name>
+        <url-pattern>/insertStudent</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>insert</servlet-name>
+        <servlet-name>insertStudent</servlet-name>
         <servlet-class>servlets.student.insertStudent</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>delete</servlet-name>
-        <url-pattern>/del</url-pattern>
+        <servlet-name>deleteStudent</servlet-name>
+        <url-pattern>/deleteStudent</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>delete</servlet-name>
+        <servlet-name>deleteStudent</servlet-name>
         <servlet-class>servlets.student.deleteStudent</servlet-class>
     </servlet>
 
     <servlet-mapping>
-    <servlet-name>update</servlet-name>
-    <url-pattern>/up</url-pattern>
+    <servlet-name>setNameStudent</servlet-name>
+    <url-pattern>/setNameStudent</url-pattern>
     </servlet-mapping>
-
     <servlet>
-        <servlet-name>update</servlet-name>
-        <servlet-class>servlets.student.updateStudent</servlet-class>
+        <servlet-name>setNameStudent</servlet-name>
+        <servlet-class>servlets.student.setNameStudent</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>gender</servlet-name>
-        <url-pattern>/gen</url-pattern>
+        <servlet-name>getGender</servlet-name>
+        <url-pattern>/getGender</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>gender</servlet-name>
-        <servlet-class>servlets.student.gender</servlet-class>
+        <servlet-name>getGender</servlet-name>
+        <servlet-class>servlets.student.getGender</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>setGenderStudent</servlet-name>
-        <url-pattern>/stg</url-pattern>
+        <url-pattern>/setGenderStudent</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>setGenderStudent</servlet-name>
@@ -60,30 +59,30 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>setGroup</servlet-name>
-        <url-pattern>/setGroup</url-pattern>
+        <servlet-name>setGroupStudent</servlet-name>
+        <url-pattern>/setGroupStudent</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>setGroup</servlet-name>
-        <servlet-class>servlets.student.setGroup</servlet-class>
+        <servlet-name>setGroupStudent</servlet-name>
+        <servlet-class>servlets.student.setGroupStudent</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>setDate</servlet-name>
-        <url-pattern>/setDate</url-pattern>
+        <servlet-name>setBirthdayStudent</servlet-name>
+        <url-pattern>/setBirthdayStudent</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>setDate</servlet-name>
-        <servlet-class>servlets.student.setDate</servlet-class>
+        <servlet-name>setBirthdayStudent</servlet-name>
+        <servlet-class>servlets.student.setBirthdayStudent</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>selectByCriterion</servlet-name>
-        <url-pattern>/selByCrit</url-pattern>
+        <servlet-name>selectStudentsByCriterion</servlet-name>
+        <url-pattern>/selectStudentsByCriterion</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>selectByCriterion</servlet-name>
-        <servlet-class>servlets.student.selectByCriterion</servlet-class>
+        <servlet-name>selectStudentsByCriterion</servlet-name>
+        <servlet-class>servlets.student.selectStudentsByCriterion</servlet-class>
     </servlet>
 
     <servlet-mapping>
