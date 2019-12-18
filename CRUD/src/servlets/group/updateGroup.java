@@ -17,8 +17,8 @@ public class updateGroup extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        int number = Integer.parseInt(request.getParameter("number"));
+        int id = Integer.parseInt(request.getParameter("idGroup"));
+        int number = Integer.parseInt(request.getParameter("numberGroup"));
 
         GroupDAO groupDAO = new GroupDAO();
         Group group = groupDAO.findById(id);

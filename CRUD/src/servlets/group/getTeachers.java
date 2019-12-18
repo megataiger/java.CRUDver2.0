@@ -21,7 +21,7 @@ public class getTeachers extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int number = Integer.parseInt(request.getParameter("number"));
+        int number = Integer.parseInt(request.getParameter("numberGroup"));
         GroupDAO groupDAO = new GroupDAO();
         Group group = groupDAO.selectGroupByNumber(number);
 
@@ -29,7 +29,7 @@ public class getTeachers extends HttpServlet {
 
         StringBuilder result = new StringBuilder();
 
-        if (request.getParameter("name") == null) {
+        if (request.getParameter("nameTeacher") == null) {
             List<Teacher> teachers = group.getTeachers();
 
             if (teachers.size() != 0) {
@@ -37,11 +37,12 @@ public class getTeachers extends HttpServlet {
                         constructResultByTeachers(result, teachers)
                 );
             } else {
-                writer.println("<tr>\n<td>У данной группы нет преподавателей</td>\n</tr>\n");
+                writer.println("<tr>\n<td>У данной группы " +
+                        "нет преподавателей</td>\n</tr>\n");
             }
         } else {
             TeacherDAO teacherDAO = new TeacherDAO();
-            String name = request.getParameter("name");
+            String name = request.getParameter("nameTeacher");
 
             List<Object[]> teachers =
                     teacherDAO.findByWithConGroup(group.getId(), name);
@@ -52,8 +53,8 @@ public class getTeachers extends HttpServlet {
                             constructResult(result, teachers)
                     );
                 } else {
-                    writer.println("<tr>\n<td>Преподвателя с данным именем нет в списке" +
-                            ", либо он ещё не добавлен</td>\n</tr>\n");
+                    writer.println("<tr>\n<td>Преподвателя с данным именем" +
+                            " нет в списке, либо он ещё не добавлен</td>\n</tr>\n");
                 }
             } catch (Exception e) {
                 writer.println("Потеряна связь с сервером");
@@ -75,7 +76,7 @@ public class getTeachers extends HttpServlet {
                 string.append("</td>\n");
                 string.append("<td class=\"");
                 string.append(e.getId());
-                string.append("\"><a class=\"del\" href=\"");
+                string.append("\"><a class=\"deleteTeacher\" href=\"");
                 string.append(e.getId());
                 string.append("\"><img title='Удалить' src=\"bascet.png\"></a></td>\n");
                 string.append("</tr>");
@@ -96,7 +97,7 @@ public class getTeachers extends HttpServlet {
                 string.append("</td>\n");
                 string.append("<td class=\"");
                 string.append(e[0]);
-                string.append("\"><a class=\"del\" href=\"");
+                string.append("\"><a class=\"deleteTeacher\" href=\"");
                 string.append(e[0]);
                 string.append("\"><img src=\"bascet.png\"></a></td>\n");
                 string.append("</tr>");

@@ -24,7 +24,7 @@ public class selectAllGroup extends HttpServlet {
 
         GroupDAO groupDAO = new GroupDAO();
 
-        if (request.getParameter("number") == null) {
+        if (request.getParameter("numberGroup") == null) {
 
             List<Group> groups = groupDAO.getAll();
 
@@ -33,7 +33,7 @@ public class selectAllGroup extends HttpServlet {
             );
 
         } else {
-            int number = Integer.parseInt(request.getParameter("number"));
+            int number = Integer.parseInt(request.getParameter("numberGroup"));
 
             List<Object[]> groups = groupDAO.searchGroup(number);
 

@@ -23,8 +23,8 @@
                     <input id="addGroup" type="text">
                 </div>
                 <div>
-                    <label for="search">Поиск:</label>
-                    <input id="search" type="text">
+                    <label for="searchGroup">Поиск:</label>
+                    <input id="searchGroup" type="text">
                 </div>
             </div>
             <br>
@@ -34,15 +34,14 @@
                 </tbody>
             </table>
             <div>Для редактирования ячеек таблицы просто нажмите на саму ячейку,
-                а затем подтвердите изменения, нажав Ввод или просто выйдите из режима редактирования,
-                нажав в пустаю часть экрана</div>
-            <h3 id="num"></h3>
-            <div id="newMenu">
-                <div id="options">
-                    <button id="view">Просмотр</button>
-                    <button id="add">Добавление</button>
+                а затем подтвердите изменения</div>
+            <h3 id="numberGroup"></h3>
+            <div id="menuTeachersOfGroup">
+                <div id="optionsOfMenu">
+                    <button id="viewTeachers">Просмотр</button>
+                    <button id="addTeachers">Добавление</button>
                 </div>
-                <div id="divSearch">
+                <div id="searchTeachersForGroup">
 
                 </div>
                 <table>
@@ -51,7 +50,7 @@
                     </tbody>
                 </table>
             </div>
-            <div id="students">
+            <div id="menuStudentsOfGroup">
                 <input id="searchStudent" type="text" placeholder="Найти студента">
                 <table id="studentsOfGroup">
                     <tbody>

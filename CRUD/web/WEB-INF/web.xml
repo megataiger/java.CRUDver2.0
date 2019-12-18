@@ -96,7 +96,7 @@
 
     <servlet-mapping>
         <servlet-name>deleteGroup</servlet-name>
-        <url-pattern>/delGroup</url-pattern>
+        <url-pattern>/deleteGroup</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteGroup</servlet-name>
@@ -105,7 +105,7 @@
 
     <servlet-mapping>
         <servlet-name>insertGroup</servlet-name>
-        <url-pattern>/insGroup</url-pattern>
+        <url-pattern>/insertGroup</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>insertGroup</servlet-name>

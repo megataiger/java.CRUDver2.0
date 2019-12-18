@@ -15,7 +15,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Студенты</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="styleForStudent.css">
         <script type="text/javascript" src="jquery-3.4.1.js"></script>
         <script type="text/javascript" src="scriptForStudent.js"></script>
     </head>
@@ -47,8 +47,7 @@
                 </tbody>
             </table>
             <div>Для редактирования ячеек таблицы просто нажмите на саму ячейку,
-                а затем подтвердите изменения, нажав Ввод или просто выйдите из режима редактирования,
-                нажав в пустаю часть экрана</div>
+                а затем подтвердите изменения, нажав Ввод</div>
         </div>
         <form action="" id="addStudent" method="POST">
             Имя студента: <input type="text" name="nameStudent" /><br><br>

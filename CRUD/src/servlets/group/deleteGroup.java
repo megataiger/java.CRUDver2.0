@@ -17,7 +17,7 @@ public class deleteGroup extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("idGroup"));
 
         GroupDAO groupDAO = new GroupDAO();
         Group group = groupDAO.findById(id);

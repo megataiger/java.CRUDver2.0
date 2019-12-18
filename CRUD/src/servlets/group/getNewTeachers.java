@@ -20,7 +20,7 @@ public class getNewTeachers extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int number = Integer.parseInt(request.getParameter("number"));
+        int number = Integer.parseInt(request.getParameter("numberGroup"));
 
         GroupDAO groupDAO = new GroupDAO();
         TeacherDAO teacherDAO = new TeacherDAO();
@@ -33,13 +33,13 @@ public class getNewTeachers extends HttpServlet {
         PrintWriter writer = response.getWriter();
         StringBuilder result = new StringBuilder();
 
-        if (request.getParameter("name") == null) {
+        if (request.getParameter("nameTeacher") == null) {
             List<Object[]> teachers = teacherDAO.findByWithoutConWithGroup(id);
             writer.println(
                     constructResult(result, teachers)
             );
         } else {
-            String name = request.getParameter("name");
+            String name = request.getParameter("nameTeacher");
             List<Object[]> teachers =
                     teacherDAO.findByWithoutConWithGroup(id, name);
             if (teachers.size() != 0) {
@@ -65,7 +65,7 @@ public class getNewTeachers extends HttpServlet {
             string.append("<td>");
             string.append(e[2]);
             string.append("</td>\n");
-            string.append("<td><a class=\"add\" href=\"");
+            string.append("<td><a class=\"addTeacher\" href=\"");
             string.append(e[0]);
             string.append("\"><img title='Добавить' src=\"plus.png\"></a></td>\n");
             string.append("</tr>\n");

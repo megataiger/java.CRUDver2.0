@@ -20,14 +20,14 @@ public class deleteTeacherForGroup extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int groupNumber = Integer.parseInt(request.getParameter("number"));
-        int id = Integer.parseInt(request.getParameter("id"));
+        int numberGroup = Integer.parseInt(request.getParameter("numberGroup"));
+        int idTeacher = Integer.parseInt(request.getParameter("idTeacher"));
 
         GroupDAO groupDAO = new GroupDAO();
-        Group group = groupDAO.selectGroupByNumber(groupNumber);
+        Group group = groupDAO.selectGroupByNumber(numberGroup);
 
         TeacherDAO teacherDAO = new TeacherDAO();
-        Teacher teacher = teacherDAO.findById(id);
+        Teacher teacher = teacherDAO.findById(idTeacher);
 
         group.removeTeacher(teacher);
         groupDAO.update(group);

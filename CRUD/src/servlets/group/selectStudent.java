@@ -23,9 +23,9 @@ public class selectStudent extends HttpServlet {
 
         PrintWriter writer = response.getWriter();
 
-        if (request.getParameter("name") == null) {
+        if (request.getParameter("nameStudent") == null) {
             int groupNumber =
-                    Integer.parseInt(request.getParameter("groupNumber"));
+                    Integer.parseInt(request.getParameter("numberGroup"));
 
             GroupDAO groupDAO = new GroupDAO();
             Group group = groupDAO.selectGroupByNumber(groupNumber);
@@ -49,9 +49,9 @@ public class selectStudent extends HttpServlet {
             studentDAO.close();
         } else {
             int groupNumber =
-                    Integer.parseInt(request.getParameter("groupNumber"));
+                    Integer.parseInt(request.getParameter("numberGroup"));
 
-            String name = request.getParameter("name");
+            String name = request.getParameter("nameStudent");
 
             GroupDAO groupDAO = new GroupDAO();
             Group group = groupDAO.selectGroupByNumber(groupNumber);
