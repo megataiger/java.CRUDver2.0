@@ -20,18 +20,18 @@ public class getGroup extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("idTeacher"));
 
         TeacherDAO teacherDAO = new TeacherDAO();
         Teacher teacher = teacherDAO.findById(id);
 
         StringBuilder result = new StringBuilder();
 
-        if (request.getParameter("number") == null) {
+        if (request.getParameter("numberGroup") == null) {
             result = getResult(result, teacher.getGroups());
         } else {
             GroupDAO groupDAO = new GroupDAO();
-            String number = request.getParameter("number");
+            String number = request.getParameter("numberGroup");
             result = getResultForSearch(result, groupDAO.findByConWithTeacher(id, number));
         }
         PrintWriter writer = response.getWriter();

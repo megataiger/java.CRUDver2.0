@@ -17,16 +17,16 @@ public class getNewGroups extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("idTeacher"));
 
         GroupDAO groupDAO = new GroupDAO();
 
         StringBuilder result = new StringBuilder();
 
-        if (request.getParameter("number") == null) {
+        if (request.getParameter("numberGroup") == null) {
             result = getResult(result, groupDAO.findByWithoutConWithTeacher(id));
         } else {
-            String number = request.getParameter("number");
+            String number = request.getParameter("numberGroup");
             result = getResult(result, groupDAO.findByWithoutConWithTeacher(id, number));
         }
 

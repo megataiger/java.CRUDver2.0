@@ -18,8 +18,8 @@ public class deleteGroupForTeacher extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int number = Integer.parseInt(request.getParameter("number"));
-        int idTeacher = Integer.parseInt(request.getParameter("id"));
+        int number = Integer.parseInt(request.getParameter("numberGroup"));
+        int idTeacher = Integer.parseInt(request.getParameter("idTeacher"));
 
         GroupDAO groupDAO = new GroupDAO();
         Group group = groupDAO.selectGroupByNumber(number);

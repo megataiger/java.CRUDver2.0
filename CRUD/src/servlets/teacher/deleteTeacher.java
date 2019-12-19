@@ -16,7 +16,7 @@ public class deleteTeacher extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("Utf-8");
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("idTeacher"));
 
         TeacherDAO teacherDAO = new TeacherDAO();
         Teacher teacher = teacherDAO.findById(id);

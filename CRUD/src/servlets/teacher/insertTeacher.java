@@ -18,7 +18,7 @@ public class insertTeacher extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        String name = request.getParameter("teacherName");
+        String name = request.getParameter("nameTeacher");
         LocalDate date = LocalDate.parse(request.getParameter("birthday"));
         Gender gender;
         if (request.getParameter("gender").equals(Gender.MAN.toString())) {

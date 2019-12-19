@@ -74,14 +74,14 @@ public class selectAllTeachers extends HttpServlet {
         for (Teacher e : resultList) {
             string.append("<tr>\n<td class='id'>");
             string.append(e.getId());
-            string.append("</td>\n<td class='name'>");
+            string.append("</td>\n<td class='nameTeacher'>");
             string.append(e.getName());
-            string.append("</td>\n<td class='date'>");
+            string.append("</td>\n<td class='birthdayTeacher'>");
             string.append(e.getDate());
-            string.append("</td>\n<td class='gender'>");
+            string.append("</td>\n<td class='genderTeacher'>");
             string.append(e.getGender());
-            string.append("</td>\n<td><a class=\"del\" href=\"\"><img title='Удалить' src=\"bascet.png\"></a>" +
-                    "<a class=\"list\" href=\"\"><img src=\"list.png\" title='Список групп'></a></td>\n");
+            string.append("</td>\n<td><a class=\"deleteTeacher\" href=\"\"><img title='Удалить' src=\"bascet.png\"></a>" +
+                    "<a class=\"listOfGroup\" href=\"\"><img src=\"list.png\" title='Список групп'></a></td>\n");
             string.append("</tr>");
         }
 

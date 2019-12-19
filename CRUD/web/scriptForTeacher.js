@@ -1,128 +1,161 @@
 $(document).ready(function () {
-   $.post(
-       "selectAllTeachers",
-       function (data) {
-           $("#teachers").html(data);
-           $("td.id").hide();
-           $("#groups").hide();
-       }
-   );
    
-   $("#teachers").on("click", ".name", function () {
-       var td = $(this);
-       var name = $(td).text();
-       var tr = $(td).parent();
-       $(this).html("<input id='newNameTeacher' value='" + name + "' type='text'>");
-       var input = $("#newNameTeacher");
-       $(input).click(function (evt) {
-           evt.stopPropagation();
-       })
-       $(input).select();
-       $(input).keypress(function (evt) {
-           if (evt.keyCode === 13) {
-               name = $(input).val();
-               var tds = $(tr).children();
-               var id = $(tds[0]).text();
-               $.post(
-                   "updateTeacher", {
-                       name : name,
-                       id : id
-                   }, function (data) {
-                       td.html(name);
-                   }
-               );
-           }
-       });
-       
-       $(input).blur(function () {
-           $(td).html(name);
-       })
-   });
+    startPage();
+    
+    setNameTeacher();
 
-    $("#teachers").on("click", ".date", function () {
-        var td = $(this);
-        var date = $(td).text();
-        var tr = $(td).parent();
-        $(this).html("<input id='newDateTeacher' value='" + date + "' type='date'>");
-        var input = $("#newDateTeacher");
-        $(input).click(function (evt) {
+    setBirthdayTeacher();
+
+    setGenderTeacher();
+
+    deleteTeacher();
+
+    insertTeacher();
+
+    searchTeacher();
+
+    viewMenuGroups();
+
+    clickToAddGroupsOfTeacher();
+
+    clickToViewGroupsOfTeacher();
+
+    deleteGroupOfTeacher();
+
+    addGroupForTeacher();
+
+    searchGroup();
+});
+
+function startPage() {
+    $.post(
+        "selectAllTeachers",
+        function (data) {
+            $("#teachers").html(data);
+            $("td.id").hide();
+            $("#groups").hide();
+        }
+    );
+}
+
+function setNameTeacher() {
+    $("#teachers").on("click", ".nameTeacher", function () {
+        var fieldName = $(this);
+        var oldName = $(fieldName).text();
+        var string = $(fieldName).parent();
+        $(fieldName).html("<input id='newNameTeacher' value='" + oldName + "' type='text'>");
+        var inputName = $("#newNameTeacher");
+        $(inputName).click(function (evt) {
             evt.stopPropagation();
-        })
-        $(input).select();
-        $(input).keypress(function (evt) {
+        });
+        $(inputName).select();
+        $(inputName).keypress(function (evt) {
             if (evt.keyCode === 13) {
-                date = $(input).val();
-                var tds = $(tr).children();
-                var id = $(tds[0]).text();
+                var newName = $(inputName).val();
+                var arrayFields = $(string).children();
+                var idTeacher = $(arrayFields[0]).text();
                 $.post(
                     "updateTeacher", {
-                        date : date,
-                        id : id
-                    }, function (data) {
-                        td.html(date);
+                        nameTeacher : newName,
+                        idTeacher : idTeacher
+                    }, function () {
+                        fieldName.html(newName);
                     }
                 );
             }
         });
 
-        $(input).blur(function () {
-            $(td).html(date);
+        $(inputName).blur(function () {
+            $(fieldName).html(oldName);
         })
     });
+}
 
-    $("#teachers").on("click", ".gender", function () {
-        var text = $(this).text();
-        var td = $(this);
-        var tr = $(this).parent();
-
-        $(tr).click();
-
-        $(this).html("<select></select>");
-        var select = $(td).children();
-
-        $.post("gen", {
-            gender : text
-        }, function (data) {
-            $(select).html(data);
+function setBirthdayTeacher() {
+    $("#teachers").on("click", ".birthdayTeacher", function () {
+        var fieldBirthday = $(this);
+        var oldBirthday = $(fieldBirthday).text();
+        var string = $(fieldBirthday).parent();
+        $(fieldBirthday).html("<input id='newDateTeacher' value='" + oldBirthday + "' type='date'>");
+        var inputBirthday = $("#newDateTeacher");
+        $(inputBirthday).click(function (evt) {
+            evt.stopPropagation();
+        });
+        $(inputBirthday).select();
+        $(inputBirthday).keypress(function (evt) {
+            if (evt.keyCode === 13) {
+                var newBirthday = $(inputBirthday).val();
+                var arrayFields = $(string).children();
+                var idTeacher = $(arrayFields[0]).text();
+                $.post(
+                    "updateTeacher", {
+                        newBirthday : newBirthday,
+                        idTeacher : idTeacher
+                    }, function () {
+                        fieldBirthday.html(newBirthday);
+                    }
+                );
+            }
         });
 
-        $(select).click(function (evt) {
+        $(inputBirthday).blur(function () {
+            $(fieldBirthday).html(oldBirthday);
+        })
+    });
+}
+
+function setGenderTeacher() {
+    $("#teachers").on("click", ".genderTeacher", function () {
+        var oldGender = $(this).text();
+        var fieldGender = $(this);
+        var string = $(fieldGender).parent();
+
+        $(fieldGender).html("<select></select>");
+        var selectGender = $(fieldGender).children();
+
+        $.post("getGender", {
+            gender : oldGender
+        }, function (data) {
+            $(selectGender).html(data);
+        });
+
+        $(selectGender).click(function (evt) {
             evt.stopPropagation();
         });
 
-        $(select).focus();
+        $(selectGender).focus();
 
-        $(select).change(function (){
-            var gender = $(this).val()
+        $(selectGender).change(function (){
+            var newGender = $(this).val()
 
-            $(td).html(gender);
+            $(fieldGender).html(newGender);
 
-            var cells = $(tr).children();
+            var arrayFields = $(string).children();
 
             $.post("updateTeacher", {
-                id : $(cells[0]).text(),
-                gender : gender
-            }, function (data) {
-                console.log(data);
+                idTeacher : $(arrayFields[0]).text(),
+                newGender : newGender
             });
         });
 
-        $(select).blur(function (){
-            $(td).html($(this).val());
+        $(selectGender).blur(function (){
+            $(fieldGender).html(oldGender);
         });
     });
+}
 
-    $("#teachers").on("click", ".del", function (evt) {
+function deleteTeacher() {
+    $("#teachers").on("click", ".deleteTeacher", function (evt) {
         evt.preventDefault();
 
-        var td = $(this).parent();
-        var tr = $(td).parent();
-        var cells = $(tr).children();
-        var id = $(cells[0]).text();
+        var fieldOfOperations = $(this).parent();
+        var string = $(fieldOfOperations).parent();
+        var arrayFields = $(string).children();
+        var idTeacher = $(arrayFields[0]).text();
 
         $.get("deleteTeacher", {
-           id : id
-       }, function () {
+            idTeacher : idTeacher
+        }, function () {
             $.post(
                 "selectAllTeachers",
                 function (data) {
@@ -132,12 +165,16 @@ $(document).ready(function () {
             );
         });
     });
+}
 
+function insertTeacher() {
     $("#addTeacher").submit(function (evt) {
         evt.preventDefault();
 
+        var form = $(this);
+
         $.post("insertTeacher",
-            $(this).serialize(),
+            $(form).serialize(),
             function () {
                 $.post(
                     "selectAllTeachers",
@@ -148,122 +185,138 @@ $(document).ready(function () {
                 );
             });
     });
+}
 
+function searchTeacher() {
     $("#findTeachers").submit(function (evt) {
         evt.preventDefault();
 
+        var form = $(this);
+
         $.post("selectAllTeachers",
-            $(this).serialize(),
+            $(form).serialize(),
             function (data) {
                 $("#teachers").html(data);
                 $("td.id").hide();
             })
     });
+}
 
-    $("#teachers").on("click", ".list", function (evt) {
+function viewMenuGroups() {
+    $("#teachers").on("click", ".listOfGroup", function (evt) {
         evt.preventDefault();
 
-        var td = $(this).parent();
-        var tr = $(td).parent();
-        var cells = $(tr).children();
-        var id = $(cells[0]).text();
-        var name = $(cells[1]).text();
+        var fieldOfOperations = $(this).parent();
+        var string = $(fieldOfOperations).parent();
+        var arrayFields = $(string).children();
+        var idTeacher = $(arrayFields[0]).text();
+        var nameTeacher = $(arrayFields[1]).text();
 
-        $("#name").attr("class", id);
-        $("#name").text(name);
+        $("#nameChooseTeacher").attr("class", idTeacher);
+        $("#nameChooseTeacher").text(nameTeacher);
 
         $.get("getGroup", {
-            id : id
+            idTeacher : idTeacher
         }, function (data) {
             $("#groups").show();
             $("#tableGroup").html(data);
             $("#searchGroup").attr("class", "view");
-            });
         });
+    });
+}
 
+function clickToAddGroupsOfTeacher() {
     $("#addGroup").click(function () {
-        var id = $("#name").attr("class");
+        var idTeacher = $("#nameChooseTeacher").attr("class");
 
         $(this).css({"border" : "0px"});
         $("#viewGroup").css({"border" : "1px solid black"});
 
         $.get("getNewGroups", {
-            id : id
+            idTeacher : idTeacher
         }, function (data) {
             $("#tableGroup").html(data);
             $("#searchGroup").attr("class", "add");
         })
-    })
+    });
+}
 
+function clickToViewGroupsOfTeacher() {
     $("#viewGroup").click(function () {
-        var id = $("#name").attr("class");
+        var idTeacher = $("#nameChooseTeacher").attr("class");
 
         $(this).css({"border" : "0px"});
         $("#addGroup").css({"border" : "1px solid black"});
 
         $.get("getGroup", {
-            id : id
+            idTeacher : idTeacher
         }, function (data) {
             $("#tableGroup").html(data);
             $("#searchGroup").attr("class", "view");
         })
-    })
+    });
+}
 
+function deleteGroupOfTeacher() {
     $("#tableGroup").on("click", ".deleteGroup", function (evt) {
         evt.preventDefault();
 
-        var td = $(this).parent();
-        var tr = $(td).parent();
-        var cells = $(tr).children();
-        var number = $(cells[0]).text();
+        var fieldDeleteGroup = $(this).parent();
+        var stringGroup = $(fieldDeleteGroup).parent();
+        var arrayFields = $(stringGroup).children();
+        var numberGroup = $(arrayFields[0]).text();
 
-        var id = $("#name").attr("class");
+        var idTeacher = $("#nameChooseTeacher").attr("class");
 
         $.get("deleteGroupForTeacher", {
-            id : id,
-            number : number
+            idTeacher : idTeacher,
+            numberGroup : numberGroup
         }, function () {
             $("#viewGroup").click();
         });
-    })
+    });
+}
 
+function addGroupForTeacher() {
     $("#tableGroup").on("click", ".addGroup", function (evt) {
         evt.preventDefault();
 
-        var td = $(this).parent();
-        var tr = $(td).parent();
-        var cells = $(tr).children();
-        var number = $(cells[0]).text();
+        var fieldAddGroup = $(this).parent();
+        var stringGroup = $(fieldAddGroup).parent();
+        var arrayFields = $(stringGroup).children();
+        var numberGroup = $(arrayFields[0]).text();
 
-        var id = $("#name").attr("class");
+        var idTeacher = $("#nameChooseTeacher").attr("class");
 
         $.get("addGroupForTeacher", {
-            id : id,
-            number : number
+            idTeacher : idTeacher,
+            numberGroup : numberGroup
         }, function () {
             $("#addGroup").click();
         });
-    })
+    });
+}
 
+function searchGroup() {
     $("#searchGroup").keyup(function () {
         if ($(this).attr("class") === "view") {
-            var id = $("#name").attr("class");
+            var idTeacher = $("#nameChooseTeacher").attr("class");
 
             $.get("getGroup", {
-                id : id,
-                number : $(this).val()
+                idTeacher : idTeacher,
+                numberGroup : $(this).val()
             }, function (data) {
                 $("#tableGroup").html(data);
             });
         } else if ($(this).attr("class") === "add") {
-            var id = $("#name").attr("class");
+            var idTeacher = $("#nameChooseTeacher").attr("class");
 
             $.get("getNewGroups", {
-                id : id,
-                number : $(this).val()
+                idTeacher : idTeacher,
+                numberGroup : $(this).val()
             }, function (data) {
                 $("#tableGroup").html(data);
             });
         }
-    })
-});
+    });
+}
