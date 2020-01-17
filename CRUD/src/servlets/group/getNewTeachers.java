@@ -1,6 +1,9 @@
 package servlets.group;
 
 import objectForStrokeBase.Group;
+import objectForStrokeBase.Teacher;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.TeacherDAO;
 
@@ -9,68 +12,67 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class getNewTeachers extends HttpServlet {
     @Override
     protected void doGet
             (HttpServletRequest request, HttpServletResponse response)
-                        throws IOException {
+            throws IOException {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         int number = Integer.parseInt(request.getParameter("numberGroup"));
-
         GroupDAO groupDAO = new GroupDAO();
-        TeacherDAO teacherDAO = new TeacherDAO();
         Group group = groupDAO.selectGroupByNumber(number);
 
-        int id = group.getId();
+        PrintWriter writer = response.getWriter();
+
+        JSONObject result = new JSONObject();
+        JSONArray data = new JSONArray();
+
+        int page = Integer.parseInt(request.getParameter("start"));
+        int length = Integer.parseInt(request.getParameter("length"));
+        int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
+        String columnName = request.getParameter("columns[" + columnNumber + "][data]");
+        String orderBy = request.getParameter("order[0][dir]");
+        String draw = request.getParameter("draw");
+        String search = request.getParameter("search[value]");
+
+        TeacherDAO teacherDAO = new TeacherDAO();
+
+        String sort = "ORDER BY " + columnName + " " + orderBy;
+
+        List<Teacher> teachers = teacherDAO.getNewTeachersForGroup(group.getId(), page, length, sort, search);
+
+        data = getResult(teachers, data);
+
+        result.put("draw", draw);
+        result.put("data", data);
+        result.put("recordsTotal", teacherDAO.getNewTeachersForGroup(group.getId(), "").size());
+        result.put("recordsFiltered", teacherDAO.getNewTeachersForGroup(group.getId(), search).size());
+
+        writer.println(result);
+
+        teacherDAO.close();
 
         groupDAO.close();
-
-        PrintWriter writer = response.getWriter();
-        StringBuilder result = new StringBuilder();
-
-        if (request.getParameter("nameTeacher") == null) {
-            List<Object[]> teachers = teacherDAO.findByWithoutConWithGroup(id);
-            writer.println(
-                    constructResult(result, teachers)
-            );
-        } else {
-            String name = request.getParameter("nameTeacher");
-            List<Object[]> teachers =
-                    teacherDAO.findByWithoutConWithGroup(id, name);
-            if (teachers.size() != 0) {
-                writer.println(
-                        constructResult(result, teachers)
-                );
-            } else {
-                writer.println("<tr>\n<td>Преподваетеля с данным именем нет в списке" +
-                        ", либо он уже добавлен</td>\n</tr>\n");
-            }
-        }
-        teacherDAO.close();
     }
 
-    private StringBuilder constructResult
-            (StringBuilder string, List<Object[]> resultList) {
+    private JSONArray getResult(List<Teacher> teachers, JSONArray array) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-        for (Object[] e : resultList) {
-            string.append("<tr>\n");
-            string.append("<td>");
-            string.append(e[1]);
-            string.append("</td>\n");
-            string.append("<td>");
-            string.append(e[2]);
-            string.append("</td>\n");
-            string.append("<td><a class=\"addTeacher\" href=\"");
-            string.append(e[0]);
-            string.append("\"><img title='Добавить' src=\"plus.png\"></a></td>\n");
-            string.append("</tr>\n");
+        for (Teacher e : teachers) {
+            JSONObject teacher = new JSONObject();
+            teacher.put("name", e.getName());
+            teacher.put("birthday", formatter.format(e.getDate()));
+            teacher.put("id", e.getId());
+
+            array.put(teacher);
         }
 
-        return string;
+        return array;
     }
 }

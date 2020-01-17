@@ -1,6 +1,8 @@
 package servlets.group;
 
 import objectForStrokeBase.Group;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import workWithBase.daoClasses.GroupDAO;
 
 import javax.servlet.http.HttpServlet;
@@ -20,67 +22,42 @@ public class selectAllGroup extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         PrintWriter writer = response.getWriter();
-        StringBuilder result = new StringBuilder();
 
         GroupDAO groupDAO = new GroupDAO();
 
-        if (request.getParameter("numberGroup") == null) {
+        int page = Integer.parseInt(request.getParameter("start"));
+        int length = Integer.parseInt(request.getParameter("length"));
+        String orderBy = request.getParameter("order[0][dir]");
+        String draw = request.getParameter("draw");
+        String search = request.getParameter("search[value]");
 
-            List<Group> groups = groupDAO.getAll();
+        JSONObject result = new JSONObject();
+        JSONArray data = new JSONArray();
 
-            writer.println(
-                    constructResult(result, groups)
-            );
+        List<Group> groups = groupDAO.getGroups(search, page, length, orderBy);
 
-        } else {
-            int number = Integer.parseInt(request.getParameter("numberGroup"));
+        data = getResult(groups, data);
 
-            List<Object[]> groups = groupDAO.searchGroup(number);
-
-            writer.println(
-                    constructResultForSearch(result, groups)
-            );
-
-        }
+        result.put("draw", draw);
+        result.put("data", data);
+        result.put("recordsTotal", groupDAO.getAll().size());
+        result.put("recordsFiltered", groupDAO.getGroups(search).size());
 
         groupDAO.close();
+
+        writer.println(result);
     }
 
-    private StringBuilder constructResult
-            (StringBuilder string, List<Group> resultList) {
-        for (Group e : resultList) {
-            string.append("<tr>\n");
-            string.append("<td class=\"id\">");
-            string.append(e.getId());
-            string.append("</td>\n");
-            string.append("<td class=\"number\">");
-            string.append(e.getNumber());
-            string.append("</td>\n");
-            string.append("<td><a class=\"students\" href=\"\">Студенты</a></td>\n");
-            string.append("<td><a class=\"teachers\" href=\"\">Преподаватели</a></td>\n");
-            string.append("<td><a class=\"del\" href=\"\"><img title='Удалить' src=\"bascet.png\"></a></td>\n");
-            string.append("</tr>");
+    private JSONArray getResult(List<Group> groups, JSONArray array) {
+        for (Group e : groups) {
+            JSONObject group = new JSONObject();
+
+            group.put("id", e.getId());
+            group.put("number", e.getNumber());
+
+            array.put(group);
         }
 
-        return string;
-    }
-
-    private StringBuilder constructResultForSearch
-            (StringBuilder string, List<Object[]> resultList) {
-        for (Object[] e : resultList) {
-            string.append("<tr>\n");
-            string.append("<td class=\"id\">");
-            string.append(e[0]);
-            string.append("</td>\n");
-            string.append("<td class=\"number\">");
-            string.append(e[1]);
-            string.append("</td>\n");
-            string.append("<td><a class=\"students\" href=\"\">Студенты</a></td>\n");
-            string.append("<td><a class=\"teachers\" href=\"\">Преподаватели</a></td>\n");
-            string.append("<td><a class=\"del\" href=\"\"><img title='Удалить' src=\"bascet.png\"></a></td>\n");
-            string.append("</tr>");
-        }
-
-        return string;
+        return array;
     }
 }

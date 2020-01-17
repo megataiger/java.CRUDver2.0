@@ -1,0 +1,106 @@
+body {
+    font-family: "Arial";
+    font-size: 10pt;
+}
+
+#students_filter {
+    margin-bottom: 10px;
+}
+
+table#students {
+    border-collapse: collapse;
+}
+
+td.students {
+    border: 1px solid black;
+    text-align: center;
+    overflow: hidden;
+    font-size: 10pt;
+}
+
+th.students {
+    border: 1px solid black;
+    text-align: center;
+    overflow: hidden;
+    font-size: 10pt;
+}
+
+td.students:hover {
+    border: 1px solid black;
+    text-align: center;
+    overflow: hidden;
+    font-size: 10pt;
+    background-color: #f0f0f0;
+}
+
+td.name  {
+    width: 200px;
+    height: 52px;
+}
+
+td.birthday  {
+    width: 150px;
+}
+
+#mainDiv {
+    position: absolute;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#data {
+    margin: 0px 15px 0px 15px;
+    width: 60%;
+    float: left;
+}
+
+#addStudent {
+    position: relative;
+    float: left;
+    width: 30%;
+    margin-top: 31px;
+    padding: 10px;
+    border: 3px solid steelblue;
+    z-index: 1;
+    background-color: white;
+}
+
+#promptToSearch {
+    background-color: white;
+    position: absolute;
+    margin: auto;
+    z-index: 1;
+    /*   width: 174px; */
+    border: 1px solid #D6D3D3;
+    border-bottom: 2px solid #C4C2C2;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+table#prompt table#addGroup {
+    margin : auto;
+    border-collapse: separate;
+}
+
+#promptToAdd {
+    background-color: white;
+    position: absolute;
+    margin: auto;
+    z-index: 1;
+    /*   width: 174px; */
+    border: 1px solid #D6D3D3;
+    border-bottom: 2px solid #C4C2C2;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+table#addGroup > tr > td:hover {
+    background-color: #f0f0f0;
+}
+
+.id {
+    display: none;
+}

@@ -53,40 +53,56 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         return query.getResultList();
     }
 
-    public List<Object[]> findByWithoutConWithGroup(int id) {
-        Query query = entityManager.createNativeQuery("SELECT teacher.id, name, birthday from Teacher WHERE teacher.id NOT IN " +
-                "(SELECT teacher_id FROM group_teacher WHERE group_id = :id)");
-        int param = id;
-        query.setParameter("id", param);
+    public List findByFilter (String filter, int page, int length) {
+        return entityManager.createQuery(filter).setFirstResult(page)
+                .setMaxResults(length).getResultList();
+    }
+
+    public int countFindByFilter (String filter) {
+        return entityManager.createQuery(filter).getResultList().size();
+    }
+
+    public String getCount() {
+        return entityManager.createQuery("SELECT COUNT(id) From Teacher").toString();
+    }
+
+    public List getTeachersForGroup (int groupId, int page, int length, String orderBy, String filter) {
+        Query query =
+                entityManager.createQuery("SELECT t FROM Teacher t JOIN t.groups g " +
+                        "WHERE g.id = " + groupId + " AND (LOWER(t.name) LIKE '%" +
+                        filter + "%' OR t.date LIKE '%" + filter + "%') " + orderBy);
+        return query.setFirstResult(page).setMaxResults(length).getResultList();
+    }
+
+    public List getTeachersForGroup (int groupId, String filter) {
+        Query query =
+                entityManager.createQuery("SELECT t FROM Teacher t JOIN t.groups g " +
+                        "WHERE g.id = " + groupId + " AND (LOWER(t.name) LIKE '%" +
+                        filter + "%' OR t.date LIKE '%" + filter + "%') ");
         return query.getResultList();
     }
 
-    public List<Object[]> findByWithoutConWithGroup(int id, String name) {
-        Query query = entityManager.createNativeQuery("SELECT teacher.id, name, birthday from Teacher " +
-                "WHERE lower(name) like :string AND teacher.id NOT IN " +
-                "(SELECT teacher_id FROM group_teacher WHERE group_id = :id)");
-        int param = id;
-        query.setParameter("id", param);
-        String paramName = "%" + name + "%";
-        query.setParameter("string", paramName);
+    public List getNewTeachersForGroup (int groupId, int page, int length, String orderBy, String filter) {
+        Query query =
+                entityManager.createQuery("SELECT s FROM Teacher s " +
+                        "WHERE (LOWER(s.name) LIKE '%" + filter + "%' OR s.date LIKE '%" + filter + "%') " +
+                                "AND s NOT IN " +
+                                "(SELECT t FROM Teacher t JOIN t.groups g " +
+                                "WHERE g.id = " + groupId + ")" + orderBy);
+        return query.setFirstResult(page).setMaxResults(length).getResultList();
+    }
+
+    public List getNewTeachersForGroup (int groupId, String filter) {
+        Query query =
+                entityManager.createQuery("SELECT s FROM Teacher s " +
+                        "WHERE (LOWER(s.name) LIKE '%" +
+                        filter + "%' OR s.date LIKE '%" + filter + "%') " +
+                        "AND s NOT IN " +
+                        "(SELECT t FROM Teacher t JOIN t.groups g " +
+                        "WHERE g.id = " + groupId + ")");
         return query.getResultList();
     }
 
-    public List<Object[]> findByWithConGroup(int id, String name) {
-        Query query = entityManager.createNativeQuery("SELECT teacher.id, name, birthday from Teacher" +
-                " WHERE lower(name) like :string AND teacher.id IN " +
-                "(SELECT teacher_id FROM group_teacher WHERE group_id = :id)");
-        int param = id;
-        String paramName = "%" + name + "%";
-        query.setParameter("string", paramName);
-        query.setParameter("id", param);
-        return query.getResultList();
-    }
-
-    public List findByFilter (String filter) {
-        Query query = entityManager.createQuery(filter);
-        return query.getResultList();
-    }
 
     public void close() {
         entityManager.close();

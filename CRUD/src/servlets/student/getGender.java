@@ -1,6 +1,7 @@
 package servlets.student;
 
-import objectForStrokeBase.Gender;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,19 +20,48 @@ public class getGender extends HttpServlet {
 
         String string = request.getParameter("gender");
 
-        String result;
-        if(string.equals(Gender.MAN.toString())) {
-            result = "<option value=\"MAN\" selected=\"selected\">"
-                    + Gender.MAN + "</option>\n" + "<option value=\"WOMAN\">"
-                    + Gender.WOMAN + "</option>\n";
-        } else {
-            result = "<option value=\"MAN\">" + Gender.MAN + "</option>\n"
-                    + "<option value=\"WOMAN\" selected=\"selected\">"
-                    + Gender.WOMAN + "</option>\n";
-        }
+        JSONArray result = new JSONArray();
+
+        result = createListGender(result, string);
 
         PrintWriter writer = response.getWriter();
         writer.println(result);
 
+    }
+
+    private JSONArray createListGender (JSONArray array, String genderInBase) {
+
+        JSONObject gender = new JSONObject();
+        if(genderInBase.equals("М")) {
+            gender.put("gender", "М");
+            gender.put("value", "MAN");
+            gender.put("selected", true);
+
+            array.put(gender);
+
+            gender = new JSONObject();
+
+            gender.put("gender", "Ж");
+            gender.put("value", "WOMAN");
+            gender.put("selected", false);
+
+            array.put(gender);
+        } else {
+            gender.put("gender", "Ж");
+            gender.put("value", "WOMAN");
+            gender.put("selected", true);
+
+            array.put(gender);
+
+            gender = new JSONObject();
+
+            gender.put("gender", "М");
+            gender.put("value", "MAN");
+            gender.put("selected", false);
+
+            array.put(gender);
+        }
+
+        return array;
     }
 }

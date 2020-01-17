@@ -1,8 +1,3 @@
-<%@ page import="workWithBase.daoClasses.StudentDAO" %>
-<%@ page import="objectForStrokeBase.Student" %>
-<%@ page import="java.util.List" %>
-<%@ page import="workWithBase.daoClasses.GroupDAO" %>
-<%@ page import="objectForStrokeBase.Group" %>
 <%--
   Created by IntelliJ IDEA.
   User: NemolyaevIV
@@ -15,13 +10,16 @@
     <head>
         <meta charset="UTF-8">
         <title>Студенты</title>
-        <link rel="stylesheet" href="styleForStudent.css">
-        <script type="text/javascript" src="jquery-3.4.1.js"></script>
-        <script type="text/javascript" src="scriptForStudent.js"></script>
+        <link rel="stylesheet" href="../css/styleForStudent.css">
+        <link rel="stylesheet" type="text/css" href="../DataTables-1.10.20/css/jquery.dataTables.css"/>
+
+        <script type="text/javascript" src="../javaScript/jquery-3.4.1.js"></script>
+        <script type="text/javascript" src="../javaScript/scriptForStudent.js"></script>
+        <script type="text/javascript" src="../DataTables-1.10.20/js/jquery.dataTables.js"></script>
     </head>
     <div id="mainDiv">
-        <h4 align="center"><a href="index.jsp">Главная</a></h4>
-        <div class="search">
+        <h4 align="center"><a href="../index.jsp">Главная</a></h4>
+     <%--   <div class="search">
             <form id="searchStudents" action="" method="post">
                 <label for="nameStudent">Ф.И.О</label>
                 <input id="nameStudent" type="text" name="nameStudent">
@@ -34,33 +32,38 @@
                     <option value="MAN">MAN</option>
                 </select>
                 <label for="groupStudent">Группа</label>
-                <select id="groupStudent" class="allGroup" name="groupStudent">
-
-                </select>
+                <input id="groupStudent" class="allGroup" name="groupStudent">
                 <input id="search" type="submit" value="Поиск" />
             </form>
-        </div>
+        </div> --%>
         <div id="data">
             <table id="students">
+                <thead>
+
+                </thead>
                 <tbody>
 
                 </tbody>
             </table>
+            <div id="promptToSearch"><table id="prompt"></table></div>
             <div>Для редактирования ячеек таблицы просто нажмите на саму ячейку,
                 а затем подтвердите изменения, нажав Ввод</div>
         </div>
         <form action="" id="addStudent" method="POST">
-            Имя студента: <input type="text" name="nameStudent" /><br><br>
-            Дата рождения: <input type="date" name="birthdayStudent" /><br><br>
-            Пол: <input type="radio" name="genderStudent" value="WOMAN" checked />Woman
-            <input type="radio" name="genderStudent" value="MAN" />Man<br><br>
-            Группа:
-            <select class="allGroup" name="groupStudent">
-
-            </select>
+            <h3>Добавление нового студента</h3>
+            <label for="inputNameStudent">Ф.И.О</label>
+            <input type="text" id="inputNameStudent" name="nameStudent" /><br><br>
+            <label for="inputBirthdayStudent">Дата рождения</label>
+            <input type="date" id="inputBirthdayStudent" name="birthdayStudent" /><br><br>
+            <label for="inputGenderStudent">Пол</label>
+            <input type="radio" id="inputGenderStudent" name="genderStudent" value="WOMAN" checked />Женский
+            <input type="radio" name="genderStudent" value="MAN" />Мужской<br><br>
+            <label for="inputGroupStudent">Группа</label>
+            <input id="inputGroupStudent" class="allGroup" name="groupStudent">
             <br><br>
             <input type="submit" value="Добавить" />
         </form>
+        <div id="promptToAdd"><table id="addGroup"></table></div>
     </div>
     </body>
 </html>

@@ -9,50 +9,55 @@
 <html>
     <head>
         <title>Группы</title>
-        <link rel="stylesheet" href="styleGroup.css">
-        <script type="text/javascript" src="jquery-3.4.1.js"></script>
-        <script type="text/javascript" src="scriptForGroup.js"></script>
+        <link rel="stylesheet" href="../css/styleGroup.css">
+        <link rel="stylesheet" type="text/css" href="../DataTables-1.10.20/css/jquery.dataTables.css"/>
+
+        <script type="text/javascript" src="../javaScript/jquery-3.4.1.js"></script>
+        <script type="text/javascript" src="../javaScript/scriptForGroup.js"></script>
+        <script type="text/javascript" src="../DataTables-1.10.20/js/jquery.dataTables.js"></script>
     </head>
         <div class="main_div">
             <div>
                 <div>
-                    <h4><a href="index.jsp">Главная</a></h4>
+                    <h4><a href="../index.jsp">Главная</a></h4>
                 </div>
                 <div>
                     <label for="addGroup">Добавить новую группу:</label>
-                    <input id="addGroup" type="text">
-                </div>
-                <div>
-                    <label for="searchGroup">Поиск:</label>
-                    <input id="searchGroup" type="text">
+                    <input id="addGroup" type="text" size="5">
                 </div>
             </div>
             <br>
-            <table>
-                <tbody id="groups">
+            <table id="groups">
+                <thead>
+
+                </thead>
+                <tbody>
 
                 </tbody>
             </table>
             <div>Для редактирования ячеек таблицы просто нажмите на саму ячейку,
                 а затем подтвердите изменения</div>
+            <hr>
             <h3 id="numberGroup"></h3>
             <div id="menuTeachersOfGroup">
                 <div id="optionsOfMenu">
                     <button id="viewTeachers">Просмотр</button>
                     <button id="addTeachers">Добавление</button>
                 </div>
-                <div id="searchTeachersForGroup">
+                <table id="teachersOfGroup">
+                    <thead>
 
-                </div>
-                <table>
-                    <tbody id="teachers">
+                    </thead>
+                    <tbody>
 
                     </tbody>
                 </table>
             </div>
             <div id="menuStudentsOfGroup">
-                <input id="searchStudent" type="text" placeholder="Найти студента">
                 <table id="studentsOfGroup">
+                    <thead>
+
+                    </thead>
                     <tbody>
 
                     </tbody>

@@ -78,8 +78,8 @@ public class Teacher {
         return name;
     }
 
-    public String getDate() {
-        return date.toString();
+    public LocalDate getDate() {
+        return date;
     }
 
     public String getGender() {

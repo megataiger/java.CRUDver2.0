@@ -29,6 +29,12 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
 
     }
 
+    public List get(int i) {
+        return entityManager.createQuery("FROM Student").setFirstResult(i).setMaxResults(10)
+                .getResultList();
+
+    }
+
     public void update(Student student) {
         entityManager.getTransaction().begin();
         entityManager.merge(student);
@@ -61,16 +67,29 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
         return query.getResultList();
     }
 
-    public List findByGroupAndName (String name, Group group) {
-        Query query = entityManager.createQuery("from Student where lower(name) like :name AND group_id = :id");
-        String param = "%" + name + "%";
-        query.setParameter("name", param);
-        query.setParameter("id", group.getId());
-        return query.getResultList();
+    public List findByFilter (String filter, int page, int length) {
+        Query query = entityManager.createQuery(filter);
+        return query.setMaxResults(length).setFirstResult(page).getResultList();
     }
 
     public List findByFilter (String filter) {
         Query query = entityManager.createQuery(filter);
+        return query.getResultList();
+    }
+
+    public List findByGroup
+            (int groupId, int page, int length, String orderBy, String filter) {
+        Query query = entityManager.createQuery("FROM Student WHERE group_id = :id " +
+                "AND (LOWER(name) LIKE '%" + filter + "%' OR birthday LIKE '%" + filter + "%') " +
+        orderBy);
+        query.setParameter("id", groupId);
+        return query.setMaxResults(length).setFirstResult(page).getResultList();
+    }
+
+    public List findByGroup (int groupId, String filter) {
+        Query query = entityManager.createQuery("from Student where group_id = :id " +
+                "AND (LOWER(name) LIKE '%" + filter + "%' OR birthday LIKE '%" + filter + "%') ");
+        query.setParameter("id", groupId);
         return query.getResultList();
     }
 

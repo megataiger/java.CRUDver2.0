@@ -1,0 +1,81 @@
+body {
+    font-family: "Arial";
+    font-size: 10pt;
+}
+
+#teachers {
+    margin: 10pt;
+    border-collapse: collapse;
+}
+
+#teachers {
+    border-collapse: collapse;
+}
+
+#tableGroup {
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    font-size: 10pt;
+}
+
+th {
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    font-size: 10pt;
+}
+
+td:hover {
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    background-color: #f0f0f0;
+}
+
+#mainDiv {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#data {
+    float: left;
+    width: 60%
+}
+
+#menuGroupsAndAddTeacher {
+    float: left;
+    margin-left: 20px;
+    margin-top: 15px;
+    width: 35%;
+    background-color: white;
+
+}
+
+#groups {
+    background-color: white;
+    bottom: 15px;
+    right: 15px;
+    position: absolute;
+    padding: 5px;
+    width: 200px;
+}
+
+#close {
+    top: 15px;
+    right: 15px;
+    position: absolute;
+    background-color: white;
+}
+#close:hover {
+    background-color: #B0BED9;
+}
+
+#buttons {
+    margin: 10px auto 10px auto;
+}

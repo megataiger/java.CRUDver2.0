@@ -1,9 +1,8 @@
 package servlets.teacher;
 
-import objectForStrokeBase.Group;
-import objectForStrokeBase.Teacher;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import workWithBase.daoClasses.GroupDAO;
-import workWithBase.daoClasses.TeacherDAO;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,62 +19,59 @@ public class getGroup extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int id = Integer.parseInt(request.getParameter("idTeacher"));
+        JSONObject result = new JSONObject();
 
-        TeacherDAO teacherDAO = new TeacherDAO();
-        Teacher teacher = teacherDAO.findById(id);
+        String draw = request.getParameter("draw");
+        int page = Integer.parseInt(request.getParameter("start"));
+        int length = Integer.parseInt(request.getParameter("length"));
 
-        StringBuilder result = new StringBuilder();
+        if (request.getParameter("idTeacher") != null) {
 
-        if (request.getParameter("numberGroup") == null) {
-            result = getResult(result, teacher.getGroups());
-        } else {
+            int id = Integer.parseInt(request.getParameter("idTeacher"));
+
+            JSONArray data = new JSONArray();
+
             GroupDAO groupDAO = new GroupDAO();
-            String number = request.getParameter("numberGroup");
-            result = getResultForSearch(result, groupDAO.findByConWithTeacher(id, number));
-        }
-        PrintWriter writer = response.getWriter();
-        writer.println(result);
+            String number = request.getParameter("search[value]");
 
-        teacherDAO.close();
+            String order = request.getParameter("order[0][dir]");
+
+            data = getResultForSearch(data, groupDAO.findByConWithTeacher(id, number, page, length, order));
+
+            result.put("data", data);
+            result.put("draw", draw);
+            result.put("recordsTotal", groupDAO.findByConWithTeacher(id).size());
+            result.put("recordsFiltered", groupDAO.findByConWithTeacher(id).size());
+
+            PrintWriter writer = response.getWriter();
+            writer.println(result);
+
+            groupDAO.close();
+        } else {
+            JSONObject group = new JSONObject();
+            group.put("number", "");
+            group.put("delete", "<a class=\"deleteGroup\" href=\"\">" +
+                    "<img title='Удалить' src=\"bascet.png\"></a>");
+
+            result.put("data", group);
+            result.put("draw", draw);
+            result.put("recordsTotal", "0");
+            result.put("recordsFiltered", "0");
+
+            PrintWriter writer = response.getWriter();
+            writer.println(result);
+        }
     }
 
-    private StringBuilder getResult(StringBuilder string, List<Group> resultList) {
-        if (resultList.size() == 0) {
-            string.append("<tr><td>Нет результатов</td></tr>");
-        } else {
-            for (Group e : resultList) {
-                string.append("<tr>\n");
-                string.append("<td>");
-                string.append(e.getNumber());
-                string.append("</td>\n");
-                string.append("<td>");
-                string.append("<a class='deleteGroup'" +
-                        " href=''><img title='Удалить' src=\"bascet.png\"></a>");
-                string.append("</td>\n");
-                string.append("</tr>\n");
-            }
-        }
-
-        return string;
-    }
-
-    private StringBuilder getResultForSearch(StringBuilder string, List<Object> resultList) {
-        if (resultList.size() == 0) {
-            string.append("<tr><td>Нет результатов</td></tr>");
-        } else {
+    private JSONArray getResultForSearch(JSONArray data, List<Object> resultList) {
             for (Object e : resultList) {
-                string.append("<tr>\n");
-                string.append("<td>");
-                string.append(e);
-                string.append("</td>\n");
-                string.append("<td><a class=\"deleteGroup\" href=\"");
-                string.append(e);
-                string.append("\"><img title='Удалить' src=\"bascet.png\"></a></td>\n");
-                string.append("</tr>\n");
+                JSONObject group = new JSONObject();
+                group.put("number", e);
+                group.put("delete", "<a class=\"deleteGroup\" href=\"" + e +
+                        "\"><img title='Удалить' src=\"bascet.png\"></a>");
+                data.put(group);
             }
-        }
 
-        return string;
+        return data;
     }
 }

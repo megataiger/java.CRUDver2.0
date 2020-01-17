@@ -1,5 +1,7 @@
 package servlets.teacher;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import workWithBase.daoClasses.GroupDAO;
 
 import javax.servlet.http.HttpServlet;
@@ -17,41 +19,60 @@ public class getNewGroups extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int id = Integer.parseInt(request.getParameter("idTeacher"));
+        JSONObject result = new JSONObject();
 
-        GroupDAO groupDAO = new GroupDAO();
+        String draw = request.getParameter("draw");
+        int page = Integer.parseInt(request.getParameter("start"));
+        int length = Integer.parseInt(request.getParameter("length"));
 
-        StringBuilder result = new StringBuilder();
+        if (request.getParameter("idTeacher") != null) {
 
-        if (request.getParameter("numberGroup") == null) {
-            result = getResult(result, groupDAO.findByWithoutConWithTeacher(id));
+            int id = Integer.parseInt(request.getParameter("idTeacher"));
+
+            JSONArray data = new JSONArray();
+
+            GroupDAO groupDAO = new GroupDAO();
+            String number = request.getParameter("search[value]");
+
+            String order = request.getParameter("order[0][dir]");
+
+            data = getResultForSearch(data, groupDAO.findByWithoutConWithTeacher(id, number, page, length, order));
+
+            result.put("data", data);
+            result.put("draw", draw);
+            result.put("recordsTotal", groupDAO.findByWithoutConWithTeacher(id).size());
+            result.put("recordsFiltered", groupDAO.findByWithoutConWithTeacher(id).size());
+
+
+            PrintWriter writer = response.getWriter();
+            writer.println(result);
+
+            groupDAO.close();
         } else {
-            String number = request.getParameter("numberGroup");
-            result = getResult(result, groupDAO.findByWithoutConWithTeacher(id, number));
+            JSONObject group = new JSONObject();
+            group.put("number", "");
+            group.put("delete", "<a class=\"addGroup\" href=\"\">" +
+                    "<img title='Удалить' src=\"plus.png\"></a>");
+
+            result.put("data", group);
+            result.put("draw", draw);
+            result.put("recordsTotal", "0");
+            result.put("recordsFiltered", "0");
+
+            PrintWriter writer = response.getWriter();
+            writer.println(result);
         }
-
-        PrintWriter writer = response.getWriter();
-        writer.println(result);
-
-        groupDAO.close();
     }
 
-    private StringBuilder getResult(StringBuilder string, List<Object> resultList) {
-        if (resultList.size() == 0) {
-            string.append("<tr><td>Нет результатов</td></tr>");
-        } else {
-            for (Object e : resultList) {
-                string.append("<tr>\n");
-                string.append("<td>");
-                string.append(e);
-                string.append("</td>\n");
-                string.append("<td><a class=\"addGroup\" href=\"");
-                string.append(e);
-                string.append("\"><img title='Добавить' src=\"plus.png\"></a></td>\n");
-                string.append("</tr>\n");
-            }
+    private JSONArray getResultForSearch(JSONArray data, List<Object> resultList) {
+        for (Object e : resultList) {
+            JSONObject group = new JSONObject();
+            group.put("number", e);
+            group.put("delete", "<a class=\"addGroup\" href=\"" + e +
+                    "\"><img title='Добавить' src=\"plus.png\"></a>");
+            data.put(group);
         }
 
-        return string;
+        return data;
     }
 }

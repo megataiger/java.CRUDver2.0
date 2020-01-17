@@ -55,19 +55,35 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
         entityManager.getTransaction().commit();
     }
 
-    public List<Object[]> searchGroup (int number) {
-        Query query = entityManager.createNativeQuery("SELECT * from `group` where " +
-                "`group`.number like \"%" + number + "%\"");
+    public List getGroups (String filter, int page, int length, String orderType) {
+        Query query = entityManager.createQuery("FROM Group WHERE " +
+                "number LIKE '%" + filter + "%' ORDER BY number " + orderType);
+        return query.setFirstResult(page).setMaxResults(length).getResultList();
+    }
+
+    public List getGroups (String filter) {
+        Query query = entityManager.createQuery("FROM Group WHERE " +
+                "number LIKE '%" + filter + "%'");
         return query.getResultList();
     }
 
-    public List<Object> findByConWithTeacher(int id, String filter) {
+
+    public List<Object> findByConWithTeacher(int id) {
         Query query = entityManager.createNativeQuery("SELECT number from `group` " +
-                "WHERE `group`.`number` like \"%" + filter +  "%\" AND `group`.`id` IN " +
+                "WHERE `group`.`id` IN " +
                 "(SELECT group_id FROM group_teacher WHERE teacher_id = :id)");
         int param = id;
         query.setParameter("id", param);
         return query.getResultList();
+    }
+
+    public List<Object> findByConWithTeacher(int id, String filter, int page, int length, String order) {
+        Query query = entityManager.createNativeQuery("SELECT number from `group` " +
+                "WHERE `group`.`number` like \"%" + filter +  "%\" AND `group`.`id` IN " +
+                "(SELECT group_id FROM group_teacher WHERE teacher_id = :id) ORDER BY number " + order);
+        int param = id;
+        query.setParameter("id", param);
+        return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
     public List<Object> findByWithoutConWithTeacher(int id) {
@@ -78,13 +94,13 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
         return query.getResultList();
     }
 
-    public List<Object> findByWithoutConWithTeacher(int id, String filter) {
+    public List<Object> findByWithoutConWithTeacher(int id, String filter, int page, int length, String order) {
         Query query = entityManager.createNativeQuery("SELECT number from `group` " +
                 "WHERE `group`.`number` like \"%" + filter +  "%\" AND `group`.`id` NOT IN " +
-                "(SELECT group_id FROM group_teacher WHERE teacher_id = :id)");
+                "(SELECT group_id FROM group_teacher WHERE teacher_id = :id) ORDER BY number " + order);
         int param = id;
         query.setParameter("id", param);
-        return query.getResultList();
+        return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
     public void close() {

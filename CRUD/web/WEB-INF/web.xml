@@ -6,7 +6,7 @@
 
     <servlet-mapping>
         <servlet-name>insertStudent</servlet-name>
-        <url-pattern>/insertStudent</url-pattern>
+        <url-pattern>/jsp/insertStudent</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>insertStudent</servlet-name>
@@ -15,7 +15,7 @@
 
     <servlet-mapping>
         <servlet-name>deleteStudent</servlet-name>
-        <url-pattern>/deleteStudent</url-pattern>
+        <url-pattern>/jsp/deleteStudent</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteStudent</servlet-name>
@@ -24,7 +24,7 @@
 
     <servlet-mapping>
     <servlet-name>setNameStudent</servlet-name>
-    <url-pattern>/setNameStudent</url-pattern>
+    <url-pattern>/jsp/setNameStudent</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>setNameStudent</servlet-name>
@@ -33,7 +33,7 @@
 
     <servlet-mapping>
         <servlet-name>getGender</servlet-name>
-        <url-pattern>/getGender</url-pattern>
+        <url-pattern>/jsp/getGender</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>getGender</servlet-name>
@@ -42,7 +42,7 @@
 
     <servlet-mapping>
         <servlet-name>setGenderStudent</servlet-name>
-        <url-pattern>/setGenderStudent</url-pattern>
+        <url-pattern>/jsp/setGenderStudent</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>setGenderStudent</servlet-name>
@@ -50,17 +50,8 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>getGroups</servlet-name>
-        <url-pattern>/getGroups</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>getGroups</servlet-name>
-        <servlet-class>servlets.student.getGroups</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
         <servlet-name>setGroupStudent</servlet-name>
-        <url-pattern>/setGroupStudent</url-pattern>
+        <url-pattern>/jsp/setGroupStudent</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>setGroupStudent</servlet-name>
@@ -69,7 +60,7 @@
 
     <servlet-mapping>
         <servlet-name>setBirthdayStudent</servlet-name>
-        <url-pattern>/setBirthdayStudent</url-pattern>
+        <url-pattern>/jsp/setBirthdayStudent</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>setBirthdayStudent</servlet-name>
@@ -78,7 +69,7 @@
 
     <servlet-mapping>
         <servlet-name>selectStudentsByCriterion</servlet-name>
-        <url-pattern>/selectStudentsByCriterion</url-pattern>
+        <url-pattern>/jsp/selectStudentsByCriterion</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>selectStudentsByCriterion</servlet-name>
@@ -87,7 +78,7 @@
 
     <servlet-mapping>
         <servlet-name>updateGroup</servlet-name>
-        <url-pattern>/upGroup</url-pattern>
+        <url-pattern>/jsp/upGroup</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>updateGroup</servlet-name>
@@ -96,7 +87,7 @@
 
     <servlet-mapping>
         <servlet-name>deleteGroup</servlet-name>
-        <url-pattern>/deleteGroup</url-pattern>
+        <url-pattern>/jsp/deleteGroup</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteGroup</servlet-name>
@@ -105,7 +96,7 @@
 
     <servlet-mapping>
         <servlet-name>insertGroup</servlet-name>
-        <url-pattern>/insertGroup</url-pattern>
+        <url-pattern>/jsp/insertGroup</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>insertGroup</servlet-name>
@@ -150,7 +141,7 @@
 
     <servlet-mapping>
         <servlet-name>selectAllGroup</servlet-name>
-        <url-pattern>/selectAllGroup</url-pattern>
+        <url-pattern>/jsp/selectAllGroup</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>selectAllGroup</servlet-name>
@@ -236,6 +227,33 @@
     <servlet>
         <servlet-name>addGroupForTeacher</servlet-name>
         <servlet-class>servlets.teacher.addGroupForTeacher</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>example</servlet-name>
+        <url-pattern>/example</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>example</servlet-name>
+        <servlet-class>servlets.example</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>experimentSelect</servlet-name>
+        <url-pattern>/experimentSelect</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>experimentSelect</servlet-name>
+        <servlet-class>servlets.experimentSelect</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>searchGroups</servlet-name>
+        <url-pattern>/jsp/searchGroups</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>searchGroups</servlet-name>
+        <servlet-class>servlets.searchGroups</servlet-class>
     </servlet>
 
 </web-app>

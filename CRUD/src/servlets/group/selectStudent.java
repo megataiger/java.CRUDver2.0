@@ -2,6 +2,8 @@ package servlets.group;
 
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.StudentDAO;
 
@@ -10,11 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class selectStudent extends HttpServlet {
     @Override
-    protected void doPost
+    protected void doGet
             (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
@@ -23,74 +26,50 @@ public class selectStudent extends HttpServlet {
 
         PrintWriter writer = response.getWriter();
 
-        if (request.getParameter("nameStudent") == null) {
-            int groupNumber =
-                    Integer.parseInt(request.getParameter("numberGroup"));
+        JSONObject result = new JSONObject();
+        JSONArray data = new JSONArray();
 
-            GroupDAO groupDAO = new GroupDAO();
-            Group group = groupDAO.selectGroupByNumber(groupNumber);
+        int page = Integer.parseInt(request.getParameter("start"));
+        int length = Integer.parseInt(request.getParameter("length"));
+        int numberGroup = Integer.parseInt(request.getParameter("numberGroup"));
+        int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
+        String columnName = request.getParameter("columns[" + columnNumber + "][data]");
+        String orderBy = request.getParameter("order[0][dir]");
+        String draw = request.getParameter("draw");
+        String search = request.getParameter("search[value]");
 
-            StudentDAO studentDAO = new StudentDAO();
+        StudentDAO studentDAO = new StudentDAO();
+        GroupDAO groupDAO = new GroupDAO();
+        Group group = groupDAO.selectGroupByNumber(numberGroup);
 
-            StringBuilder result = new StringBuilder();
+        String sort = "ORDER BY " + columnName + " " + orderBy;
 
-            List<Student> students = studentDAO.findByGroup(group);
+        List<Student> students = studentDAO.findByGroup(group.getId(), page, length, sort, search);
 
-            if (students.size() == 0) {
-                writer.println("<tr><td>В этой группе нет студентов"
-                        + "</td></tr>");
-            } else {
-                writer.println(
-                        constructResult(result, students)
-                );
-            }
 
-            groupDAO.close();
-            studentDAO.close();
-        } else {
-            int groupNumber =
-                    Integer.parseInt(request.getParameter("numberGroup"));
+        data = getResult(students, data);
 
-            String name = request.getParameter("nameStudent");
+        result.put("draw", draw);
+        result.put("data", data);
+        result.put("recordsTotal", studentDAO.findByGroup(group.getId(), "").size());
+        result.put("recordsFiltered", studentDAO.findByGroup(group.getId(), search).size());
 
-            GroupDAO groupDAO = new GroupDAO();
-            Group group = groupDAO.selectGroupByNumber(groupNumber);
+        writer.println(result);
 
-            StudentDAO studentDAO = new StudentDAO();
-
-            StringBuilder result = new StringBuilder();
-
-            List<Student> students =
-                    studentDAO.findByGroupAndName(name, group);
-
-            if (students.size() == 0) {
-                writer.println("<tr><td>В этой группе нет студентов" +
-                        " с таким именем" +
-                        "</td></tr>");
-            } else {
-                writer.println(
-                        constructResult(result, students)
-                );
-            }
-
-            groupDAO.close();
-            studentDAO.close();
-        }
+        studentDAO.close();
     }
 
-    private StringBuilder constructResult
-            (StringBuilder string, List<Student> resultList) {
-        for (Student student : resultList) {
-            string.append("<tr>\n");
-            string.append("<td>");
-            string.append(student.getName());
-            string.append("</td>\n");
-            string.append("<td>");
-            string.append(student.getDate());
-            string.append("</td>\n");
-            string.append("</tr>");
+    private JSONArray getResult  (List<Student> students, JSONArray array) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        for (Student e : students) {
+            JSONObject student = new JSONObject();
+            student.put("name", e.getName());
+            student.put("birthday", formatter.format(e.getDate()));
+
+            array.put(student);
         }
 
-        return string;
+        return array;
     }
 }

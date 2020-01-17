@@ -56,20 +56,20 @@ public class selectAllTeachers extends HttpServlet {
 
             String filter = query.toString();
 
-            List<Teacher> teachers = teacherDAO.findByFilter(filter);
-            writer.println(getResult(result, teachers));
+          //  List<Teacher> teachers = teacherDAO.findByFilter(filter);
+          //  writer.println(getResult(result, teachers));
         }
     }
 
     private StringBuilder getResult
             (StringBuilder string, List<Teacher> resultList) {
 
-        string.append("<tr>\n");
-        string.append("<th>Ф.И.О.</th>\n");
-        string.append("<th>Дата пождения</th>\n");
+        string.append("<thead><tr>\n");
+        string.append("<th class='id'>kek</th><th>Ф.И.О.</th>\n");
+        string.append("<th>Дата рождения</th>\n");
         string.append("<th>Пол</th>\n");
         string.append("<th>Действие</th>\n");
-        string.append("</tr>");
+        string.append("</tr></thead><tbody>");
 
         for (Teacher e : resultList) {
             string.append("<tr>\n<td class='id'>");
@@ -84,6 +84,7 @@ public class selectAllTeachers extends HttpServlet {
                     "<a class=\"listOfGroup\" href=\"\"><img src=\"list.png\" title='Список групп'></a></td>\n");
             string.append("</tr>");
         }
+        string.append("</tbody>");
 
         return string;
     }
