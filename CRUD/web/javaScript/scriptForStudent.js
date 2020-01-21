@@ -35,13 +35,7 @@ $(document).ready(function () {
         serverSide: true,
         ajax: {
             url : "selectStudentsByCriterion",
-            type : "POST",
-            data : function ( d ) {
-                d.nameStudent = $("#nameStudent").val();
-                d.dateStudent = $("#dateStudent").val();
-                d.genderStudent = $("#genderStudent").val();
-                d.groupStudent = $("#groupStudent").val();
-            }
+            type : "POST"
         },
         columns : [
             { "className": "id students",

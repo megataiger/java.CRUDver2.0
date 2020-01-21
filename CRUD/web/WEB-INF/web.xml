@@ -230,30 +230,12 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>example</servlet-name>
-        <url-pattern>/example</url-pattern>
+        <servlet-name>selectTeachers</servlet-name>
+        <url-pattern>/selectTeachers</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>example</servlet-name>
-        <servlet-class>servlets.example</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>experimentSelect</servlet-name>
-        <url-pattern>/experimentSelect</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>experimentSelect</servlet-name>
-        <servlet-class>servlets.experimentSelect</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>searchGroups</servlet-name>
-        <url-pattern>/jsp/searchGroups</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>searchGroups</servlet-name>
-        <servlet-class>servlets.searchGroups</servlet-class>
+        <servlet-name>selectTeachers</servlet-name>
+        <servlet-class>servlets.teacher.selectTeachers</servlet-class>
     </servlet>
 
 </web-app>

@@ -1,8 +1,40 @@
+var languege = {
+    "processing": "Подождите...",
+    "search": "Поиск:",
+    "lengthMenu": "Показать _MENU_ записей",
+    "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+    "infoEmpty": "Записи с 0 до 0 из 0 записей",
+    "infoFiltered": "(отфильтровано из _MAX_ записей)",
+    "infoPostFix": "",
+    "loadingRecords": "Загрузка записей...",
+    "zeroRecords": "Записи отсутствуют.",
+    "emptyTable": "В таблице отсутствуют данные",
+    "paginate":
+        {
+            "first": "Первая",
+            "previous": "Предыдущая",
+            "next": "Следующая",
+            "last": "Последняя"
+        },
+    "aria":
+        {
+            "sortAscending": ": активировать для сортировки столбца по возрастанию",
+            "sortDescending": ": активировать для сортировки столбца по убыванию"
+        },
+    "select":
+        {
+            "rows":
+                {
+                    "_": "Выбрано записей: %d",
+                    "0": "Кликните по записи для выбора",
+                    "1": "Выбрана одна запись"
+                }
+        }
+    };
+
 $(document).ready(function () {
 
     var tableTeachers = getTeachersTable();
-
-    var tableGroupsTeachers = getTeacherGroupsTable();
 
     $("#groups").hide();
 
@@ -15,14 +47,14 @@ $(document).ready(function () {
     });
 
     $(tableTeachersListner).on("click", "td.birthdayTeacher", function () {
-        setBirthdayTeacher(this);
+        setBirthdayTeacher(this, tableTeachers);
     });
 
     $(tableTeachersListner).on("click", "td.genderTeacher", function () {
-        setGenderTeacher(this);
+        setGenderTeacher(this, tableTeachers);
     });
 
-    $(tableTeachersListner).on("click", ".deleteTeacher", function (evt) {
+    $(tableTeachersListner).on("click", "a.deleteTeacher", function (evt) {
         deleteTeacher(this, evt, tableTeachers);
     });
 
@@ -30,28 +62,24 @@ $(document).ready(function () {
         insertTeacher(tableTeachers, evt, this);
     });
 
-    $("#findTeachers").submit(function (evt) {
-        searchTeacher(tableTeachers, evt);
-    });
-
-    $(tableTeachersListner).on("click", ".listOfGroup", function (evt) {
-        viewMenuGroups(tableTeachers, tableGroupsTeachers, evt, this);
+    $(tableTeachersListner).on("click", "a.listOfGroup", function (evt) {
+        viewMenuGroups(evt, this);
     });
 
     $("#addGroup").click(function () {
-        clickToAddGroupsOfTeacher(tableGroupsTeachers);
+        clickToAddGroupsOfTeacher(this);
     });
 
     $("#viewGroup").click(function () {
-        clickToViewGroupsOfTeacher(tableGroupsTeachers);
+        clickToViewGroupsOfTeacher(this);
     });
 
     $(tableGroupsTeachersListner).on("click", ".deleteGroup", function (evt) {
-        deleteGroupOfTeacher(evt, tableGroupsTeachers, this);
+        deleteGroupOfTeacher(evt, tableGroupsTeachersListner, this);
     });
 
     $(tableGroupsTeachersListner).on("click", ".addGroup", function (evt) {
-        addGroupForTeacher(evt, tableGroupsTeachers, this);
+        addGroupForTeacher(evt, tableGroupsTeachersListner, this);
     });
 
     $("#close").click(function () {
@@ -90,11 +118,17 @@ function setNameTeacher(cell) {
     })
 }
 
-function setBirthdayTeacher(cell) {
+function setBirthdayTeacher(cell, table) {
     var fieldBirthday = $(cell);
     var oldBirthday = $(fieldBirthday).text();
     var string = $(fieldBirthday).parent();
-    $(fieldBirthday).html("<input id='newDateTeacher' value='" + oldBirthday + "' type='date'>");
+
+    var arrayNumbers = oldBirthday.split('.');
+
+    $(fieldBirthday).html("<input id='newDateTeacher' " +
+        "type=\"date\" value=\"" + arrayNumbers[2] +
+        "-" + arrayNumbers[1] + "-" + arrayNumbers[0] + "\">");
+
     var inputBirthday = $("#newDateTeacher");
     $(inputBirthday).click(function (evt) {
         evt.stopPropagation();
@@ -109,7 +143,7 @@ function setBirthdayTeacher(cell) {
                     newBirthday : newBirthday,
                     idTeacher : idTeacher
                 }, function () {
-                    fieldBirthday.html(newBirthday);
+                    table.draw();
                 }
             );
         }
@@ -120,7 +154,7 @@ function setBirthdayTeacher(cell) {
     })
 }
 
-function setGenderTeacher(cell) {
+function setGenderTeacher(cell, table) {
     var oldGender = $(cell).text();
     var fieldGender = $(cell);
     var string = $(fieldGender).parent();
@@ -128,10 +162,25 @@ function setGenderTeacher(cell) {
     $(fieldGender).html("<select></select>");
     var selectGender = $(fieldGender).children();
 
-    $.post("../getGender", {
+    $.post("getGender", {
         gender : oldGender
     }, function (data) {
-        $(selectGender).html(data);
+        var arrayGender = JSON.parse(data);
+        var options = "";
+        for (var i = 0; i < Object.keys(arrayGender).length; i++) {
+            var option = "";
+            if (arrayGender[i]["selected"]) {
+                option = "<option value='" +
+                    arrayGender[i]["value"] + "' selected='selected'>" +
+                    arrayGender[i]["gender"] + "</option>";
+            } else {
+                option = "<option value='" +
+                    arrayGender[i]["value"] + "'>" +
+                    arrayGender[i]["gender"] + "</option>";
+            }
+            options = options + option;
+        }
+        $(selectGender).html(options);
     });
 
     $(selectGender).click(function (evt) {
@@ -143,11 +192,11 @@ function setGenderTeacher(cell) {
     $(selectGender).change(function (){
         var newGender = $(this).val();
 
-        $(fieldGender).html(newGender);
-
-        $.post("updateTeacher", {
+        $.post("../updateTeacher", {
             idTeacher : $(string).attr("id"),
             newGender : newGender
+        }, function () {
+            table.draw();
         });
     });
 
@@ -180,47 +229,60 @@ function insertTeacher(table, evt, form) {
         });
 }
 
-function searchTeacher(table, evt) {
-    evt.preventDefault();
-
-    table.draw();
-}
-
-function viewMenuGroups(tableTeachers, tableGroups, evt, cell) {
+function viewMenuGroups(evt, cell) {
     evt.preventDefault();
 
     var fieldOfOperations = $(cell).parent();
     var string = $(fieldOfOperations).parent();
-    var idTeacher = $(string).attr("id");
-    var row = tableTeachers.row("#" + idTeacher);
-    var column = tableTeachers.columns(".nameTeacher");
-    var nameTeacher = tableTeachers.cell(row, column).data();
+    var idTeacher = $(string).children(".id").text();
+    var nameTeacher = $(string).children(".nameTeacher").text();
 
     $("#nameChooseTeacher").attr("class", idTeacher);
     $("#nameChooseTeacher").text(nameTeacher);
 
-    tableGroups.draw();
+    $("#viewGroup").css({"border" : "0px"});
+    $("#addGroup").css({"border" : "1px solid black"});
+
+    if (!$.fn.DataTable.isDataTable('#tableGroup')) {
+        getTeacherGroupsTable();
+    } else if ($('#tableGroup').DataTable().ajax.url() === "../getGroups") {
+        $('#tableGroup').DataTable().draw();
+    } else {
+        $("#tableGroup").DataTable().destroy();
+        getTeacherGroupsTable();
+    }
 
     $("#menuGroupsAndAddTeacher").show();
     $("#groups").show();
     $("#searchGroup").attr("class", "view");
 }
 
-function clickToAddGroupsOfTeacher(table) {
-
-    $(this).css({"border" : "0px"});
+function clickToAddGroupsOfTeacher(button) {
+    $(button).css({"border" : "0px"});
     $("#viewGroup").css({"border" : "1px solid black"});
 
-    table.ajax.url("../getNewGroups");
-    table.draw();
+    if (!$.fn.DataTable.isDataTable('#tableGroup')) {
+        getTeacherNewGroupsTable();
+    } else if ($('#tableGroup').DataTable().ajax.url() === "../getNewGroups") {
+        $('#tableGroup').DataTable().draw();
+    } else {
+        $("#tableGroup").DataTable().destroy();
+        getTeacherNewGroupsTable();
+    }
 }
 
-function clickToViewGroupsOfTeacher(table) {
-    $(this).css({"border" : "0px"});
+function clickToViewGroupsOfTeacher(button) {
+    $(button).css({"border" : "0px"});
     $("#addGroup").css({"border" : "1px solid black"});
 
-    table.ajax.url("../getGroup");
-    table.draw();
+    if (!$.fn.DataTable.isDataTable('#tableGroup')) {
+        getTeacherGroupsTable();
+    } else if ($('#tableGroup').DataTable().ajax.url() === "../getGroups") {
+        $('#tableGroup').DataTable().draw();
+    } else {
+        $("#tableGroup").DataTable().destroy();
+        getTeacherGroupsTable();
+    }
 }
 
 function deleteGroupOfTeacher(evt, table, cell) {
@@ -228,8 +290,7 @@ function deleteGroupOfTeacher(evt, table, cell) {
 
     var fieldDeleteGroup = $(cell).parent();
     var stringGroup = $(fieldDeleteGroup).parent();
-    var arrayFields = $(stringGroup).children();
-    var numberGroup = $(arrayFields[0]).text();
+    var numberGroup = $(stringGroup).children(".number").text();;
 
     var idTeacher = $("#nameChooseTeacher").attr("class");
 
@@ -237,7 +298,7 @@ function deleteGroupOfTeacher(evt, table, cell) {
         idTeacher : idTeacher,
         numberGroup : numberGroup
     }, function () {
-        table.draw();
+        table.DataTable().draw('page');
     });
 }
 
@@ -246,8 +307,9 @@ function addGroupForTeacher(evt, table, cell) {
 
     var fieldAddGroup = $(cell).parent();
     var stringGroup = $(fieldAddGroup).parent();
-    var arrayFields = $(stringGroup).children();
-    var numberGroup = $(arrayFields[0]).text();
+    var numberGroup = $(stringGroup).children(".number").text();
+
+    console.log($(fieldAddGroup).text());
 
     var idTeacher = $("#nameChooseTeacher").attr("class");
 
@@ -255,52 +317,17 @@ function addGroupForTeacher(evt, table, cell) {
         idTeacher : idTeacher,
         numberGroup : numberGroup
     }, function () {
-        table.draw();
+        table.DataTable().draw('page');
     });
 }
 
 function getTeachersTable() {
     return $("#teachers").DataTable({
-        autoWidth : false,
-        searching : false,
-        stateSave: true,
-        language : {
-            "processing": "Подождите...",
-            "lengthMenu": "Показать _MENU_ записей",
-            "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-            "infoEmpty": "Записи с 0 до 0 из 0 записей",
-            "infoFiltered": "(отфильтровано из _MAX_ записей)",
-            "infoPostFix": "",
-            "loadingRecords": "Загрузка записей...",
-            "zeroRecords": "Записи отсутствуют.",
-            "emptyTable": "В таблице отсутствуют данные",
-            "paginate": {
-                "first": "Первая",
-                "previous": "Предыдущая",
-                "next": "Следующая",
-                "last": "Последняя"
-            },
-            "aria": {
-                "sortAscending": ": активировать для сортировки столбца по возрастанию",
-                "sortDescending": ": активировать для сортировки столбца по убыванию"
-            },
-            "select": {
-                "rows": {
-                    "_": "Выбрано записей: %d",
-                    "0": "Кликните по записи для выбора",
-                    "1": "Выбрана одна запись"
-                }
-            }
-        },
+        language : languege,
         serverSide: true,
         ajax: {
-            url : "../experimentSelect",
-            type : "POST",
-            data : function ( d ) {
-                d.nameTeacher = $("#findTeachers").find("input[name=nameTeacher]").val();
-                d.dateTeacher = $("#findTeachers").find("input[name=dateTeacher]").val();
-                d.genderTeacher = $("#findTeachers").find("select[name=genderTeacher]").val();
-            }
+            url : "../selectTeachers",
+            type : "POST"
         },
         columns : [
             { "className": "id",
@@ -315,8 +342,8 @@ function getTeachersTable() {
                 "title" : "ФИО"
             },
             { "className": "birthdayTeacher",
-                "name" : "date",
-                "data" : "date",
+                "name" : "birthday",
+                "data" : "birthday",
                 "title" : "Дата рождения"
             },
             { "className": "genderTeacher",
@@ -328,7 +355,14 @@ function getTeachersTable() {
                 "orderable": false,
                 "name" : "delete",
                 "data" : "delete",
-                "title" : "Действие"
+                "title" : "Действие",
+                "render": function (data) {
+                    return '<a class="deleteTeacher" href="' + data + '">' +
+                        '<img title="Удалить" ' +
+                        'src="../image/bascet.png"></a>' +
+                        '<a class="listOfGroup" href="' + data + '">' +
+                        '<img src="../image/list.png" title="Список групп"></a>';
+                }
             }
         ]
     });
@@ -336,36 +370,7 @@ function getTeachersTable() {
 
 function getTeacherGroupsTable() {
     return $("#tableGroup").DataTable({
-        autoWidth : false,
-        language : {
-            "processing": "Подождите...",
-            "search": "Поиск:",
-            "lengthMenu": "Показать _MENU_ записей",
-            "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-            "infoEmpty": "Записи с 0 до 0 из 0 записей",
-            "infoFiltered": "(отфильтровано из _MAX_ записей)",
-            "infoPostFix": "",
-            "loadingRecords": "Загрузка записей...",
-            "zeroRecords": "Записи отсутствуют.",
-            "emptyTable": "В таблице отсутствуют данные",
-            "paginate": {
-                "first": "Первая",
-                "previous": "Предыдущая",
-                "next": "Следующая",
-                "last": "Последняя"
-            },
-            "aria": {
-                "sortAscending": ": активировать для сортировки столбца по возрастанию",
-                "sortDescending": ": активировать для сортировки столбца по убыванию"
-            },
-            "select": {
-                "rows": {
-                    "_": "Выбрано записей: %d",
-                    "0": "Кликните по записи для выбора",
-                    "1": "Выбрана одна запись"
-                }
-            }
-        },
+        language : languege,
         serverSide: true,
         ajax: {
             url : "../getGroup",
@@ -384,8 +389,46 @@ function getTeacherGroupsTable() {
             {
                 "orderable": false,
                 "name" : "delete",
-                "data" : "delete",
-                "title" : "Действие"
+                "data" : "number",
+                "title" : "Действие",
+                "render": function (data) {
+                    return '<a class="deleteGroup" href="' + data + '">' +
+                        '<img title="Удалить" ' +
+                        'src="../image/bascet.png"></a>';
+                }
+            }
+        ]
+    });
+}
+
+function getTeacherNewGroupsTable() {
+    return $("#tableGroup").DataTable({
+        language : languege,
+        serverSide: true,
+        ajax: {
+            url : "../getNewGroups",
+            type : "GET",
+            data : function ( d ) {
+                d.idTeacher = $("#nameChooseTeacher").attr("class");
+            }
+        },
+        columns : [
+            { "className": "number",
+                "name" : "number",
+                "data" : "number",
+                "title" : "Номер"
+
+            },
+            {
+                "orderable": false,
+                "name" : "delete",
+                "data" : "number",
+                "title" : "Действие",
+                "render": function (data) {
+                    return '<a class="addGroup" href="' + data + '">' +
+                        '<img title="Добавить" ' +
+                        'src="../image/plus.png"></a>';
+                }
             }
         ]
     });

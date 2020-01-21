@@ -67,45 +67,46 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
         return query.getResultList();
     }
 
+    public List getGroupForTeacher
+            (int teacherId, int page, int length, String orderBy, String filter) {
+        Query query = entityManager.createQuery("SELECT g FROM Group g JOIN g.teachers t " +
+                "WHERE g.number LIKE '%" + filter + "%' " +
+                "AND t.id = " + teacherId + " ORDER BY g.number " + orderBy);
 
-    public List<Object> findByConWithTeacher(int id) {
-        Query query = entityManager.createNativeQuery("SELECT number from `group` " +
-                "WHERE `group`.`id` IN " +
-                "(SELECT group_id FROM group_teacher WHERE teacher_id = :id)");
-        int param = id;
-        query.setParameter("id", param);
-        return query.getResultList();
-    }
-
-    public List<Object> findByConWithTeacher(int id, String filter, int page, int length, String order) {
-        Query query = entityManager.createNativeQuery("SELECT number from `group` " +
-                "WHERE `group`.`number` like \"%" + filter +  "%\" AND `group`.`id` IN " +
-                "(SELECT group_id FROM group_teacher WHERE teacher_id = :id) ORDER BY number " + order);
-        int param = id;
-        query.setParameter("id", param);
         return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
-    public List<Object> findByWithoutConWithTeacher(int id) {
-        Query query = entityManager.createNativeQuery("SELECT number from `group` WHERE `group`.`id` NOT IN " +
-                "(SELECT group_id FROM group_teacher WHERE teacher_id = :id)");
-        int param = id;
-        query.setParameter("id", param);
+    public List getGroupForTeacher
+            (int teacherId, String filter) {
+        Query query = entityManager.createQuery("SELECT g FROM Group g JOIN g.teachers t " +
+                "WHERE g.number LIKE '%" + filter + "%' " +
+                "AND t.id = " + teacherId);
+
         return query.getResultList();
     }
 
-    public List<Object> findByWithoutConWithTeacher(int id, String filter, int page, int length, String order) {
-        Query query = entityManager.createNativeQuery("SELECT number from `group` " +
-                "WHERE `group`.`number` like \"%" + filter +  "%\" AND `group`.`id` NOT IN " +
-                "(SELECT group_id FROM group_teacher WHERE teacher_id = :id) ORDER BY number " + order);
-        int param = id;
-        query.setParameter("id", param);
+    public List getNewGroupForTeacher
+            (int teacherId, int page, int length, String orderBy, String filter) {
+        Query query = entityManager.createQuery("SELECT s FROM Group s " +
+                "WHERE s.number LIKE '%" + filter + "%' AND s NOT IN " +
+                "(SELECT g FROM Group g JOIN g.teachers t " +
+                "WHERE t.id = " + teacherId + ") ORDER BY s.number " + orderBy);
+
         return query.setFirstResult(page).setMaxResults(length).getResultList();
+    }
+
+    public List getNewGroupForTeacher
+            (int teacherId, String filter) {
+        Query query = entityManager.createQuery("SELECT s FROM Group s " +
+                "WHERE s.number LIKE '%" + filter + "%' AND s NOT IN " +
+                "(SELECT g FROM Group g JOIN g.teachers t " +
+                "WHERE t.id = " + teacherId + ")");
+
+        return query.getResultList();
     }
 
     public void close() {
         entityManager.close();
     }
-
 }
 

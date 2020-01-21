@@ -20,23 +20,6 @@
 <body>
 <div id="mainDiv">
     <h4 align="center"><a href="../index.jsp">Главная</a></h4>
-    <div class="searchTeacher">
-        <form id="findTeachers" action="" method="post">
-            <label for="nameTeacher">Ф.И.О</label>
-            <input id="nameTeacher" type="text" name="nameTeacher">
-            <label for="dateTeacher">Дата рождения</label>
-            <input id="dateTeacher" name="dateTeacher" type="date">
-            <label for="genderTeacher">Пол</label>
-            <select id="genderTeacher" name="genderTeacher">
-                <option value="-" selected>-</option>
-                <option value="WOMAN">WOMAN</option>
-                <option value="MAN">MAN</option>
-            </select>
-            <input type="submit" value="Поиск" />
-        </form>
-    </div>
-
-
     <div id="data">
         <table id="teachers">
             <thead>
@@ -50,14 +33,15 @@
             а затем подтвердите изменения, нажав Ввод</div>
     </div>
     <div id="menuGroupsAndAddTeacher">
+        <h3>Добавить нового преподавателя</h3>
         <form action="" id="addTeacher" method="POST">
             <label for="nameNewTeacher">Имя преподавателя: </label>
             <input type="text" id="nameNewTeacher" name="nameTeacher" /><br><br>
             <label for="birthdayNewTeacher">Дата рождения: </label>
             <input type="date" id="birthdayNewTeacher" name="birthday" /><br><br>
             <label for="genderNewTeacher">Пол: </label>
-            <input type="radio" name="gender" id="genderNewTeacher" value="WOMAN" checked />Woman
-            <input type="radio" name="gender" value="MAN" />Man<br><br>
+            <input type="radio" name="gender" id="genderNewTeacher" value="WOMAN" checked />Женский
+            <input type="radio" name="gender" value="MAN" />Мужской<br><br>
             <br><br>
             <input type="submit" value="Добавить" />
         </form>

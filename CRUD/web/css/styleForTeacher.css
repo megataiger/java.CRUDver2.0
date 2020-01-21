@@ -3,6 +3,8 @@ body {
     font-size: 10pt;
 }
 
+
+
 #teachers {
     margin: 10pt;
     border-collapse: collapse;
@@ -49,12 +51,15 @@ td:hover {
 }
 
 #menuGroupsAndAddTeacher {
+    position: relative;
     float: left;
-    margin-left: 20px;
-    margin-top: 15px;
-    width: 35%;
+    margin-left: 30px;
+    width: 30%;
+    margin-top: 26px;
+    padding: 10px;
+    border: 3px solid steelblue;
+    z-index: 1;
     background-color: white;
-
 }
 
 #groups {
@@ -78,4 +83,20 @@ td:hover {
 
 #buttons {
     margin: 10px auto 10px auto;
+}
+
+.id {
+    display: none;
+}
+
+#teachers_filter {
+    margin-bottom: 5px;
+}
+
+td.nameTeacher {
+    height: 52px;
+}
+
+#tableGroup_filter {
+    margin-bottom: 5px;
 }

@@ -53,17 +53,22 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         return query.getResultList();
     }
 
-    public List findByFilter (String filter, int page, int length) {
-        return entityManager.createQuery(filter).setFirstResult(page)
-                .setMaxResults(length).getResultList();
+    public List selectTeachers
+            (int page, int length, String filter, String orderBy) {
+        Query query = entityManager.createQuery("SELECT t FROM Teacher t " +
+                "WHERE (LOWER(t.name) LIKE '%" + filter + "%') " +
+                "OR (t.date LIKE '%" + filter + "%') " +
+                "OR (t.gender LIKE '%" + filter + "%') " + orderBy);
+        return query.setMaxResults(length).setFirstResult(page).getResultList();
     }
 
-    public int countFindByFilter (String filter) {
-        return entityManager.createQuery(filter).getResultList().size();
-    }
-
-    public String getCount() {
-        return entityManager.createQuery("SELECT COUNT(id) From Teacher").toString();
+    public List selectTeachers
+            (String filter) {
+        Query query = entityManager.createQuery("SELECT t FROM Teacher t " +
+                "WHERE (LOWER(t.name) LIKE '%" + filter + "%') " +
+                "OR (t.date LIKE '%" + filter + "%') " +
+                "OR (t.gender LIKE '%" + filter + "%')");
+        return query.getResultList();
     }
 
     public List getTeachersForGroup (int groupId, int page, int length, String orderBy, String filter) {
