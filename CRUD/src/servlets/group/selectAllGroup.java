@@ -27,9 +27,13 @@ public class selectAllGroup extends HttpServlet {
 
         int page = Integer.parseInt(request.getParameter("start"));
         int length = Integer.parseInt(request.getParameter("length"));
+        int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
+        String columnName = request.getParameter("columns[" + columnNumber + "][data]");
         String orderBy = request.getParameter("order[0][dir]");
         String draw = request.getParameter("draw");
         String search = request.getParameter("search[value]");
+
+        orderBy = " ORDER BY "+ columnName + " " + orderBy;
 
         JSONObject result = new JSONObject();
         JSONArray data = new JSONArray();

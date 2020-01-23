@@ -1,4 +1,4 @@
-package servlets.student;
+package servlets;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

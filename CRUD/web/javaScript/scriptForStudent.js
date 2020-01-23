@@ -32,6 +32,7 @@ $(document).ready(function () {
                 }
             }
         },
+        select: true,
         serverSide: true,
         ajax: {
             url : "selectStudentsByCriterion",
@@ -116,12 +117,25 @@ $(document).ready(function () {
         promptToAddNewStudent(this, promptToAdd);
     });
 
+    $("#students").on('order.dt', function ( e, settings, order) {
+        var order = table.order();
+        if ((order[0][1] === 'desc')&&(order[0][0]) === 0) {
+            var row = $("#students").children("tbody").children(":first-child");
+            $(row).css("background-color", "#00ff14");
+            setTimeout(function() {
+                $(row).css({
+                "background-color" : "#FFFFFF",
+                "transition" : "3s"
+            })
+            }, 1000);
+        }
+    });
+
     $("#addGroup").on("click", "td", function () {
         $("#inputGroupStudent").replaceWith("<input id='inputGroupStudent' " +
             "name='groupStudent' type='text' value='" + $(this).text() + "'>");
         $(promptToAdd).hide();
     });
-
 });
 
 function setNameStudent(cell, table) {
@@ -288,7 +302,9 @@ function insertStudent(form, evt, table) {
         "insertStudent",
         $(form).serialize(),
         function () {
-            table.page('last').draw('page');
+            table
+                .order( [ 0, 'desc' ] )
+                .draw();
         }
     );
 }
@@ -300,7 +316,14 @@ function deleteStudent(bascet, evt, table) {
     $.get("deleteStudent", {
         idStudent : idStudent
     }, function () {
-            table.draw('page');
+        var info = table.page.info();
+        if (info.pages > 0) {
+            if (info.recordsTotal-1 > info.page * info.length) {
+                table.draw( 'page' )
+            } else {
+                table.page( 'previous' ).draw( 'page' )
+            }
+        }
     });
 }
 
@@ -314,10 +337,16 @@ function searchByGroup(field, prompt) {
         var y = $(field).offset().top;
         $(prompt).offset({ top: y, left: x });
         $("#prompt").width(width);
-        $.post("searchGroups", {
+        $.post("../searchGroups", {
             number: $(field).val()
         }, function (data) {
-            $("#prompt").html(data);
+            var arrayGroup = JSON.parse(data);
+            var tablePrompt = "";
+            for (var i = 0 ; i < Object.keys(arrayGroup).length; i++) {
+                var option = "<tr><td>" + arrayGroup[i] + "</td></tr>\n";
+                tablePrompt = tablePrompt + option;
+            }
+            $("#prompt").html(tablePrompt);
         })
     }
 }
@@ -333,10 +362,16 @@ function promptToAddNewStudent(input, promptToAdd) {
         y = y + $(input).height() + 6;
         $(promptToAdd).offset({ top: y, left: x });
         $("#addGroup").width(width);
-        $.post("searchGroups", {
+        $.post("../searchGroups", {
             number: $(input).val()
         }, function (data) {
-            $("#addGroup").html(data);
+            var arrayGroup = JSON.parse(data);
+            var tablePrompt = "";
+            for (var i = 0 ; i < Object.keys(arrayGroup).length; i++) {
+                var option = "<tr><td>" + arrayGroup[i] + "</td></tr>\n";
+                tablePrompt = tablePrompt + option;
+            }
+            $("#addGroup").html(tablePrompt);
         })
     }
 }

@@ -31,11 +31,7 @@ th.groups {
     font-size: 10pt;
 }
 
-th.id {
-    display: none;
-}
-
-td.id {
+.id {
     display: none;
 }
 

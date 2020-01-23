@@ -40,12 +40,10 @@ $(document).ready(function () {
         },
         columns: [
             {
-                "orderable": false,
                 "className": "id groups",
                 "name": "id",
                 "data": "id",
                 "title": "ID"
-
             },
             {
                 "className": "number groups",
@@ -120,6 +118,20 @@ $(document).ready(function () {
         deleteTeacherForGroup(this, evt, tableTeachers);
     });
 
+    $("#groups").on('order.dt', function ( e, settings, order) {
+        var order = table.order();
+        if ((order[0][1] === 'desc')&&(order[0][0]) === 0) {
+            var row = $("#groups").children("tbody").children(":first-child");
+            $(row).css("background-color", "#00ff14");
+            setTimeout(function() {
+                $(row).css({
+                    "background-color" : "#FFFFFF",
+                    "transition" : "3s"
+                })
+            }, 1000);
+        }
+    });
+
 });
 
 function insertGroup(inputNumber, evt, table) {
@@ -128,7 +140,9 @@ function insertGroup(inputNumber, evt, table) {
         $.post("insertGroup", {
             numberGroup: $(inputNumber).val()
         }, function () {
-            table.draw('page');
+            table
+                .order( [ 0, 'desc' ] )
+                .draw();
         });
     }
 }
@@ -143,7 +157,14 @@ function deleteGroup(bascet, evt, table) {
     $.post("deleteGroup", {
         idGroup: idGroup
     }, function () {
-        table.draw('page');
+        var info = table.page.info();
+        if (info.pages > 0) {
+            if (info.recordsTotal-1 > info.page * info.length) {
+                table.draw( 'page' )
+            } else {
+                table.page( 'previous' ).draw( 'page' )
+            }
+        }
     })
 }
 
@@ -255,7 +276,15 @@ function addTeacherForGroup(require, evt, table) {
         idTeacher: idTeacher,
         numberGroup: numberGroup
     }, function () {
-        table.DataTable().draw('page');
+        var tableGroup = table.DataTable();
+        var info = tableGroup.page.info();
+        if (info.pages > 0) {
+            if (info.recordsTotal-1 > info.page * info.length) {
+                tableGroup.draw( 'page' )
+            } else {
+                tableGroup.page( 'previous' ).draw( 'page' )
+            }
+        }
     })
 }
 
@@ -268,7 +297,15 @@ function deleteTeacherForGroup(require, evt, table) {
         idTeacher: idTeacher,
         numberGroup: numberGroup
     }, function () {
-        table.DataTable().draw('page');
+        var tableGroup = table.DataTable();
+        var info = tableGroup.page.info();
+        if (info.pages > 0) {
+            if (info.recordsTotal-1 > info.page * info.length) {
+                tableGroup.draw( 'page' )
+            } else {
+                tableGroup.page( 'previous' ).draw( 'page' )
+            }
+        }
     })
 }
 

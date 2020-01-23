@@ -37,7 +37,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getGender</servlet-name>
-        <servlet-class>servlets.student.getGender</servlet-class>
+        <servlet-class>servlets.getGender</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -236,6 +236,15 @@
     <servlet>
         <servlet-name>selectTeachers</servlet-name>
         <servlet-class>servlets.teacher.selectTeachers</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>searchGroups</servlet-name>
+        <url-pattern>/searchGroups</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>searchGroups</servlet-name>
+        <servlet-class>servlets.student.searchGroups</servlet-class>
     </servlet>
 
 </web-app>

@@ -57,7 +57,7 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
 
     public List getGroups (String filter, int page, int length, String orderType) {
         Query query = entityManager.createQuery("FROM Group WHERE " +
-                "number LIKE '%" + filter + "%' ORDER BY number " + orderType);
+                "number LIKE '%" + filter + "%'" + orderType);
         return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
@@ -101,6 +101,13 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
                 "WHERE s.number LIKE '%" + filter + "%' AND s NOT IN " +
                 "(SELECT g FROM Group g JOIN g.teachers t " +
                 "WHERE t.id = " + teacherId + ")");
+
+        return query.getResultList();
+    }
+
+    public List searchGroup(int number) {
+        Query query = entityManager.createQuery("SELECT g FROM Group g " +
+                "WHERE g.number LIKE '%" + number + "%'");
 
         return query.getResultList();
     }
