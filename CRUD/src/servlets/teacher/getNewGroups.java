@@ -1,5 +1,9 @@
 package servlets.teacher;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import gsonSerialize.GroupSerialize;
 import objectForStrokeBase.Group;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,7 +24,7 @@ public class getNewGroups extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        JSONObject result = new JSONObject();
+        JsonObject result = new JsonObject();
 
         String draw = request.getParameter("draw");
         int page = Integer.parseInt(request.getParameter("start"));
@@ -32,16 +36,17 @@ public class getNewGroups extends HttpServlet {
 
             int id = Integer.parseInt(request.getParameter("idTeacher"));
 
-            JSONArray data = new JSONArray();
-
             GroupDAO groupDAO = new GroupDAO();
 
-            data = getResultForSearch(data, groupDAO.getNewGroupForTeacher(id, page, length, order, number));
+            List<Group> groups = groupDAO.getNewGroupForTeacher(id, page, length, order, number);
 
-            result.put("data", data);
-            result.put("draw", draw);
-            result.put("recordsTotal", groupDAO.getNewGroupForTeacher(id, "").size());
-            result.put("recordsFiltered", groupDAO.getNewGroupForTeacher(id, number).size());
+            Gson gson = new GsonBuilder().registerTypeAdapter(Group.class, new GroupSerialize())
+                    .create();
+
+            result.add("data", gson.toJsonTree(groups));
+            result.addProperty("draw", draw);
+            result.addProperty("recordsTotal", groupDAO.getNewGroupForTeacher(id, "").size());
+            result.addProperty("recordsFiltered", groupDAO.getNewGroupForTeacher(id, number).size());
 
 
             PrintWriter writer = response.getWriter();
@@ -52,15 +57,5 @@ public class getNewGroups extends HttpServlet {
             PrintWriter writer = response.getWriter();
             writer.println(result);
         }
-    }
-
-    private JSONArray getResultForSearch(JSONArray data, List<Group> resultList) {
-        for (Group e : resultList) {
-            JSONObject group = new JSONObject();
-            group.put("number", e.getNumber());
-            data.put(group);
-        }
-
-        return data;
     }
 }

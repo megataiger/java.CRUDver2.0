@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class searchGroups extends HttpServlet {
+public class SearchGroupsServlet extends HttpServlet {
     @Override
     protected void doPost
             (HttpServletRequest request, HttpServletResponse response)

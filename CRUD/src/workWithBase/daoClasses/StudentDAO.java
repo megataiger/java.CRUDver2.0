@@ -29,12 +29,6 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
 
     }
 
-    public List get(int i) {
-        return entityManager.createQuery("FROM Student").setFirstResult(i).setMaxResults(10)
-                .getResultList();
-
-    }
-
     public void update(Student student) {
         entityManager.getTransaction().begin();
         entityManager.merge(student);
@@ -67,13 +61,17 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
         return query.getResultList();
     }
 
-    public List findByFilter (String filter, int page, int length) {
-        Query query = entityManager.createQuery(filter);
+    public List findByFilter (String filter, int page, int length, String orderBy) {
+        Query query = entityManager.createQuery("SELECT s FROM Student s " +
+                "WHERE LOWER(s.name) LIKE '%" + filter + "%' OR s.date LIKE '%" + filter + "%' " +
+                "OR s.gender = '" + filter + "' OR s.group LIKE '%" + filter + "%' ORDER BY " + orderBy);
         return query.setMaxResults(length).setFirstResult(page).getResultList();
     }
 
     public List findByFilter (String filter) {
-        Query query = entityManager.createQuery(filter);
+        Query query = entityManager.createQuery("SELECT s FROM Student s " +
+                "WHERE LOWER(s.name) LIKE '%" + filter + "%' OR s.date LIKE '%" + filter + "%' " +
+                "OR s.gender = '" + filter + "' OR s.group LIKE '%" + filter + "%'");
         return query.getResultList();
     }
 

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class insertGroup extends HttpServlet {
+public class InsertGroupServlet extends HttpServlet {
     @Override
     protected void doPost
             (HttpServletRequest request, HttpServletResponse response)

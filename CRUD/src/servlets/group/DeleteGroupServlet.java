@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class updateGroup extends HttpServlet {
+public class DeleteGroupServlet extends HttpServlet {
     @Override
     protected void doPost
             (HttpServletRequest request, HttpServletResponse response)
@@ -18,13 +18,11 @@ public class updateGroup extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         int id = Integer.parseInt(request.getParameter("idGroup"));
-        int number = Integer.parseInt(request.getParameter("numberGroup"));
 
         GroupDAO groupDAO = new GroupDAO();
         Group group = groupDAO.findById(id);
 
-        group.set(number);
-        groupDAO.update(group);
+        groupDAO.delete(group);
 
         groupDAO.close();
     }

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 
-public class insertStudent extends HttpServlet {
+public class InsertStudentServlet extends HttpServlet {
 
     @Override
     protected void doPost

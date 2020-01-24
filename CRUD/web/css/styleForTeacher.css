@@ -69,6 +69,7 @@ td:hover {
     position: absolute;
     padding: 5px;
     width: 200px;
+    z-index: 2;
 }
 
 #close {

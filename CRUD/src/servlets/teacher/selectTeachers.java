@@ -1,5 +1,9 @@
 package servlets.teacher;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import gsonSerialize.TeacherSerialize;
 import objectForStrokeBase.Teacher;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,7 +27,7 @@ public class selectTeachers extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        JSONObject result = new JSONObject();
+        JsonObject result = new JsonObject();
 
         String draw = request.getParameter("draw");
         int page = Integer.parseInt(request.getParameter("start"));
@@ -39,33 +43,12 @@ public class selectTeachers extends HttpServlet {
 
         List<Teacher> teachers = teacherDAO.selectTeachers(page, length, filter, orderBy);
 
-        JSONArray array = new JSONArray();
+        Gson gson = new GsonBuilder().registerTypeAdapter(Teacher.class, new TeacherSerialize()).create();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-        for(Teacher e : teachers) {
-            JSONObject arrayTeacher = new JSONObject();
-
-            arrayTeacher.put("DT_RowId", e.getId());
-            arrayTeacher.put("id", e.getId());
-            arrayTeacher.put("name", e.getName());
-            arrayTeacher.put("birthday", formatter.format(e.getDate()));
-            if (e.getGender().equals("MAN")) {
-                arrayTeacher.put("gender", "М");
-            } else if (e.getGender().equals("WOMAN")) {
-                arrayTeacher.put("gender", "Ж");
-            } else {
-                arrayTeacher.put("gender", "-");
-            }
-            arrayTeacher.put("delete", e.getId());
-
-            array.put(arrayTeacher);
-        }
-
-        result.put("draw", draw);
-        result.put("recordsTotal", teacherDAO.getAll().size());
-        result.put("recordsFiltered", teacherDAO.selectTeachers(filter).size());
-        result.put("data", array);
+        result.addProperty("draw", draw);
+        result.addProperty("recordsTotal", teacherDAO.getAll().size());
+        result.addProperty("recordsFiltered", teacherDAO.selectTeachers(filter).size());
+        result.add("data", gson.toJsonTree(teachers));
 
 
         PrintWriter writer = response.getWriter();

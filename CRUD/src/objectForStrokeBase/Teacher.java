@@ -1,5 +1,7 @@
 package objectForStrokeBase;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.Objects;
 @Table (name = "teacher")
 public class Teacher {
 
+    @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -20,10 +23,12 @@ public class Teacher {
     @Column (name = "birthday")
     private LocalDate date;
 
+    @Expose
     @Enumerated (EnumType.STRING)
     @Column (name = "gender")
     private Gender gender;
 
+    @Expose
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(name = "group_teacher",
             joinColumns = {@JoinColumn(name = "teacher_id")},

@@ -1,5 +1,10 @@
 package servlets.group;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import gsonSerialize.StudentEasySerialize;
+import gsonSerialize.StudentSerialize;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 import org.json.JSONArray;
@@ -15,7 +20,7 @@ import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class selectStudent extends HttpServlet {
+public class GetStudentServlet extends HttpServlet {
     @Override
     protected void doGet
             (HttpServletRequest request, HttpServletResponse response)
@@ -23,11 +28,11 @@ public class selectStudent extends HttpServlet {
 
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
 
         PrintWriter writer = response.getWriter();
 
-        JSONObject result = new JSONObject();
-        JSONArray data = new JSONArray();
+        JsonObject result = new JsonObject();
 
         int page = Integer.parseInt(request.getParameter("start"));
         int length = Integer.parseInt(request.getParameter("length"));
@@ -46,30 +51,16 @@ public class selectStudent extends HttpServlet {
 
         List<Student> students = studentDAO.findByGroup(group.getId(), page, length, sort, search);
 
+        Gson gson = new GsonBuilder().registerTypeAdapter(Student.class, new StudentEasySerialize())
+                .create();
 
-        data = getResult(students, data);
-
-        result.put("draw", draw);
-        result.put("data", data);
-        result.put("recordsTotal", studentDAO.findByGroup(group.getId(), "").size());
-        result.put("recordsFiltered", studentDAO.findByGroup(group.getId(), search).size());
+        result.addProperty("draw", draw);
+        result.add("data", gson.toJsonTree(students));
+        result.addProperty("recordsTotal", studentDAO.findByGroup(group.getId(), "").size());
+        result.addProperty("recordsFiltered", studentDAO.findByGroup(group.getId(), search).size());
 
         writer.println(result);
 
         studentDAO.close();
-    }
-
-    private JSONArray getResult  (List<Student> students, JSONArray array) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-        for (Student e : students) {
-            JSONObject student = new JSONObject();
-            student.put("name", e.getName());
-            student.put("birthday", formatter.format(e.getDate()));
-
-            array.put(student);
-        }
-
-        return array;
     }
 }

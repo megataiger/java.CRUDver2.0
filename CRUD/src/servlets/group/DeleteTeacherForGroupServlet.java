@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class addTeacherForGroup extends HttpServlet {
+public class DeleteTeacherForGroupServlet extends HttpServlet {
 
     @Override
     protected void doPost
@@ -29,7 +29,7 @@ public class addTeacherForGroup extends HttpServlet {
         TeacherDAO teacherDAO = new TeacherDAO();
         Teacher teacher = teacherDAO.findById(idTeacher);
 
-        group.addTeacher(teacher);
+        group.removeTeacher(teacher);
         groupDAO.update(group);
 
         teacherDAO.close();

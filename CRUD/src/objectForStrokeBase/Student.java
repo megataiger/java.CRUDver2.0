@@ -1,5 +1,6 @@
 package objectForStrokeBase;
 
+import com.google.gson.annotations.Expose;
 import workWithBase.daoClasses.StudentDAO;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.TimeZone;
 @Table (name = "student")
 public class Student {
 
+    @Expose
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
@@ -25,10 +27,12 @@ public class Student {
     @Column (name = "birthday")
     private LocalDate date;
 
+    @Expose
     @Enumerated (EnumType.STRING)
     @Column (name = "gender")
     private Gender gender;
 
+    @Expose
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "group_id")
     private Group group;

@@ -1,14 +1,17 @@
 package servlets.group;
 
 import objectForStrokeBase.Group;
+import objectForStrokeBase.Teacher;
 import workWithBase.daoClasses.GroupDAO;
+import workWithBase.daoClasses.TeacherDAO;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class deleteGroup extends HttpServlet {
+public class AddTeacherForGroupServlet extends HttpServlet {
+
     @Override
     protected void doPost
             (HttpServletRequest request, HttpServletResponse response)
@@ -17,13 +20,19 @@ public class deleteGroup extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        int id = Integer.parseInt(request.getParameter("idGroup"));
+        int numberGroup = Integer.parseInt(request.getParameter("numberGroup"));
+        int idTeacher = Integer.parseInt(request.getParameter("idTeacher"));
 
         GroupDAO groupDAO = new GroupDAO();
-        Group group = groupDAO.findById(id);
+        Group group = groupDAO.selectGroupByNumber(numberGroup);
 
-        groupDAO.delete(group);
+        TeacherDAO teacherDAO = new TeacherDAO();
+        Teacher teacher = teacherDAO.findById(idTeacher);
 
+        group.addTeacher(teacher);
+        groupDAO.update(group);
+
+        teacherDAO.close();
         groupDAO.close();
     }
 }

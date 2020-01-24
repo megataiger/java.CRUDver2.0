@@ -10,7 +10,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>insertStudent</servlet-name>
-        <servlet-class>servlets.student.insertStudent</servlet-class>
+        <servlet-class>servlets.student.InsertStudentServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -19,7 +19,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteStudent</servlet-name>
-        <servlet-class>servlets.student.deleteStudent</servlet-class>
+        <servlet-class>servlets.student.DeleteStudentServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -73,7 +73,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>selectStudentsByCriterion</servlet-name>
-        <servlet-class>servlets.student.selectStudentsByCriterion</servlet-class>
+        <servlet-class>servlets.student.SelectStudentServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -82,7 +82,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>updateGroup</servlet-name>
-        <servlet-class>servlets.group.updateGroup</servlet-class>
+        <servlet-class>servlets.group.UpdateGroupServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -91,7 +91,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteGroup</servlet-name>
-        <servlet-class>servlets.group.deleteGroup</servlet-class>
+        <servlet-class>servlets.group.DeleteGroupServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -100,7 +100,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>insertGroup</servlet-name>
-        <servlet-class>servlets.group.insertGroup</servlet-class>
+        <servlet-class>servlets.group.InsertGroupServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -109,7 +109,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getTeachers</servlet-name>
-        <servlet-class>servlets.group.getTeachers</servlet-class>
+        <servlet-class>servlets.group.GetTeachersServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -118,7 +118,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getNewTeachers</servlet-name>
-        <servlet-class>servlets.group.getNewTeachers</servlet-class>
+        <servlet-class>servlets.group.GetNewTeachersServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -127,7 +127,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>addTeacherForGroup</servlet-name>
-        <servlet-class>servlets.group.addTeacherForGroup</servlet-class>
+        <servlet-class>servlets.group.AddTeacherForGroupServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -136,7 +136,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteTeacherForGroup</servlet-name>
-        <servlet-class>servlets.group.deleteTeacherForGroup</servlet-class>
+        <servlet-class>servlets.group.DeleteTeacherForGroupServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -145,7 +145,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>selectAllGroup</servlet-name>
-        <servlet-class>servlets.group.selectAllGroup</servlet-class>
+        <servlet-class>servlets.group.SelectGroupServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -154,7 +154,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>selectStudent</servlet-name>
-        <servlet-class>servlets.group.selectStudent</servlet-class>
+        <servlet-class>servlets.group.GetStudentServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -244,7 +244,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>searchGroups</servlet-name>
-        <servlet-class>servlets.student.searchGroups</servlet-class>
+        <servlet-class>servlets.student.SearchGroupsServlet</servlet-class>
     </servlet>
 
 </web-app>

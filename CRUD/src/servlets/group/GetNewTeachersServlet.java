@@ -1,5 +1,10 @@
 package servlets.group;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializer;
+import gsonSerialize.TeacherEasySerialize;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Teacher;
 import org.json.JSONArray;
@@ -15,7 +20,7 @@ import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class getNewTeachers extends HttpServlet {
+public class GetNewTeachersServlet extends HttpServlet {
     @Override
     protected void doGet
             (HttpServletRequest request, HttpServletResponse response)
@@ -23,6 +28,7 @@ public class getNewTeachers extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
 
         int number = Integer.parseInt(request.getParameter("numberGroup"));
         GroupDAO groupDAO = new GroupDAO();
@@ -30,8 +36,7 @@ public class getNewTeachers extends HttpServlet {
 
         PrintWriter writer = response.getWriter();
 
-        JSONObject result = new JSONObject();
-        JSONArray data = new JSONArray();
+        JsonObject result = new JsonObject();
 
         int page = Integer.parseInt(request.getParameter("start"));
         int length = Integer.parseInt(request.getParameter("length"));
@@ -45,34 +50,19 @@ public class getNewTeachers extends HttpServlet {
 
         String sort = "ORDER BY " + columnName + " " + orderBy;
 
+        Gson gson = new GsonBuilder().registerTypeAdapter(Teacher.class, new TeacherEasySerialize()).create();
+
         List<Teacher> teachers = teacherDAO.getNewTeachersForGroup(group.getId(), page, length, sort, search);
 
-        data = getResult(teachers, data);
-
-        result.put("draw", draw);
-        result.put("data", data);
-        result.put("recordsTotal", teacherDAO.getNewTeachersForGroup(group.getId(), "").size());
-        result.put("recordsFiltered", teacherDAO.getNewTeachersForGroup(group.getId(), search).size());
+        result.addProperty("draw", draw);
+        result.add("data", gson.toJsonTree(teachers));
+        result.addProperty("recordsTotal", teacherDAO.getNewTeachersForGroup(group.getId(), "").size());
+        result.addProperty("recordsFiltered", teacherDAO.getNewTeachersForGroup(group.getId(), search).size());
 
         writer.println(result);
 
         teacherDAO.close();
 
         groupDAO.close();
-    }
-
-    private JSONArray getResult(List<Teacher> teachers, JSONArray array) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-        for (Teacher e : teachers) {
-            JSONObject teacher = new JSONObject();
-            teacher.put("name", e.getName());
-            teacher.put("birthday", formatter.format(e.getDate()));
-            teacher.put("id", e.getId());
-
-            array.put(teacher);
-        }
-
-        return array;
     }
 }
