@@ -21,7 +21,6 @@ public class SelectTeachersServlet extends HttpServlet {
             (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
-        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         JsonObject result = new JsonObject();

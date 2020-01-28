@@ -15,8 +15,6 @@ public class DeleteGroupForTeacherServlet extends HttpServlet {
     protected void doGet
             (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         int number = Integer.parseInt(request.getParameter("numberGroup"));
         int idTeacher = Integer.parseInt(request.getParameter("idTeacher"));

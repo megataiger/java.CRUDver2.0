@@ -13,8 +13,6 @@ public class DeleteTeacherServlet extends HttpServlet {
     protected void doGet
             (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("Utf-8");
 
         int id = Integer.parseInt(request.getParameter("idTeacher"));
 

@@ -20,10 +20,6 @@ public class InsertStudentServlet extends HttpServlet {
             (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        response.setContentType("text/html");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
         GroupDAO groupDAO = new GroupDAO();
 
         Group group = null;

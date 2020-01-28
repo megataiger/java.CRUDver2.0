@@ -22,7 +22,6 @@ public class GetNewTeachersServlet extends HttpServlet {
             (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
 

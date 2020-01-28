@@ -17,7 +17,7 @@ public class SearchGroupsServlet extends HttpServlet {
     protected void doPost
             (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+
         response.setCharacterEncoding("UTF-8");
 
         int number = Integer.parseInt(request.getParameter("number"));

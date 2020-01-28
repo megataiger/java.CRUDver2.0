@@ -19,8 +19,6 @@ public class GetNewGroupsForTeacherServlet extends HttpServlet {
     protected void doGet
             (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         JsonObject result = new JsonObject();
 

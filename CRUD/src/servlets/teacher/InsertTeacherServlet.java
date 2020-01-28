@@ -15,8 +15,6 @@ public class InsertTeacherServlet extends HttpServlet {
     protected void doPost
             (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         String name = request.getParameter("nameTeacher");
         LocalDate date = LocalDate.parse(request.getParameter("birthday"));

@@ -14,9 +14,6 @@ public class InsertGroupServlet extends HttpServlet {
             (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
         int number = Integer.parseInt(request.getParameter("numberGroup"));
 
         GroupDAO groupDAO = new GroupDAO();

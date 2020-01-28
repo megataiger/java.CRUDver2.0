@@ -23,7 +23,6 @@ public class GetStudentServlet extends HttpServlet {
             throws IOException {
 
         response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
 
         PrintWriter writer = response.getWriter();

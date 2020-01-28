@@ -14,9 +14,6 @@ public class UpdateGroupServlet extends HttpServlet {
             (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
         int id = Integer.parseInt(request.getParameter("idGroup"));
         int number = Integer.parseInt(request.getParameter("numberGroup"));
 
