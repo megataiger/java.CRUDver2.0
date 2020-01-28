@@ -118,7 +118,7 @@ $(document).ready(function () {
         deleteTeacherForGroup(this, evt, tableTeachers);
     });
 
-    $("#groups").on('order.dt', function ( e, settings, order) {
+    tableGroup.on('order.dt', function () {
         var order = table.order();
         if ((order[0][1] === 'desc')&&(order[0][0]) === 0) {
             var row = $("#groups").children("tbody").children(":first-child");
@@ -338,7 +338,7 @@ function getTeachersOfGroup() {
                 "className": "delete teacher",
                 "name": "students",
                 "data": "id",
-                "title": "Списки",
+                "title": "Действие",
                 "render": function (data) {
                     return '<a class="deleteTeacher" href="' + data + '">' +
                         '<img src="../image/bascet.png"></a>';
@@ -377,7 +377,7 @@ function getNewTeachersOfGroup() {
                 "className": "add teacher",
                 "name": "students",
                 "data": "id",
-                "title": "Списки",
+                "title": "Действие",
                 "render": function (data) {
                     return '<a class="addTeacher" href="' + data + '">' +
                         '<img src="../image/plus.png"></a>';

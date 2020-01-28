@@ -117,7 +117,7 @@ $(document).ready(function () {
         promptToAddNewStudent(this, promptToAdd);
     });
 
-    $("#students").on('order.dt', function ( e, settings, order) {
+    tableStudents.on('order.dt', function () {
         var order = table.order();
         if ((order[0][1] === 'desc')&&(order[0][0]) === 0) {
             var row = $("#students").children("tbody").children(":first-child");
@@ -161,7 +161,7 @@ function setNameStudent(cell, table) {
             var newName = $(this).val();
             var arrayField = $(string).children();
 
-            $.post("setNameStudent", {
+            $.post("../UpdateStudent", {
                 idStudent: $(arrayField[0]).text(),
                 newNameStudent: newName
             }, function () {
@@ -193,7 +193,7 @@ function setBirthdayStudent(cell, table) {
         if (evt.keyCode === 13) {
             var newBirthday = $(this).val();
 
-            $.post("setBirthdayStudent", {
+            $.post("../UpdateStudent", {
                 idStudent : $(arrayField[0]).text(),
                 newBirthdayStudent : newBirthday
             }, function () {
@@ -246,7 +246,7 @@ function setGenderStudent(cell, table) {
 
         var arrayField = $(string).children();
 
-        $.post("setGenderStudent", {
+        $.post("../UpdateStudent", {
             idStudent : $(arrayField[0]).text(),
             genderStudent : newGender
         }, function () {
@@ -280,7 +280,7 @@ function setGroupStudent(cell, table, prompt) {
             var newGroup = $(this).val();
             var arrayField = $(string).children();
 
-            $.post("setGroupStudent", {
+            $.post("../UpdateStudent", {
                 idStudent : $(arrayField[0]).text(),
                 numberGroup : newGroup
             }, function () {

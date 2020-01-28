@@ -2,13 +2,10 @@ package servlets.student;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import gsonSerialize.StudentSerialize;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.StudentDAO;
 
@@ -52,6 +49,7 @@ public class SelectStudentServlet extends HttpServlet {
             LocalDate birthday = LocalDate.parse(search, formatter);
             search = birthday.toString();
         } catch (DateTimeParseException e) {
+            System.out.println("Не является датой");
         }
 
         try {
@@ -60,14 +58,16 @@ public class SelectStudentServlet extends HttpServlet {
             Group group = groupDAO.selectGroupByNumber(number);
             search = "" + group.getId();
         } catch (NoResultException e) {
+            System.out.println("Совпадений не найдено");
         } catch (NumberFormatException e) {
+            System.out.println("Не является числом");
         }
 
         orderBy = columnName + " " + orderBy;
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Student.class, new StudentSerialize()).create();
 
-        List<Student> students = studentDAO.findByFilter(search, page, length, orderBy);
+        List students = studentDAO.findByFilter(search, page, length, orderBy);
 
         result.add("data", gson.toJsonTree(students));
         result.addProperty("recordsTotal", studentDAO.getAll().size());

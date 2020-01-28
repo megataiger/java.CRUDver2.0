@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import gsonSerialize.GroupSerialize;
 import objectForStrokeBase.Group;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import workWithBase.daoClasses.GroupDAO;
 
 import javax.servlet.http.HttpServlet;
@@ -16,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class getGroup extends HttpServlet {
+public class GetNewGroupsForTeacherServlet extends HttpServlet {
     @Override
     protected void doGet
             (HttpServletRequest request, HttpServletResponse response)
@@ -38,15 +36,16 @@ public class getGroup extends HttpServlet {
 
             GroupDAO groupDAO = new GroupDAO();
 
-            List<Group> groups = groupDAO.getGroupForTeacher(id, page, length, order, number);
+            List groups = groupDAO.getNewGroupForTeacher(id, page, length, order, number);
 
             Gson gson = new GsonBuilder().registerTypeAdapter(Group.class, new GroupSerialize())
                     .create();
 
             result.add("data", gson.toJsonTree(groups));
             result.addProperty("draw", draw);
-            result.addProperty("recordsTotal", groupDAO.getGroupForTeacher(id, "").size());
-            result.addProperty("recordsFiltered", groupDAO.getGroupForTeacher(id, number).size());
+            result.addProperty("recordsTotal", groupDAO.getNewGroupForTeacher(id, "").size());
+            result.addProperty("recordsFiltered", groupDAO.getNewGroupForTeacher(id, number).size());
+
 
             PrintWriter writer = response.getWriter();
             writer.println(result);

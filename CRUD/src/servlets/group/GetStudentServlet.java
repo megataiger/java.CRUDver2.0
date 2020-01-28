@@ -4,11 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import gsonSerialize.StudentEasySerialize;
-import gsonSerialize.StudentSerialize;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.StudentDAO;
 
@@ -17,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class GetStudentServlet extends HttpServlet {
@@ -49,7 +45,7 @@ public class GetStudentServlet extends HttpServlet {
 
         String sort = "ORDER BY " + columnName + " " + orderBy;
 
-        List<Student> students = studentDAO.findByGroup(group.getId(), page, length, sort, search);
+        List students = studentDAO.findByGroup(group.getId(), page, length, sort, search);
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Student.class, new StudentEasySerialize())
                 .create();

@@ -3,12 +3,9 @@ package servlets.group;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializer;
 import gsonSerialize.TeacherEasySerialize;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Teacher;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import workWithBase.daoClasses.GroupDAO;
 import workWithBase.daoClasses.TeacherDAO;
 
@@ -17,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class GetNewTeachersServlet extends HttpServlet {
@@ -52,7 +48,7 @@ public class GetNewTeachersServlet extends HttpServlet {
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Teacher.class, new TeacherEasySerialize()).create();
 
-        List<Teacher> teachers = teacherDAO.getNewTeachersForGroup(group.getId(), page, length, sort, search);
+        List teachers = teacherDAO.getNewTeachersForGroup(group.getId(), page, length, sort, search);
 
         result.addProperty("draw", draw);
         result.add("data", gson.toJsonTree(teachers));

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class deleteTeacher extends HttpServlet {
+public class DeleteTeacherServlet extends HttpServlet {
     @Override
     protected void doGet
             (HttpServletRequest request, HttpServletResponse response)

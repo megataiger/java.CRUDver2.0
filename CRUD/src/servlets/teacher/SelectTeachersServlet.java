@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import gsonSerialize.TeacherSerialize;
 import objectForStrokeBase.Teacher;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import workWithBase.daoClasses.TeacherDAO;
 
 import javax.servlet.ServletException;
@@ -15,10 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class selectTeachers extends HttpServlet {
+public class SelectTeachersServlet extends HttpServlet {
     @Override
     protected void doPost
             (HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +38,7 @@ public class selectTeachers extends HttpServlet {
 
         TeacherDAO teacherDAO = new TeacherDAO();
 
-        List<Teacher> teachers = teacherDAO.selectTeachers(page, length, filter, orderBy);
+        List teachers = teacherDAO.selectTeachers(page, length, filter, orderBy);
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Teacher.class, new TeacherSerialize()).create();
 

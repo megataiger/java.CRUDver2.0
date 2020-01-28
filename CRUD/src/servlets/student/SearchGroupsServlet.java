@@ -26,10 +26,13 @@ public class SearchGroupsServlet extends HttpServlet {
 
         JSONArray numbers = new JSONArray();
 
-        List<Group> groups = groupDAO.searchGroup(number);
+        List groups = groupDAO.searchGroup(number);
 
-        for (Group e : groups) {
-            numbers.put(e.getNumber());
+        for (Object e : groups) {
+            if (e instanceof Group) {
+                Group group = (Group) e;
+                numbers.put(group.getNumber());
+            }
         }
 
         writer.println(numbers);

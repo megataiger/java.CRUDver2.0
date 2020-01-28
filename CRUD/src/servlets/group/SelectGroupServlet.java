@@ -42,7 +42,7 @@ public class SelectGroupServlet extends HttpServlet {
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Group.class, new GroupSerialize()).create();
 
-        List<Group> groups = groupDAO.getGroups(search, page, length, orderBy);
+        List groups = groupDAO.getGroups(search, page, length, orderBy);
 
         result.addProperty("draw", draw);
         result.add("data", gson.toJsonTree(groups));

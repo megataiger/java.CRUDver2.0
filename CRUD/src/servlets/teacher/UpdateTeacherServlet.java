@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class updateTeacher extends HttpServlet {
+public class UpdateTeacherServlet extends HttpServlet {
     @Override
     protected void doPost
             (HttpServletRequest request, HttpServletResponse response)

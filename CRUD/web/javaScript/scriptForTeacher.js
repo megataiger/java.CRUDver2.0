@@ -87,7 +87,7 @@ $(document).ready(function () {
        $(groups).hide();
     });
 
-    $("#teachers").on('order.dt', function ( e, settings, order) {
+    tableTeachersListner.on('order.dt', function () {
         var order = tableTeachers.order();
         if ((order[0][1] === 'desc')&&(order[0][0]) === 0) {
             var row = $("#teachers").children("tbody").children(":first-child");
@@ -260,8 +260,10 @@ function viewMenuGroups(evt, cell) {
     var idTeacher = $(string).children(".id").text();
     var nameTeacher = $(string).children(".nameTeacher").text();
 
-    $("#nameChooseTeacher").attr("class", idTeacher);
-    $("#nameChooseTeacher").text(nameTeacher);
+    var nameChooseTeacher = $("#nameChooseTeacher");
+
+    nameChooseTeacher.attr("class", idTeacher);
+    nameChooseTeacher.text(nameTeacher);
 
     $("#viewGroup").css({"border" : "0px"});
     $("#addGroup").css({"border" : "1px solid black"});
@@ -313,7 +315,7 @@ function deleteGroupOfTeacher(evt, table, cell) {
 
     var fieldDeleteGroup = $(cell).parent();
     var stringGroup = $(fieldDeleteGroup).parent();
-    var numberGroup = $(stringGroup).children(".number").text();;
+    var numberGroup = $(stringGroup).children(".number").text();
 
     var idTeacher = $("#nameChooseTeacher").attr("class");
 

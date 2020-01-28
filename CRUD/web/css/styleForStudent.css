@@ -1,5 +1,5 @@
 body {
-    font-family: "Arial";
+    font-family: Arial, sans-serif;
     font-size: 10pt;
 }
 
@@ -50,7 +50,7 @@ td.birthday  {
 }
 
 #data {
-    margin: 0px 15px 0px 15px;
+    margin: 0 15px 0 15px;
     width: 60%;
     float: left;
 }

@@ -17,25 +17,9 @@
         <script type="text/javascript" src="../javaScript/scriptForStudent.js"></script>
         <script type="text/javascript" src="../DataTables-1.10.20/js/jquery.dataTables.js"></script>
     </head>
+    <body>
     <div id="mainDiv">
         <h4 align="center"><a href="../index.jsp">Главная</a></h4>
-     <%--   <div class="search">
-            <form id="searchStudents" action="" method="post">
-                <label for="nameStudent">Ф.И.О</label>
-                <input id="nameStudent" type="text" name="nameStudent">
-                <label for="dateStudent">Дата рождения</label>
-                <input id="dateStudent" name="dateStudent" type="date">
-                <label for="genderStudent">Пол</label>
-                <select id="genderStudent" name="genderStudent">
-                    <option value="-">-</option>
-                    <option value="WOMAN">WOMAN</option>
-                    <option value="MAN">MAN</option>
-                </select>
-                <label for="groupStudent">Группа</label>
-                <input id="groupStudent" class="allGroup" name="groupStudent">
-                <input id="search" type="submit" value="Поиск" />
-            </form>
-        </div> --%>
         <div id="data">
             <table id="students">
                 <thead>

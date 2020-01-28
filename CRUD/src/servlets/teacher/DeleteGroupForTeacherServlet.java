@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class deleteGroupForTeacher extends HttpServlet {
+public class DeleteGroupForTeacherServlet extends HttpServlet {
     @Override
     protected void doGet
             (HttpServletRequest request, HttpServletResponse response)

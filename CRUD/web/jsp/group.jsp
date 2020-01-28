@@ -16,6 +16,7 @@
         <script type="text/javascript" src="../javaScript/scriptForGroup.js"></script>
         <script type="text/javascript" src="../DataTables-1.10.20/js/jquery.dataTables.js"></script>
     </head>
+    <body>
         <div class="main_div">
             <div>
                 <div>

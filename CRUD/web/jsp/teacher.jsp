@@ -41,14 +41,14 @@
             <input type="date" id="birthdayNewTeacher" name="birthday" /><br><br>
             <label for="genderNewTeacher">Пол: </label>
             <input type="radio" name="gender" id="genderNewTeacher" value="WOMAN" checked />Женский
-            <input type="radio" name="gender" value="MAN" />Мужской<br><br>
+            <input type="radio" name="gender"  value="MAN" />Мужской<br><br>
             <br><br>
             <input type="submit" value="Добавить" />
         </form>
     </div>
     <div id="groups">
         <h3 id="nameChooseTeacher"></h3>
-        <img id="close" src="../close.png">
+        <img id="close" src="../image/close.png">
         <div id="buttons">
             <button id="viewGroup">Просмотр</button>
             <button id="addGroup">Добавление</button>

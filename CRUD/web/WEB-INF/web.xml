@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<web-app version="3.1"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-         version="4.0">
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
     <servlet-mapping>
         <servlet-name>insertStudent</servlet-name>
@@ -23,12 +23,12 @@
     </servlet>
 
     <servlet-mapping>
-    <servlet-name>setNameStudent</servlet-name>
-    <url-pattern>/jsp/setNameStudent</url-pattern>
+    <servlet-name>UpdateStudent</servlet-name>
+    <url-pattern>/updateStudent</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>setNameStudent</servlet-name>
-        <servlet-class>servlets.student.setNameStudent</servlet-class>
+        <servlet-name>UpdateStudent</servlet-name>
+        <servlet-class>servlets.student.UpdateStudentServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -37,34 +37,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getGender</servlet-name>
-        <servlet-class>servlets.getGender</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>setGenderStudent</servlet-name>
-        <url-pattern>/jsp/setGenderStudent</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>setGenderStudent</servlet-name>
-        <servlet-class>servlets.student.setGenderStudent</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>setGroupStudent</servlet-name>
-        <url-pattern>/jsp/setGroupStudent</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>setGroupStudent</servlet-name>
-        <servlet-class>servlets.student.setGroupStudent</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>setBirthdayStudent</servlet-name>
-        <url-pattern>/jsp/setBirthdayStudent</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>setBirthdayStudent</servlet-name>
-        <servlet-class>servlets.student.setBirthdayStudent</servlet-class>
+        <servlet-class>servlets.GetGenderListServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -158,21 +131,12 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>selectAllTeachers</servlet-name>
-        <url-pattern>/selectAllTeachers</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>selectAllTeachers</servlet-name>
-        <servlet-class>servlets.teacher.selectAllTeachers</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
         <servlet-name>updateTeacher</servlet-name>
         <url-pattern>/updateTeacher</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>updateTeacher</servlet-name>
-        <servlet-class>servlets.teacher.updateTeacher</servlet-class>
+        <servlet-class>servlets.teacher.UpdateTeacherServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -181,7 +145,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteTeacher</servlet-name>
-        <servlet-class>servlets.teacher.deleteTeacher</servlet-class>
+        <servlet-class>servlets.teacher.DeleteTeacherServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -190,7 +154,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>insertTeacher</servlet-name>
-        <servlet-class>servlets.teacher.insertTeacher</servlet-class>
+        <servlet-class>servlets.teacher.InsertTeacherServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -199,7 +163,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getGroup</servlet-name>
-        <servlet-class>servlets.teacher.getGroup</servlet-class>
+        <servlet-class>servlets.teacher.GetGroupForTeacherServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -208,7 +172,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getNewGroups</servlet-name>
-        <servlet-class>servlets.teacher.getNewGroups</servlet-class>
+        <servlet-class>servlets.teacher.GetNewGroupsForTeacherServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -217,7 +181,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteGroupForTeacher</servlet-name>
-        <servlet-class>servlets.teacher.deleteGroupForTeacher</servlet-class>
+        <servlet-class>servlets.teacher.DeleteGroupForTeacherServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -226,7 +190,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>addGroupForTeacher</servlet-name>
-        <servlet-class>servlets.teacher.addGroupForTeacher</servlet-class>
+        <servlet-class>servlets.teacher.AddGroupForTeacherServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -235,7 +199,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>selectTeachers</servlet-name>
-        <servlet-class>servlets.teacher.selectTeachers</servlet-class>
+        <servlet-class>servlets.teacher.SelectTeachersServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
