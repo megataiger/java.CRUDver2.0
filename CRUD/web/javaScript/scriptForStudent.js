@@ -4,33 +4,7 @@ $(document).ready(function () {
 
     var table = tableStudents.DataTable({
         language : {
-            "processing": "Подождите...",
-            "search": "Поиск:",
-            "lengthMenu": "Показать _MENU_ записей",
-            "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-            "infoEmpty": "Записи с 0 до 0 из 0 записей",
-            "infoFiltered": "(отфильтровано из _MAX_ записей)",
-            "infoPostFix": "",
-            "loadingRecords": "Загрузка записей...",
-            "zeroRecords": "Записи отсутствуют.",
-            "emptyTable": "В таблице отсутствуют данные",
-            "paginate": {
-                "first": "Первая",
-                "previous": "Предыдущая",
-                "next": "Следующая",
-                "last": "Последняя"
-            },
-            "aria": {
-                "sortAscending": ": активировать для сортировки столбца по возрастанию",
-                "sortDescending": ": активировать для сортировки столбца по убыванию"
-            },
-            "select": {
-                "rows": {
-                    "_": "Выбрано записей: %d",
-                    "0": "Кликните по записи для выбора",
-                    "1": "Выбрана одна запись"
-                }
-            }
+            "url" : "../javaScript/Russian.json"
         },
         select: true,
         serverSide: true,
@@ -119,9 +93,15 @@ $(document).ready(function () {
 
     tableStudents.on('order.dt', function () {
         var order = table.order();
+
         if ((order[0][1] === 'desc')&&(order[0][0]) === 0) {
-            var row = $("#students").children("tbody").children(":first-child");
+
+            var row = $("#students")
+                        .children("tbody")
+                        .children(":first-child");
+
             $(row).css("background-color", "#00ff14");
+
             setTimeout(function() {
                 $(row).css({
                 "background-color" : "#FFFFFF",
@@ -132,8 +112,11 @@ $(document).ready(function () {
     });
 
     $("#addGroup").on("click", "td", function () {
-        $("#inputGroupStudent").replaceWith("<input id='inputGroupStudent' " +
+
+        $("#inputGroupStudent")
+            .replaceWith("<input id='inputGroupStudent' " +
             "name='groupStudent' type='text' value='" + $(this).text() + "'>");
+
         $(promptToAdd).hide();
     });
 });
@@ -141,7 +124,9 @@ $(document).ready(function () {
 function setNameStudent(cell, table) {
     var page = table.page();
     var oldName = $(cell).text();
+
     $(cell).html("<input class='update' type='text' value='" + oldName + "'>");
+
     var inputName = $(cell).children();
     var string = $(cell).parent();
 
@@ -159,10 +144,10 @@ function setNameStudent(cell, table) {
     $(inputName).keypress(function (evt) {
         if (evt.keyCode === 13) {
             var newName = $(this).val();
-            var arrayField = $(string).children();
+            var id = $(string).children(".id");
 
-            $.post("../UpdateStudent", {
-                idStudent: $(arrayField[0]).text(),
+            $.post("../updateStudent", {
+                idStudent: $(id).text(),
                 newNameStudent: newName
             }, function () {
                 table.draw('page');
@@ -177,8 +162,12 @@ function setBirthdayStudent(cell, table) {
 
     var arrayNumbers = oldBirthday.split('.');
 
-    $(cell).html("<input type=\"date\" value=\"" + arrayNumbers[2] +
-        "-" + arrayNumbers[1] + "-" + arrayNumbers[0] + "\">");
+    var day = arrayNumbers[0];
+    var month = arrayNumbers[1];
+    var year = arrayNumbers[2];
+
+    $(cell).html("<input type=\"date\" value=\"" + year +
+        "-" + month + "-" + day + "\">");
 
     var inputBirthday = $(cell).children();
     $(inputBirthday).click(function (evt) {
@@ -186,21 +175,23 @@ function setBirthdayStudent(cell, table) {
     });
 
     var fieldBirthday = $(cell);
-    var arrayField = $(string).children();
+    var id = $(string).children(".id");
 
     $(inputBirthday).focus();
+
     $(inputBirthday).keypress(function (evt) {
         if (evt.keyCode === 13) {
             var newBirthday = $(this).val();
 
-            $.post("../UpdateStudent", {
-                idStudent : $(arrayField[0]).text(),
+            $.post("../updateStudent", {
+                idStudent : $(id).text(),
                 newBirthdayStudent : newBirthday
             }, function () {
                 table.draw('page');
             });
         }
     });
+
     $(inputBirthday).blur(function () {
         $(fieldBirthday).html(oldBirthday);
     });
@@ -244,10 +235,10 @@ function setGenderStudent(cell, table) {
     $(selectGender).change(function (){
         var newGender = $(this).val();
 
-        var arrayField = $(string).children();
+        var id = $(string).children(".id");
 
-        $.post("../UpdateStudent", {
-            idStudent : $(arrayField[0]).text(),
+        $.post("../updateStudent", {
+            idStudent : $(id).text(),
             genderStudent : newGender
         }, function () {
             table.draw('page')
@@ -278,10 +269,10 @@ function setGroupStudent(cell, table, prompt) {
         searchByGroup(this, prompt);
         if (evt.keyCode === 13) {
             var newGroup = $(this).val();
-            var arrayField = $(string).children();
+            var id = $(string).children(".id");
 
-            $.post("../UpdateStudent", {
-                idStudent : $(arrayField[0]).text(),
+            $.post("../updateStudent", {
+                idStudent : $(id).text(),
                 numberGroup : newGroup
             }, function () {
                 table.draw('page');
@@ -313,6 +304,7 @@ function deleteStudent(bascet, evt, table) {
     evt.preventDefault();
 
     var idStudent = $(bascet).attr("href");
+
     $.get("deleteStudent", {
         idStudent : idStudent
     }, function () {
@@ -321,7 +313,9 @@ function deleteStudent(bascet, evt, table) {
             if (info.recordsTotal-1 > info.page * info.length) {
                 table.draw( 'page' )
             } else {
-                table.page( 'previous' ).draw( 'page' )
+                table
+                    .page( 'previous' )
+                    .draw( 'page' )
             }
         }
     });

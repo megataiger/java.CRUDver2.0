@@ -1,38 +1,10 @@
-var language = {
-    "processing": "Подождите...",
-    "search": "Поиск:",
-    "lengthMenu": "Показать _MENU_ записей",
-    "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-    "infoEmpty": "Записи с 0 до 0 из 0 записей",
-    "infoFiltered": "(отфильтровано из _MAX_ записей)",
-    "infoPostFix": "",
-    "loadingRecords": "Загрузка записей...",
-    "zeroRecords": "Записи отсутствуют.",
-    "emptyTable": "В таблице отсутствуют данные",
-    "paginate": {
-        "first": "Первая",
-        "previous": "Предыдущая",
-        "next": "Следующая",
-        "last": "Последняя"
-    },
-    "aria": {
-        "sortAscending": ": активировать для сортировки столбца по возрастанию",
-        "sortDescending": ": активировать для сортировки столбца по убыванию"
-    },
-    "select": {
-        "rows": {
-            "_": "Выбрано записей: %d",
-            "0": "Кликните по записи для выбора",
-            "1": "Выбрана одна запись"
-        }
-    }
-};
-
 $(document).ready(function () {
     var tableGroup = $("#groups");
 
     var table = tableGroup.DataTable({
-        language: language,
+        language: {
+            "url" : "../javaScript/Russian.json"
+        },
         serverSide: true,
         ajax: {
             url: "selectAllGroup",
@@ -152,7 +124,9 @@ function deleteGroup(bascet, evt, table) {
 
     var fieldDelete = $(bascet).parent();
     var string = $(fieldDelete).parent();
-    var idGroup = $(string).children(".id").text();
+    var idGroup = $(string)
+                        .children(".id")
+                        .text();
 
     $.post("deleteGroup", {
         idGroup: idGroup
@@ -162,7 +136,9 @@ function deleteGroup(bascet, evt, table) {
             if (info.recordsTotal-1 > info.page * info.length) {
                 table.draw( 'page' )
             } else {
-                table.page( 'previous' ).draw( 'page' )
+                table
+                    .page( 'previous' )
+                    .draw( 'page' )
             }
         }
     })
@@ -205,7 +181,9 @@ function viewTeachersMenu(require, evt) {
     evt.preventDefault();
     var fieldTeachers = $(require).parent();
     var string = $(fieldTeachers).parent();
-    var numberGroup = $(string).children(".number").text();
+    var numberGroup = $(string)
+                            .children(".number")
+                            .text();
 
     $("#numberGroup").html(numberGroup);
 
@@ -220,7 +198,9 @@ function viewStudentsMenu(require, evt) {
     evt.preventDefault();
     var fieldStudents = $(require).parent();
     var string = $(fieldStudents).parent();
-    var numberGroup = $(string).children(".number").text();
+    var numberGroup = $(string)
+                            .children(".number")
+                            .text();
 
     $("#numberGroup").html(numberGroup);
 
@@ -231,7 +211,9 @@ function viewStudentsMenu(require, evt) {
     if (!$.fn.DataTable.isDataTable('#studentsOfGroup')) {
         getStudentOfGroup();
     } else {
-        $('#studentsOfGroup').DataTable().draw();
+        $('#studentsOfGroup')
+                            .DataTable()
+                            .draw();
     }
 }
 
@@ -244,9 +226,13 @@ function clickToViewTeachers(button) {
     if (!$.fn.DataTable.isDataTable('#teachersOfGroup')) {
         getTeachersOfGroup();
     } else if ($('#teachersOfGroup').DataTable().ajax.url() === "../getTeachers") {
-        $('#teachersOfGroup').DataTable().draw();
+        $('#teachersOfGroup')
+                            .DataTable()
+                            .draw();
     } else {
-        $("#teachersOfGroup").DataTable().destroy();
+        $("#teachersOfGroup")
+                            .DataTable()
+                            .destroy();
         getTeachersOfGroup();
     }
 }
@@ -260,9 +246,13 @@ function clickToAddTeachers(button) {
     if (!$.fn.DataTable.isDataTable('#teachersOfGroup')) {
         getNewTeachersOfGroup();
     } else if ($('#teachersOfGroup').DataTable().ajax.url() === "../getNewTeachers") {
-        $('#teachersOfGroup').DataTable().draw();
+        $('#teachersOfGroup')
+                            .DataTable()
+                            .draw();
     } else {
-        $("#teachersOfGroup").DataTable().destroy();
+        $("#teachersOfGroup")
+                            .DataTable()
+                            .destroy();
         getNewTeachersOfGroup();
     }
 }
@@ -282,7 +272,9 @@ function addTeacherForGroup(require, evt, table) {
             if (info.recordsTotal-1 > info.page * info.length) {
                 tableGroup.draw( 'page' )
             } else {
-                tableGroup.page( 'previous' ).draw( 'page' )
+                tableGroup
+                        .page( 'previous' )
+                        .draw( 'page' )
             }
         }
     })
@@ -303,7 +295,9 @@ function deleteTeacherForGroup(require, evt, table) {
             if (info.recordsTotal-1 > info.page * info.length) {
                 tableGroup.draw( 'page' )
             } else {
-                tableGroup.page( 'previous' ).draw( 'page' )
+                tableGroup
+                    .page( 'previous' )
+                    .draw( 'page' )
             }
         }
     })
@@ -311,7 +305,9 @@ function deleteTeacherForGroup(require, evt, table) {
 
 function getTeachersOfGroup() {
     return $("#teachersOfGroup").DataTable({
-        language: language,
+        language: {
+            "url" : "../javaScript/Russian.json"
+        },
         serverSide: true,
         ajax: {
             url: "../getTeachers",
@@ -350,7 +346,9 @@ function getTeachersOfGroup() {
 
 function getNewTeachersOfGroup() {
     return $("#teachersOfGroup").DataTable({
-        language: language,
+        language: {
+            "url" : "../javaScript/Russian.json"
+        },
         serverSide: true,
         ajax: {
             url: "../getNewTeachers",
@@ -389,7 +387,9 @@ function getNewTeachersOfGroup() {
 
 function getStudentOfGroup() {
     return $("#studentsOfGroup").DataTable({
-        language: language,
+        language: {
+            "url" : "../javaScript/Russian.json"
+        },
         serverSide: true,
         ajax: {
             url: "../selectStudent",

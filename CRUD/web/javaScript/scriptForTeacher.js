@@ -1,37 +1,3 @@
-var languege = {
-    "processing": "Подождите...",
-    "search": "Поиск:",
-    "lengthMenu": "Показать _MENU_ записей",
-    "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-    "infoEmpty": "Записи с 0 до 0 из 0 записей",
-    "infoFiltered": "(отфильтровано из _MAX_ записей)",
-    "infoPostFix": "",
-    "loadingRecords": "Загрузка записей...",
-    "zeroRecords": "Записи отсутствуют.",
-    "emptyTable": "В таблице отсутствуют данные",
-    "paginate":
-        {
-            "first": "Первая",
-            "previous": "Предыдущая",
-            "next": "Следующая",
-            "last": "Последняя"
-        },
-    "aria":
-        {
-            "sortAscending": ": активировать для сортировки столбца по возрастанию",
-            "sortDescending": ": активировать для сортировки столбца по убыванию"
-        },
-    "select":
-        {
-            "rows":
-                {
-                    "_": "Выбрано записей: %d",
-                    "0": "Кликните по записи для выбора",
-                    "1": "Выбрана одна запись"
-                }
-        }
-    };
-
 $(document).ready(function () {
 
     var tableTeachers = getTeachersTable();
@@ -139,9 +105,13 @@ function setBirthdayTeacher(cell, table) {
 
     var arrayNumbers = oldBirthday.split('.');
 
+    var day = arrayNumbers[0];
+    var month = arrayNumbers[1];
+    var year = arrayNumbers[2];
+
     $(fieldBirthday).html("<input id='newDateTeacher' " +
-        "type=\"date\" value=\"" + arrayNumbers[2] +
-        "-" + arrayNumbers[1] + "-" + arrayNumbers[0] + "\">");
+        "type=\"date\" value=\"" + year +
+        "-" + month + "-" + day + "\">");
 
     var inputBirthday = $("#newDateTeacher");
     $(inputBirthday).click(function (evt) {
@@ -271,9 +241,13 @@ function viewMenuGroups(evt, cell) {
     if (!$.fn.DataTable.isDataTable('#tableGroup')) {
         getTeacherGroupsTable();
     } else if ($('#tableGroup').DataTable().ajax.url() === "../getGroups") {
-        $('#tableGroup').DataTable().draw();
+        $('#tableGroup')
+                    .DataTable()
+                    .draw();
     } else {
-        $("#tableGroup").DataTable().destroy();
+        $("#tableGroup")
+                    .DataTable()
+                    .destroy();
         getTeacherGroupsTable();
     }
 
@@ -289,9 +263,13 @@ function clickToAddGroupsOfTeacher(button) {
     if (!$.fn.DataTable.isDataTable('#tableGroup')) {
         getTeacherNewGroupsTable();
     } else if ($('#tableGroup').DataTable().ajax.url() === "../getNewGroups") {
-        $('#tableGroup').DataTable().draw();
+        $('#tableGroup')
+                    .DataTable()
+                    .draw();
     } else {
-        $("#tableGroup").DataTable().destroy();
+        $("#tableGroup")
+                    .DataTable()
+                    .destroy();
         getTeacherNewGroupsTable();
     }
 }
@@ -303,9 +281,13 @@ function clickToViewGroupsOfTeacher(button) {
     if (!$.fn.DataTable.isDataTable('#tableGroup')) {
         getTeacherGroupsTable();
     } else if ($('#tableGroup').DataTable().ajax.url() === "../getGroups") {
-        $('#tableGroup').DataTable().draw();
+        $('#tableGroup')
+                    .DataTable()
+                    .draw();
     } else {
-        $("#tableGroup").DataTable().destroy();
+        $("#tableGroup")
+                    .DataTable()
+                    .destroy();
         getTeacherGroupsTable();
     }
 }
@@ -315,7 +297,9 @@ function deleteGroupOfTeacher(evt, table, cell) {
 
     var fieldDeleteGroup = $(cell).parent();
     var stringGroup = $(fieldDeleteGroup).parent();
-    var numberGroup = $(stringGroup).children(".number").text();
+    var numberGroup = $(stringGroup)
+                                .children(".number")
+                                .text();
 
     var idTeacher = $("#nameChooseTeacher").attr("class");
 
@@ -329,7 +313,9 @@ function deleteGroupOfTeacher(evt, table, cell) {
             if (info.recordsTotal-1 > info.page * info.length) {
                 tableTeacher.draw( 'page' )
             } else {
-                tableTeacher.page( 'previous' ).draw( 'page' )
+                tableTeacher
+                        .page( 'previous' )
+                        .draw( 'page' )
             }
         }
     });
@@ -340,7 +326,9 @@ function addGroupForTeacher(evt, table, cell) {
 
     var fieldAddGroup = $(cell).parent();
     var stringGroup = $(fieldAddGroup).parent();
-    var numberGroup = $(stringGroup).children(".number").text();
+    var numberGroup = $(stringGroup)
+                                .children(".number")
+                                .text();
 
     console.log($(fieldAddGroup).text());
 
@@ -356,7 +344,9 @@ function addGroupForTeacher(evt, table, cell) {
             if (info.recordsTotal-1 > info.page * info.length) {
                 tableTeacher.draw( 'page' )
             } else {
-                tableTeacher.page( 'previous' ).draw( 'page' )
+                tableTeacher
+                        .page( 'previous' )
+                        .draw( 'page' )
             }
         }
     });
@@ -364,7 +354,9 @@ function addGroupForTeacher(evt, table, cell) {
 
 function getTeachersTable() {
     return $("#teachers").DataTable({
-        language : languege,
+        language : {
+            "url" : "../javaScript/Russian.json"
+        },
         serverSide: true,
         ajax: {
             url : "../selectTeachers",
@@ -411,7 +403,9 @@ function getTeachersTable() {
 
 function getTeacherGroupsTable() {
     return $("#tableGroup").DataTable({
-        language : languege,
+        language : {
+            "url" : "../javaScript/Russian.json"
+        },
         serverSide: true,
         ajax: {
             url : "../getGroup",
@@ -444,7 +438,9 @@ function getTeacherGroupsTable() {
 
 function getTeacherNewGroupsTable() {
     return $("#tableGroup").DataTable({
-        language : languege,
+        language : {
+            "url" : "../javaScript/Russian.json"
+        },
         serverSide: true,
         ajax: {
             url : "../getNewGroups",
