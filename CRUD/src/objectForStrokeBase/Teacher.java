@@ -10,7 +10,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table (name = "teacher")
+@Table(name = "teacher")
 public class Teacher {
 
     @Expose
@@ -20,12 +20,12 @@ public class Teacher {
 
     private String name;
 
-    @Column (name = "birthday")
+    @Column(name = "birthday")
     private LocalDate date;
 
     @Expose
-    @Enumerated (EnumType.STRING)
-    @Column (name = "gender")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
     private Gender gender;
 
     @Expose
@@ -33,9 +33,8 @@ public class Teacher {
     @JoinTable(name = "group_teacher",
             joinColumns = {@JoinColumn(name = "teacher_id")},
             inverseJoinColumns = {@JoinColumn(name = "group_id")}
-            )
+    )
     private List<Group> groups = new ArrayList<>();
-
 
 
     public Teacher() {
@@ -53,7 +52,6 @@ public class Teacher {
         date = birthday;
         this.gender = gender;
     }
-
 
 
     public String toString() {
@@ -76,7 +74,6 @@ public class Teacher {
         groups.remove(oldGroup);
         groups.add(newGroup);
     }
-
 
 
     public String getName() {

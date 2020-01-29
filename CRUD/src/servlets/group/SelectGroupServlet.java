@@ -35,7 +35,7 @@ public class SelectGroupServlet extends HttpServlet {
         String draw = request.getParameter("draw");
         String search = request.getParameter("search[value]");
 
-        orderBy = " ORDER BY "+ columnName + " " + orderBy;
+        orderBy = " ORDER BY " + columnName + " " + orderBy;
 
         JsonObject result = new JsonObject();
 

@@ -6,7 +6,7 @@
 
     <filter>
         <filter-name>CharsetFilter</filter-name>
-        <filter-class>servlets.CharsetFilterServlet</filter-class>
+        <filter-class>servlets.CharsetFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -33,8 +33,8 @@
     </servlet>
 
     <servlet-mapping>
-    <servlet-name>UpdateStudent</servlet-name>
-    <url-pattern>/updateStudent</url-pattern>
+        <servlet-name>UpdateStudent</servlet-name>
+        <url-pattern>/updateStudent</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>UpdateStudent</servlet-name>

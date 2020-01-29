@@ -30,7 +30,7 @@ public class SelectTeachersServlet extends HttpServlet {
         int length = Integer.parseInt(request.getParameter("length"));
         String order = request.getParameter("order[0][dir]");
         int orderColumn = Integer.parseInt(request.getParameter("order[0][column]"));
-        String nameColumn = request.getParameter("columns[" + orderColumn +"][name]");
+        String nameColumn = request.getParameter("columns[" + orderColumn + "][name]");
         String filter = request.getParameter("search[value]");
 
         String orderBy = "ORDER BY " + nameColumn + " " + order;

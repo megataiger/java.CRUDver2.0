@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import objectForStrokeBase.Gender;
 import objectForStrokeBase.Teacher;
 
 import java.lang.reflect.Type;
@@ -20,12 +21,10 @@ public class TeacherSerialize implements JsonSerializer<Teacher> {
         object.addProperty("id", teacher.getId());
         object.addProperty("name", teacher.getName());
         object.addProperty("birthday", formatter.format(teacher.getDate()));
-        if (teacher.getGender().equals("MAN")) {
-            object.addProperty("gender", "М");
-        } else if (teacher.getGender().equals("WOMAN")) {
-            object.addProperty("gender", "Ж");
-        } else {
-            object.addProperty("gender", "-");
+        for (Gender e : Gender.values()) {
+            if (teacher.getGender().equals(e.toString())) {
+                object.addProperty("gender", e.getGender());
+            }
         }
         object.addProperty("delete", teacher.getId());
 

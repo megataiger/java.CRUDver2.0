@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table (name = "`group`")
+@Table(name = "`group`")
 public class Group {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column (name = "number")
+    @Column(name = "number")
     private int number;
 
-    @OneToMany (
+    @OneToMany(
             mappedBy = "group",
             cascade = CascadeType.DETACH,
             orphanRemoval = true
@@ -38,7 +38,6 @@ public class Group {
         id = idGroup;
         number = numberGroup;
     }
-
 
 
     public Group(int numberGroup) {

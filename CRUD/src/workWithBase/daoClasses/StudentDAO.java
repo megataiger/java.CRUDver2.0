@@ -17,6 +17,7 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
     public Student findById(int id) {
         return entityManager.find(Student.class, id);
     }
+
     public void save(Student student) {
         entityManager.getTransaction().begin();
         entityManager.merge(student);
@@ -41,34 +42,34 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
         entityManager.getTransaction().commit();
     }
 
-    public List findByName (String name) {
+    public List findByName(String name) {
         Query query = entityManager.createQuery("from Student where lower(name) like :name");
         String param = "%" + name + "%";
         query.setParameter("name", param);
         return query.getResultList();
     }
 
-    public List findByDate (LocalDate date) {
+    public List findByDate(LocalDate date) {
         Query query = entityManager.createQuery("from Student where lower(birthday) like :date");
         String param = "%" + date + "%";
         query.setParameter("date", param);
         return query.getResultList();
     }
 
-    public List findByGroup (Group group) {
+    public List findByGroup(Group group) {
         Query query = entityManager.createQuery("from Student where group_id = :id");
         query.setParameter("id", group.getId());
         return query.getResultList();
     }
 
-    public List findByFilter (String filter, int page, int length, String orderBy) {
+    public List findByFilter(String filter, int page, int length, String orderBy) {
         Query query = entityManager.createQuery("SELECT s FROM Student s " +
                 "WHERE LOWER(s.name) LIKE '%" + filter + "%' OR s.date LIKE '%" + filter + "%' " +
                 "OR s.gender = '" + filter + "' OR s.group LIKE '%" + filter + "%' ORDER BY " + orderBy);
         return query.setMaxResults(length).setFirstResult(page).getResultList();
     }
 
-    public List findByFilter (String filter) {
+    public List findByFilter(String filter) {
         Query query = entityManager.createQuery("SELECT s FROM Student s " +
                 "WHERE LOWER(s.name) LIKE '%" + filter + "%' OR s.date LIKE '%" + filter + "%' " +
                 "OR s.gender = '" + filter + "' OR s.group LIKE '%" + filter + "%'");
@@ -79,12 +80,12 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
             (int groupId, int page, int length, String orderBy, String filter) {
         Query query = entityManager.createQuery("FROM Student WHERE group_id = :id " +
                 "AND (LOWER(name) LIKE '%" + filter + "%' OR birthday LIKE '%" + filter + "%') " +
-        orderBy);
+                orderBy);
         query.setParameter("id", groupId);
         return query.setMaxResults(length).setFirstResult(page).getResultList();
     }
 
-    public List findByGroup (int groupId, String filter) {
+    public List findByGroup(int groupId, String filter) {
         Query query = entityManager.createQuery("from Student where group_id = :id " +
                 "AND (LOWER(name) LIKE '%" + filter + "%' OR birthday LIKE '%" + filter + "%') ");
         query.setParameter("id", groupId);

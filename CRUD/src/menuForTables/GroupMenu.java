@@ -115,7 +115,7 @@ public class GroupMenu {
                 case 3: {
                     List groups = groupDAO.getAll();
 
-                    if(groups.size() > 0) {
+                    if (groups.size() > 0) {
                         for (Object e : groups) {
                             System.out.println(e);
                         }
@@ -189,7 +189,8 @@ public class GroupMenu {
                 }
                 case "N": {
                     break;
-                } default : {
+                }
+                default: {
                     System.out.println("Вы ввели неверный ответ");
                 }
             }
@@ -225,7 +226,7 @@ public class GroupMenu {
 
                             List<Teacher> teachers =
                                     group.getTeachers();
-                            if(teachers.size() > 0) {
+                            if (teachers.size() > 0) {
                                 for (Teacher e : teachers) {
                                     System.out.println(e);
                                 }
@@ -331,7 +332,8 @@ public class GroupMenu {
                     case 0: {
                         backMenuTeacherGroup = false;
                         break;
-                    } default : {
+                    }
+                    default: {
                         break;
                     }
                 }

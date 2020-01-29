@@ -33,12 +33,12 @@ td.students:hover {
     background-color: #f0f0f0;
 }
 
-td.name  {
+td.name {
     width: 200px;
     height: 52px;
 }
 
-td.birthday  {
+td.birthday {
     width: 150px;
 }
 
@@ -80,7 +80,7 @@ td.birthday  {
 }
 
 table#prompt table#addGroup {
-    margin : auto;
+    margin: auto;
     border-collapse: separate;
 }
 

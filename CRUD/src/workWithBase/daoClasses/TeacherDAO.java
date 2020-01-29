@@ -39,14 +39,14 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         entityManager.getTransaction().commit();
     }
 
-    public List findByName (String name) {
+    public List findByName(String name) {
         Query query = entityManager.createQuery("from Teacher where lower(name) like :name");
         String param = "%" + name + "%";
         query.setParameter("name", param);
         return query.getResultList();
     }
 
-    public List findByDate (LocalDate date) {
+    public List findByDate(LocalDate date) {
         Query query = entityManager.createQuery("from Teacher where lower(birthday) like :date");
         String param = "%" + date + "%";
         query.setParameter("date", param);
@@ -71,7 +71,7 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         return query.getResultList();
     }
 
-    public List getTeachersForGroup (int groupId, int page, int length, String orderBy, String filter) {
+    public List getTeachersForGroup(int groupId, int page, int length, String orderBy, String filter) {
         Query query =
                 entityManager.createQuery("SELECT t FROM Teacher t JOIN t.groups g " +
                         "WHERE g.id = " + groupId + " AND (LOWER(t.name) LIKE '%" +
@@ -79,7 +79,7 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
-    public List getTeachersForGroup (int groupId, String filter) {
+    public List getTeachersForGroup(int groupId, String filter) {
         Query query =
                 entityManager.createQuery("SELECT t FROM Teacher t JOIN t.groups g " +
                         "WHERE g.id = " + groupId + " AND (LOWER(t.name) LIKE '%" +
@@ -87,17 +87,17 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
         return query.getResultList();
     }
 
-    public List getNewTeachersForGroup (int groupId, int page, int length, String orderBy, String filter) {
+    public List getNewTeachersForGroup(int groupId, int page, int length, String orderBy, String filter) {
         Query query =
                 entityManager.createQuery("SELECT s FROM Teacher s " +
                         "WHERE (LOWER(s.name) LIKE '%" + filter + "%' OR s.date LIKE '%" + filter + "%') " +
-                                "AND s NOT IN " +
-                                "(SELECT t FROM Teacher t JOIN t.groups g " +
-                                "WHERE g.id = " + groupId + ")" + orderBy);
+                        "AND s NOT IN " +
+                        "(SELECT t FROM Teacher t JOIN t.groups g " +
+                        "WHERE g.id = " + groupId + ")" + orderBy);
         return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
-    public List getNewTeachersForGroup (int groupId, String filter) {
+    public List getNewTeachersForGroup(int groupId, String filter) {
         Query query =
                 entityManager.createQuery("SELECT s FROM Teacher s " +
                         "WHERE (LOWER(s.name) LIKE '%" +

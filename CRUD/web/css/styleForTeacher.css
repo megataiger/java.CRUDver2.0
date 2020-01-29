@@ -3,8 +3,6 @@ body {
     font-size: 10pt;
 }
 
-
-
 #teachers {
     margin: 10pt;
     border-collapse: collapse;
@@ -78,6 +76,7 @@ td:hover {
     position: absolute;
     background-color: white;
 }
+
 #close:hover {
     background-color: #B0BED9;
 }

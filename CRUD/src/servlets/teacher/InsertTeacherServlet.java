@@ -17,12 +17,15 @@ public class InsertTeacherServlet extends HttpServlet {
             throws IOException {
 
         String name = request.getParameter("nameTeacher");
+
         LocalDate date = LocalDate.parse(request.getParameter("birthday"));
-        Gender gender;
-        if (request.getParameter("gender").equals(Gender.MAN.toString())) {
-            gender = Gender.MAN;
-        } else {
-            gender = Gender.WOMAN;
+
+        Gender gender = null;
+
+        for (Gender e : Gender.values()) {
+            if (request.getParameter("gender").equals(e.toString())) {
+                gender = e;
+            }
         }
 
         TeacherDAO teacherDAO = new TeacherDAO();

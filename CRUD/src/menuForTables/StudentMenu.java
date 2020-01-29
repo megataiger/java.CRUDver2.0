@@ -336,7 +336,8 @@ public class StudentMenu {
                 }
                 case "N": {
                     break;
-                } default : {
+                }
+                default: {
                     System.out.println("Вы ввели неверный ответ");
                 }
             }

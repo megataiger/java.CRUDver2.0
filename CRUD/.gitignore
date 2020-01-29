@@ -1,8 +1,8 @@
 .idea
+target
+classes
+out
 /CRUD.iml
 /log_file.log
 /log_file.log.1
 /CRUD.jar
-target
-classes
-out

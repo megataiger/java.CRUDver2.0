@@ -13,7 +13,7 @@ import java.util.Scanner;
 class Checkers {
     private Scanner in;
 
-    Checkers (Scanner in) {
+    Checkers(Scanner in) {
         this.in = in;
     }
 

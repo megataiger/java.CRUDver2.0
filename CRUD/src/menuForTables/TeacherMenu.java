@@ -109,7 +109,7 @@ public class TeacherMenu {
 
                     List teachers =
                             teacherDAO.findByName(nameSearch);
-                    if(teachers.size() > 0) {
+                    if (teachers.size() > 0) {
                         for (Object e : teachers) {
                             System.out.println(e);
                         }
@@ -132,7 +132,7 @@ public class TeacherMenu {
                                     birthday
                             );
 
-                    if(teachers.size() > 0) {
+                    if (teachers.size() > 0) {
                         for (Object e : teachers) {
                             System.out.println(e);
                         }
@@ -145,7 +145,7 @@ public class TeacherMenu {
                     List teachers =
                             teacherDAO.getAll();
 
-                    if(teachers.size() > 0) {
+                    if (teachers.size() > 0) {
                         for (Object e : teachers) {
                             System.out.println(e);
                         }
@@ -153,7 +153,8 @@ public class TeacherMenu {
                         System.out.println("Нет записей");
                     }
                     break;
-                } default : {
+                }
+                default: {
                     System.out.println("Введён номер " +
                             "не существующего критерия");
                 }
@@ -268,7 +269,7 @@ public class TeacherMenu {
                     }
                     break;
                 }
-                default : {
+                default: {
                     break;
                 }
             }
@@ -297,7 +298,8 @@ public class TeacherMenu {
                 }
                 case "N": {
                     break;
-                } default : {
+                }
+                default: {
                     System.out.println("Вы ввели неверный ответ");
                 }
             }
@@ -323,7 +325,7 @@ public class TeacherMenu {
                 in.nextLine();
 
                 switch (operationWithListGroup) {
-                    case 1 : {
+                    case 1: {
                         System.out.println("Введите ID преподавателя");
                         try {
                             int id = in.nextInt();
@@ -334,7 +336,7 @@ public class TeacherMenu {
 
                             List<Group> groups =
                                     teacher.getGroups();
-                            if(groups.size() > 0) {
+                            if (groups.size() > 0) {
                                 for (Group e : groups) {
                                     System.out.println(e);
                                 }
@@ -350,7 +352,7 @@ public class TeacherMenu {
                         }
                         break;
                     }
-                    case 2 : {
+                    case 2: {
                         System.out.println("Введите ID преподавателя");
                         try {
                             int id = in.nextInt();
@@ -378,7 +380,7 @@ public class TeacherMenu {
                         }
                         break;
                     }
-                    case 3 : {
+                    case 3: {
                         System.out.println("Введите ID преподавателя");
                         try {
                             int id = in.nextInt();
@@ -415,7 +417,7 @@ public class TeacherMenu {
                         }
                         break;
                     }
-                    case 4 : {
+                    case 4: {
                         System.out.println("Введите ID преподавателя");
                         try {
                             int id = in.nextInt();
@@ -444,10 +446,11 @@ public class TeacherMenu {
                         }
                         break;
                     }
-                    case 0 : {
+                    case 0: {
                         backMenuGroupTeacher = false;
                         break;
-                    } default : {
+                    }
+                    default: {
                         System.out.println("Введите номер операции " +
                                 "из представленных ниже");
                     }

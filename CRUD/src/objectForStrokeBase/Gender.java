@@ -1,6 +1,16 @@
 package objectForStrokeBase;
 
 public enum Gender {
-    MAN,
-    WOMAN
+    MAN("М"),
+    WOMAN("Ж");
+
+    private String gender;
+
+    Gender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
 }

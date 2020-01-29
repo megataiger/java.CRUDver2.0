@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     var table = tableGroup.DataTable({
         language: {
-            "url" : "../javaScript/Russian.json"
+            "url": "../javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {
@@ -92,13 +92,13 @@ $(document).ready(function () {
 
     tableGroup.on('order.dt', function () {
         var order = table.order();
-        if ((order[0][1] === 'desc')&&(order[0][0]) === 0) {
+        if ((order[0][1] === 'desc') && (order[0][0]) === 0) {
             var row = $("#groups").children("tbody").children(":first-child");
             $(row).css("background-color", "#00ff14");
-            setTimeout(function() {
+            setTimeout(function () {
                 $(row).css({
-                    "background-color" : "#FFFFFF",
-                    "transition" : "3s"
+                    "background-color": "#FFFFFF",
+                    "transition": "3s"
                 })
             }, 1000);
         }
@@ -113,7 +113,7 @@ function insertGroup(inputNumber, evt, table) {
             numberGroup: $(inputNumber).val()
         }, function () {
             table
-                .order( [ 0, 'desc' ] )
+                .order([0, 'desc'])
                 .draw();
         });
     }
@@ -125,20 +125,20 @@ function deleteGroup(bascet, evt, table) {
     var fieldDelete = $(bascet).parent();
     var string = $(fieldDelete).parent();
     var idGroup = $(string)
-                        .children(".id")
-                        .text();
+        .children(".id")
+        .text();
 
     $.post("deleteGroup", {
         idGroup: idGroup
     }, function () {
         var info = table.page.info();
         if (info.pages > 0) {
-            if (info.recordsTotal-1 > info.page * info.length) {
-                table.draw( 'page' )
+            if (info.recordsTotal - 1 > info.page * info.length) {
+                table.draw('page')
             } else {
                 table
-                    .page( 'previous' )
-                    .draw( 'page' )
+                    .page('previous')
+                    .draw('page')
             }
         }
     })
@@ -182,8 +182,8 @@ function viewTeachersMenu(require, evt) {
     var fieldTeachers = $(require).parent();
     var string = $(fieldTeachers).parent();
     var numberGroup = $(string)
-                            .children(".number")
-                            .text();
+        .children(".number")
+        .text();
 
     $("#numberGroup").html(numberGroup);
 
@@ -199,8 +199,8 @@ function viewStudentsMenu(require, evt) {
     var fieldStudents = $(require).parent();
     var string = $(fieldStudents).parent();
     var numberGroup = $(string)
-                            .children(".number")
-                            .text();
+        .children(".number")
+        .text();
 
     $("#numberGroup").html(numberGroup);
 
@@ -212,8 +212,8 @@ function viewStudentsMenu(require, evt) {
         getStudentOfGroup();
     } else {
         $('#studentsOfGroup')
-                            .DataTable()
-                            .draw();
+            .DataTable()
+            .draw();
     }
 }
 
@@ -227,12 +227,12 @@ function clickToViewTeachers(button) {
         getTeachersOfGroup();
     } else if ($('#teachersOfGroup').DataTable().ajax.url() === "../getTeachers") {
         $('#teachersOfGroup')
-                            .DataTable()
-                            .draw();
+            .DataTable()
+            .draw();
     } else {
         $("#teachersOfGroup")
-                            .DataTable()
-                            .destroy();
+            .DataTable()
+            .destroy();
         getTeachersOfGroup();
     }
 }
@@ -247,12 +247,12 @@ function clickToAddTeachers(button) {
         getNewTeachersOfGroup();
     } else if ($('#teachersOfGroup').DataTable().ajax.url() === "../getNewTeachers") {
         $('#teachersOfGroup')
-                            .DataTable()
-                            .draw();
+            .DataTable()
+            .draw();
     } else {
         $("#teachersOfGroup")
-                            .DataTable()
-                            .destroy();
+            .DataTable()
+            .destroy();
         getNewTeachersOfGroup();
     }
 }
@@ -269,12 +269,12 @@ function addTeacherForGroup(require, evt, table) {
         var tableGroup = table.DataTable();
         var info = tableGroup.page.info();
         if (info.pages > 0) {
-            if (info.recordsTotal-1 > info.page * info.length) {
-                tableGroup.draw( 'page' )
+            if (info.recordsTotal - 1 > info.page * info.length) {
+                tableGroup.draw('page')
             } else {
                 tableGroup
-                        .page( 'previous' )
-                        .draw( 'page' )
+                    .page('previous')
+                    .draw('page')
             }
         }
     })
@@ -292,12 +292,12 @@ function deleteTeacherForGroup(require, evt, table) {
         var tableGroup = table.DataTable();
         var info = tableGroup.page.info();
         if (info.pages > 0) {
-            if (info.recordsTotal-1 > info.page * info.length) {
-                tableGroup.draw( 'page' )
+            if (info.recordsTotal - 1 > info.page * info.length) {
+                tableGroup.draw('page')
             } else {
                 tableGroup
-                    .page( 'previous' )
-                    .draw( 'page' )
+                    .page('previous')
+                    .draw('page')
             }
         }
     })
@@ -306,7 +306,7 @@ function deleteTeacherForGroup(require, evt, table) {
 function getTeachersOfGroup() {
     return $("#teachersOfGroup").DataTable({
         language: {
-            "url" : "../javaScript/Russian.json"
+            "url": "../javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {
@@ -347,7 +347,7 @@ function getTeachersOfGroup() {
 function getNewTeachersOfGroup() {
     return $("#teachersOfGroup").DataTable({
         language: {
-            "url" : "../javaScript/Russian.json"
+            "url": "../javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {
@@ -388,7 +388,7 @@ function getNewTeachersOfGroup() {
 function getStudentOfGroup() {
     return $("#studentsOfGroup").DataTable({
         language: {
-            "url" : "../javaScript/Russian.json"
+            "url": "../javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {

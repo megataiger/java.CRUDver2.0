@@ -2,17 +2,18 @@ import menuForTables.GroupMenu;
 import menuForTables.StudentMenu;
 import menuForTables.TeacherMenu;
 import workWithBase.connectWithBase.FactoryForDAO;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
  * @author Nemolyaev Ilya Vladislavovich
  * @version 4.0
- * This project can work with SQL data base
- * "student-group-teacher". You can make
- * all CRUD-operations with this.
- * Main class output in console
- * main menu, where you can work with base
+ *          This project can work with SQL data base
+ *          "student-group-teacher". You can make
+ *          all CRUD-operations with this.
+ *          Main class output in console
+ *          main menu, where you can work with base
  */
 
 public class Main {
@@ -37,13 +38,13 @@ public class Main {
                         break;
                     }
                     case 2: {
-                         GroupMenu groupMenu = new GroupMenu(in);
-                         groupMenu.groupWork();
+                        GroupMenu groupMenu = new GroupMenu(in);
+                        groupMenu.groupWork();
                         break;
                     }
                     case 3: {
-                          TeacherMenu teacherMenu = new TeacherMenu(in);
-                          teacherMenu.teacherWork();
+                        TeacherMenu teacherMenu = new TeacherMenu(in);
+                        teacherMenu.teacherWork();
                         break;
                     }
                     case 0: {

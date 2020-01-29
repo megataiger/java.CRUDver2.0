@@ -24,14 +24,14 @@ public class InsertStudentServlet extends HttpServlet {
 
         Group group = null;
 
-        Gender gender;
+        Gender gender = null;
 
         String name = request.getParameter("nameStudent");
 
-        if (request.getParameter("genderStudent").equals(Gender.MAN.toString())) {
-            gender = Gender.MAN;
-        } else {
-            gender = Gender.WOMAN;
+        for (Gender e : Gender.values()) {
+            if (request.getParameter("genderStudent").equals(e.toString())) {
+                gender = e;
+            }
         }
 
         if (!request.getParameter("groupStudent").equals("-")) {

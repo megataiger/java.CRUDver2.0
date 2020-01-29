@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import objectForStrokeBase.Gender;
 import objectForStrokeBase.Student;
 
 import java.lang.reflect.Type;
@@ -18,12 +19,10 @@ public class StudentSerialize implements JsonSerializer<Student> {
         object.addProperty("id", student.getId());
         object.addProperty("name", student.getName());
         object.addProperty("birthday", formatter.format(student.getDate()));
-        if (student.getGender().equals("MAN")) {
-            object.addProperty("gender", "М");
-        } else if (student.getGender().equals("WOMAN")) {
-            object.addProperty("gender", "Ж");
-        } else {
-            object.addProperty("gender", "-");
+        for (Gender e : Gender.values()) {
+            if (student.getGender().equals(e.toString())) {
+                object.addProperty("gender", e.getGender());
+            }
         }
         if (student.getGroup() != null) {
             object.addProperty("group", student.getGroup().getNumber());

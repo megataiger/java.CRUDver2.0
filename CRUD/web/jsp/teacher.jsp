@@ -30,20 +30,21 @@
             </tbody>
         </table>
         <div>Для редактирования ячеек таблицы просто нажмите на саму ячейку,
-            а затем подтвердите изменения, нажав Ввод</div>
+            а затем подтвердите изменения, нажав Ввод
+        </div>
     </div>
     <div id="menuGroupsAndAddTeacher">
         <h3>Добавить нового преподавателя</h3>
         <form action="" id="addTeacher" method="POST">
             <label for="nameNewTeacher">Имя преподавателя: </label>
-            <input type="text" id="nameNewTeacher" name="nameTeacher" /><br><br>
+            <input type="text" id="nameNewTeacher" name="nameTeacher"/><br><br>
             <label for="birthdayNewTeacher">Дата рождения: </label>
-            <input type="date" id="birthdayNewTeacher" name="birthday" /><br><br>
+            <input type="date" id="birthdayNewTeacher" name="birthday"/><br><br>
             <label for="genderNewTeacher">Пол: </label>
-            <input type="radio" name="gender" id="genderNewTeacher" value="WOMAN" checked />Женский
-            <input type="radio" name="gender"  value="MAN" />Мужской<br><br>
+            <input type="radio" name="gender" id="genderNewTeacher" value="WOMAN" checked/>Женский
+            <input type="radio" name="gender" value="MAN"/>Мужской<br><br>
             <br><br>
-            <input type="submit" value="Добавить" />
+            <input type="submit" value="Добавить"/>
         </form>
     </div>
     <div id="groups">

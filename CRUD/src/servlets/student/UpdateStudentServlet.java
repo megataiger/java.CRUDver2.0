@@ -37,10 +37,10 @@ public class UpdateStudentServlet extends HttpServlet {
 
         if (request.getParameter("genderStudent") != null) {
             String string = request.getParameter("genderStudent");
-            if(string.equals(Gender.MAN.toString())) {
-                student.setGenderStudent(Gender.MAN);
-            } else {
-                student.setGenderStudent(Gender.WOMAN);
+            for (Gender e : Gender.values()) {
+                if (string.equals(e.toString())) {
+                    student.setGenderStudent(e);
+                }
             }
         }
 

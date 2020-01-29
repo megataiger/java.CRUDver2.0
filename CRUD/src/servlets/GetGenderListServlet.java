@@ -1,5 +1,6 @@
 package servlets;
 
+import objectForStrokeBase.Gender;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -29,35 +30,17 @@ public class GetGenderListServlet extends HttpServlet {
 
     }
 
-    private JSONArray createListGender (JSONArray array, String genderInBase) {
+    private JSONArray createListGender(JSONArray array, String genderInBase) {
 
-        JSONObject gender = new JSONObject();
-        if(genderInBase.equals("М")) {
-            gender.put("gender", "М");
-            gender.put("value", "MAN");
-            gender.put("selected", true);
-
-            array.put(gender);
-
-            gender = new JSONObject();
-
-            gender.put("gender", "Ж");
-            gender.put("value", "WOMAN");
-            gender.put("selected", false);
-
-            array.put(gender);
-        } else {
-            gender.put("gender", "Ж");
-            gender.put("value", "WOMAN");
-            gender.put("selected", true);
-
-            array.put(gender);
-
-            gender = new JSONObject();
-
-            gender.put("gender", "М");
-            gender.put("value", "MAN");
-            gender.put("selected", false);
+        for (Gender e : Gender.values()) {
+            JSONObject gender = new JSONObject();
+            gender.put("gender", e.getGender());
+            gender.put("value", e.toString());
+            if (genderInBase.equals(e.getGender())) {
+                gender.put("selected", true);
+            } else {
+                gender.put("selected", false);
+            }
 
             array.put(gender);
         }

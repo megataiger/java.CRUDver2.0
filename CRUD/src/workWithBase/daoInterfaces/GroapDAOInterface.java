@@ -1,10 +1,11 @@
 package workWithBase.daoInterfaces;
 
 import objectForStrokeBase.Group;
+
 import java.util.List;
 
 public interface GroapDAOInterface {
-    Group findById (int idGroup);
+    Group findById(int idGroup);
 
     Group selectGroupByNumber(int numberGroup);
 

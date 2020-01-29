@@ -20,7 +20,7 @@ public class GetTeachersServlet extends HttpServlet {
     @Override
     protected void doGet
             (HttpServletRequest request, HttpServletResponse response)
-                        throws IOException {
+            throws IOException {
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");

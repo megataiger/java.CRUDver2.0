@@ -13,23 +13,23 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 @Entity
-@Table (name = "student")
+@Table(name = "student")
 public class Student {
 
     @Expose
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column (name = "name")
+    @Column(name = "name")
     private String name;
 
-    @Column (name = "birthday")
+    @Column(name = "birthday")
     private LocalDate date;
 
     @Expose
-    @Enumerated (EnumType.STRING)
-    @Column (name = "gender")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
     private Gender gender;
 
     @Expose
@@ -46,7 +46,6 @@ public class Student {
         this.gender = gender;
         this.group = group;
     }
-
 
 
     public String toString() {
@@ -73,7 +72,6 @@ public class Student {
     public void setGroupStudent(Group newGroup) {
         group = newGroup;
     }
-
 
 
     public String getName() {
@@ -111,6 +109,7 @@ public class Student {
     public int hashCode() {
         return Objects.hash(id, name, date, gender, group);
     }
+
     public static void main(String[] args) {
         System.out.println(TimeZone.getDefault().getDisplayName());
     }

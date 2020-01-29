@@ -3,51 +3,56 @@ $(document).ready(function () {
     var tableStudents = $("#students");
 
     var table = tableStudents.DataTable({
-        language : {
-            "url" : "../javaScript/Russian.json"
+        language: {
+            "url": "../javaScript/Russian.json"
         },
         select: true,
         serverSide: true,
         ajax: {
-            url : "selectStudentsByCriterion",
-            type : "POST"
+            url: "selectStudentsByCriterion",
+            type: "POST"
         },
-        columns : [
-            { "className": "id students",
-                "name" : "id",
-                "data" : "id",
-                "title" : "ID"
+        columns: [
+            {
+                "className": "id students",
+                "name": "id",
+                "data": "id",
+                "title": "ID"
             },
-            { "className": "name students",
-                "name" : "name",
-                "data" : "name",
-                "title" : "Ф.И.О"
+            {
+                "className": "name students",
+                "name": "name",
+                "data": "name",
+                "title": "Ф.И.О"
             },
-            { "className": "birthday students",
-                "name" : "birthday",
-                "data" : "birthday",
-                "title" : "День рождения"
+            {
+                "className": "birthday students",
+                "name": "birthday",
+                "data": "birthday",
+                "title": "День рождения"
             },
-            { "className": "gender students",
-                "name" : "gender",
-                "data" : "gender",
-                "title" : "Пол"
+            {
+                "className": "gender students",
+                "name": "gender",
+                "data": "gender",
+                "title": "Пол"
 
             },
-            { "className": "group students",
-                "name" : "group",
-                "data" : "group",
-                "title" : "Группа"
+            {
+                "className": "group students",
+                "name": "group",
+                "data": "group",
+                "title": "Группа"
 
             },
             {
                 "className": "students",
                 "orderable": false,
-                "name" : "delete",
-                "data" : "delete",
-                "title" : "Действие",
+                "name": "delete",
+                "data": "delete",
+                "title": "Действие",
                 "render": function (data) {
-                    return '<a class="deleteStudent" href="'+ data +'">' +
+                    return '<a class="deleteStudent" href="' + data + '">' +
                         '<img title="Удалить" ' +
                         'src="../image/bascet.png"></a>';
                 }
@@ -94,19 +99,19 @@ $(document).ready(function () {
     tableStudents.on('order.dt', function () {
         var order = table.order();
 
-        if ((order[0][1] === 'desc')&&(order[0][0]) === 0) {
+        if ((order[0][1] === 'desc') && (order[0][0]) === 0) {
 
             var row = $("#students")
-                        .children("tbody")
-                        .children(":first-child");
+                .children("tbody")
+                .children(":first-child");
 
             $(row).css("background-color", "#00ff14");
 
-            setTimeout(function() {
+            setTimeout(function () {
                 $(row).css({
-                "background-color" : "#FFFFFF",
-                "transition" : "3s"
-            })
+                    "background-color": "#FFFFFF",
+                    "transition": "3s"
+                })
             }, 1000);
         }
     });
@@ -115,7 +120,7 @@ $(document).ready(function () {
 
         $("#inputGroupStudent")
             .replaceWith("<input id='inputGroupStudent' " +
-            "name='groupStudent' type='text' value='" + $(this).text() + "'>");
+                "name='groupStudent' type='text' value='" + $(this).text() + "'>");
 
         $(promptToAdd).hide();
     });
@@ -184,8 +189,8 @@ function setBirthdayStudent(cell, table) {
             var newBirthday = $(this).val();
 
             $.post("../updateStudent", {
-                idStudent : $(id).text(),
-                newBirthdayStudent : newBirthday
+                idStudent: $(id).text(),
+                newBirthdayStudent: newBirthday
             }, function () {
                 table.draw('page');
             });
@@ -206,7 +211,7 @@ function setGenderStudent(cell, table) {
     var selectGender = $(fieldGender).children();
 
     $.post("getGender", {
-        gender : oldGender
+        gender: oldGender
     }, function (data) {
         var arrayGender = JSON.parse(data);
         var options = "";
@@ -232,20 +237,20 @@ function setGenderStudent(cell, table) {
 
     $(selectGender).focus();
 
-    $(selectGender).change(function (){
+    $(selectGender).change(function () {
         var newGender = $(this).val();
 
         var id = $(string).children(".id");
 
         $.post("../updateStudent", {
-            idStudent : $(id).text(),
-            genderStudent : newGender
+            idStudent: $(id).text(),
+            genderStudent: newGender
         }, function () {
             table.draw('page')
         });
     });
 
-    $(selectGender).blur(function (){
+    $(selectGender).blur(function () {
         $(fieldGender).html(oldGender);
     });
 }
@@ -272,8 +277,8 @@ function setGroupStudent(cell, table, prompt) {
             var id = $(string).children(".id");
 
             $.post("../updateStudent", {
-                idStudent : $(id).text(),
-                numberGroup : newGroup
+                idStudent: $(id).text(),
+                numberGroup: newGroup
             }, function () {
                 table.draw('page');
                 prompt.hide();
@@ -294,7 +299,7 @@ function insertStudent(form, evt, table) {
         $(form).serialize(),
         function () {
             table
-                .order( [ 0, 'desc' ] )
+                .order([0, 'desc'])
                 .draw();
         }
     );
@@ -306,37 +311,37 @@ function deleteStudent(bascet, evt, table) {
     var idStudent = $(bascet).attr("href");
 
     $.get("deleteStudent", {
-        idStudent : idStudent
+        idStudent: idStudent
     }, function () {
         var info = table.page.info();
         if (info.pages > 0) {
-            if (info.recordsTotal-1 > info.page * info.length) {
-                table.draw( 'page' )
+            if (info.recordsTotal - 1 > info.page * info.length) {
+                table.draw('page')
             } else {
                 table
-                    .page( 'previous' )
-                    .draw( 'page' )
+                    .page('previous')
+                    .draw('page')
             }
         }
     });
 }
 
 function searchByGroup(field, prompt) {
-    if($(field).val() === "") {
+    if ($(field).val() === "") {
         $(prompt).hide();
     } else {
         $(prompt).show();
         var width = $(field).width();
         var x = $(field).offset().left + width;
         var y = $(field).offset().top;
-        $(prompt).offset({ top: y, left: x });
+        $(prompt).offset({top: y, left: x});
         $("#prompt").width(width);
         $.post("../searchGroups", {
             number: $(field).val()
         }, function (data) {
             var arrayGroup = JSON.parse(data);
             var tablePrompt = "";
-            for (var i = 0 ; i < Object.keys(arrayGroup).length; i++) {
+            for (var i = 0; i < Object.keys(arrayGroup).length; i++) {
                 var option = "<tr><td>" + arrayGroup[i] + "</td></tr>\n";
                 tablePrompt = tablePrompt + option;
             }
@@ -346,7 +351,7 @@ function searchByGroup(field, prompt) {
 }
 
 function promptToAddNewStudent(input, promptToAdd) {
-    if($(input).val() === "") {
+    if ($(input).val() === "") {
         $(promptToAdd).hide();
     } else {
         $(promptToAdd).show();
@@ -354,14 +359,14 @@ function promptToAddNewStudent(input, promptToAdd) {
         var width = $(input).width();
         var y = $(input).offset().top;
         y = y + $(input).height() + 6;
-        $(promptToAdd).offset({ top: y, left: x });
+        $(promptToAdd).offset({top: y, left: x});
         $("#addGroup").width(width);
         $.post("../searchGroups", {
             number: $(input).val()
         }, function (data) {
             var arrayGroup = JSON.parse(data);
             var tablePrompt = "";
-            for (var i = 0 ; i < Object.keys(arrayGroup).length; i++) {
+            for (var i = 0; i < Object.keys(arrayGroup).length; i++) {
                 var option = "<tr><td>" + arrayGroup[i] + "</td></tr>\n";
                 tablePrompt = tablePrompt + option;
             }
