@@ -1,8 +1,8 @@
 package objectForStrokeBase;
 
 public enum Gender {
-    MAN("М"),
-    WOMAN("Ж");
+    MAN("Муж"),
+    WOMAN("Жен");
 
     private String gender;
 
