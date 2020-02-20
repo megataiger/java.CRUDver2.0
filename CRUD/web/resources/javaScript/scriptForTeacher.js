@@ -83,7 +83,7 @@ function setNameTeacher(cell) {
             var newName = $(inputName).val();
             var idTeacher = $(string).attr("id");
             $.post(
-                "../updateTeacher", {
+                "setNameTeacher", {
                     nameTeacher: newName,
                     idTeacher: idTeacher
                 }, function () {
@@ -123,7 +123,7 @@ function setBirthdayTeacher(cell, table) {
             var newBirthday = $(inputBirthday).val();
             var idTeacher = $(string).attr("id");
             $.post(
-                "../updateTeacher", {
+                "setBirthdayTeacher", {
                     newBirthday: newBirthday,
                     idTeacher: idTeacher
                 }, function () {
@@ -149,7 +149,7 @@ function setGenderTeacher(cell, table) {
     $.post("getGender", {
         gender: oldGender
     }, function (data) {
-        var arrayGender = JSON.parse(data);
+        var arrayGender = data;
         var options = "";
         for (var i = 0; i < Object.keys(arrayGender).length; i++) {
             var option = "";
@@ -176,7 +176,7 @@ function setGenderTeacher(cell, table) {
     $(selectGender).change(function () {
         var newGender = $(this).val();
 
-        $.post("../updateTeacher", {
+        $.post("setGenderTeacher", {
             idTeacher: $(string).attr("id"),
             newGender: newGender
         }, function () {
@@ -196,7 +196,7 @@ function deleteTeacher(bascet, evt, table) {
     var string = $(fieldOfOperations).parent();
     var idTeacher = $(string).attr("id");
 
-    $.get("../deleteTeacher", {
+    $.get("deleteTeacher", {
         idTeacher: idTeacher
     }, function () {
         var info = table.page.info();
@@ -213,7 +213,7 @@ function deleteTeacher(bascet, evt, table) {
 function insertTeacher(table, evt, form) {
     evt.preventDefault();
 
-    $.post("../insertTeacher",
+    $.post("insertTeacher",
         $(form).serialize(),
         function () {
             table
@@ -262,7 +262,7 @@ function clickToAddGroupsOfTeacher(button) {
 
     if (!$.fn.DataTable.isDataTable('#tableGroup')) {
         getTeacherNewGroupsTable();
-    } else if ($('#tableGroup').DataTable().ajax.url() === "../getNewGroups") {
+    } else if ($('#tableGroup').DataTable().ajax.url() === "getNewGroupsTeacher") {
         $('#tableGroup')
             .DataTable()
             .draw();
@@ -280,7 +280,7 @@ function clickToViewGroupsOfTeacher(button) {
 
     if (!$.fn.DataTable.isDataTable('#tableGroup')) {
         getTeacherGroupsTable();
-    } else if ($('#tableGroup').DataTable().ajax.url() === "../getGroups") {
+    } else if ($('#tableGroup').DataTable().ajax.url() === "getGroupsTeacher") {
         $('#tableGroup')
             .DataTable()
             .draw();
@@ -303,7 +303,7 @@ function deleteGroupOfTeacher(evt, table, cell) {
 
     var idTeacher = $("#nameChooseTeacher").attr("class");
 
-    $.get("../deleteGroupForTeacher", {
+    $.get("deleteGroupForTeacher", {
         idTeacher: idTeacher,
         numberGroup: numberGroup
     }, function () {
@@ -334,7 +334,7 @@ function addGroupForTeacher(evt, table, cell) {
 
     var idTeacher = $("#nameChooseTeacher").attr("class");
 
-    $.get("../addGroupForTeacher", {
+    $.get("addGroupForTeacher", {
         idTeacher: idTeacher,
         numberGroup: numberGroup
     }, function () {
@@ -355,11 +355,11 @@ function addGroupForTeacher(evt, table, cell) {
 function getTeachersTable() {
     return $("#teachers").DataTable({
         language: {
-            "url": "../javaScript/Russian.json"
+            "url": "/resources/javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {
-            url: "../selectTeachers",
+            url: "selectTeachers",
             type: "POST"
         },
         columns: [
@@ -396,9 +396,9 @@ function getTeachersTable() {
                 "render": function (data) {
                     return '<a class="deleteTeacher" href="' + data + '">' +
                         '<img title="Удалить" ' +
-                        'src="../image/bascet.png"></a>' +
+                        'src="/resources/image/bascet.png"></a>' +
                         '<a class="listOfGroup" href="' + data + '">' +
-                        '<img src="../image/list.png" title="Список групп"></a>';
+                        '<img src="/resources/image/list.png" title="Список групп"></a>';
                 }
             }
         ]
@@ -408,11 +408,11 @@ function getTeachersTable() {
 function getTeacherGroupsTable() {
     return $("#tableGroup").DataTable({
         language: {
-            "url": "../javaScript/Russian.json"
+            "url": "/resources/javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {
-            url: "../getGroup",
+            url: "getGroupsTeacher",
             type: "GET",
             data: function (d) {
                 d.idTeacher = $("#nameChooseTeacher").attr("class");
@@ -434,7 +434,7 @@ function getTeacherGroupsTable() {
                 "render": function (data) {
                     return '<a class="deleteGroup" href="' + data + '">' +
                         '<img title="Удалить" ' +
-                        'src="../image/bascet.png"></a>';
+                        'src="/resources/image/bascet.png"></a>';
                 }
             }
         ]
@@ -444,11 +444,11 @@ function getTeacherGroupsTable() {
 function getTeacherNewGroupsTable() {
     return $("#tableGroup").DataTable({
         language: {
-            "url": "../javaScript/Russian.json"
+            "url": "/resources/javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {
-            url: "../getNewGroups",
+            url: "getNewGroupsTeacher",
             type: "GET",
             data: function (d) {
                 d.idTeacher = $("#nameChooseTeacher").attr("class");
@@ -470,7 +470,7 @@ function getTeacherNewGroupsTable() {
                 "render": function (data) {
                     return '<a class="addGroup" href="' + data + '">' +
                         '<img title="Добавить" ' +
-                        'src="../image/plus.png"></a>';
+                        'src="/resources/image/plus.png"></a>';
                 }
             }
         ]

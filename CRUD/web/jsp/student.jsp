@@ -6,20 +6,22 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Студенты</title>
-    <link rel="stylesheet" href="../css/styleForStudent.css">
-    <link rel="stylesheet" type="text/css" href="../DataTables-1.10.20/css/jquery.dataTables.css"/>
+    <link rel="shortcut icon" href="/resources/image/favicon.png" type="image/png">
+    <link rel="stylesheet" href="<c:url value="/resources/css/styleForStudent.css" />">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/DataTables-1.10.20/css/jquery.dataTables.css" />"/>
 
-    <script type="text/javascript" src="../javaScript/jquery-3.4.1.js"></script>
-    <script type="text/javascript" src="../javaScript/scriptForStudent.js"></script>
-    <script type="text/javascript" src="../DataTables-1.10.20/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="<c:url value="/resources/javaScript/jquery-3.4.1.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/javaScript/scriptForStudent.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/DataTables-1.10.20/js/jquery.dataTables.js" />"></script>
 </head>
 <body>
 <div id="mainDiv">
-    <h4 align="center"><a href="../index.jsp">Главная</a></h4>
+    <h4 align="center"><a href="/javaBase/">Главная</a></h4>
     <div id="data">
         <table id="students">
             <thead>

@@ -43,7 +43,7 @@ public class SelectTeachersServlet extends HttpServlet {
 
         result.addProperty("draw", draw);
         result.addProperty("recordsTotal", teacherDAO.getAll().size());
-        result.addProperty("recordsFiltered", teacherDAO.selectTeachers(filter).size());
+        result.addProperty("recordsFiltered", teacherDAO.selectTeachers(filter));
         result.add("data", gson.toJsonTree(teachers));
 
 

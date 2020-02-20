@@ -11,6 +11,8 @@ public interface StudentDAOInterface {
 
     List getAll();
 
+    String getTableLength();
+
     List findByName(String nameStudent);
 
     List findByDate(LocalDate birthday);
@@ -22,4 +24,15 @@ public interface StudentDAOInterface {
     void update(Student student);
 
     void delete(Student student);
+
+    List findByFilter(String filter, int page, int length, String orderBy);
+
+    String findByFilter(String filter);
+
+    List findByGroup
+            (int groupId, int page, int length, String orderBy, String filter);
+
+    String findByGroup(int groupId, String filter);
+
+    String findByGroup(int groupId);
 }

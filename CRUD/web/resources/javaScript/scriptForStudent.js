@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     var table = tableStudents.DataTable({
         language: {
-            "url": "../javaScript/Russian.json"
+            "url": "/resources/javaScript/Russian.json"
         },
         select: true,
         serverSide: true,
@@ -54,7 +54,7 @@ $(document).ready(function () {
                 "render": function (data) {
                     return '<a class="deleteStudent" href="' + data + '">' +
                         '<img title="Удалить" ' +
-                        'src="../image/bascet.png"></a>';
+                        'src="/resources/image/bascet.png"></a>';
                 }
             }
         ]
@@ -151,7 +151,7 @@ function setNameStudent(cell, table) {
             var newName = $(this).val();
             var id = $(string).children(".id");
 
-            $.post("../updateStudent", {
+            $.post("setNameStudent", {
                 idStudent: $(id).text(),
                 newNameStudent: newName
             }, function () {
@@ -188,7 +188,7 @@ function setBirthdayStudent(cell, table) {
         if (evt.keyCode === 13) {
             var newBirthday = $(this).val();
 
-            $.post("../updateStudent", {
+            $.post("setBirthdayStudent", {
                 idStudent: $(id).text(),
                 newBirthdayStudent: newBirthday
             }, function () {
@@ -213,7 +213,7 @@ function setGenderStudent(cell, table) {
     $.post("getGender", {
         gender: oldGender
     }, function (data) {
-        var arrayGender = JSON.parse(data);
+        var arrayGender = data;
         var options = "";
         for (var i = 0; i < Object.keys(arrayGender).length; i++) {
             var option = "";
@@ -226,6 +226,7 @@ function setGenderStudent(cell, table) {
                     arrayGender[i]["value"] + "'>" +
                     arrayGender[i]["gender"] + "</option>";
             }
+            console.log(arrayGender[i]["gender"]);
             options = options + option;
         }
         $(selectGender).html(options);
@@ -242,7 +243,7 @@ function setGenderStudent(cell, table) {
 
         var id = $(string).children(".id");
 
-        $.post("../updateStudent", {
+        $.post("setGenderStudent", {
             idStudent: $(id).text(),
             genderStudent: newGender
         }, function () {
@@ -276,7 +277,7 @@ function setGroupStudent(cell, table, prompt) {
             var newGroup = $(this).val();
             var id = $(string).children(".id");
 
-            $.post("../updateStudent", {
+            $.post("setGroupStudent", {
                 idStudent: $(id).text(),
                 numberGroup: newGroup
             }, function () {

@@ -51,8 +51,8 @@ public class GetNewTeachersServlet extends HttpServlet {
 
         result.addProperty("draw", draw);
         result.add("data", gson.toJsonTree(teachers));
-        result.addProperty("recordsTotal", teacherDAO.getNewTeachersForGroup(group.getId(), "").size());
-        result.addProperty("recordsFiltered", teacherDAO.getNewTeachersForGroup(group.getId(), search).size());
+        result.addProperty("recordsTotal", teacherDAO.getNewTeachersForGroup(group.getId(), ""));
+        result.addProperty("recordsFiltered", teacherDAO.getNewTeachersForGroup(group.getId(), search));
 
         writer.println(result);
 

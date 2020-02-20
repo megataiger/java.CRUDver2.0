@@ -46,7 +46,7 @@ public class SelectGroupServlet extends HttpServlet {
         result.addProperty("draw", draw);
         result.add("data", gson.toJsonTree(groups));
         result.addProperty("recordsTotal", groupDAO.getAll().size());
-        result.addProperty("recordsFiltered", groupDAO.getGroups(search).size());
+        result.addProperty("recordsFiltered", groupDAO.getGroups(search));
 
         groupDAO.close();
 

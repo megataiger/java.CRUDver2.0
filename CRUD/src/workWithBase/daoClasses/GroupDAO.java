@@ -1,17 +1,21 @@
 package workWithBase.daoClasses;
 
 import objectForStrokeBase.Group;
+import org.springframework.stereotype.Repository;
 import workWithBase.connectWithBase.FactoryForDAO;
-import workWithBase.daoInterfaces.GroapDAOInterface;
+import workWithBase.daoInterfaces.GroupDAOInterface;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
+@Repository
+public class GroupDAO implements GroupDAOInterface {
 
-    private EntityManager entityManager = factory.createEntityManager();
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public Group findById(int id) {
         return entityManager.find(Group.class, id);
@@ -21,10 +25,14 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
         return entityManager.createQuery("From Group").getResultList();
     }
 
+    public String getLengthTable() {
+        return entityManager.createQuery("SELECT COUNT(*) From Group")
+                .getSingleResult()
+                .toString();
+    }
+
     public void update(Group group) {
-        entityManager.getTransaction().begin();
         entityManager.merge(group);
-        entityManager.getTransaction().commit();
     }
 
     public Group selectGroupByNumber(int number) {
@@ -40,19 +48,15 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
             query.getSingleResult();
             System.out.println("Группа с данным номером уже существует");
         } catch (NoResultException e) {
-            entityManager.getTransaction().begin();
             entityManager.persist(group);
-            entityManager.getTransaction().commit();
         }
     }
 
     public void delete(Group group) {
-        entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("update Student set group_id = null where group_id = :id");
         query.setParameter("id", group.getId());
         query.executeUpdate();
         entityManager.remove(group);
-        entityManager.getTransaction().commit();
     }
 
     public List getGroups(String filter, int page, int length, String orderType) {
@@ -61,10 +65,10 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
         return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
-    public List getGroups(String filter) {
-        Query query = entityManager.createQuery("FROM Group WHERE " +
+    public String getGroups(String filter) {
+        Query query = entityManager.createQuery("SELECT COUNT(*) FROM Group WHERE " +
                 "number LIKE '%" + filter + "%'");
-        return query.getResultList();
+        return query.getSingleResult().toString();
     }
 
     public List getGroupForTeacher
@@ -76,13 +80,13 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
         return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
-    public List getGroupForTeacher
+    public String getGroupForTeacher
             (int teacherId, String filter) {
-        Query query = entityManager.createQuery("SELECT g FROM Group g JOIN g.teachers t " +
+        Query query = entityManager.createQuery("SELECT COUNT(g) FROM Group g JOIN g.teachers t " +
                 "WHERE g.number LIKE '%" + filter + "%' " +
                 "AND t.id = " + teacherId);
 
-        return query.getResultList();
+        return query.getSingleResult().toString();
     }
 
     public List getNewGroupForTeacher
@@ -95,14 +99,14 @@ public class GroupDAO extends FactoryForDAO implements GroapDAOInterface {
         return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
-    public List getNewGroupForTeacher
+    public String getNewGroupForTeacher
             (int teacherId, String filter) {
-        Query query = entityManager.createQuery("SELECT s FROM Group s " +
+        Query query = entityManager.createQuery("SELECT COUNT(s) FROM Group s " +
                 "WHERE s.number LIKE '%" + filter + "%' AND s NOT IN " +
                 "(SELECT g FROM Group g JOIN g.teachers t " +
                 "WHERE t.id = " + teacherId + ")");
 
-        return query.getResultList();
+        return query.getSingleResult().toString();
     }
 
     public List searchGroup(int number) {

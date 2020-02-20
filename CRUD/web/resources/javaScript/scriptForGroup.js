@@ -3,11 +3,11 @@ $(document).ready(function () {
 
     var table = tableGroup.DataTable({
         language: {
-            "url": "../javaScript/Russian.json"
+            "url": "/resources/javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {
-            url: "selectAllGroup",
+            url: "selectGroups",
             type: "POST"
         },
         columns: [
@@ -44,7 +44,7 @@ $(document).ready(function () {
                 "render": function (data) {
                     return '<a class="deleteGroup" href="' + data + '">' +
                         '<img title="Удалить" ' +
-                        'src="../image/bascet.png"></a>';
+                        'src="/resources/image/bascet.png"></a>';
                 }
             }
         ]
@@ -167,7 +167,7 @@ function setNumberGroup(cell, table) {
         if (evt.keyCode === 13) {
             var newNumber = $(this).val();
 
-            $.post("upGroup", {
+            $.post("setNumberGroup", {
                 idGroup: $(string).children(".id").text(),
                 numberGroup: newNumber
             }, function () {
@@ -225,7 +225,7 @@ function clickToViewTeachers(button) {
 
     if (!$.fn.DataTable.isDataTable('#teachersOfGroup')) {
         getTeachersOfGroup();
-    } else if ($('#teachersOfGroup').DataTable().ajax.url() === "../getTeachers") {
+    } else if ($('#teachersOfGroup').DataTable().ajax.url() === "getTeachersGroup") {
         $('#teachersOfGroup')
             .DataTable()
             .draw();
@@ -245,7 +245,7 @@ function clickToAddTeachers(button) {
 
     if (!$.fn.DataTable.isDataTable('#teachersOfGroup')) {
         getNewTeachersOfGroup();
-    } else if ($('#teachersOfGroup').DataTable().ajax.url() === "../getNewTeachers") {
+    } else if ($('#teachersOfGroup').DataTable().ajax.url() === "getNewTeachersGroup") {
         $('#teachersOfGroup')
             .DataTable()
             .draw();
@@ -262,7 +262,7 @@ function addTeacherForGroup(require, evt, table) {
     var idTeacher = $(require).attr("href");
     var numberGroup = $("#numberGroup").text();
 
-    $.post("../addTeacherForGroup", {
+    $.post("addTeacherForGroup", {
         idTeacher: idTeacher,
         numberGroup: numberGroup
     }, function () {
@@ -285,7 +285,7 @@ function deleteTeacherForGroup(require, evt, table) {
     var idTeacher = $(require).attr("href");
     var numberGroup = $("#numberGroup").text();
 
-    $.post("../deleteTeacherForGroup", {
+    $.post("deleteTeacherForGroup", {
         idTeacher: idTeacher,
         numberGroup: numberGroup
     }, function () {
@@ -306,11 +306,11 @@ function deleteTeacherForGroup(require, evt, table) {
 function getTeachersOfGroup() {
     return $("#teachersOfGroup").DataTable({
         language: {
-            "url": "../javaScript/Russian.json"
+            "url": "/resources/javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {
-            url: "../getTeachers",
+            url: "getTeachersGroup",
             type: "GET",
             data: function (d) {
                 d.numberGroup = $("#numberGroup").text();
@@ -337,7 +337,7 @@ function getTeachersOfGroup() {
                 "title": "Действие",
                 "render": function (data) {
                     return '<a class="deleteTeacher" href="' + data + '">' +
-                        '<img src="../image/bascet.png"></a>';
+                        '<img src="/resources/image/bascet.png"></a>';
                 }
             }
         ]
@@ -347,11 +347,11 @@ function getTeachersOfGroup() {
 function getNewTeachersOfGroup() {
     return $("#teachersOfGroup").DataTable({
         language: {
-            "url": "../javaScript/Russian.json"
+            "url": "/resources/javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {
-            url: "../getNewTeachers",
+            url: "getNewTeachersGroup",
             type: "GET",
             data: function (d) {
                 d.numberGroup = $("#numberGroup").text();
@@ -378,7 +378,7 @@ function getNewTeachersOfGroup() {
                 "title": "Действие",
                 "render": function (data) {
                     return '<a class="addTeacher" href="' + data + '">' +
-                        '<img src="../image/plus.png"></a>';
+                        '<img src="/resources/image/plus.png"></a>';
                 }
             }
         ]
@@ -388,11 +388,11 @@ function getNewTeachersOfGroup() {
 function getStudentOfGroup() {
     return $("#studentsOfGroup").DataTable({
         language: {
-            "url": "../javaScript/Russian.json"
+            "url": "/resources/javaScript/Russian.json"
         },
         serverSide: true,
         ajax: {
-            url: "../selectStudent",
+            url: "selectStudentGroup",
             type: "GET",
             data: function (d) {
                 d.numberGroup = $("#numberGroup").text();

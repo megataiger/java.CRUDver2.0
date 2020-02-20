@@ -70,7 +70,7 @@ public class SelectStudentServlet extends HttpServlet {
 
         result.add("data", gson.toJsonTree(students));
         result.addProperty("recordsTotal", studentDAO.getAll().size());
-        result.addProperty("recordsFiltered", studentDAO.findByFilter(search).size());
+        result.addProperty("recordsFiltered", studentDAO.findByFilter(search));
 
         studentDAO.close();
 

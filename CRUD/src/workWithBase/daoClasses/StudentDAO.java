@@ -2,44 +2,46 @@ package workWithBase.daoClasses;
 
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
+import org.springframework.stereotype.Repository;
 import workWithBase.connectWithBase.FactoryForDAO;
 import workWithBase.daoInterfaces.StudentDAOInterface;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
 
+@Repository
 public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
 
-    private EntityManager entityManager = factory.createEntityManager();
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public Student findById(int id) {
         return entityManager.find(Student.class, id);
     }
 
     public void save(Student student) {
-        entityManager.getTransaction().begin();
         entityManager.merge(student);
-        entityManager.getTransaction().commit();
     }
 
     public List getAll() {
         return entityManager.createQuery("From Student")
                 .getResultList();
+    }
 
+    public String getTableLength() {
+        return entityManager.createQuery("SELECT COUNT(s) FROM Student s")
+                .getSingleResult().toString();
     }
 
     public void update(Student student) {
-        entityManager.getTransaction().begin();
         entityManager.merge(student);
-        entityManager.getTransaction().commit();
     }
 
     public void delete(Student student) {
-        entityManager.getTransaction().begin();
         entityManager.remove(student);
-        entityManager.getTransaction().commit();
     }
 
     public List findByName(String name) {
@@ -62,6 +64,12 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
         return query.getResultList();
     }
 
+    public String findByGroup(int idGroup) {
+        Query query = entityManager.createQuery("SELECT COUNT(*) from Student where group_id = :id");
+        query.setParameter("id", idGroup);
+        return query.getSingleResult().toString();
+    }
+
     public List findByFilter(String filter, int page, int length, String orderBy) {
         Query query = entityManager.createQuery("SELECT s FROM Student s " +
                 "WHERE LOWER(s.name) LIKE '%" + filter + "%' OR s.date LIKE '%" + filter + "%' " +
@@ -69,11 +77,11 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
         return query.setMaxResults(length).setFirstResult(page).getResultList();
     }
 
-    public List findByFilter(String filter) {
-        Query query = entityManager.createQuery("SELECT s FROM Student s " +
+    public String findByFilter(String filter) {
+        Query query = entityManager.createQuery("SELECT COUNT(s) FROM Student s " +
                 "WHERE LOWER(s.name) LIKE '%" + filter + "%' OR s.date LIKE '%" + filter + "%' " +
                 "OR s.gender = '" + filter + "' OR s.group LIKE '%" + filter + "%'");
-        return query.getResultList();
+        return query.getSingleResult().toString();
     }
 
     public List findByGroup
@@ -85,14 +93,10 @@ public class StudentDAO extends FactoryForDAO implements StudentDAOInterface {
         return query.setMaxResults(length).setFirstResult(page).getResultList();
     }
 
-    public List findByGroup(int groupId, String filter) {
-        Query query = entityManager.createQuery("from Student where group_id = :id " +
+    public String findByGroup(int groupId, String filter) {
+        Query query = entityManager.createQuery("SELECT COUNT(*) from Student where group_id = :id " +
                 "AND (LOWER(name) LIKE '%" + filter + "%' OR birthday LIKE '%" + filter + "%') ");
         query.setParameter("id", groupId);
-        return query.getResultList();
-    }
-
-    public void close() {
-        entityManager.close();
+        return query.getSingleResult().toString();
     }
 }

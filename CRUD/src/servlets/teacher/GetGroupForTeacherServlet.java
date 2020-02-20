@@ -41,8 +41,8 @@ public class GetGroupForTeacherServlet extends HttpServlet {
 
             result.add("data", gson.toJsonTree(groups));
             result.addProperty("draw", draw);
-            result.addProperty("recordsTotal", groupDAO.getGroupForTeacher(id, "").size());
-            result.addProperty("recordsFiltered", groupDAO.getGroupForTeacher(id, number).size());
+            result.addProperty("recordsTotal", groupDAO.getGroupForTeacher(id, ""));
+            result.addProperty("recordsFiltered", groupDAO.getGroupForTeacher(id, number));
 
             PrintWriter writer = response.getWriter();
             writer.println(result);
