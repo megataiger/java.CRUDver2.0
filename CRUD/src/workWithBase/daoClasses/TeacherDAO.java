@@ -2,7 +2,6 @@ package workWithBase.daoClasses;
 
 import objectForStrokeBase.Teacher;
 import org.springframework.stereotype.Repository;
-import workWithBase.connectWithBase.FactoryForDAO;
 import workWithBase.daoInterfaces.TeacherDAOInterface;
 
 import javax.persistence.EntityManager;
@@ -10,9 +9,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Repository
-public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
+public class TeacherDAO implements TeacherDAOInterface {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -26,13 +26,8 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     }
 
     public List getAll() {
-        return entityManager.createQuery("From Teacher").getResultList();
-    }
-
-    public String getTableLength() {
-        return entityManager.createQuery("SELECT COUNT(*) from Teacher")
-                .getSingleResult()
-                .toString();
+        return entityManager.createQuery("SELECT t FROM Teacher t")
+                .getResultList();
     }
 
     public void update(Teacher teacher) {
@@ -44,76 +39,109 @@ public class TeacherDAO extends FactoryForDAO implements TeacherDAOInterface {
     }
 
     public List findByName(String name) {
-        Query query = entityManager.createQuery("from Teacher where lower(name) like :name");
+        Query query = entityManager.createQuery("SELECT t FROM Teacher t " +
+                "WHERE LOWER(t.name) LIKE :name");
         String param = "%" + name + "%";
         query.setParameter("name", param);
         return query.getResultList();
     }
 
     public List findByDate(LocalDate date) {
-        Query query = entityManager.createQuery("from Teacher where lower(birthday) like :date");
+        Query query = entityManager.createQuery("SELECT t FROM Teacher t " +
+                "WHERE LOWER(t.date) LIKE :date");
         String param = "%" + date + "%";
         query.setParameter("date", param);
         return query.getResultList();
     }
 
-    public List selectTeachers
-            (int page, int length, String filter, String orderBy) {
+    public List selectTeachers(Map<String, Object> parameters) {
+        String filter = "%" + parameters.get("filter") + "%";
+        String order = (String) parameters.get("order");
+        int length = (Integer) parameters.get("length");
+        int page = (Integer) parameters.get("page");
+
         Query query = entityManager.createQuery("SELECT t FROM Teacher t " +
-                "WHERE (LOWER(t.name) LIKE '%" + filter + "%') " +
-                "OR (t.date LIKE '%" + filter + "%') " +
-                "OR (t.gender LIKE '%" + filter + "%') " + orderBy);
+                "WHERE LOWER(t.name) LIKE :filter " +
+                "OR LOWER(t.date) LIKE :filter " +
+                "OR LOWER(t.gender) LIKE :filter ORDER BY " + order);
+        query.setParameter("filter", filter);
+
         return query.setMaxResults(length).setFirstResult(page).getResultList();
     }
 
-    public String selectTeachers
-            (String filter) {
+    public String selectTeachers(String filter) {
+        filter = "%" + filter + "%";
         Query query = entityManager.createQuery("SELECT count(t) FROM Teacher t " +
-                "WHERE (LOWER(t.name) LIKE '%" + filter + "%') " +
-                "OR (t.date LIKE '%" + filter + "%') " +
-                "OR (t.gender LIKE '%" + filter + "%')");
+                "WHERE LOWER(t.name) LIKE :filter " +
+                "OR LOWER(t.date) LIKE :filter " +
+                "OR LOWER(t.gender) LIKE :filter");
+        query.setParameter("filter", filter);
+
         return query.getSingleResult().toString();
     }
 
-    public List getTeachersForGroup(int groupId, int page, int length, String orderBy, String filter) {
+    public List getTeachersForGroup(Map<String, Object> parameters) {
+        String filter = "%" + parameters.get("filter") + "%";
+        String order = (String) parameters.get("order");
+        int length = (Integer) parameters.get("length");
+        int page = (Integer) parameters.get("page");
+        int groupId = (Integer) parameters.get("groupId");
+
         Query query =
-                entityManager.createQuery("SELECT t FROM Teacher t JOIN t.groups g " +
-                        "WHERE g.id = " + groupId + " AND (LOWER(t.name) LIKE '%" +
-                        filter + "%' OR t.date LIKE '%" + filter + "%') " + orderBy);
+                entityManager.createQuery("SELECT t FROM Teacher t " +
+                        "JOIN t.groups g " +
+                        "WHERE g.id = :groupId " +
+                        "AND (LOWER(t.name) LIKE :filter " +
+                        "OR LOWER(t.date) LIKE :filter) ORDER BY " + order);
+        query.setParameter("groupId", groupId);
+        query.setParameter("filter", filter);
+
         return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
     public String getTeachersForGroup(int groupId, String filter) {
+        filter = "%" + filter + "%";
         Query query =
-                entityManager.createQuery("SELECT COUNT(t) FROM Teacher t JOIN t.groups g " +
-                        "WHERE g.id = " + groupId + " AND (LOWER(t.name) LIKE '%" +
-                        filter + "%' OR t.date LIKE '%" + filter + "%') ");
+                entityManager.createQuery("SELECT COUNT(t) FROM Teacher t " +
+                        "JOIN t.groups g " +
+                        "WHERE g.id = :groupId " +
+                        "AND (LOWER(t.name) LIKE :filter " +
+                        "OR LOWER(t.date) LIKE :filter)");
+        query.setParameter("groupId", groupId);
+        query.setParameter("filter", filter);
+
         return query.getSingleResult().toString();
     }
 
-    public List getNewTeachersForGroup(int groupId, int page, int length, String orderBy, String filter) {
-        Query query =
-                entityManager.createQuery("SELECT s FROM Teacher s " +
-                        "WHERE (LOWER(s.name) LIKE '%" + filter + "%' OR s.date LIKE '%" + filter + "%') " +
+    public List getNewTeachersForGroup(Map<String, Object> parameters) {
+        String filter = "%" + parameters.get("filter") + "%";
+        String order = (String) parameters.get("order");
+        int length = (Integer) parameters.get("length");
+        int page = (Integer) parameters.get("page");
+        int groupId = (Integer) parameters.get("groupId");
+
+        Query query = entityManager.createQuery("SELECT s FROM Teacher s " +
+                        "WHERE (LOWER(s.name) LIKE :filter " +
+                        "OR LOWER(s.date) LIKE :filter) " +
                         "AND s NOT IN " +
                         "(SELECT t FROM Teacher t JOIN t.groups g " +
-                        "WHERE g.id = " + groupId + ")" + orderBy);
+                        "WHERE g.id = :groupId) ORDER BY " + order);
+        query.setParameter("groupId", groupId);
+        query.setParameter("filter", filter);
+
         return query.setFirstResult(page).setMaxResults(length).getResultList();
     }
 
     public String getNewTeachersForGroup(int groupId, String filter) {
-        Query query =
-                entityManager.createQuery("SELECT COUNT(s) FROM Teacher s " +
-                        "WHERE (LOWER(s.name) LIKE '%" +
-                        filter + "%' OR s.date LIKE '%" + filter + "%') " +
-                        "AND s NOT IN " +
+        filter = "%" + filter + "%";
+        Query query = entityManager.createQuery("SELECT COUNT(s) FROM Teacher s " +
+                        "WHERE (LOWER(s.name) LIKE :filter " +
+                        "OR LOWER(s.date) LIKE :filter) AND s NOT IN " +
                         "(SELECT t FROM Teacher t JOIN t.groups g " +
-                        "WHERE g.id = " + groupId + ")");
+                        "WHERE g.id = :groupId)");
+        query.setParameter("groupId", groupId);
+        query.setParameter("filter", filter);
+
         return query.getSingleResult().toString();
-    }
-
-
-    public void close() {
-        entityManager.close();
     }
 }

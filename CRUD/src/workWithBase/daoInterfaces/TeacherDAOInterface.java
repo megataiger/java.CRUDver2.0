@@ -4,6 +4,7 @@ import objectForStrokeBase.Teacher;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface TeacherDAOInterface {
     Teacher findById(int idTeacher);
@@ -20,17 +21,15 @@ public interface TeacherDAOInterface {
 
     List findByDate(LocalDate birthday);
 
-    List selectTeachers(int page, int length, String filter, String orderBy);
+    List selectTeachers(Map<String, Object> parameters);
 
     String selectTeachers(String filter);
 
-    String getTableLength();
-
-    List getTeachersForGroup(int groupId, int page, int length, String orderBy, String filter);
+    List getTeachersForGroup(Map<String, Object> parameters);
 
     String getTeachersForGroup(int groupId, String filter);
 
-    List getNewTeachersForGroup(int groupId, int page, int length, String orderBy, String filter);
+    List getNewTeachersForGroup(Map<String, Object> parameters);
 
     String getNewTeachersForGroup(int groupId, String filter);
 }

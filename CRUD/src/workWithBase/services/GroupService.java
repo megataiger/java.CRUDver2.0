@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import workWithBase.daoInterfaces.GroupDAOInterface;
 import workWithBase.daoInterfaces.StudentDAOInterface;
 import workWithBase.daoInterfaces.TeacherDAOInterface;
+import workWithBase.serviceInterfaces.GroupServiceInterface;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
-public class GroupService {
+@Transactional
+public class GroupService implements GroupServiceInterface {
 
     private Gson gson = new GsonBuilder()
             .registerTypeAdapter(Group.class, new GroupSerialize()).create();
@@ -44,26 +47,22 @@ public class GroupService {
         this.studentDAO = studentDAO;
     }
 
-    @Transactional
+    public void insert(int number) {
+        Group group = new Group(number);
+        groupDAO.save(group);
+    }
+
+    public void delete(int id) {
+        Group group = groupDAO.findById(id);
+        groupDAO.delete(group);
+    }
+
     public void setNumber(int id, int number) {
         Group group = groupDAO.findById(id);
         group.set(number);
         groupDAO.update(group);
     }
 
-    @Transactional
-    public void insert(int number) {
-        Group group = new Group(number);
-        groupDAO.save(group);
-    }
-
-    @Transactional
-    public void delete(int id) {
-        Group group = groupDAO.findById(id);
-        groupDAO.delete(group);
-    }
-
-    @Transactional
     public void addTeacher(int number, int idTeacher) {
         Teacher teacher = teacherDAO.findById(idTeacher);
         Group group = groupDAO.selectGroupByNumber(number);
@@ -72,7 +71,6 @@ public class GroupService {
         groupDAO.update(group);
     }
 
-    @Transactional
     public void deleteTeacher(int number, int idTeacher) {
         Teacher teacher = teacherDAO.findById(idTeacher);
         Group group = groupDAO.selectGroupByNumber(number);
@@ -81,67 +79,79 @@ public class GroupService {
         groupDAO.update(group);
     }
 
-    @Transactional
-    public String getGroups(int page, int length, String search, String orderBy, String draw) {
+    public String getGroups(Map<String, Object> parameters) {
+        String draw = (String) parameters.get("draw");
+        String filter = (String) parameters.get("filter");
 
         JsonObject result = new JsonObject();
 
-        List<Group> groups = groupDAO.getGroups(search, page, length, orderBy);
+        List groups = groupDAO.getGroups(parameters);
 
         result.addProperty("draw", draw);
         result.add("data", gson.toJsonTree(groups));
-        result.addProperty("recordsTotal", groupDAO.getLengthTable());
-        result.addProperty("recordsFiltered", groupDAO.getGroups(search));
+        result.addProperty("recordsTotal", groupDAO.getGroups(""));
+        result.addProperty("recordsFiltered", groupDAO.getGroups(filter));
 
         return result.toString();
     }
 
-    @Transactional
-    public String getStudents(int numberGroup, int page, int length,
-                                   String orderBy, String filter, String draw) {
+    public String getStudents(Map<String, Object> parameters) {
+        String draw = (String) parameters.get("draw");
+        String filter = (String) parameters.get("filter");
+        int number = (Integer) parameters.get("groupNumber");
+
+        number = groupDAO.selectGroupByNumber(number).getId();
+        parameters.put("groupNumber", number);
 
         JsonObject dataStudents = new JsonObject();
 
-        int groupId = groupDAO.selectGroupByNumber(numberGroup).getId();
-
-        List<Student> students = studentDAO.findByGroup(groupId, page, length, orderBy, filter);
+        List students = studentDAO.findByGroup(parameters);
 
         dataStudents.addProperty("draw", draw);
-        dataStudents.add("data", gsonEasyStudent.toJsonTree(students));
-        dataStudents.addProperty("recordsTotal", studentDAO.findByGroup(groupId));
-        dataStudents.addProperty("recordsFiltered", studentDAO.findByGroup(groupId, filter));
+        dataStudents.add("data",
+                gsonEasyStudent.toJsonTree(students));
+        dataStudents.addProperty("recordsTotal",
+                studentDAO.findByGroup(number, ""));
+        dataStudents.addProperty("recordsFiltered",
+                studentDAO.findByGroup(number, filter));
 
         return dataStudents.toString();
     }
 
-    @Transactional
-    public String getTeachers(int number, int page, int length,
-                                   String search, String orderBy, String draw){
+    public String getTeachers(Map<String, Object> parameters){
+        int number = (Integer) parameters.get("number");
         int groupId = groupDAO.selectGroupByNumber(number).getId();
+        parameters.put("groupId", groupId);
+
+        String draw = (String) parameters.get("draw");
+        String filter = (String) parameters.get("filter");
 
         JsonObject result = new JsonObject();
-        List<Teacher> teachers = teacherDAO.getTeachersForGroup(groupId, page, length, orderBy, search);
+        List teachers = teacherDAO.getTeachersForGroup(parameters);
 
         result.addProperty("draw", draw);
         result.add("data", gsonEasyTeacher.toJsonTree(teachers));
         result.addProperty("recordsTotal", teacherDAO.getTeachersForGroup(groupId, ""));
-        result.addProperty("recordsFiltered", teacherDAO.getTeachersForGroup(groupId, search));
+        result.addProperty("recordsFiltered", teacherDAO.getTeachersForGroup(groupId, filter));
 
         return result.toString();
     }
 
-    @Transactional
-    public String getNewTeachers(int number, int page, int length,
-                                      String search, String orderBy, String draw){
+    public String getNewTeachers(Map<String, Object> parameters){
+        int number = (Integer) parameters.get("number");
         int groupId = groupDAO.selectGroupByNumber(number).getId();
+        parameters.put("groupId", groupId);
+
+        String draw = (String) parameters.get("draw");
+        String filter = (String) parameters.get("filter");
 
         JsonObject result = new JsonObject();
-        List<Teacher> teachers = teacherDAO.getNewTeachersForGroup(groupId, page, length, orderBy, search);
+        List teachers = teacherDAO.getNewTeachersForGroup(parameters);
 
         result.addProperty("draw", draw);
         result.add("data", gsonEasyTeacher.toJsonTree(teachers));
         result.addProperty("recordsTotal", teacherDAO.getNewTeachersForGroup(groupId, ""));
-        result.addProperty("recordsFiltered", teacherDAO.getNewTeachersForGroup(groupId, search));
+        result.addProperty("recordsFiltered", teacherDAO.getNewTeachersForGroup(groupId, filter));
 
         return result.toString();
     }

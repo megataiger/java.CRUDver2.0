@@ -2,6 +2,7 @@ package workWithBase.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import gsonSerialize.StudentSerialize;
 import objectForStrokeBase.Gender;
@@ -12,12 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import workWithBase.daoInterfaces.GroupDAOInterface;
 import workWithBase.daoInterfaces.StudentDAOInterface;
+import workWithBase.serviceInterfaces.StudentServiceInterface;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Service
-public class StudentService {
+@Transactional
+public class StudentService implements StudentServiceInterface {
 
     private Gson gson = new GsonBuilder()
             .registerTypeAdapter(Student.class, new StudentSerialize())
@@ -33,25 +37,17 @@ public class StudentService {
         this.studentDAO = studentDAO;
     }
 
-    @Transactional
-    public Student find(int id) {
-        return studentDAO.findById(id);
-    }
-
-    @Transactional
     public void insert(String name, LocalDate birthday, Gender gender, int numberGroup) {
         Group group = groupDAO.selectGroupByNumber(numberGroup);
         Student student = new Student(name, birthday, gender, group);
         studentDAO.save(student);
     }
 
-    @Transactional
     public void delete(int id) {
         Student student = studentDAO.findById(id);
         studentDAO.delete(student);
     }
 
-    @Transactional
     public void updateName(int id, String newName) {
         Student student = studentDAO.findById(id);
         if (newName != null) {
@@ -60,7 +56,6 @@ public class StudentService {
         studentDAO.update(student);
     }
 
-    @Transactional
     public void updateBirthday(int id, LocalDate birthday) {
         Student student = studentDAO.findById(id);
         if (birthday != null) {
@@ -69,7 +64,6 @@ public class StudentService {
         studentDAO.update(student);
     }
 
-    @Transactional
     public void updateGender(int id, String newGender) {
         Student student = studentDAO.findById(id);
         if (newGender != null) {
@@ -82,7 +76,6 @@ public class StudentService {
         studentDAO.update(student);
     }
 
-    @Transactional
     public void updateGroup(int id, int numberGroup) {
         Group newGroup = groupDAO.selectGroupByNumber(numberGroup);
         Student student = studentDAO.findById(id);
@@ -90,17 +83,31 @@ public class StudentService {
         studentDAO.update(student);
     }
 
-    @Transactional
-    public String getStudents(String search, int page, int length, String order, String draw) {
-        List<Student> students = studentDAO.findByFilter(search, page, length, order);
+    public String getStudents(Map<String, Object> parameters) {
+        String draw = (String) parameters.get("draw");
+        String filter = (String) parameters.get("filter");
+
+        List students = studentDAO.findByFilter(parameters);
 
         JsonObject result = new JsonObject();
 
         result.addProperty("draw", draw);
         result.add("data", gson.toJsonTree(students));
         result.addProperty("recordsTotal", studentDAO.findByFilter(""));
-        result.addProperty("recordsFiltered", studentDAO.findByFilter(search));
+        result.addProperty("recordsFiltered", studentDAO.findByFilter(filter));
 
         return result.toString();
+    }
+
+    public String getPromptGroups(int number) {
+        List groups = groupDAO.searchGroup(number);
+        JsonArray list = new JsonArray();
+        Group group;
+        for (Object e : groups) {
+            group = (Group) e;
+            list.add( group.getNumber());
+        }
+
+        return list.toString();
     }
 }

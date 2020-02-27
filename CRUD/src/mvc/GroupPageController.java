@@ -5,15 +5,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import workWithBase.serviceInterfaces.GroupServiceInterface;
 import workWithBase.services.GroupService;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class GroupPageController {
 
-    private GroupService groupService;
+    private GroupServiceInterface groupService;
     @Autowired
-    public GroupPageController(GroupService groupService) {
+    public GroupPageController(GroupServiceInterface groupService) {
         this.groupService = groupService;
     }
 
@@ -24,13 +27,20 @@ public class GroupPageController {
                             @RequestParam(name = "length") int length,
                             @RequestParam(name = "draw") String draw,
                             @RequestParam(name = "search[value]") String search,
-                            @RequestParam(name = "order[0][dir]") String orderBy) {
+                            @RequestParam(name = "order[0][dir]") String order) {
         int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
         String columnName = request.getParameter("columns[" + columnNumber + "][data]");
 
-        orderBy = " ORDER BY " + columnName + " " + orderBy;
+        order = columnName + " " + order;
 
-        return groupService.getGroups(page, length, search, orderBy, draw);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("filter", search);
+        parameters.put("order", order);
+        parameters.put("page", page);
+        parameters.put("length", length);
+        parameters.put("draw", draw);
+
+        return groupService.getGroups(parameters);
     }
 
     @RequestMapping("/selectStudentGroup")
@@ -41,13 +51,21 @@ public class GroupPageController {
                               @RequestParam(name = "length") int length,
                               @RequestParam(name = "draw") String draw,
                               @RequestParam(name = "search[value]") String search,
-                              @RequestParam(name = "order[0][dir]") String orderBy) {
+                              @RequestParam(name = "order[0][dir]") String order) {
         int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
         String columnName = request.getParameter("columns[" + columnNumber + "][data]");
 
-        orderBy = "ORDER BY " + columnName + " " + orderBy;
+        order =  columnName + " " + order;
 
-        return groupService.getStudents(number, page, length, orderBy, search, draw);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("groupNumber", number);
+        parameters.put("page", page);
+        parameters.put("length", length);
+        parameters.put("draw", draw);
+        parameters.put("filter", search);
+        parameters.put("order", order);
+
+        return groupService.getStudents(parameters);
     }
 
     @RequestMapping("/getTeachersGroup")
@@ -58,14 +76,23 @@ public class GroupPageController {
                               @RequestParam(name = "length") int length,
                               @RequestParam(name = "draw") String draw,
                               @RequestParam(name = "search[value]") String search,
-                              @RequestParam(name = "order[0][dir]") String orderBy) {
+                              @RequestParam(name = "order[0][dir]") String order) {
 
         int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
         String columnName = request.getParameter("columns[" + columnNumber + "][data]");
 
-        orderBy = "ORDER BY " + columnName + " " + orderBy;
+        order = columnName + " " + order;
 
-        return groupService.getTeachers(number, page, length, search, orderBy, draw);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("groupNumber", number);
+        parameters.put("page", page);
+        parameters.put("length", length);
+        parameters.put("draw", draw);
+        parameters.put("filter", search);
+        parameters.put("order", order);
+        parameters.put("number", number);
+
+        return groupService.getTeachers(parameters);
     }
 
     @RequestMapping("/getNewTeachersGroup")
@@ -76,13 +103,22 @@ public class GroupPageController {
                                  @RequestParam(name = "length") int length,
                                  @RequestParam(name = "draw") String draw,
                                  @RequestParam(name = "search[value]") String search,
-                                 @RequestParam(name = "order[0][dir]") String orderBy) {
+                                 @RequestParam(name = "order[0][dir]") String order) {
         int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
         String columnName = request.getParameter("columns[" + columnNumber + "][data]");
 
-        orderBy = "ORDER BY " + columnName + " " + orderBy;
+        order = columnName + " " + order;
 
-        return groupService.getNewTeachers(number, page, length, search, orderBy, draw);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("groupNumber", number);
+        parameters.put("page", page);
+        parameters.put("length", length);
+        parameters.put("draw", draw);
+        parameters.put("filter", search);
+        parameters.put("order", order);
+        parameters.put("number", number);
+
+        return groupService.getNewTeachers(parameters);
     }
 
     @RequestMapping("/setNumberGroup")

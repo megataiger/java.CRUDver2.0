@@ -6,16 +6,23 @@ import objectForStrokeBase.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import workWithBase.serviceInterfaces.StudentServiceInterface;
 import workWithBase.services.StudentService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class StudentPageController {
 
+    private StudentServiceInterface studentService;
+
     @Autowired
-    private StudentService studentService;
+    public StudentPageController(StudentServiceInterface studentService) {
+        this.studentService = studentService;
+    }
 
     @RequestMapping("/selectStudentsByCriterion")
     @ResponseBody
@@ -24,14 +31,21 @@ public class StudentPageController {
                               @RequestParam(name = "length") int length,
                               @RequestParam(name = "draw") String draw,
                               @RequestParam(name = "search[value]") String search,
-                              @RequestParam(name = "order[0][dir]") String orderBy
+                              @RequestParam(name = "order[0][dir]") String order
                               ) {
         int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
         String columnName = request.getParameter("columns[" + columnNumber + "][data]");
 
-        orderBy = columnName + " " + orderBy;
+        order = columnName + " " + order;
 
-        return studentService.getStudents(search, page, length, orderBy, draw);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("filter", search);
+        parameters.put("order", order);
+        parameters.put("page", page);
+        parameters.put("length", length);
+        parameters.put("draw", draw);
+
+        return studentService.getStudents(parameters);
     }
 
     @RequestMapping("/setNameStudent")
@@ -103,5 +117,11 @@ public class StudentPageController {
     @ResponseBody
     public void deleteStudent(@RequestParam(name = "idStudent") int idStudent) {
         studentService.delete(idStudent);
+    }
+
+    @RequestMapping("/searchGroups")
+    @ResponseBody
+    public String getPromptGroups(@RequestParam(name = "number") int inputNumber) {
+        return studentService.getPromptGroups(inputNumber);
     }
 }

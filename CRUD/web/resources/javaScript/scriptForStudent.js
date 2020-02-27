@@ -337,7 +337,7 @@ function searchByGroup(field, prompt) {
         var y = $(field).offset().top;
         $(prompt).offset({top: y, left: x});
         $("#prompt").width(width);
-        $.post("../searchGroups", {
+        $.post("searchGroups", {
             number: $(field).val()
         }, function (data) {
             var arrayGroup = JSON.parse(data);
@@ -362,7 +362,7 @@ function promptToAddNewStudent(input, promptToAdd) {
         y = y + $(input).height() + 6;
         $(promptToAdd).offset({top: y, left: x});
         $("#addGroup").width(width);
-        $.post("../searchGroups", {
+        $.post("searchGroups", {
             number: $(input).val()
         }, function (data) {
             var arrayGroup = JSON.parse(data);

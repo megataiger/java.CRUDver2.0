@@ -3,6 +3,7 @@ package workWithBase.daoInterfaces;
 import objectForStrokeBase.Group;
 
 import java.util.List;
+import java.util.Map;
 
 public interface GroupDAOInterface {
     Group findById(int idGroup);
@@ -17,21 +18,21 @@ public interface GroupDAOInterface {
 
     void delete(Group group);
 
-    List getGroups(String filter, int page, int length, String orderType);
+    List getGroups(Map<String, Object> parameters);
 
     String getGroups(String filter);
 
-    String getLengthTable();
-
     List getGroupForTeacher
-            (int teacherId, int page, int length, String orderBy, String filter);
+            (Map<String, Object> parameters);
 
     String getGroupForTeacher
             (int teacherId, String filter);
 
     List getNewGroupForTeacher
-            (int teacherId, int page, int length, String orderBy, String filter);
+            (Map<String, Object> parameters);
 
     String getNewGroupForTeacher
             (int teacherId, String filter);
+
+    List searchGroup(int number);
 }

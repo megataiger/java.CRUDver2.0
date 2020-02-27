@@ -5,13 +5,12 @@ import objectForStrokeBase.Student;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface StudentDAOInterface {
     Student findById(int idStudent);
 
     List getAll();
-
-    String getTableLength();
 
     List findByName(String nameStudent);
 
@@ -25,12 +24,11 @@ public interface StudentDAOInterface {
 
     void delete(Student student);
 
-    List findByFilter(String filter, int page, int length, String orderBy);
+    List findByFilter(Map<String, Object> parameters);
 
     String findByFilter(String filter);
 
-    List findByGroup
-            (int groupId, int page, int length, String orderBy, String filter);
+    List findByGroup(Map<String, Object> parameters);
 
     String findByGroup(int groupId, String filter);
 

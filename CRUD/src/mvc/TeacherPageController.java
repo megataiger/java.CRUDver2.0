@@ -6,18 +6,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import workWithBase.serviceInterfaces.TeacherServiceInterface;
 import workWithBase.services.TeacherService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class TeacherPageController {
 
-    private TeacherService teacherService;
+    private TeacherServiceInterface teacherService;
 
     @Autowired
-    public TeacherPageController(TeacherService teacherService) {
+    public TeacherPageController(TeacherServiceInterface teacherService) {
         this.teacherService = teacherService;
     }
 
@@ -28,14 +31,21 @@ public class TeacherPageController {
                               @RequestParam(name = "length") int length,
                               @RequestParam(name = "draw") String draw,
                               @RequestParam(name = "search[value]") String search,
-                              @RequestParam(name = "order[0][dir]") String orderBy) {
+                              @RequestParam(name = "order[0][dir]") String order) {
 
         int orderColumn = Integer.parseInt(request.getParameter("order[0][column]"));
         String nameColumn = request.getParameter("columns[" + orderColumn + "][name]");
 
-        orderBy = "ORDER BY " + nameColumn + " " + orderBy;
+        order = nameColumn + " " + order;
 
-        return teacherService.getTeachers(page, length, search, orderBy, draw);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("filter", search);
+        parameters.put("order", order);
+        parameters.put("page", page);
+        parameters.put("length", length);
+        parameters.put("draw", draw);
+
+        return teacherService.getTeachers(parameters);
     }
 
     @RequestMapping("/setNameTeacher")
@@ -73,35 +83,51 @@ public class TeacherPageController {
             }
         }
 
-        teacherService.insertTeacher(name, birthday, gender);
+        teacherService.insert(name, birthday, gender);
     }
 
     @RequestMapping("/deleteTeacher")
     @ResponseBody
     public void deleteTeacher(@RequestParam(name = "idTeacher") int idTeacher) {
-        teacherService.deleteTeacher(idTeacher);
+        teacherService.delete(idTeacher);
     }
 
     @RequestMapping("/getGroupsTeacher")
     @ResponseBody
-    public String getGroups(@RequestParam(name = "idTeacher") int idTeacher,
+    public String getGroups(@RequestParam(name = "idTeacher") int teacherId,
                             @RequestParam(name = "start") int page,
                             @RequestParam(name = "length") int length,
                             @RequestParam(name = "draw") String draw,
                             @RequestParam(name = "search[value]") String search,
-                            @RequestParam(name = "order[0][dir]") String orderBy) {
-        return teacherService.getGroups(idTeacher, page, length, search, orderBy, draw);
+                            @RequestParam(name = "order[0][dir]") String order) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("filter", search);
+        parameters.put("order", order);
+        parameters.put("page", page);
+        parameters.put("length", length);
+        parameters.put("draw", draw);
+        parameters.put("teacherId", teacherId);
+
+        return teacherService.getGroups(parameters);
     }
 
     @RequestMapping("/getNewGroupsTeacher")
     @ResponseBody
-    public String getNewGroups(@RequestParam(name = "idTeacher") int idTeacher,
+    public String getNewGroups(@RequestParam(name = "idTeacher") int teacherId,
                             @RequestParam(name = "start") int page,
                             @RequestParam(name = "length") int length,
                             @RequestParam(name = "draw") String draw,
                             @RequestParam(name = "search[value]") String search,
-                            @RequestParam(name = "order[0][dir]") String orderBy) {
-        return teacherService.getNewGroups(idTeacher, page, length, search, orderBy, draw);
+                            @RequestParam(name = "order[0][dir]") String order) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("filter", search);
+        parameters.put("order", order);
+        parameters.put("page", page);
+        parameters.put("length", length);
+        parameters.put("draw", draw);
+        parameters.put("teacherId", teacherId);
+
+        return teacherService.getNewGroups(parameters);
     }
 
     @RequestMapping("/addGroupForTeacher")

@@ -4,20 +4,10 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/*"}, description = "My delay filter ")
+@WebFilter(urlPatterns = {"/*"}, description = "My filter")
 public class CharsetFilter implements Filter {
     public CharsetFilter() {
         System.out.println("Request response encoder Filter object has been created");
-    }
-
-    @Override
-    public void destroy() {
-        //...
-    }
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        //
     }
 
     public void doFilter

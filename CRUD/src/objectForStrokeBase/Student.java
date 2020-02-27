@@ -109,9 +109,5 @@ public class Student {
     public int hashCode() {
         return Objects.hash(id, name, date, gender, group);
     }
-
-    public static void main(String[] args) {
-        System.out.println(TimeZone.getDefault().getDisplayName());
-    }
 }
 
