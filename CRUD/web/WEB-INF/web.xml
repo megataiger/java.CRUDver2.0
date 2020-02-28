@@ -3,6 +3,22 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+ <!--   <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping> !-->
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+          <!--  /WEB-INF/spring/security.xml !-->
+            /WEB-INF/spring/spring.xml
+        </param-value>
+    </context-param>
 
     <servlet>
         <servlet-name>javaBase</servlet-name>
@@ -19,217 +35,5 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/javaBase-servlet.xml</param-value>
-    </context-param>
-
-    <servlet-mapping>
-        <servlet-name>insertStudent</servlet-name>
-        <url-pattern>/jsp/insertStudent</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>insertStudent</servlet-name>
-        <servlet-class>servlets.student.InsertStudentServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>deleteStudent</servlet-name>
-        <url-pattern>/jsp/deleteStudent</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>deleteStudent</servlet-name>
-        <servlet-class>servlets.student.DeleteStudentServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>UpdateStudent</servlet-name>
-        <url-pattern>/updateStudent</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>UpdateStudent</servlet-name>
-        <servlet-class>servlets.student.UpdateStudentServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>getGender</servlet-name>
-        <url-pattern>/jsp/getGender</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>getGender</servlet-name>
-        <servlet-class>servlets.GetGenderListServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>selectStudentsByCriterion</servlet-name>
-        <url-pattern>/jsp/selectStudentsByCriterion</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>selectStudentsByCriterion</servlet-name>
-        <servlet-class>servlets.student.SelectStudentServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>updateGroup</servlet-name>
-        <url-pattern>/jsp/upGroup</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>updateGroup</servlet-name>
-        <servlet-class>servlets.group.UpdateGroupServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>deleteGroup</servlet-name>
-        <url-pattern>/jsp/deleteGroup</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>deleteGroup</servlet-name>
-        <servlet-class>servlets.group.DeleteGroupServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>insertGroup</servlet-name>
-        <url-pattern>/jsp/insertGroup</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>insertGroup</servlet-name>
-        <servlet-class>servlets.group.InsertGroupServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>getTeachers</servlet-name>
-        <url-pattern>/getTeachers</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>getTeachers</servlet-name>
-        <servlet-class>servlets.group.GetTeachersServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>getNewTeachers</servlet-name>
-        <url-pattern>/getNewTeachers</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>getNewTeachers</servlet-name>
-        <servlet-class>servlets.group.GetNewTeachersServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>addTeacherForGroup</servlet-name>
-        <url-pattern>/addTeacherForGroup</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>addTeacherForGroup</servlet-name>
-        <servlet-class>servlets.group.AddTeacherForGroupServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>deleteTeacherForGroup</servlet-name>
-        <url-pattern>/deleteTeacherForGroup</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>deleteTeacherForGroup</servlet-name>
-        <servlet-class>servlets.group.DeleteTeacherForGroupServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>selectAllGroup</servlet-name>
-        <url-pattern>/jsp/selectAllGroup</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>selectAllGroup</servlet-name>
-        <servlet-class>servlets.group.SelectGroupServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>selectStudent</servlet-name>
-        <url-pattern>/selectStudent</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>selectStudent</servlet-name>
-        <servlet-class>servlets.group.GetStudentServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>updateTeacher</servlet-name>
-        <url-pattern>/updateTeacher</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>updateTeacher</servlet-name>
-        <servlet-class>servlets.teacher.UpdateTeacherServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>deleteTeacher</servlet-name>
-        <url-pattern>/deleteTeacher</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>deleteTeacher</servlet-name>
-        <servlet-class>servlets.teacher.DeleteTeacherServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>insertTeacher</servlet-name>
-        <url-pattern>/insertTeacher</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>insertTeacher</servlet-name>
-        <servlet-class>servlets.teacher.InsertTeacherServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>getGroup</servlet-name>
-        <url-pattern>/getGroup</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>getGroup</servlet-name>
-        <servlet-class>servlets.teacher.GetGroupForTeacherServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>getNewGroups</servlet-name>
-        <url-pattern>/getNewGroups</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>getNewGroups</servlet-name>
-        <servlet-class>servlets.teacher.GetNewGroupsForTeacherServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>deleteGroupForTeacher</servlet-name>
-        <url-pattern>/deleteGroupForTeacher</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>deleteGroupForTeacher</servlet-name>
-        <servlet-class>servlets.teacher.DeleteGroupForTeacherServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>addGroupForTeacher</servlet-name>
-        <url-pattern>/addGroupForTeacher</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>addGroupForTeacher</servlet-name>
-        <servlet-class>servlets.teacher.AddGroupForTeacherServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>selectTeachers</servlet-name>
-        <url-pattern>/selectTeachers</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>selectTeachers</servlet-name>
-        <servlet-class>servlets.teacher.SelectTeachersServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>searchGroups</servlet-name>
-        <url-pattern>/searchGroups</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>searchGroups</servlet-name>
-        <servlet-class>servlets.student.SearchGroupsServlet</servlet-class>
-    </servlet>
 
 </web-app>
