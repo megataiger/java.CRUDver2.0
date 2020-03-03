@@ -4,10 +4,7 @@ import objectForStrokeBase.Group;
 import org.springframework.stereotype.Repository;
 import workWithBase.daoInterfaces.GroupDAOInterface;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 
@@ -56,14 +53,14 @@ public class GroupDAO implements GroupDAOInterface {
         entityManager.remove(group);
     }
 
-    public List getGroups(Map<String, Object> parameters) {
+    public List<Group> getGroups(Map<String, Object> parameters) {
         String order = (String) parameters.get("order");
         String filter = "%" + parameters.get("filter") + "%";
         int page = (Integer) parameters.get("page");
         int length = (Integer) parameters.get("length");
 
-        Query query = entityManager.createQuery("SELECT g FROM Group g WHERE " +
-                " CAST(g.number as string) LIKE :filter ORDER BY " + order);
+        TypedQuery<Group> query = entityManager.createQuery("SELECT g FROM Group g WHERE " +
+                " CAST(g.number as string) LIKE :filter ORDER BY " + order, Group.class);
         query.setParameter("filter", filter);
 
         return query.setFirstResult(page).setMaxResults(length).getResultList();
@@ -78,7 +75,7 @@ public class GroupDAO implements GroupDAOInterface {
         return query.getSingleResult().toString();
     }
 
-    public List getGroupForTeacher
+    public List<Group> getGroupForTeacher
             (Map<String, Object> parameters) {
         String filter = "%" + parameters.get("filter") + "%";
         String order = (String) parameters.get("order");
@@ -86,10 +83,10 @@ public class GroupDAO implements GroupDAOInterface {
         int length = (Integer) parameters.get("length");
         int teacherId = (Integer) parameters.get("teacherId");
 
-        Query query = entityManager.createQuery("SELECT g FROM Group g " +
+        TypedQuery<Group> query = entityManager.createQuery("SELECT g FROM Group g " +
                 "JOIN g.teachers t " +
                 "WHERE CAST(g.number as string) LIKE :filter " +
-                "AND t.id = :teacherId ORDER BY g.number " + order);
+                "AND t.id = :teacherId ORDER BY g.number " + order, Group.class);
         query.setParameter("filter", filter);
         query.setParameter("teacherId", teacherId);
 
@@ -109,7 +106,7 @@ public class GroupDAO implements GroupDAOInterface {
         return query.getSingleResult().toString();
     }
 
-    public List getNewGroupForTeacher
+    public List<Group> getNewGroupForTeacher
             (Map<String, Object> parameters) {
         String filter = "%" + parameters.get("filter") + "%";
         String order = (String) parameters.get("order");
@@ -117,10 +114,10 @@ public class GroupDAO implements GroupDAOInterface {
         int length = (Integer) parameters.get("length");
         int teacherId = (Integer) parameters.get("teacherId");
 
-        Query query = entityManager.createQuery("SELECT s FROM Group s " +
+        TypedQuery<Group> query = entityManager.createQuery("SELECT s FROM Group s " +
                 "WHERE CAST(s.number as string) LIKE :filter AND s NOT IN " +
                 "(SELECT g FROM Group g JOIN g.teachers t " +
-                "WHERE t.id = :teacherId) ORDER BY s.number " + order);
+                "WHERE t.id = :teacherId) ORDER BY s.number " + order, Group.class);
         query.setParameter("filter", filter);
         query.setParameter("teacherId", teacherId);
 
@@ -140,10 +137,10 @@ public class GroupDAO implements GroupDAOInterface {
         return query.getSingleResult().toString();
     }
 
-    public List searchGroup(int number) {
+    public List<Group> searchGroup(int number) {
         String filter = "%" + number + "%";
-        Query query = entityManager.createQuery("SELECT g FROM Group g " +
-                "WHERE CAST(g.number as string) LIKE :filter");
+        TypedQuery<Group> query = entityManager.createQuery("SELECT g FROM Group g " +
+                "WHERE CAST(g.number as string) LIKE :filter", Group.class);
         query.setParameter("filter", filter);
 
         return query.getResultList();

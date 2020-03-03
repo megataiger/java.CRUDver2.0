@@ -83,7 +83,7 @@ function setNameTeacher(cell) {
             var newName = $(inputName).val();
             var idTeacher = $(string).attr("id");
             $.post(
-                "setNameTeacher", {
+                "teachers/setNameTeacher", {
                     nameTeacher: newName,
                     idTeacher: idTeacher
                 }, function () {
@@ -123,7 +123,7 @@ function setBirthdayTeacher(cell, table) {
             var newBirthday = $(inputBirthday).val();
             var idTeacher = $(string).attr("id");
             $.post(
-                "setBirthdayTeacher", {
+                "teachers/setBirthdayTeacher", {
                     newBirthday: newBirthday,
                     idTeacher: idTeacher
                 }, function () {
@@ -146,7 +146,7 @@ function setGenderTeacher(cell, table) {
     $(fieldGender).html("<select></select>");
     var selectGender = $(fieldGender).children();
 
-    $.post("getGender", {
+    $.post("students/getGender", {
         gender: oldGender
     }, function (data) {
         var arrayGender = data;
@@ -176,7 +176,7 @@ function setGenderTeacher(cell, table) {
     $(selectGender).change(function () {
         var newGender = $(this).val();
 
-        $.post("setGenderTeacher", {
+        $.post("teachers/setGenderTeacher", {
             idTeacher: $(string).attr("id"),
             newGender: newGender
         }, function () {
@@ -196,7 +196,7 @@ function deleteTeacher(bascet, evt, table) {
     var string = $(fieldOfOperations).parent();
     var idTeacher = $(string).attr("id");
 
-    $.get("deleteTeacher", {
+    $.get("teachers/deleteTeacher", {
         idTeacher: idTeacher
     }, function () {
         var info = table.page.info();
@@ -213,7 +213,7 @@ function deleteTeacher(bascet, evt, table) {
 function insertTeacher(table, evt, form) {
     evt.preventDefault();
 
-    $.post("insertTeacher",
+    $.post("teachers/insertTeacher",
         $(form).serialize(),
         function () {
             table
@@ -303,7 +303,7 @@ function deleteGroupOfTeacher(evt, table, cell) {
 
     var idTeacher = $("#nameChooseTeacher").attr("class");
 
-    $.get("deleteGroupForTeacher", {
+    $.get("teachers/deleteGroupForTeacher", {
         idTeacher: idTeacher,
         numberGroup: numberGroup
     }, function () {
@@ -334,7 +334,7 @@ function addGroupForTeacher(evt, table, cell) {
 
     var idTeacher = $("#nameChooseTeacher").attr("class");
 
-    $.get("addGroupForTeacher", {
+    $.get("teachers/addGroupForTeacher", {
         idTeacher: idTeacher,
         numberGroup: numberGroup
     }, function () {
@@ -359,8 +359,8 @@ function getTeachersTable() {
         },
         serverSide: true,
         ajax: {
-            url: "selectTeachers",
-            type: "POST"
+            url: "teachers/selectTeachers",
+            type: "GET"
         },
         columns: [
             {
@@ -412,7 +412,7 @@ function getTeacherGroupsTable() {
         },
         serverSide: true,
         ajax: {
-            url: "getGroupsTeacher",
+            url: "teachers/getGroupsTeacher",
             type: "GET",
             data: function (d) {
                 d.idTeacher = $("#nameChooseTeacher").attr("class");
@@ -448,7 +448,7 @@ function getTeacherNewGroupsTable() {
         },
         serverSide: true,
         ajax: {
-            url: "getNewGroupsTeacher",
+            url: "teachers/getNewGroupsTeacher",
             type: "GET",
             data: function (d) {
                 d.idTeacher = $("#nameChooseTeacher").attr("class");

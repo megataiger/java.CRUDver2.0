@@ -18,7 +18,7 @@ public class StudentSerialize implements JsonSerializer<Student> {
 
         object.addProperty("id", student.getId());
         object.addProperty("name", student.getName());
-        object.addProperty("birthday", formatter.format(student.getDate()));
+        object.addProperty("date", formatter.format(student.getDate()));
         for (Gender e : Gender.values()) {
             if (student.getGender().equals(e.toString())) {
                 object.addProperty("gender", e.getGender());

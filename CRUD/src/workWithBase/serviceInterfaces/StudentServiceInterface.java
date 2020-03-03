@@ -1,23 +1,33 @@
 package workWithBase.serviceInterfaces;
 
 import objectForStrokeBase.Gender;
+import objectForStrokeBase.Group;
+import objectForStrokeBase.Student;
+
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public interface StudentServiceInterface {
     void insert(String name, LocalDate birthday, Gender gender, int numberGroup);
 
-    void delete(int id);
+    void delete(int idStudent);
 
-    void updateName(int id, String newName);
+    void updateName(int idStudent, String newName);
 
-    void updateBirthday(int id, LocalDate birthday);
+    void updateBirthday(int idStudent, LocalDate birthday);
 
-    void updateGender(int id, String newGender);
+    void updateGender(int idStudent, String newGender);
 
-    void updateGroup(int id, int numberGroup);
+    void updateGroup(int idStudent, int numberGroup);
 
-    String getStudents(Map<String, Object> parameters);
+    List<Student> getStudents(Map<String, Object> parameters);
 
-    String getPromptGroups(int number);
+    String getStudents(String filter);
+
+    List<Group> getPromptGroups(int number);
+
+    List<Student> getGroupStudents(Map<String, Object> parameters);
+
+    String getGroupStudentsLength(int number, String filter);
 }

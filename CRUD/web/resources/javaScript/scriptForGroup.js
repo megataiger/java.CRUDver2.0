@@ -7,8 +7,8 @@ $(document).ready(function () {
         },
         serverSide: true,
         ajax: {
-            url: "selectGroups",
-            type: "POST"
+            url: "groups/selectGroups",
+            type: "GET"
         },
         columns: [
             {
@@ -109,7 +109,7 @@ $(document).ready(function () {
 function insertGroup(inputNumber, evt, table) {
     if (evt.keyCode === 13) {
 
-        $.post("insertGroup", {
+        $.post("groups/insertGroup", {
             numberGroup: $(inputNumber).val()
         }, function () {
             table
@@ -128,7 +128,7 @@ function deleteGroup(bascet, evt, table) {
         .children(".id")
         .text();
 
-    $.post("deleteGroup", {
+    $.post("groups/deleteGroup", {
         idGroup: idGroup
     }, function () {
         var info = table.page.info();
@@ -167,7 +167,7 @@ function setNumberGroup(cell, table) {
         if (evt.keyCode === 13) {
             var newNumber = $(this).val();
 
-            $.post("setNumberGroup", {
+            $.post("groups/setNumberGroup", {
                 idGroup: $(string).children(".id").text(),
                 numberGroup: newNumber
             }, function () {
@@ -225,7 +225,7 @@ function clickToViewTeachers(button) {
 
     if (!$.fn.DataTable.isDataTable('#teachersOfGroup')) {
         getTeachersOfGroup();
-    } else if ($('#teachersOfGroup').DataTable().ajax.url() === "getTeachersGroup") {
+    } else if ($('#teachersOfGroup').DataTable().ajax.url() === "groups/getTeachersGroup") {
         $('#teachersOfGroup')
             .DataTable()
             .draw();
@@ -245,7 +245,7 @@ function clickToAddTeachers(button) {
 
     if (!$.fn.DataTable.isDataTable('#teachersOfGroup')) {
         getNewTeachersOfGroup();
-    } else if ($('#teachersOfGroup').DataTable().ajax.url() === "getNewTeachersGroup") {
+    } else if ($('#teachersOfGroup').DataTable().ajax.url() === "groups/getNewTeachersGroup") {
         $('#teachersOfGroup')
             .DataTable()
             .draw();
@@ -262,7 +262,7 @@ function addTeacherForGroup(require, evt, table) {
     var idTeacher = $(require).attr("href");
     var numberGroup = $("#numberGroup").text();
 
-    $.post("addTeacherForGroup", {
+    $.post("groups/addTeacherForGroup", {
         idTeacher: idTeacher,
         numberGroup: numberGroup
     }, function () {
@@ -285,7 +285,7 @@ function deleteTeacherForGroup(require, evt, table) {
     var idTeacher = $(require).attr("href");
     var numberGroup = $("#numberGroup").text();
 
-    $.post("deleteTeacherForGroup", {
+    $.post("groups/deleteTeacherForGroup", {
         idTeacher: idTeacher,
         numberGroup: numberGroup
     }, function () {
@@ -310,7 +310,7 @@ function getTeachersOfGroup() {
         },
         serverSide: true,
         ajax: {
-            url: "getTeachersGroup",
+            url: "groups/getTeachersGroup",
             type: "GET",
             data: function (d) {
                 d.numberGroup = $("#numberGroup").text();
@@ -351,7 +351,7 @@ function getNewTeachersOfGroup() {
         },
         serverSide: true,
         ajax: {
-            url: "getNewTeachersGroup",
+            url: "groups/getNewTeachersGroup",
             type: "GET",
             data: function (d) {
                 d.numberGroup = $("#numberGroup").text();
@@ -392,7 +392,7 @@ function getStudentOfGroup() {
         },
         serverSide: true,
         ajax: {
-            url: "selectStudentGroup",
+            url: "groups/selectStudentGroup",
             type: "GET",
             data: function (d) {
                 d.numberGroup = $("#numberGroup").text();
@@ -406,9 +406,9 @@ function getStudentOfGroup() {
                 "title": "Ф.И.О"
             },
             {
-                "className": "birthday student",
-                "name": "birthday",
-                "data": "birthday",
+                "className": "date student",
+                "name": "date",
+                "data": "date",
                 "title": "Дата рождения"
             }
         ]

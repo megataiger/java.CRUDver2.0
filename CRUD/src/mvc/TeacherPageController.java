@@ -1,27 +1,39 @@
 package mvc;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import gsonSerialize.GroupSerialize;
+import gsonSerialize.TeacherSerialize;
 import objectForStrokeBase.Gender;
+import objectForStrokeBase.Group;
+import objectForStrokeBase.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import workWithBase.serviceInterfaces.GroupServiceInterface;
 import workWithBase.serviceInterfaces.TeacherServiceInterface;
-import workWithBase.services.TeacherService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/teachers")
 public class TeacherPageController {
 
     private TeacherServiceInterface teacherService;
+    private GroupServiceInterface groupService;
 
     @Autowired
-    public TeacherPageController(TeacherServiceInterface teacherService) {
+    public TeacherPageController(TeacherServiceInterface teacherService,
+                                 GroupServiceInterface groupService) {
         this.teacherService = teacherService;
+        this.groupService = groupService;
     }
 
     @RequestMapping("/selectTeachers")
@@ -45,7 +57,20 @@ public class TeacherPageController {
         parameters.put("length", length);
         parameters.put("draw", draw);
 
-        return teacherService.getTeachers(parameters);
+        List<Teacher> teachers = teacherService.getTeachers(parameters);
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Teacher.class, new TeacherSerialize())
+                .create();
+
+        JsonObject result = new JsonObject();
+
+        result.addProperty("draw", draw);
+        result.add("data", gson.toJsonTree(teachers));
+        result.addProperty("recordsTotal", teacherService.getTeachersLength(""));
+        result.addProperty("recordsFiltered", teacherService.getTeachersLength(search));
+
+        return result.toString();
     }
 
     @RequestMapping("/setNameTeacher")
@@ -94,7 +119,7 @@ public class TeacherPageController {
 
     @RequestMapping("/getGroupsTeacher")
     @ResponseBody
-    public String getGroups(@RequestParam(name = "idTeacher") int teacherId,
+    public String getGroups(@RequestParam(name = "idTeacher") int idTeacher,
                             @RequestParam(name = "start") int page,
                             @RequestParam(name = "length") int length,
                             @RequestParam(name = "draw") String draw,
@@ -106,14 +131,29 @@ public class TeacherPageController {
         parameters.put("page", page);
         parameters.put("length", length);
         parameters.put("draw", draw);
-        parameters.put("teacherId", teacherId);
+        parameters.put("teacherId", idTeacher);
 
-        return teacherService.getGroups(parameters);
+        List<Group> groups = groupService.getGroupsForTeacher(parameters);
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Group.class, new GroupSerialize())
+                .create();
+
+        JsonObject result = new JsonObject();
+
+        result.addProperty("draw", draw);
+        result.add("data", gson.toJsonTree(groups));
+        result.addProperty("recordsTotal",
+                groupService.getGroupsForTeacherLength(idTeacher, ""));
+        result.addProperty("recordsFiltered",
+                groupService.getGroupsForTeacherLength(idTeacher, search));
+
+        return result.toString();
     }
 
     @RequestMapping("/getNewGroupsTeacher")
     @ResponseBody
-    public String getNewGroups(@RequestParam(name = "idTeacher") int teacherId,
+    public String getNewGroups(@RequestParam(name = "idTeacher") int idTeacher,
                             @RequestParam(name = "start") int page,
                             @RequestParam(name = "length") int length,
                             @RequestParam(name = "draw") String draw,
@@ -125,9 +165,24 @@ public class TeacherPageController {
         parameters.put("page", page);
         parameters.put("length", length);
         parameters.put("draw", draw);
-        parameters.put("teacherId", teacherId);
+        parameters.put("teacherId", idTeacher);
 
-        return teacherService.getNewGroups(parameters);
+        List<Group> groups = groupService.getNewGroupsForTeacher(parameters);
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Group.class, new GroupSerialize())
+                .create();
+
+        JsonObject result = new JsonObject();
+
+        result.addProperty("draw", draw);
+        result.add("data", gson.toJsonTree(groups));
+        result.addProperty("recordsTotal",
+                groupService.getNewGroupsForTeacherLength(idTeacher, ""));
+        result.addProperty("recordsFiltered",
+                groupService.getNewGroupsForTeacherLength(idTeacher, search));
+
+        return result.toString();
     }
 
     @RequestMapping("/addGroupForTeacher")

@@ -18,21 +18,21 @@ public interface GroupDAOInterface {
 
     void delete(Group group);
 
-    List getGroups(Map<String, Object> parameters);
+    List<Group> getGroups(Map<String, Object> parameters);
 
     String getGroups(String filter);
 
-    List getGroupForTeacher
+    List<Group> getGroupForTeacher
             (Map<String, Object> parameters);
 
     String getGroupForTeacher
             (int teacherId, String filter);
 
-    List getNewGroupForTeacher
+    List<Group> getNewGroupForTeacher
             (Map<String, Object> parameters);
 
     String getNewGroupForTeacher
             (int teacherId, String filter);
 
-    List searchGroup(int number);
+    List<Group> searchGroup(int number);
 }

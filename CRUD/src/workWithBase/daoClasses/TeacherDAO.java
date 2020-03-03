@@ -2,11 +2,13 @@ package workWithBase.daoClasses;
 
 import objectForStrokeBase.Teacher;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import workWithBase.daoInterfaces.TeacherDAOInterface;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -54,22 +56,22 @@ public class TeacherDAO implements TeacherDAOInterface {
         return query.getResultList();
     }
 
-    public List selectTeachers(Map<String, Object> parameters) {
+    public List<Teacher> getTeachers(Map<String, Object> parameters) {
         String filter = "%" + parameters.get("filter") + "%";
         String order = (String) parameters.get("order");
         int length = (Integer) parameters.get("length");
         int page = (Integer) parameters.get("page");
 
-        Query query = entityManager.createQuery("SELECT t FROM Teacher t " +
+        TypedQuery<Teacher> query = entityManager.createQuery("SELECT t FROM Teacher t " +
                 "WHERE LOWER(t.name) LIKE :filter " +
                 "OR LOWER(t.date) LIKE :filter " +
-                "OR LOWER(t.gender) LIKE :filter ORDER BY " + order);
+                "OR LOWER(t.gender) LIKE :filter ORDER BY " + order, Teacher.class);
         query.setParameter("filter", filter);
 
         return query.setMaxResults(length).setFirstResult(page).getResultList();
     }
 
-    public String selectTeachers(String filter) {
+    public String getTeachers(String filter) {
         filter = "%" + filter + "%";
         Query query = entityManager.createQuery("SELECT count(t) FROM Teacher t " +
                 "WHERE LOWER(t.name) LIKE :filter " +
@@ -80,19 +82,19 @@ public class TeacherDAO implements TeacherDAOInterface {
         return query.getSingleResult().toString();
     }
 
-    public List getTeachersForGroup(Map<String, Object> parameters) {
+    public List<Teacher> getTeachersForGroup(Map<String, Object> parameters) {
         String filter = "%" + parameters.get("filter") + "%";
         String order = (String) parameters.get("order");
         int length = (Integer) parameters.get("length");
         int page = (Integer) parameters.get("page");
-        int groupId = (Integer) parameters.get("groupId");
+        int groupId = (Integer) parameters.get("groupNumber");
 
-        Query query =
+        TypedQuery<Teacher> query =
                 entityManager.createQuery("SELECT t FROM Teacher t " +
                         "JOIN t.groups g " +
                         "WHERE g.id = :groupId " +
                         "AND (LOWER(t.name) LIKE :filter " +
-                        "OR LOWER(t.date) LIKE :filter) ORDER BY " + order);
+                        "OR LOWER(t.date) LIKE :filter) ORDER BY " + order, Teacher.class);
         query.setParameter("groupId", groupId);
         query.setParameter("filter", filter);
 
@@ -113,19 +115,19 @@ public class TeacherDAO implements TeacherDAOInterface {
         return query.getSingleResult().toString();
     }
 
-    public List getNewTeachersForGroup(Map<String, Object> parameters) {
+    public List<Teacher> getNewTeachersForGroup(Map<String, Object> parameters) {
         String filter = "%" + parameters.get("filter") + "%";
         String order = (String) parameters.get("order");
         int length = (Integer) parameters.get("length");
         int page = (Integer) parameters.get("page");
-        int groupId = (Integer) parameters.get("groupId");
+        int groupId = (Integer) parameters.get("groupNumber");
 
-        Query query = entityManager.createQuery("SELECT s FROM Teacher s " +
+        TypedQuery<Teacher> query = entityManager.createQuery("SELECT s FROM Teacher s " +
                         "WHERE (LOWER(s.name) LIKE :filter " +
                         "OR LOWER(s.date) LIKE :filter) " +
                         "AND s NOT IN " +
                         "(SELECT t FROM Teacher t JOIN t.groups g " +
-                        "WHERE g.id = :groupId) ORDER BY " + order);
+                        "WHERE g.id = :groupId) ORDER BY " + order, Teacher.class);
         query.setParameter("groupId", groupId);
         query.setParameter("filter", filter);
 

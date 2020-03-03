@@ -16,7 +16,7 @@ public class StudentEasySerialize implements JsonSerializer<Student> {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
         object.addProperty("name", student.getName());
-        object.addProperty("birthday", formatter.format(student.getDate()));
+        object.addProperty("date", formatter.format(student.getDate()));
 
         return object;
     }

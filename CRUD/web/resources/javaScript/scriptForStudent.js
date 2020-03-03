@@ -9,8 +9,8 @@ $(document).ready(function () {
         select: true,
         serverSide: true,
         ajax: {
-            url: "selectStudentsByCriterion",
-            type: "POST"
+            url: "students/selectStudentsByCriterion",
+            type: "GET"
         },
         columns: [
             {
@@ -26,10 +26,10 @@ $(document).ready(function () {
                 "title": "Ф.И.О"
             },
             {
-                "className": "birthday students",
-                "name": "birthday",
-                "data": "birthday",
-                "title": "День рождения"
+                "className": "date students",
+                "name": "date",
+                "data": "date",
+                "title": "Дата рождения"
             },
             {
                 "className": "gender students",
@@ -151,7 +151,7 @@ function setNameStudent(cell, table) {
             var newName = $(this).val();
             var id = $(string).children(".id");
 
-            $.post("setNameStudent", {
+            $.post("students/setNameStudent", {
                 idStudent: $(id).text(),
                 newNameStudent: newName
             }, function () {
@@ -188,7 +188,7 @@ function setBirthdayStudent(cell, table) {
         if (evt.keyCode === 13) {
             var newBirthday = $(this).val();
 
-            $.post("setBirthdayStudent", {
+            $.post("students/setBirthdayStudent", {
                 idStudent: $(id).text(),
                 newBirthdayStudent: newBirthday
             }, function () {
@@ -210,7 +210,7 @@ function setGenderStudent(cell, table) {
     $(fieldGender).html("<select></select>");
     var selectGender = $(fieldGender).children();
 
-    $.post("getGender", {
+    $.post("students/getGender", {
         gender: oldGender
     }, function (data) {
         var arrayGender = data;
@@ -243,7 +243,7 @@ function setGenderStudent(cell, table) {
 
         var id = $(string).children(".id");
 
-        $.post("setGenderStudent", {
+        $.post("students/setGenderStudent", {
             idStudent: $(id).text(),
             genderStudent: newGender
         }, function () {
@@ -277,7 +277,7 @@ function setGroupStudent(cell, table, prompt) {
             var newGroup = $(this).val();
             var id = $(string).children(".id");
 
-            $.post("setGroupStudent", {
+            $.post("students/setGroupStudent", {
                 idStudent: $(id).text(),
                 numberGroup: newGroup
             }, function () {
@@ -296,7 +296,7 @@ function setGroupStudent(cell, table, prompt) {
 function insertStudent(form, evt, table) {
     evt.preventDefault();
     $.post(
-        "insertStudent",
+        "students/insertStudent",
         $(form).serialize(),
         function () {
             table
@@ -311,7 +311,7 @@ function deleteStudent(bascet, evt, table) {
 
     var idStudent = $(bascet).attr("href");
 
-    $.get("deleteStudent", {
+    $.get("students/deleteStudent", {
         idStudent: idStudent
     }, function () {
         var info = table.page.info();
@@ -337,7 +337,7 @@ function searchByGroup(field, prompt) {
         var y = $(field).offset().top;
         $(prompt).offset({top: y, left: x});
         $("#prompt").width(width);
-        $.post("searchGroups", {
+        $.get("students/searchGroups", {
             number: $(field).val()
         }, function (data) {
             var arrayGroup = JSON.parse(data);
@@ -362,7 +362,7 @@ function promptToAddNewStudent(input, promptToAdd) {
         y = y + $(input).height() + 6;
         $(promptToAdd).offset({top: y, left: x});
         $("#addGroup").width(width);
-        $.post("searchGroups", {
+        $.get("students/searchGroups", {
             number: $(input).val()
         }, function (data) {
             var arrayGroup = JSON.parse(data);

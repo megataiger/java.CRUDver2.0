@@ -1,8 +1,10 @@
 package workWithBase.serviceInterfaces;
 
 import objectForStrokeBase.Gender;
+import objectForStrokeBase.Teacher;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public interface TeacherServiceInterface {
@@ -16,11 +18,17 @@ public interface TeacherServiceInterface {
 
     void setGender(int id, String gender);
 
-    String getTeachers(Map<String, Object> parameters);
+    List<Teacher> getTeachers(Map<String, Object> parameters);
 
-    String getGroups(Map<String, Object> parameters);
+    String getTeachersLength(String filter);
 
-    String getNewGroups(Map<String, Object> parameters);
+    List<Teacher> getTeachersForGroup(Map<String, Object> parameters);
+
+    String getTeachersForGroupLength(int idGroup, String filter);
+
+    List<Teacher> getNewTeachersForGroup(Map<String, Object> parameters);
+
+    String getNewTeachersForGroupLength(int idGroup, String filter);
 
     void addGroup(int idTeacher, int numberGroup);
 

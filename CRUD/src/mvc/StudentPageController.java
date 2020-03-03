@@ -1,21 +1,26 @@
 package mvc;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import gsonSerialize.StudentSerialize;
 import objectForStrokeBase.Gender;
+import objectForStrokeBase.Group;
+import objectForStrokeBase.Student;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import workWithBase.serviceInterfaces.StudentServiceInterface;
-import workWithBase.services.StudentService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/students")
 public class StudentPageController {
 
     private StudentServiceInterface studentService;
@@ -37,6 +42,10 @@ public class StudentPageController {
         int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
         String columnName = request.getParameter("columns[" + columnNumber + "][data]");
 
+        if(columnName.equals("group")) {
+            columnName += ".number";
+        }
+
         order = columnName + " " + order;
 
         Map<String, Object> parameters = new HashMap<>();
@@ -44,9 +53,21 @@ public class StudentPageController {
         parameters.put("order", order);
         parameters.put("page", page);
         parameters.put("length", length);
-        parameters.put("draw", draw);
 
-        return studentService.getStudents(parameters);
+        List students = studentService.getStudents(parameters);
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Student.class, new StudentSerialize())
+                .create();
+
+        JsonObject result = new JsonObject();
+
+        result.addProperty("draw", draw);
+        result.add("data", gson.toJsonTree(students));
+        result.addProperty("recordsTotal", studentService.getStudents(""));
+        result.addProperty("recordsFiltered", studentService.getStudents(search));
+
+        return result.toString();
     }
 
     @RequestMapping("/setNameStudent")
@@ -123,6 +144,11 @@ public class StudentPageController {
     @RequestMapping("/searchGroups")
     @ResponseBody
     public String getPromptGroups(@RequestParam(name = "number") int inputNumber) {
-        return studentService.getPromptGroups(inputNumber);
+        List<Group> groups = studentService.getPromptGroups(inputNumber);
+        JsonArray result = new JsonArray();
+        for (Group e : groups) {
+            result.add(e.getNumber());
+        }
+        return result.toString();
     }
 }

@@ -21,15 +21,15 @@ public interface TeacherDAOInterface {
 
     List findByDate(LocalDate birthday);
 
-    List selectTeachers(Map<String, Object> parameters);
+    List<Teacher> getTeachers(Map<String, Object> parameters);
 
-    String selectTeachers(String filter);
+    String getTeachers(String filter);
 
-    List getTeachersForGroup(Map<String, Object> parameters);
+    List<Teacher> getTeachersForGroup(Map<String, Object> parameters);
 
     String getTeachersForGroup(int groupId, String filter);
 
-    List getNewTeachersForGroup(Map<String, Object> parameters);
+    List<Teacher> getNewTeachersForGroup(Map<String, Object> parameters);
 
     String getNewTeachersForGroup(int groupId, String filter);
 }

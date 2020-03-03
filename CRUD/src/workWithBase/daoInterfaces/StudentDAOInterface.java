@@ -24,11 +24,11 @@ public interface StudentDAOInterface {
 
     void delete(Student student);
 
-    List findByFilter(Map<String, Object> parameters);
+    List<Student> findByFilter(Map<String, Object> parameters);
 
     String findByFilter(String filter);
 
-    List findByGroup(Map<String, Object> parameters);
+    List<Student> findByGroup(Map<String, Object> parameters);
 
     String findByGroup(int groupId, String filter);
 

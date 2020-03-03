@@ -1,8 +1,13 @@
 package workWithBase.serviceInterfaces;
 
+import objectForStrokeBase.Group;
+
+import java.util.List;
 import java.util.Map;
 
 public interface GroupServiceInterface {
+    Group getByNumber(int number);
+
     void insert(int number);
 
     void delete(int id);
@@ -13,11 +18,15 @@ public interface GroupServiceInterface {
 
     void deleteTeacher(int number, int idTeacher);
 
-    String getGroups(Map<String, Object> parameters);
+    List<Group> getGroups(Map<String, Object> parameters);
 
-    String getStudents(Map<String, Object> parameters);
+    String getGroupsLength(String filter);
 
-    String getTeachers(Map<String, Object> parameters);
+    List<Group> getGroupsForTeacher(Map<String, Object> parameters);
 
-    String getNewTeachers(Map<String, Object> parameters);
+    String getGroupsForTeacherLength(int idTeacher, String filter);
+
+    List<Group> getNewGroupsForTeacher(Map<String, Object> parameters);
+
+    String getNewGroupsForTeacherLength(int idTeacher, String filter);
 }

@@ -8,6 +8,7 @@ import workWithBase.daoInterfaces.StudentDAOInterface;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -69,16 +70,17 @@ public class StudentDAO implements StudentDAOInterface {
         return query.getSingleResult().toString();
     }
 
-    public List findByFilter(Map<String, Object> parameters) {
+    public List<Student> findByFilter(Map<String, Object> parameters) {
         String filter = "%" + parameters.get("filter") + "%";
         String order = (String) parameters.get("order");
         int length = (Integer) parameters.get("length");
         int page = (Integer) parameters.get("page");
 
-        Query query = entityManager.createQuery("SELECT s FROM Student s " +
+        TypedQuery<Student> query = entityManager.createQuery("SELECT s FROM Student s" +
+                " JOIN FETCH s.group " +
                 "WHERE LOWER(s.name) LIKE :filter OR LOWER(s.date) LIKE :filter " +
                 "OR s.gender = :filter OR LOWER(s.group.number) LIKE :filter " +
-                "ORDER BY " + order);
+                "ORDER BY s." + order, Student.class);
 
         query.setParameter("filter", filter);
 
@@ -96,16 +98,17 @@ public class StudentDAO implements StudentDAOInterface {
         return query.getSingleResult().toString();
     }
 
-    public List findByGroup(Map<String, Object> parameters) {
+    public List<Student> findByGroup(Map<String, Object> parameters) {
         String filter = "%" + parameters.get("filter") + "%";
         String order = (String) parameters.get("order");
         int length = (Integer) parameters.get("length");
         int page = (Integer) parameters.get("page");
         int number = (Integer) parameters.get("groupNumber");
 
-        Query query = entityManager.createQuery("SELECT s FROM Student s" +
+        TypedQuery<Student> query = entityManager.createQuery("SELECT s FROM Student s" +
                 " WHERE s.group.id = :number AND (LOWER(s.name) LIKE :filter " +
-                "OR LOWER(s.date) LIKE :filter) ORDER BY " + order);
+                "OR LOWER(s.date) LIKE :filter) ORDER BY " + order, Student.class);
+
         query.setParameter("number", number);
         query.setParameter("filter", filter);
 
