@@ -110,7 +110,7 @@ function insertGroup(inputNumber, evt, table) {
     if (evt.keyCode === 13) {
 
         $.post("groups/insertGroup", {
-            numberGroup: $(inputNumber).val()
+            number: $(inputNumber).val()
         }, function () {
             table
                 .order([0, 'desc'])
@@ -124,12 +124,12 @@ function deleteGroup(bascet, evt, table) {
 
     var fieldDelete = $(bascet).parent();
     var string = $(fieldDelete).parent();
-    var idGroup = $(string)
+    var groupId = $(string)
         .children(".id")
         .text();
 
     $.post("groups/deleteGroup", {
-        idGroup: idGroup
+        groupId: groupId
     }, function () {
         var info = table.page.info();
         if (info.pages > 0) {
@@ -146,8 +146,11 @@ function deleteGroup(bascet, evt, table) {
 
 function setNumberGroup(cell, table) {
     var oldNumber = $(cell).text();
-    var string = $(cell).parent();
     var fieldNumber = $(cell);
+    var string = $(cell).parent();
+    var groupId = $(string)
+        .children(".id")
+        .text();
 
     $(fieldNumber).html("<input class='number' type='text' value='"
         + oldNumber + "' size='4'>");
@@ -168,7 +171,7 @@ function setNumberGroup(cell, table) {
             var newNumber = $(this).val();
 
             $.post("groups/setNumberGroup", {
-                idGroup: $(string).children(".id").text(),
+                groupId: groupId,
                 numberGroup: newNumber
             }, function () {
                 table.draw('page');
@@ -184,8 +187,11 @@ function viewTeachersMenu(require, evt) {
     var numberGroup = $(string)
         .children(".number")
         .text();
+    var groupId = $(string)
+        .children(".id")
+        .text();
 
-    $("#numberGroup").html(numberGroup);
+    $("#numberGroup").html(numberGroup).attr("class", groupId);
 
     $("#viewTeachers").click();
 
@@ -202,7 +208,9 @@ function viewStudentsMenu(require, evt) {
         .children(".number")
         .text();
 
-    $("#numberGroup").html(numberGroup);
+    var groupid = $(string).children(".id").text();
+
+    $("#numberGroup").html(numberGroup).attr("class", groupid);
 
     $("#menuStudentsOfGroup").show();
 
@@ -218,8 +226,6 @@ function viewStudentsMenu(require, evt) {
 }
 
 function clickToViewTeachers(button) {
-    var numberGroup = $("#numberGroup").text();
-
     $(button).css({"border": "0px"});
     $("#addTeachers").css({"border": "1px solid black"});
 
@@ -238,8 +244,6 @@ function clickToViewTeachers(button) {
 }
 
 function clickToAddTeachers(button) {
-    var numberGroup = $("#numberGroup").text();
-
     $(button).css({"border": "0px"});
     $("#viewTeachers").css({"border": "1px solid black"});
 
@@ -259,12 +263,12 @@ function clickToAddTeachers(button) {
 
 function addTeacherForGroup(require, evt, table) {
     evt.preventDefault();
-    var idTeacher = $(require).attr("href");
-    var numberGroup = $("#numberGroup").text();
+    var teacherId = $(require).attr("href");
+    var groupId = $("#numberGroup").attr("class");
 
     $.post("groups/addTeacherForGroup", {
-        idTeacher: idTeacher,
-        numberGroup: numberGroup
+        teacherId: teacherId,
+        groupId: groupId
     }, function () {
         var tableGroup = table.DataTable();
         var info = tableGroup.page.info();
@@ -282,12 +286,12 @@ function addTeacherForGroup(require, evt, table) {
 
 function deleteTeacherForGroup(require, evt, table) {
     evt.preventDefault();
-    var idTeacher = $(require).attr("href");
-    var numberGroup = $("#numberGroup").text();
+    var teacherId = $(require).attr("href");
+    var groupId = $("#numberGroup").attr("class");
 
     $.post("groups/deleteTeacherForGroup", {
-        idTeacher: idTeacher,
-        numberGroup: numberGroup
+        teacherId: teacherId,
+        groupId: groupId
     }, function () {
         var tableGroup = table.DataTable();
         var info = tableGroup.page.info();
@@ -313,7 +317,7 @@ function getTeachersOfGroup() {
             url: "groups/getTeachersGroup",
             type: "GET",
             data: function (d) {
-                d.numberGroup = $("#numberGroup").text();
+                d.groupId = $("#numberGroup").attr("class");
             }
         },
         columns: [
@@ -325,8 +329,8 @@ function getTeachersOfGroup() {
             },
             {
                 "className": "birthday teacher",
-                "name": "birthday",
-                "data": "birthday",
+                "name": "date",
+                "data": "date",
                 "title": "Дата рождения"
             },
             {
@@ -354,7 +358,7 @@ function getNewTeachersOfGroup() {
             url: "groups/getNewTeachersGroup",
             type: "GET",
             data: function (d) {
-                d.numberGroup = $("#numberGroup").text();
+                d.groupId = $("#numberGroup").attr("class");
             }
         },
         columns: [
@@ -366,8 +370,8 @@ function getNewTeachersOfGroup() {
             },
             {
                 "className": "birthday teacher",
-                "name": "birthday",
-                "data": "birthday",
+                "name": "date",
+                "data": "date",
                 "title": "Дата рождения"
             },
             {
@@ -395,7 +399,7 @@ function getStudentOfGroup() {
             url: "groups/selectStudentGroup",
             type: "GET",
             data: function (d) {
-                d.numberGroup = $("#numberGroup").text();
+                d.groupId = $("#numberGroup").attr("class");
             }
         },
         columns: [

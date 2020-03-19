@@ -70,7 +70,7 @@ $(document).ready(function () {
         setNameStudent(this, table);
     });
 
-    tableStudents.on("click", "td.birthday", function () {
+    tableStudents.on("click", "td.date", function () {
         setBirthdayStudent(this, table);
     });
 
@@ -90,10 +90,6 @@ $(document).ready(function () {
 
     addStudent.submit(function (evt) {
         insertStudent(this, evt, table);
-    });
-
-    addStudent.on("keyup", "#inputGroupStudent", function () {
-        promptToAddNewStudent(this, promptToAdd);
     });
 
     tableStudents.on('order.dt', function () {
@@ -116,14 +112,22 @@ $(document).ready(function () {
         }
     });
 
-    $("#addGroup").on("click", "td", function () {
-
-        $("#inputGroupStudent")
-            .replaceWith("<input id='inputGroupStudent' " +
-                "name='groupStudent' type='text' value='" + $(this).text() + "'>");
-
-        $(promptToAdd).hide();
+    $(addStudent).on("click", "#plus", function (evt) {
+        viewMenuGroup(evt);
     });
+
+    $('#myModal__close, #myOverlay').click(function () {
+        $('#myModal').animate({opacity: 0}, 198,
+            function () {
+                $(this).css('display', 'none');
+                $('#myOverlay').fadeOut(297);
+            });
+    });
+
+    $(addStudent).on("click", "#my_group", function () {
+        $("#groupNum").replaceWith("<img id='plus' src='/resources/image/plus1.png'>")
+    });
+
 });
 
 function setNameStudent(cell, table) {
@@ -257,39 +261,34 @@ function setGenderStudent(cell, table) {
 }
 
 function setGroupStudent(cell, table, prompt) {
-    var oldGroup = $(cell).text();
     var fieldGroup = $(cell);
     var string = $(fieldGroup).parent();
+    var id = $(string).children(".id");
 
-    $(fieldGroup).html("<input id='groupStudent' type='text' size='4' value=" +
-        oldGroup + ">");
-    var inputGroup = $(fieldGroup).children();
-
-    $(inputGroup).click(function (evt) {
-        evt.stopPropagation();
+    $('#myOverlay').fadeIn(297, function () {
+        $('#myModal')
+            .css('display', 'block')
+            .animate({opacity: 1}, 198);
     });
+    getTableGroup();
 
-    $(inputGroup).focus();
+    $("#addGroup").on("click", ".chooseGroup", function (evt) {
+        evt.preventDefault();
+        var groupId = $(this).attr("href");
+        $.post("students/setGroupStudent", {
+            idStudent: $(id).text(),
+            numberGroup: groupId
+        }, function () {
+            table.draw('page');
+            prompt.hide();
+        });
 
-    $(inputGroup).keyup(function (evt) {
-        searchByGroup(this, prompt);
-        if (evt.keyCode === 13) {
-            var newGroup = $(this).val();
-            var id = $(string).children(".id");
-
-            $.post("students/setGroupStudent", {
-                idStudent: $(id).text(),
-                numberGroup: newGroup
-            }, function () {
-                table.draw('page');
-                prompt.hide();
-            });
-        }
-    });
-
-    $(inputGroup).blur(function () {
-        $(fieldGroup).html(oldGroup);
-        prompt.hide();
+        $('#myModal').animate({opacity: 0}, 198,
+            function () {
+                $(this).css('display', 'none');
+                $('#myOverlay').fadeOut(297);
+        });
+        $("#addGroup").off("click", ".chooseGroup");
     });
 }
 
@@ -327,51 +326,74 @@ function deleteStudent(bascet, evt, table) {
     });
 }
 
-function searchByGroup(field, prompt) {
-    if ($(field).val() === "") {
-        $(prompt).hide();
-    } else {
-        $(prompt).show();
-        var width = $(field).width();
-        var x = $(field).offset().left + width;
-        var y = $(field).offset().top;
-        $(prompt).offset({top: y, left: x});
-        $("#prompt").width(width);
-        $.get("students/searchGroups", {
-            number: $(field).val()
-        }, function (data) {
-            var arrayGroup = JSON.parse(data);
-            var tablePrompt = "";
-            for (var i = 0; i < Object.keys(arrayGroup).length; i++) {
-                var option = "<tr><td>" + arrayGroup[i] + "</td></tr>\n";
-                tablePrompt = tablePrompt + option;
-            }
-            $("#prompt").html(tablePrompt);
-        })
-    }
+function viewMenuGroup(evt) {
+    evt.preventDefault();
+    $('#myOverlay').fadeIn(297, function () {
+        $('#myModal')
+            .css('display', 'block')
+            .animate({opacity: 1}, 198);
+    });
+    getTableGroup();
+
+    $("#addGroup").on("click", ".chooseGroup", function (evt) {
+        evt.preventDefault();
+
+        var groupId = $(this).attr("href");
+        var cell = $(this).parent();
+        var string = $(cell).parent();
+        var groupNumber = $(string).children(".number").text();
+
+        $("#plus").replaceWith("<p id='groupNum'><input type='radio' name='group' " +
+            "value=" + groupId + " checked>" + groupNumber + "  <img id='my_group' src='/resources/image/close1.png'></p>");
+        $('#myModal').animate({opacity: 0}, 198,
+            function () {
+                $(this).css('display', 'none');
+                $('#myOverlay').fadeOut(297);
+            });
+        $("#addGroup").off("click", ".chooseGroup");
+    });
 }
 
-function promptToAddNewStudent(input, promptToAdd) {
-    if ($(input).val() === "") {
-        $(promptToAdd).hide();
-    } else {
-        $(promptToAdd).show();
-        var x = $(input).offset().left;
-        var width = $(input).width();
-        var y = $(input).offset().top;
-        y = y + $(input).height() + 6;
-        $(promptToAdd).offset({top: y, left: x});
-        $("#addGroup").width(width);
-        $.get("students/searchGroups", {
-            number: $(input).val()
-        }, function (data) {
-            var arrayGroup = JSON.parse(data);
-            var tablePrompt = "";
-            for (var i = 0; i < Object.keys(arrayGroup).length; i++) {
-                var option = "<tr><td>" + arrayGroup[i] + "</td></tr>\n";
-                tablePrompt = tablePrompt + option;
-            }
-            $("#addGroup").html(tablePrompt);
+function getTableGroup() {
+    if (!$.fn.DataTable.isDataTable('#addGroup')) {
+        return $("#addGroup").DataTable({
+            lengthChange: false,
+            info: false,
+            scrollY: "200px",
+            language: {
+                "url": "/resources/javaScript/Russian.json"
+            },
+            serverSide: true,
+            ajax: {
+                url: "students/getGroups",
+                type: "GET",
+                data: function (d) {
+                    d.teacherId = $("#nameChooseTeacher").attr("class");
+                }
+            },
+            columns: [
+                {
+                    "className": "number",
+                    "name": "number",
+                    "data": "number",
+                    "title": "Номер"
+
+                },
+                {
+                    "orderable": false,
+                    "className": "choose",
+                    "name": "id",
+                    "data": "id",
+                    "title": "Действие",
+                    "render": function (data) {
+                        return '<a class="chooseGroup" href="' + data + '">' +
+                            '<img title="Выбрать" ' +
+                            'src="/resources/image/tick.png"></a>';
+                    }
+                }
+            ]
         })
+    } else {
+        return false;
     }
 }

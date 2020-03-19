@@ -1,36 +1,32 @@
 package workWithBase.serviceInterfaces;
 
-import objectForStrokeBase.Gender;
+import objectForStrokeBase.Group;
 import objectForStrokeBase.Teacher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
 
 public interface TeacherServiceInterface {
-    void insert(String name, LocalDate birthday, Gender gender);
+    Teacher findById(int id);
 
-    void delete(int id);
+    void save(Teacher teacher);
 
-    void setName(int id, String newName);
+    void delete(Teacher teacher);
 
-    void setBirthday(int id, LocalDate birthday);
+    int getCount();
 
-    void setGender(int id, String gender);
+    Page<Teacher> getTeachers(String filter, Pageable pageable);
 
-    List<Teacher> getTeachers(Map<String, Object> parameters);
+    Page<Teacher> getTeacherInGroup(int groupId, String filter, Pageable pageable);
 
-    String getTeachersLength(String filter);
+    int getCountTeacherInGroup(int groupId);
 
-    List<Teacher> getTeachersForGroup(Map<String, Object> parameters);
+    Page<Teacher> getTeacherNotInGroup(int groupId, String filter, Pageable pageable);
 
-    String getTeachersForGroupLength(int idGroup, String filter);
+    int getCountTeacherNotInGroup(int groupId);
 
-    List<Teacher> getNewTeachersForGroup(Map<String, Object> parameters);
+    void addGroup(int teacherId, int groupId);
 
-    String getNewTeachersForGroupLength(int idGroup, String filter);
-
-    void addGroup(int idTeacher, int numberGroup);
-
-    void deleteGroup(int idTeacher, int numberGroup);
+    void deleteGroup(int teacherId, int groupId);
 }

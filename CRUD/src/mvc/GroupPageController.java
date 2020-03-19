@@ -6,10 +6,15 @@ import com.google.gson.JsonObject;
 import gsonSerialize.GroupSerialize;
 import gsonSerialize.StudentEasySerialize;
 import gsonSerialize.TeacherEasySerialize;
+import mvc.wrappers.DataTablesWrapper;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 import objectForStrokeBase.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,24 +47,13 @@ public class GroupPageController {
 
     @RequestMapping("/selectGroups")
     @ResponseBody
-    public String getGroups(HttpServletRequest request,
-                            @RequestParam(name = "start") int page,
-                            @RequestParam(name = "length") int length,
-                            @RequestParam(name = "draw") String draw,
-                            @RequestParam(name = "search[value]") String search,
-                            @RequestParam(name = "order[0][dir]") String order) {
-        int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
-        String columnName = request.getParameter("columns[" + columnNumber + "][data]");
+    public String getGroups(HttpServletRequest request) {
+        DataTablesWrapper dataTables = new DataTablesWrapper(request);
 
-        order = columnName + " " + order;
+        Pageable pageable = PageRequest.of(dataTables.getPage(),
+                dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("filter", search);
-        parameters.put("order", order);
-        parameters.put("page", page);
-        parameters.put("length", length);
-
-        List<Group> groups = groupService.getGroups(parameters);
+        Page<Group> groups = groupService.getGroups(dataTables.getFilter(), pageable);
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Group.class, new GroupSerialize())
@@ -67,38 +61,24 @@ public class GroupPageController {
 
         JsonObject result = new JsonObject();
 
-        result.addProperty("draw", draw);
-        result.add("data", gson.toJsonTree(groups));
-        result.addProperty("recordsTotal", groupService.getGroupsLength(""));
-        result.addProperty("recordsFiltered", groupService.getGroupsLength(search));
+        result.addProperty("draw", dataTables.getDraw());
+        result.add("data", gson.toJsonTree(groups.getContent()));
+        result.addProperty("recordsTotal", groups.getTotalElements());
+        result.addProperty("recordsFiltered", groups.getTotalElements());
 
         return result.toString();
     }
 
     @RequestMapping("/selectStudentGroup")
     @ResponseBody
-    public String getStudents(HttpServletRequest request,
-                              @RequestParam(name = "numberGroup") int number,
-                              @RequestParam(name = "start") int page,
-                              @RequestParam(name = "length") int length,
-                              @RequestParam(name = "draw") String draw,
-                              @RequestParam(name = "search[value]") String search,
-                              @RequestParam(name = "order[0][dir]") String order) {
-        int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
-        String columnName = request.getParameter("columns[" + columnNumber + "][data]");
+    public String getStudents(int groupId, HttpServletRequest request) {
+        DataTablesWrapper dataTables = new DataTablesWrapper(request);
 
-        order =  columnName + " " + order;
+        Pageable pageable = PageRequest.of(dataTables.getPage(),
+                dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
-        number = groupService.getByNumber(number).getId();
-
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("groupNumber", number);
-        parameters.put("page", page);
-        parameters.put("length", length);
-        parameters.put("filter", search);
-        parameters.put("order", order);
-
-        List<Student> students = studentService.getGroupStudents(parameters);
+        Page<Student> students = studentService.getGroupStudents(groupId,
+                dataTables.getFilter(), pageable);
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Student.class, new StudentEasySerialize())
@@ -106,41 +86,24 @@ public class GroupPageController {
 
         JsonObject result = new JsonObject();
 
-        result.addProperty("draw", draw);
-        result.add("data", gson.toJsonTree(students));
-        result.addProperty("recordsTotal", studentService.getGroupStudentsLength(number, ""));
-        result.addProperty("recordsFiltered", studentService.getGroupStudentsLength(number, search));
+        result.addProperty("draw", dataTables.getDraw());
+        result.add("data", gson.toJsonTree(students.getContent()));
+        result.addProperty("recordsTotal", studentService.getCountGroupStudents(groupId));
+        result.addProperty("recordsFiltered", students.getTotalElements());
 
         return result.toString();
     }
 
     @RequestMapping("/getTeachersGroup")
     @ResponseBody
-    public String getTeachers(HttpServletRequest request,
-                              @RequestParam(name = "numberGroup") int number,
-                              @RequestParam(name = "start") int page,
-                              @RequestParam(name = "length") int length,
-                              @RequestParam(name = "draw") String draw,
-                              @RequestParam(name = "search[value]") String search,
-                              @RequestParam(name = "order[0][dir]") String order) {
+    public String getTeachers(int groupId, HttpServletRequest request) {
+        DataTablesWrapper dataTables = new DataTablesWrapper(request);
 
-        int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
-        String columnName = request.getParameter("columns[" + columnNumber + "][data]");
+        Pageable pageable = PageRequest.of(dataTables.getPage(),
+                dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
-        order = columnName + " " + order;
-
-        number = groupService.getByNumber(number).getId();
-
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("groupNumber", number);
-        parameters.put("page", page);
-        parameters.put("length", length);
-        parameters.put("draw", draw);
-        parameters.put("filter", search);
-        parameters.put("order", order);
-        parameters.put("number", number);
-
-        List<Teacher> teachers = teacherService.getTeachersForGroup(parameters);
+        Page<Teacher> teachers = teacherService.getTeacherInGroup(groupId,
+                dataTables.getFilter(), pageable);
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Teacher.class, new TeacherEasySerialize())
@@ -148,43 +111,25 @@ public class GroupPageController {
 
         JsonObject result = new JsonObject();
 
-        result.addProperty("draw", draw);
-        result.add("data", gson.toJsonTree(teachers));
-        result.addProperty("recordsTotal", teacherService.getTeachersForGroupLength(number, ""));
-        result.addProperty("recordsFiltered", teacherService.getTeachersForGroupLength(number, search));
+        result.addProperty("draw", dataTables.getDraw());
+        result.add("data", gson.toJsonTree(teachers.getContent()));
+        result.addProperty("recordsTotal",
+                teacherService.getCountTeacherInGroup(groupId));
+        result.addProperty("recordsFiltered", teachers.getTotalElements());
 
         return result.toString();
     }
 
     @RequestMapping("/getNewTeachersGroup")
     @ResponseBody
-    public String getNewTeachers(HttpServletRequest request,
-                                 @RequestParam(name = "numberGroup") int number,
-                                 @RequestParam(name = "start") int page,
-                                 @RequestParam(name = "length") int length,
-                                 @RequestParam(name = "draw") String draw,
-                                 @RequestParam(name = "search[value]") String search,
-                                 @RequestParam(name = "order[0][dir]") String order) {
-        int columnNumber = Integer
-                .parseInt(request.getParameter("order[0][column]"));
-        String columnName = request
-                .getParameter("columns[" + columnNumber + "][data]");
+    public String getNewTeachers(int groupId, HttpServletRequest request) {
+        DataTablesWrapper dataTables = new DataTablesWrapper(request);
 
-        order = columnName + " " + order;
+        Pageable pageable = PageRequest.of(dataTables.getPage(),
+                dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
-        number = groupService.getByNumber(number).getId();
-
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("groupNumber", number);
-        parameters.put("page", page);
-        parameters.put("length", length);
-        parameters.put("draw", draw);
-        parameters.put("filter", search);
-        parameters.put("order", order);
-        parameters.put("number", number);
-
-        List<Teacher> teachers = teacherService
-                .getNewTeachersForGroup(parameters);
+        Page<Teacher> teachers = teacherService.getTeacherNotInGroup(groupId,
+                dataTables.getFilter(), pageable);
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Teacher.class, new TeacherEasySerialize())
@@ -192,46 +137,45 @@ public class GroupPageController {
 
         JsonObject result = new JsonObject();
 
-        result.addProperty("draw", draw);
-        result.add("data", gson.toJsonTree(teachers));
+        result.addProperty("draw", dataTables.getDraw());
+        result.add("data", gson.toJsonTree(teachers.getContent()));
         result.addProperty("recordsTotal",
-                teacherService.getNewTeachersForGroupLength(number, ""));
+                teacherService.getCountTeacherNotInGroup(groupId));
         result.addProperty("recordsFiltered",
-                teacherService.getNewTeachersForGroupLength(number, search));
+                teachers.getTotalElements());
 
         return result.toString();
     }
 
     @RequestMapping("/setNumberGroup")
     @ResponseBody
-    public void setNumberGroup(@RequestParam(name = "idGroup") int idGroup,
-                               @RequestParam(name = "numberGroup") int newNumber) {
-        groupService.setNumber(idGroup, newNumber);
+    public void setNumberGroup(@RequestParam(name = "groupId") Group group,
+                               int numberGroup) {
+        group.setNumber(numberGroup);
+        groupService.save(group);
     }
 
     @RequestMapping("/insertGroup")
     @ResponseBody
-    public void insertGroup(@RequestParam(name = "numberGroup") int number) {
-        groupService.insert(number);
+    public void insertGroup(Group group) {
+        groupService.save(group);
     }
 
     @RequestMapping("/deleteGroup")
     @ResponseBody
-    public void deleteGroup(@RequestParam(name = "idGroup") int id) {
-        groupService.delete(id);
+    public void deleteGroup(@RequestParam(name = "groupId") Group group) {
+        groupService.delete(group);
     }
 
     @RequestMapping("/addTeacherForGroup")
     @ResponseBody
-    public void addTeacher(@RequestParam(name = "numberGroup") int numberGroup,
-                                   @RequestParam(name = "idTeacher") int idTeacher) {
-        groupService.addTeacher(numberGroup, idTeacher);
+    public void addTeacher(int groupId, int teacherId) {
+        groupService.addTeacher(groupId, teacherId);
     }
 
     @RequestMapping("/deleteTeacherForGroup")
     @ResponseBody
-    public void deleteTeacher(@RequestParam(name = "numberGroup") int numberGroup,
-                                   @RequestParam(name = "idTeacher") int idTeacher) {
-        groupService.deleteTeacher(numberGroup, idTeacher);
+    public void deleteTeacher(int groupId, int teacherId) {
+        groupService.removeTeacher(groupId, teacherId);
     }
 }

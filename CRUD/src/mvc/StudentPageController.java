@@ -4,57 +4,49 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import gsonSerialize.GroupSerialize;
 import gsonSerialize.StudentSerialize;
+import mvc.wrappers.DataTablesWrapper;
 import objectForStrokeBase.Gender;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import workWithBase.serviceInterfaces.GroupServiceInterface;
 import workWithBase.serviceInterfaces.StudentServiceInterface;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/students")
 public class StudentPageController {
 
     private StudentServiceInterface studentService;
+    private GroupServiceInterface groupService;
 
     @Autowired
-    public StudentPageController(StudentServiceInterface studentService) {
+    public StudentPageController(StudentServiceInterface studentService,
+                                 GroupServiceInterface groupService) {
         this.studentService = studentService;
+        this.groupService = groupService;
     }
 
     @RequestMapping("/selectStudentsByCriterion")
     @ResponseBody
-    public String getStudents(HttpServletRequest request,
-                              @RequestParam(name = "start") int page,
-                              @RequestParam(name = "length") int length,
-                              @RequestParam(name = "draw") String draw,
-                              @RequestParam(name = "search[value]") String search,
-                              @RequestParam(name = "order[0][dir]") String order
-                              ) {
-        int columnNumber = Integer.parseInt(request.getParameter("order[0][column]"));
-        String columnName = request.getParameter("columns[" + columnNumber + "][data]");
+    public String getStudents(HttpServletRequest request) {
+        DataTablesWrapper dataTables = new DataTablesWrapper(request);
 
-        if(columnName.equals("group")) {
-            columnName += ".number";
-        }
+        Pageable pageable = PageRequest.of(dataTables.getPage(),
+                dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
-        order = columnName + " " + order;
-
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("filter", search);
-        parameters.put("order", order);
-        parameters.put("page", page);
-        parameters.put("length", length);
-
-        List students = studentService.getStudents(parameters);
+        Page<Student> students = studentService.getStudents(dataTables.getFilter(), pageable);
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Student.class, new StudentSerialize())
@@ -62,27 +54,29 @@ public class StudentPageController {
 
         JsonObject result = new JsonObject();
 
-        result.addProperty("draw", draw);
-        result.add("data", gson.toJsonTree(students));
-        result.addProperty("recordsTotal", studentService.getStudents(""));
-        result.addProperty("recordsFiltered", studentService.getStudents(search));
+        result.addProperty("draw", dataTables.getDraw());
+        result.add("data", gson.toJsonTree(students.getContent()));
+        result.addProperty("recordsTotal", studentService.getCount());
+        result.addProperty("recordsFiltered", students.getTotalElements());
 
         return result.toString();
     }
 
     @RequestMapping("/setNameStudent")
     @ResponseBody
-    public void updateNameStudent(@RequestParam(name = "idStudent") int idStudent,
-                              @RequestParam(name = "newNameStudent") String newNameStudent) {
-        studentService.updateName(idStudent, newNameStudent);
+    public void updateNameStudent(@RequestParam(name = "idStudent") Student student,
+                                  String newNameStudent) {
+        student.setName(newNameStudent);
+        studentService.update(student);
     }
 
     @RequestMapping("/setBirthdayStudent")
     @ResponseBody
     public void updateBirthdayStudent
-            (@RequestParam(name = "idStudent") int idStudent,
-             @RequestParam(name = "newBirthdayStudent") String newBirthdayStudent) {
-        studentService.updateBirthday(idStudent, LocalDate.parse(newBirthdayStudent));
+            (@RequestParam(name = "idStudent") Student student,
+             LocalDate newBirthdayStudent) {
+        student.setDate(newBirthdayStudent);
+        studentService.update(student);
     }
 
     @RequestMapping(value = "/getGender", produces = "application/json")
@@ -106,49 +100,55 @@ public class StudentPageController {
 
     @RequestMapping("/setGenderStudent")
     @ResponseBody
-    public void updateGenderStudent(@RequestParam(name = "idStudent") int idStudent,
-                                  @RequestParam(name = "genderStudent") String genderStudent) {
-        studentService.updateGender(idStudent, genderStudent);
+    public void updateGenderStudent(@RequestParam(name = "idStudent") Student student,
+                                    Gender genderStudent) {
+        student.setGender(genderStudent);
+        studentService.update(student);
     }
 
     @RequestMapping("/setGroupStudent")
     @ResponseBody
-    public void updateGroupStudent(@RequestParam(name = "idStudent") int idStudent,
-                                  @RequestParam(name = "numberGroup") int newNumberGroup) {
-        studentService.updateGroup(idStudent, newNumberGroup);
+    public void updateGroupStudent(@RequestParam(name = "idStudent") Student student,
+                                  @RequestParam(name = "numberGroup") Group group) {
+        student.setGroup(group);
+        studentService.update(student);
     }
 
     @RequestMapping("/insertStudent")
     @ResponseBody
-    public void insertStudent(@RequestParam(name = "nameStudent") String name,
-                              @RequestParam(name = "birthdayStudent") String date,
-                              @RequestParam(name = "genderStudent") String genderStudent,
-                              @RequestParam(name = "groupStudent") int number) {
-        LocalDate birthday = LocalDate.parse(date);
-        Gender gender = null;
-        for (Gender e : Gender.values()) {
-            if (genderStudent.equals(e.toString())) {
-                gender = e;
-            }
-        }
-
-        studentService.insert(name, birthday, gender, number);
+    public void insertStudent(Student student) {
+        studentService.insert(student);
     }
 
     @RequestMapping("/deleteStudent")
     @ResponseBody
-    public void deleteStudent(@RequestParam(name = "idStudent") int idStudent) {
-        studentService.delete(idStudent);
+    public void deleteStudent(@RequestParam(name = "idStudent") Student student) {
+        studentService.delete(student);
     }
 
-    @RequestMapping("/searchGroups")
+    @RequestMapping("/getGroups")
     @ResponseBody
-    public String getPromptGroups(@RequestParam(name = "number") int inputNumber) {
-        List<Group> groups = studentService.getPromptGroups(inputNumber);
-        JsonArray result = new JsonArray();
-        for (Group e : groups) {
-            result.add(e.getNumber());
-        }
+    public String getNewGroups(HttpServletRequest request) {
+        DataTablesWrapper dataTables = new DataTablesWrapper(request);
+
+        Pageable pageable = PageRequest.of(dataTables.getPage(), dataTables.getLength(),
+                Sort.by(dataTables.getOrders()));
+
+        Page<Group> groups = groupService.getGroups(
+                dataTables.getFilter(), pageable);
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Group.class, new GroupSerialize())
+                .create();
+
+        JsonObject result = new JsonObject();
+
+        result.addProperty("draw", dataTables.getDraw());
+        result.add("data", gson.toJsonTree(groups.getContent()));
+        result.addProperty("recordsTotal", groupService.getCount());
+        result.addProperty("recordsFiltered",
+                groups.getTotalElements());
+
         return result.toString();
     }
 }

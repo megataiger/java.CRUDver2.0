@@ -39,6 +39,25 @@ public class Group {
         number = numberGroup;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public void setTeachers(List<Teacher> teachers) {
+        this.teachers = teachers;
+    }
 
     public Group(int numberGroup) {
         number = numberGroup;
@@ -46,10 +65,6 @@ public class Group {
 
     public String toString() {
         return id + "\t" + number;
-    }
-
-    public void set(int newNumber) {
-        number = newNumber;
     }
 
     public void setTeacher(Teacher oldTeacher, Teacher newTeacher) {

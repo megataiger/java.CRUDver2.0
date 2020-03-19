@@ -40,13 +40,6 @@ public class Teacher {
     public Teacher() {
     }
 
-    public Teacher(int idTeacher, String nameTeacher, LocalDate birthday, Gender gender) {
-        id = idTeacher;
-        name = nameTeacher;
-        date = birthday;
-        this.gender = gender;
-    }
-
     public Teacher(String nameTeacher, LocalDate birthday, Gender gender) {
         name = nameTeacher;
         date = birthday;
@@ -75,6 +68,25 @@ public class Teacher {
         groups.add(newGroup);
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
 
     public String getName() {
         return name;

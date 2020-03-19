@@ -20,7 +20,7 @@ public class TeacherSerialize implements JsonSerializer<Teacher> {
         object.addProperty("DT_RowId", teacher.getId());
         object.addProperty("id", teacher.getId());
         object.addProperty("name", teacher.getName());
-        object.addProperty("birthday", formatter.format(teacher.getDate()));
+        object.addProperty("date", formatter.format(teacher.getDate()));
         for (Gender e : Gender.values()) {
             if (teacher.getGender().equals(e.toString())) {
                 object.addProperty("gender", e.getGender());

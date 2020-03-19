@@ -40,9 +40,9 @@ public class Student {
     public Student() {
     }
 
-    public Student(String nameStudent, LocalDate birthday, Gender gender, Group group) {
-        name = nameStudent;
-        date = birthday;
+    public Student(String name, LocalDate date, Gender gender, Group group) {
+        this.name = name;
+        this.date = date;
         this.gender = gender;
         this.group = group;
     }
@@ -57,22 +57,25 @@ public class Student {
         }
     }
 
-    public void setNameStudent(String newName) {
-        name = newName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setBirthdayStudent(LocalDate newDate) {
-        date = newDate;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setGenderStudent(Gender newGender) {
-        gender = newGender;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public void setGroupStudent(Group newGroup) {
-        group = newGroup;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 
     public String getName() {
         return name;

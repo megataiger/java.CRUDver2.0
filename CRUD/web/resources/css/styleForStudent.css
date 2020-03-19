@@ -38,7 +38,7 @@ td.name {
     height: 52px;
 }
 
-td.birthday {
+td.date {
     width: 150px;
 }
 
@@ -66,41 +66,49 @@ td.birthday {
     background-color: white;
 }
 
-#promptToSearch {
-    background-color: white;
-    position: absolute;
-    margin: auto;
-    z-index: 1;
-    /*   width: 174px; */
-    border: 1px solid #D6D3D3;
-    border-bottom: 2px solid #C4C2C2;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
-
-table#prompt table#addGroup {
-    margin: auto;
-    border-collapse: separate;
-}
-
-#promptToAdd {
-    background-color: white;
-    position: absolute;
-    margin: auto;
-    z-index: 1;
-    /*   width: 174px; */
-    border: 1px solid #D6D3D3;
-    border-bottom: 2px solid #C4C2C2;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
-
-table#addGroup > tr > td:hover {
-    background-color: #f0f0f0;
-}
-
 .id {
     display: none;
+}
+
+#addGroup {
+    background: #fafafa;
+    font-size: 10pt;
+    text-align: center;
+}
+
+th.number th.choose td.number td.choose {
+    background: #fafafa;
+    font-size: 10pt;
+    text-align: center;
+}
+
+#myModal {
+    width: 298px; height: 298px;
+    padding: 18px 9px;
+    border-radius: 4px;
+    background: #fafafa;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: auto;
+    display: none;
+    opacity: 0;
+    z-index: 38;
+    text-align: center;
+}
+#myModal #my_group {
+    width: 21px; height: 21px;
+    position: absolute;
+    top: 1px;   right: 11px;
+    cursor: pointer;
+    display: block;
+    font-size: 29px;
+}
+#myOverlay {
+    z-index: 37;
+    position: fixed;
+    background-color: rgba(0,0,0,.7);
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    cursor :pointer;
+    display :none;
 }

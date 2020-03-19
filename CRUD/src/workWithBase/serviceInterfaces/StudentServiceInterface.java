@@ -1,33 +1,28 @@
 package workWithBase.serviceInterfaces;
 
-import objectForStrokeBase.Gender;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public interface StudentServiceInterface {
-    void insert(String name, LocalDate birthday, Gender gender, int numberGroup);
+    Student findById(int id);
 
-    void delete(int idStudent);
+    void insert(Student student);
 
-    void updateName(int idStudent, String newName);
+    void update(Student student);
 
-    void updateBirthday(int idStudent, LocalDate birthday);
+    void delete(Student student);
 
-    void updateGender(int idStudent, String newGender);
+    int getCount();
 
-    void updateGroup(int idStudent, int numberGroup);
+    Page<Student> getStudents(String filter, Pageable pageable);
 
-    List<Student> getStudents(Map<String, Object> parameters);
+    List<Group> getPromptGroups(String number);
 
-    String getStudents(String filter);
+    Page<Student> getGroupStudents(int groupId, String filter, Pageable pageable);
 
-    List<Group> getPromptGroups(int number);
-
-    List<Student> getGroupStudents(Map<String, Object> parameters);
-
-    String getGroupStudentsLength(int number, String filter);
+    int getCountGroupStudents(int groupId);
 }

@@ -18,7 +18,7 @@ public class TeacherEasySerialize implements JsonSerializer<Teacher> {
 
         object.addProperty("id", teacher.getId());
         object.addProperty("name", teacher.getName());
-        object.addProperty("birthday", formatter.format(teacher.getDate()));
+        object.addProperty("date", formatter.format(teacher.getDate()));
 
         return object;
     }

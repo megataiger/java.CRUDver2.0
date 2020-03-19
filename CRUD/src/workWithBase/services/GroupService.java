@@ -3,90 +3,76 @@ package workWithBase.services;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import workWithBase.daoInterfaces.GroupDAOInterface;
-import workWithBase.daoInterfaces.TeacherDAOInterface;
+import workWithBase.repositories.GroupRepository;
 import workWithBase.serviceInterfaces.GroupServiceInterface;
-
-import java.util.List;
-import java.util.Map;
+import workWithBase.serviceInterfaces.TeacherServiceInterface;
 
 @Service
 public class GroupService implements GroupServiceInterface {
 
-    private GroupDAOInterface groupDAO;
-    private TeacherDAOInterface teacherDAO;
+    private GroupRepository groupRepository;
+    private TeacherServiceInterface teacherService;
 
     @Autowired
-    public GroupService(GroupDAOInterface groupDAO,
-                        TeacherDAOInterface teacherDAO){
-        this.groupDAO = groupDAO;
-        this.teacherDAO = teacherDAO;
+    public GroupService(GroupRepository groupRepository,
+                        TeacherServiceInterface teacherService){
+        this.groupRepository = groupRepository;
+        this.teacherService = teacherService;
+    }
+
+    public Group findById(int id) {
+        return groupRepository.findById(id).orElse(new Group());
+    }
+
+    public void save(Group group) {
+        groupRepository.save(group);
+    }
+
+    public void delete(Group group) {
+        groupRepository.delete(group);
+    }
+
+    public int getCount() {
+        return (int) groupRepository.count();
     }
 
     @Transactional
-    public void insert(int number) {
-        Group group = new Group(number);
-        groupDAO.save(group);
-    }
-
-    @Transactional
-    public void delete(int id) {
-        Group group = groupDAO.findById(id);
-        groupDAO.delete(group);
-    }
-
-    @Transactional
-    public void setNumber(int id, int number) {
-        Group group = groupDAO.findById(id);
-        group.set(number);
-        groupDAO.update(group);
-    }
-
-    @Transactional
-    public void addTeacher(int number, int idTeacher) {
-        Teacher teacher = teacherDAO.findById(idTeacher);
-        Group group = groupDAO.selectGroupByNumber(number);
-
+    public void addTeacher(int groupId, int teacherId) {
+        Group group = findById(groupId);
+        Teacher teacher = teacherService.findById(teacherId);
         group.addTeacher(teacher);
-        groupDAO.update(group);
+        save(group);
     }
 
     @Transactional
-    public void deleteTeacher(int number, int idTeacher) {
-        Teacher teacher = teacherDAO.findById(idTeacher);
-        Group group = groupDAO.selectGroupByNumber(number);
-
+    public void removeTeacher(int groupId, int teacherId){
+        Group group = findById(groupId);
+        Teacher teacher = teacherService.findById(teacherId);
         group.removeTeacher(teacher);
-        groupDAO.update(group);
+        save(group);
     }
 
-    public List<Group> getGroups(Map<String, Object> parameters) {
-        return groupDAO.getGroups(parameters);
+    public Page<Group> getGroups(String filter, Pageable pageable) {
+        return groupRepository.getAll(filter, pageable);
     }
 
-    public Group getByNumber(int number) {
-        return groupDAO.selectGroupByNumber(number);
+    public Page<Group> getGroupsInTeacher(int teacherId, String filter, Pageable pageable){
+        return groupRepository.getGroupInTeacher(teacherId, filter, pageable);
     }
 
-    public String getGroupsLength(String filter) {
-        return groupDAO.getGroups(filter);
+    public int getCountGroupInTeacher(int idTeacher) {
+        return groupRepository.getCountGroupInTeacher(idTeacher);
     }
 
-    public List<Group> getGroupsForTeacher(Map<String, Object> parameters){
-        return groupDAO.getGroupForTeacher(parameters);
+    public Page<Group> getGroupNotInTeacher(int teacherId, String filter, Pageable pageable){
+        return groupRepository.getGroupNotInTeacher(teacherId, filter, pageable);
     }
 
-    public String getGroupsForTeacherLength(int idTeacher, String filter){
-        return groupDAO.getGroupForTeacher(idTeacher, filter);
-    }
-
-    public List<Group> getNewGroupsForTeacher(Map<String, Object> parameters){
-        return groupDAO.getNewGroupForTeacher(parameters);
-    }
-
-    public String getNewGroupsForTeacherLength(int idTeacher, String filter){
-        return groupDAO.getNewGroupForTeacher(idTeacher, filter);
+    public int getCountGroupNotInTeacher(int idTeacher) {
+        return groupRepository.getCountGroupNotInTeacher(idTeacher);
     }
 }

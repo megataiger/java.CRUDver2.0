@@ -41,20 +41,28 @@
     <form action="" id="addStudent" method="POST">
         <h3>Добавление нового студента</h3>
         <label for="inputNameStudent">Ф.И.О</label>
-        <input type="text" id="inputNameStudent" name="nameStudent"/><br><br>
+        <input type="text" id="inputNameStudent" name="name"/><br><br>
         <label for="inputBirthdayStudent">Дата рождения</label>
-        <input type="date" id="inputBirthdayStudent" name="birthdayStudent"/><br><br>
+        <input type="date" id="inputBirthdayStudent" name="date"/><br><br>
         <label for="inputGenderStudent">Пол</label>
-        <input type="radio" id="inputGenderStudent" name="genderStudent" value="WOMAN" checked/>Женский
-        <input type="radio" name="genderStudent" value="MAN"/>Мужской<br><br>
-        <label for="inputGroupStudent">Группа</label>
-        <input id="inputGroupStudent" class="allGroup" name="groupStudent">
+        <input type="radio" id="inputGenderStudent" name="gender" value="WOMAN" checked/>Женский
+        <input type="radio" name="gender" value="MAN"/>Мужской<br><br>
+        <label for="plus">Группа</label>
+        <img id="plus" src="/resources/image/plus1.png">
         <br><br>
         <input type="submit" value="Добавить"/>
     </form>
-    <div id="promptToAdd">
-        <table id="addGroup"></table>
-    </div>
 </div>
+<div id="myModal">
+        <table id="addGroup">
+            <thead>
+
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+</div>
+<div id="myOverlay"></div>
 </body>
 </html>

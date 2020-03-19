@@ -1,101 +1,64 @@
 package workWithBase.services;
 
-import objectForStrokeBase.Gender;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import workWithBase.daoInterfaces.GroupDAOInterface;
-import workWithBase.daoInterfaces.StudentDAOInterface;
+import workWithBase.repositories.GroupRepository;
+import workWithBase.repositories.StudentRepository;
 import workWithBase.serviceInterfaces.StudentServiceInterface;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class StudentService implements StudentServiceInterface {
 
-    private StudentDAOInterface studentDAO;
-    private GroupDAOInterface groupDAO;
+    private GroupRepository groupRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-    public StudentService(StudentDAOInterface studentDAO,
-                          GroupDAOInterface groupDAO) {
-        this.groupDAO = groupDAO;
-        this.studentDAO = studentDAO;
+    public StudentService(GroupRepository groupRepository,
+                          StudentRepository studentRepository) {
+        this.groupRepository = groupRepository;
+        this.studentRepository = studentRepository;
     }
 
-    @Transactional
-    public void insert(String name, LocalDate birthday, Gender gender, int numberGroup) {
-        Group group = groupDAO.selectGroupByNumber(numberGroup);
-        Student student = new Student(name, birthday, gender, group);
-        studentDAO.save(student);
+    public Student findById(int id){
+        return studentRepository.findById(id).orElse(new Student());
     }
 
-    @Transactional
-    public void delete(int id) {
-        Student student = studentDAO.findById(id);
-        studentDAO.delete(student);
+    public void insert(Student student) {
+        studentRepository.save(student);
     }
 
-    @Transactional
-    public void updateName(int id, String newName) {
-        Student student = studentDAO.findById(id);
-        if (newName != null) {
-            student.setNameStudent(newName);
-        }
-        studentDAO.update(student);
+    public void delete(Student student) {
+        studentRepository.delete(student);
     }
 
-    @Transactional
-    public void updateBirthday(int id, LocalDate birthday) {
-        Student student = studentDAO.findById(id);
-        if (birthday != null) {
-            student.setBirthdayStudent(birthday);
-        }
-        studentDAO.update(student);
+    public void update(Student student) {
+        studentRepository.save(student);
     }
 
-    @Transactional
-    public void updateGender(int id, String newGender) {
-        Student student = studentDAO.findById(id);
-        if (newGender != null) {
-            for (Gender e : Gender.values()) {
-                if (newGender.equals(e.toString())) {
-                    student.setGenderStudent(e);
-                }
-            }
-        }
-        studentDAO.update(student);
+    public Page<Student> getStudents(String filter, Pageable pageable) {
+        return studentRepository.getStudents(filter, pageable);
     }
 
-    @Transactional
-    public void updateGroup(int id, int numberGroup) {
-        Group newGroup = groupDAO.selectGroupByNumber(numberGroup);
-        Student student = studentDAO.findById(id);
-        student.setGroupStudent(newGroup);
-        studentDAO.update(student);
+    public int getCount() {
+        return (int) studentRepository.count();
     }
 
-    public List<Student> getStudents(Map<String, Object> parameters) {
-        return studentDAO.findByFilter(parameters);
+    public List<Group> getPromptGroups(String number) {
+        return groupRepository.getPrompt(number);
     }
 
-    public String getStudents(String filter) {
-        return studentDAO.findByFilter(filter);
+    public Page<Student> getGroupStudents(int groupId, String filter, Pageable pageable) {
+        return studentRepository.findByGroup_Id(groupId, filter, pageable);
     }
 
-    public List<Group> getPromptGroups(int number) {
-        return groupDAO.searchGroup(number);
-    }
-
-    public List<Student> getGroupStudents(Map<String, Object> parameters) {
-        return studentDAO.findByGroup(parameters);
-    }
-
-    public String getGroupStudentsLength(int idGroup, String filter) {
-        return studentDAO.findByGroup(idGroup, filter);
+    public int getCountGroupStudents(int groupId){
+       return (int) studentRepository.getCountGroupStudents(groupId);
     }
 }

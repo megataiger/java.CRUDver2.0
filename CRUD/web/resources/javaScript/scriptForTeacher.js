@@ -81,11 +81,11 @@ function setNameTeacher(cell) {
     $(inputName).keypress(function (evt) {
         if (evt.keyCode === 13) {
             var newName = $(inputName).val();
-            var idTeacher = $(string).attr("id");
+            var teacherId = $(string).attr("id");
             $.post(
                 "teachers/setNameTeacher", {
                     nameTeacher: newName,
-                    idTeacher: idTeacher
+                    teacherId: teacherId
                 }, function () {
                     fieldName.html(newName);
                 }
@@ -121,11 +121,11 @@ function setBirthdayTeacher(cell, table) {
     $(inputBirthday).keypress(function (evt) {
         if (evt.keyCode === 13) {
             var newBirthday = $(inputBirthday).val();
-            var idTeacher = $(string).attr("id");
+            var teacherId = $(string).attr("id");
             $.post(
                 "teachers/setBirthdayTeacher", {
                     newBirthday: newBirthday,
-                    idTeacher: idTeacher
+                    teacherId: teacherId
                 }, function () {
                     table.draw();
                 }
@@ -177,7 +177,7 @@ function setGenderTeacher(cell, table) {
         var newGender = $(this).val();
 
         $.post("teachers/setGenderTeacher", {
-            idTeacher: $(string).attr("id"),
+            teacherId: $(string).attr("id"),
             newGender: newGender
         }, function () {
             table.draw();
@@ -194,10 +194,10 @@ function deleteTeacher(bascet, evt, table) {
 
     var fieldOfOperations = $(bascet).parent();
     var string = $(fieldOfOperations).parent();
-    var idTeacher = $(string).attr("id");
+    var teacherId = $(string).attr("id");
 
     $.get("teachers/deleteTeacher", {
-        idTeacher: idTeacher
+        teacherId: teacherId
     }, function () {
         var info = table.page.info();
         if (info.pages > 0) {
@@ -227,12 +227,12 @@ function viewMenuGroups(evt, cell) {
 
     var fieldOfOperations = $(cell).parent();
     var string = $(fieldOfOperations).parent();
-    var idTeacher = $(string).children(".id").text();
+    var teacherId = $(string).children(".id").text();
     var nameTeacher = $(string).children(".nameTeacher").text();
 
     var nameChooseTeacher = $("#nameChooseTeacher");
 
-    nameChooseTeacher.attr("class", idTeacher);
+    nameChooseTeacher.attr("class", teacherId);
     nameChooseTeacher.text(nameTeacher);
 
     $("#viewGroup").css({"border": "0px"});
@@ -295,17 +295,13 @@ function clickToViewGroupsOfTeacher(button) {
 function deleteGroupOfTeacher(evt, table, cell) {
     evt.preventDefault();
 
-    var fieldDeleteGroup = $(cell).parent();
-    var stringGroup = $(fieldDeleteGroup).parent();
-    var numberGroup = $(stringGroup)
-        .children(".number")
-        .text();
+    var groupId = $(cell).attr("href");
 
-    var idTeacher = $("#nameChooseTeacher").attr("class");
+    var teacherId = $("#nameChooseTeacher").attr("class");
 
     $.get("teachers/deleteGroupForTeacher", {
-        idTeacher: idTeacher,
-        numberGroup: numberGroup
+        teacherId: teacherId,
+        groupId: groupId
     }, function () {
         var tableTeacher = table.DataTable();
         var info = tableTeacher.page.info();
@@ -324,19 +320,13 @@ function deleteGroupOfTeacher(evt, table, cell) {
 function addGroupForTeacher(evt, table, cell) {
     evt.preventDefault();
 
-    var fieldAddGroup = $(cell).parent();
-    var stringGroup = $(fieldAddGroup).parent();
-    var numberGroup = $(stringGroup)
-        .children(".number")
-        .text();
+    var groupId = $(cell).attr("href");
 
-    console.log($(fieldAddGroup).text());
-
-    var idTeacher = $("#nameChooseTeacher").attr("class");
+    var teacherId = $("#nameChooseTeacher").attr("class");
 
     $.get("teachers/addGroupForTeacher", {
-        idTeacher: idTeacher,
-        numberGroup: numberGroup
+        teacherId: teacherId,
+        groupId: groupId
     }, function () {
         var tableTeacher = table.DataTable();
         var info = tableTeacher.page.info();
@@ -378,8 +368,8 @@ function getTeachersTable() {
             },
             {
                 "className": "birthdayTeacher",
-                "name": "birthday",
-                "data": "birthday",
+                "name": "date",
+                "data": "date",
                 "title": "Дата рождения"
             },
             {
@@ -415,7 +405,7 @@ function getTeacherGroupsTable() {
             url: "teachers/getGroupsTeacher",
             type: "GET",
             data: function (d) {
-                d.idTeacher = $("#nameChooseTeacher").attr("class");
+                d.teacherId = $("#nameChooseTeacher").attr("class");
             }
         },
         columns: [
@@ -429,7 +419,7 @@ function getTeacherGroupsTable() {
             {
                 "orderable": false,
                 "name": "delete",
-                "data": "number",
+                "data": "id",
                 "title": "Действие",
                 "render": function (data) {
                     return '<a class="deleteGroup" href="' + data + '">' +
@@ -451,7 +441,7 @@ function getTeacherNewGroupsTable() {
             url: "teachers/getNewGroupsTeacher",
             type: "GET",
             data: function (d) {
-                d.idTeacher = $("#nameChooseTeacher").attr("class");
+                d.teacherId = $("#nameChooseTeacher").attr("class");
             }
         },
         columns: [
@@ -465,7 +455,7 @@ function getTeacherNewGroupsTable() {
             {
                 "orderable": false,
                 "name": "delete",
-                "data": "number",
+                "data": "id",
                 "title": "Действие",
                 "render": function (data) {
                     return '<a class="addGroup" href="' + data + '">' +
