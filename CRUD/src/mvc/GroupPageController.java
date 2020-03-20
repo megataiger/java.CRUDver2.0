@@ -24,9 +24,6 @@ import workWithBase.serviceInterfaces.StudentServiceInterface;
 import workWithBase.serviceInterfaces.TeacherServiceInterface;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/groups")
@@ -53,7 +50,8 @@ public class GroupPageController {
         Pageable pageable = PageRequest.of(dataTables.getPage(),
                 dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
-        Page<Group> groups = groupService.getGroups(dataTables.getFilter(), pageable);
+        Page<Group> groups = groupService.getGroups(dataTables.getFilter(),
+                pageable);
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Group.class, new GroupSerialize())
@@ -88,7 +86,8 @@ public class GroupPageController {
 
         result.addProperty("draw", dataTables.getDraw());
         result.add("data", gson.toJsonTree(students.getContent()));
-        result.addProperty("recordsTotal", studentService.getCountGroupStudents(groupId));
+        result.addProperty("recordsTotal",
+                studentService.getCountGroupStudents(groupId));
         result.addProperty("recordsFiltered", students.getTotalElements());
 
         return result.toString();

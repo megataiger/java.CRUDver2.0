@@ -1,11 +1,8 @@
 package workWithBase.serviceInterfaces;
 
-import objectForStrokeBase.Group;
 import objectForStrokeBase.Teacher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.time.LocalDate;
 
 public interface TeacherServiceInterface {
     Teacher findById(int id);
@@ -18,11 +15,15 @@ public interface TeacherServiceInterface {
 
     Page<Teacher> getTeachers(String filter, Pageable pageable);
 
-    Page<Teacher> getTeacherInGroup(int groupId, String filter, Pageable pageable);
+    Page<Teacher> getTeacherInGroup(int groupId,
+                                    String filter,
+                                    Pageable pageable);
 
     int getCountTeacherInGroup(int groupId);
 
-    Page<Teacher> getTeacherNotInGroup(int groupId, String filter, Pageable pageable);
+    Page<Teacher> getTeacherNotInGroup(int groupId,
+                                       String filter,
+                                       Pageable pageable);
 
     int getCountTeacherNotInGroup(int groupId);
 

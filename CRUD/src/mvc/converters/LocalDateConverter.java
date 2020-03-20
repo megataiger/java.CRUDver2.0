@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class LocalDateConverter implements Converter<String, LocalDate> {
     @Override
-    public LocalDate convert(String s) {
-        return LocalDate.parse(s);
+    public LocalDate convert(String date) {
+        return LocalDate.parse(date);
     }
 }

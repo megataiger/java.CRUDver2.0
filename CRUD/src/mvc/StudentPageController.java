@@ -22,7 +22,6 @@ import workWithBase.serviceInterfaces.StudentServiceInterface;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 @RequestMapping("/students")
@@ -46,7 +45,8 @@ public class StudentPageController {
         Pageable pageable = PageRequest.of(dataTables.getPage(),
                 dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
-        Page<Student> students = studentService.getStudents(dataTables.getFilter(), pageable);
+        Page<Student> students = studentService
+                .getStudents(dataTables.getFilter(), pageable);
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Student.class, new StudentSerialize())
@@ -64,8 +64,9 @@ public class StudentPageController {
 
     @RequestMapping("/setNameStudent")
     @ResponseBody
-    public void updateNameStudent(@RequestParam(name = "idStudent") Student student,
-                                  String newNameStudent) {
+    public void updateNameStudent
+            (@RequestParam(name = "idStudent") Student student,
+             String newNameStudent) {
         student.setName(newNameStudent);
         studentService.update(student);
     }
@@ -81,7 +82,8 @@ public class StudentPageController {
 
     @RequestMapping(value = "/getGender", produces = "application/json")
     @ResponseBody
-    public String getGenderList(@RequestParam(name = "gender") String genderInBase) {
+    public String getGenderList
+            (@RequestParam(name = "gender") String genderInBase) {
         JsonArray resultList = new JsonArray();
         for (Gender e : Gender.values()) {
             JsonObject gender = new JsonObject();
@@ -100,16 +102,18 @@ public class StudentPageController {
 
     @RequestMapping("/setGenderStudent")
     @ResponseBody
-    public void updateGenderStudent(@RequestParam(name = "idStudent") Student student,
-                                    Gender genderStudent) {
+    public void updateGenderStudent
+            (@RequestParam(name = "idStudent") Student student,
+             Gender genderStudent) {
         student.setGender(genderStudent);
         studentService.update(student);
     }
 
     @RequestMapping("/setGroupStudent")
     @ResponseBody
-    public void updateGroupStudent(@RequestParam(name = "idStudent") Student student,
-                                  @RequestParam(name = "numberGroup") Group group) {
+    public void updateGroupStudent
+            (@RequestParam(name = "idStudent") Student student,
+             @RequestParam(name = "numberGroup") Group group) {
         student.setGroup(group);
         studentService.update(student);
     }
@@ -122,17 +126,18 @@ public class StudentPageController {
 
     @RequestMapping("/deleteStudent")
     @ResponseBody
-    public void deleteStudent(@RequestParam(name = "idStudent") Student student) {
+    public void deleteStudent
+            (@RequestParam(name = "idStudent") Student student) {
         studentService.delete(student);
     }
 
     @RequestMapping("/getGroups")
     @ResponseBody
-    public String getNewGroups(HttpServletRequest request) {
+    public String getGroups(HttpServletRequest request) {
         DataTablesWrapper dataTables = new DataTablesWrapper(request);
 
-        Pageable pageable = PageRequest.of(dataTables.getPage(), dataTables.getLength(),
-                Sort.by(dataTables.getOrders()));
+        Pageable pageable = PageRequest.of(dataTables.getPage(),
+                dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
         Page<Group> groups = groupService.getGroups(
                 dataTables.getFilter(), pageable);

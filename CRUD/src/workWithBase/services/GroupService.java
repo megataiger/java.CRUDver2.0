@@ -60,7 +60,9 @@ public class GroupService implements GroupServiceInterface {
         return groupRepository.getAll(filter, pageable);
     }
 
-    public Page<Group> getGroupsInTeacher(int teacherId, String filter, Pageable pageable){
+    public Page<Group> getGroupsInTeacher(int teacherId,
+                                          String filter,
+                                          Pageable pageable){
         return groupRepository.getGroupInTeacher(teacherId, filter, pageable);
     }
 
@@ -68,11 +70,13 @@ public class GroupService implements GroupServiceInterface {
         return groupRepository.getCountGroupInTeacher(idTeacher);
     }
 
-    public Page<Group> getGroupNotInTeacher(int teacherId, String filter, Pageable pageable){
+    public Page<Group> getGroupNotInTeacher(int teacherId,
+                                            String filter,
+                                            Pageable pageable){
         return groupRepository.getGroupNotInTeacher(teacherId, filter, pageable);
     }
 
-    public int getCountGroupNotInTeacher(int idTeacher) {
-        return groupRepository.getCountGroupNotInTeacher(idTeacher);
+    public int getCountGroupNotInTeacher(int teacherId) {
+        return groupRepository.getCountGroupNotInTeacher(teacherId);
     }
 }

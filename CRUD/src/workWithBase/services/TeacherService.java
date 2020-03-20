@@ -44,7 +44,9 @@ public class TeacherService implements TeacherServiceInterface {
         return teacherRepository.getAll(filter, pageable);
     }
 
-    public Page<Teacher> getTeacherInGroup(int groupId, String filter, Pageable pageable) {
+    public Page<Teacher> getTeacherInGroup(int groupId,
+                                           String filter,
+                                           Pageable pageable) {
         return teacherRepository.getTeacherInGroup(groupId, filter, pageable);
     }
 
@@ -52,7 +54,9 @@ public class TeacherService implements TeacherServiceInterface {
         return teacherRepository.getCountTeacherInGroup(groupId);
     }
 
-    public Page<Teacher> getTeacherNotInGroup(int groupId, String filter, Pageable pageable) {
+    public Page<Teacher> getTeacherNotInGroup(int groupId,
+                                              String filter,
+                                              Pageable pageable) {
         return teacherRepository.getTeacherNotInGroup(groupId, filter, pageable);
     }
 

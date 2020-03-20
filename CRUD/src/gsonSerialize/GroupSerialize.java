@@ -10,7 +10,8 @@ import java.lang.reflect.Type;
 
 public class GroupSerialize implements JsonSerializer<Group> {
     @Override
-    public JsonElement serialize(Group group, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(Group group, Type typeOfSrc,
+                                 JsonSerializationContext context) {
         JsonObject object = new JsonObject();
         object.addProperty("id", group.getId());
         object.addProperty("number", group.getNumber());

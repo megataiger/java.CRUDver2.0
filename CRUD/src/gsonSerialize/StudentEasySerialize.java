@@ -11,7 +11,8 @@ import java.time.format.DateTimeFormatter;
 
 public class StudentEasySerialize implements JsonSerializer<Student> {
     @Override
-    public JsonElement serialize(Student student, Type type, JsonSerializationContext jsonSerializationContext) {
+    public JsonElement serialize(Student student, Type type,
+                                 JsonSerializationContext context) {
         JsonObject object = new JsonObject();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 

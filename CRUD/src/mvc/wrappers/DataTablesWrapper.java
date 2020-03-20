@@ -50,11 +50,16 @@ public class DataTablesWrapper {
         List<Sort.Order> list = new ArrayList<>();
         int i = 0;
         while (request.getParameter("order[" + i + "][dir]") != null) {
-            int columnNumber = Integer.parseInt(request.getParameter("order[" + i + "][column]"));
+            int columnNumber = Integer.parseInt
+                    (request.getParameter("order[" + i + "][column]"));
             if (request.getParameter("order[" + i + "][dir]").equals("asc")) {
-                list.add(Sort.Order.asc(request.getParameter("columns[" + columnNumber + "][name]")));
+                String columnName = "columns[" + columnNumber + "][name]";
+                String column = request.getParameter(columnName);
+                list.add(Sort.Order.asc(column));
             } else {
-                list.add(Sort.Order.desc(request.getParameter("columns[" + columnNumber + "][name]")));
+                String columnName = "columns[" + columnNumber + "][name]";
+                String column = request.getParameter(columnName);
+                list.add(Sort.Order.desc(request.getParameter(column)));
             }
             i++;
         }

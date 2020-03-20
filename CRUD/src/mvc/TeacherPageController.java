@@ -41,8 +41,8 @@ public class TeacherPageController {
 
         DataTablesWrapper dataTables = new DataTablesWrapper(request);
 
-        Pageable pageable = PageRequest.of(dataTables.getPage(), dataTables.getLength(),
-                Sort.by(dataTables.getOrders()));
+        Pageable pageable = PageRequest.of(dataTables.getPage(),
+                dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
         Page<Teacher> teachers = teacherService
                 .getTeachers(dataTables.getFilter(), pageable);
@@ -63,21 +63,27 @@ public class TeacherPageController {
 
     @RequestMapping("/setNameTeacher")
     @ResponseBody
-    public void setNameTeacher(@RequestParam("teacherId") Teacher teacher, String nameTeacher) {
+    public void setNameTeacher
+            (@RequestParam("teacherId") Teacher teacher,
+             String nameTeacher) {
         teacher.setName(nameTeacher);
         teacherService.save(teacher);
     }
 
     @RequestMapping("/setBirthdayTeacher")
     @ResponseBody
-    public void setBirthdayTeacher(@RequestParam("teacherId") Teacher teacher, LocalDate newBirthday) {
+    public void setBirthdayTeacher
+            (@RequestParam("teacherId") Teacher teacher,
+             LocalDate newBirthday) {
         teacher.setDate(newBirthday);
         teacherService.save(teacher);
     }
 
     @RequestMapping("/setGenderTeacher")
     @ResponseBody
-    public void setGenderTeacher(@RequestParam("teacherId") Teacher teacher, Gender newGender) {
+    public void setGenderTeacher
+            (@RequestParam("teacherId") Teacher teacher,
+             Gender newGender) {
         teacher.setGender(newGender);
         teacherService.save(teacher);
     }
@@ -90,7 +96,8 @@ public class TeacherPageController {
 
     @RequestMapping("/deleteTeacher")
     @ResponseBody
-    public void deleteTeacher(@RequestParam("teacherId") Teacher teacher) {
+    public void deleteTeacher
+            (@RequestParam("teacherId") Teacher teacher) {
         teacherService.delete(teacher);
     }
 
@@ -99,8 +106,8 @@ public class TeacherPageController {
     public String getGroups(int teacherId, HttpServletRequest request) {
         DataTablesWrapper dataTables = new DataTablesWrapper(request);
 
-        Pageable pageable = PageRequest.of(dataTables.getPage(), dataTables.getLength(),
-                Sort.by(dataTables.getOrders()));
+        Pageable pageable = PageRequest.of(dataTables.getPage(),
+                dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
         Page<Group> groups = groupService.getGroupsInTeacher(teacherId,
                 dataTables.getFilter(), pageable);
@@ -113,7 +120,8 @@ public class TeacherPageController {
 
         result.addProperty("draw", dataTables.getDraw());
         result.add("data", gson.toJsonTree(groups.getContent()));
-        result.addProperty("recordsTotal", groupService.getCountGroupInTeacher(teacherId));
+        result.addProperty("recordsTotal",
+                groupService.getCountGroupInTeacher(teacherId));
         result.addProperty("recordsFiltered",
                 groups.getTotalElements());
 
@@ -125,8 +133,8 @@ public class TeacherPageController {
     public String getNewGroups(int teacherId, HttpServletRequest request) {
         DataTablesWrapper dataTables = new DataTablesWrapper(request);
 
-        Pageable pageable = PageRequest.of(dataTables.getPage(), dataTables.getLength(),
-                Sort.by(dataTables.getOrders()));
+        Pageable pageable = PageRequest.of(dataTables.getPage(),
+                dataTables.getLength(), Sort.by(dataTables.getOrders()));
 
         Page<Group> groups = groupService.getGroupNotInTeacher(teacherId,
                 dataTables.getFilter(), pageable);
@@ -139,7 +147,8 @@ public class TeacherPageController {
 
         result.addProperty("draw", dataTables.getDraw());
         result.add("data", gson.toJsonTree(groups.getContent()));
-        result.addProperty("recordsTotal", groupService.getCountGroupNotInTeacher(teacherId));
+        result.addProperty("recordsTotal",
+                groupService.getCountGroupNotInTeacher(teacherId));
         result.addProperty("recordsFiltered",
                 groups.getTotalElements());
 
