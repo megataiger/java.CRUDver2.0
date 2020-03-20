@@ -59,7 +59,7 @@ public class DataTablesWrapper {
             } else {
                 String columnName = "columns[" + columnNumber + "][name]";
                 String column = request.getParameter(columnName);
-                list.add(Sort.Order.desc(request.getParameter(column)));
+                list.add(Sort.Order.desc(column));
             }
             i++;
         }
