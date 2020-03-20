@@ -9,38 +9,16 @@ body {
     margin-right: auto;
 }
 
-#groups {
-    border-collapse: collapse;
-}
-
-#groups_filter {
-    margin-bottom: 10px;
-}
-
-td.groups {
-    border: 1px solid black;
-    text-align: center;
-    overflow: hidden;
+td {
     font-size: 10pt;
 }
 
-th.groups {
-    border: 1px solid black;
-    text-align: center;
-    overflow: hidden;
+th {
     font-size: 10pt;
 }
 
 .id {
     display: none;
-}
-
-td.groups:hover {
-    border: 1px solid black;
-    text-align: center;
-    overflow: hidden;
-    font-size: 10pt;
-    background-color: #f0f0f0;
 }
 
 .menu {
@@ -49,30 +27,12 @@ td.groups:hover {
 
 h4 {
     text-align: center;
+    margin: 20px 0 20px 0;
+
 }
 
 #numberGroup {
     text-align: center;
-}
-
-hr {
-    margin: 20px 0 20px 0;
-}
-
-#studentsOfGroup_filter {
-    margin-bottom: 10px;
-}
-
-#studentsOfGroup {
-    border-collapse: collapse;
-}
-
-#teachersOfGroup {
-    border-collapse: collapse;
-}
-
-#teachersOfGroup_filter {
-    margin-bottom: 10px;
 }
 
 td.student {
@@ -82,26 +42,6 @@ td.student {
     font-size: 10pt;
 }
 
-th.student {
-    border: 1px solid black;
-    text-align: center;
-    overflow: hidden;
-    font-size: 10pt;
-}
-
-td.teacher {
-    border: 1px solid black;
-    text-align: center;
-    overflow: hidden;
-    font-size: 10pt;
-}
-
-th.teacher {
-    border: 1px solid black;
-    text-align: center;
-    overflow: hidden;
-    font-size: 10pt;
-}
 
 button {
     margin: 5px 5px 5px 5px;

@@ -29,7 +29,7 @@
         </div>
     </div>
     <br>
-    <table id="groups">
+    <table id="groups" class="display">
         <thead>
 
         </thead>
@@ -47,7 +47,7 @@
             <button id="viewTeachers">Просмотр</button>
             <button id="addTeachers">Добавление</button>
         </div>
-        <table id="teachersOfGroup">
+        <table id="teachersOfGroup" class="display">
             <thead>
 
             </thead>
@@ -57,7 +57,7 @@
         </table>
     </div>
     <div id="menuStudentsOfGroup">
-        <table id="studentsOfGroup">
+        <table id="studentsOfGroup" class="display">
             <thead>
 
             </thead>

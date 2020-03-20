@@ -14,39 +14,39 @@ $(document).ready(function () {
         },
         columns: [
             {
-                "className": "id students",
+                "className": "id dt-center",
                 "name": "id",
                 "data": "id",
                 "title": "ID"
             },
             {
-                "className": "name students",
+                "className": "name dt-center",
                 "name": "name",
                 "data": "name",
                 "title": "Ф.И.О"
             },
             {
-                "className": "date students",
+                "className": "date dt-center",
                 "name": "date",
                 "data": "date",
                 "title": "Дата рождения"
             },
             {
-                "className": "gender students",
+                "className": "gender dt-center",
                 "name": "gender",
                 "data": "gender",
                 "title": "Пол"
 
             },
             {
-                "className": "group students",
-                "name": "group",
+                "className": "number dt-center",
+                "name": "group.number",
                 "data": "group",
                 "title": "Группа"
 
             },
             {
-                "className": "students",
+                "className": "dt-center",
                 "orderable": false,
                 "name": "delete",
                 "data": "delete",
@@ -373,7 +373,7 @@ function getTableGroup() {
             },
             columns: [
                 {
-                    "className": "number",
+                    "className": "number dt-center",
                     "name": "number",
                     "data": "number",
                     "title": "Номер"
@@ -381,7 +381,7 @@ function getTableGroup() {
                 },
                 {
                     "orderable": false,
-                    "className": "choose",
+                    "className": "choose dt-center",
                     "name": "id",
                     "data": "id",
                     "title": "Действие",

@@ -354,32 +354,33 @@ function getTeachersTable() {
         },
         columns: [
             {
-                "className": "id",
+                "className": "id dt-center",
                 "name": "id",
                 "data": "id",
                 "title": "ID"
 
             },
             {
-                "className": "nameTeacher",
+                "className": "nameTeacher dt-center",
                 "name": "name",
                 "data": "name",
                 "title": "ФИО"
             },
             {
-                "className": "birthdayTeacher",
+                "className": "birthdayTeacher dt-center",
                 "name": "date",
                 "data": "date",
                 "title": "Дата рождения"
             },
             {
-                "className": "genderTeacher",
+                "className": "genderTeacher dt-center",
                 "name": "gender",
                 "data": "gender",
                 "title": "Пол"
             },
             {
                 "orderable": false,
+                "className": "dt-center",
                 "name": "delete",
                 "data": "delete",
                 "title": "Действие",
@@ -410,7 +411,7 @@ function getTeacherGroupsTable() {
         },
         columns: [
             {
-                "className": "number",
+                "className": "number dt-center",
                 "name": "number",
                 "data": "number",
                 "title": "Номер"
@@ -418,6 +419,7 @@ function getTeacherGroupsTable() {
             },
             {
                 "orderable": false,
+                "className": "dt-center",
                 "name": "delete",
                 "data": "id",
                 "title": "Действие",
@@ -446,7 +448,7 @@ function getTeacherNewGroupsTable() {
         },
         columns: [
             {
-                "className": "number",
+                "className": "number dt-center",
                 "name": "number",
                 "data": "number",
                 "title": "Номер"
@@ -454,6 +456,7 @@ function getTeacherNewGroupsTable() {
             },
             {
                 "orderable": false,
+                "className": "dt-center",
                 "name": "delete",
                 "data": "id",
                 "title": "Действие",

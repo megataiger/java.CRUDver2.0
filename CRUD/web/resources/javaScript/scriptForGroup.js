@@ -12,20 +12,20 @@ $(document).ready(function () {
         },
         columns: [
             {
-                "className": "id groups",
+                "className": "id dt-center",
                 "name": "id",
                 "data": "id",
                 "title": "ID"
             },
             {
-                "className": "number groups",
+                "className": "number dt-center",
                 "name": "number",
                 "data": "number",
                 "title": "Номер"
             },
             {
                 "orderable": false,
-                "className": "lists groups",
+                "className": "lists dt-center",
                 "name": "students",
                 "data": "id",
                 "title": "Списки",
@@ -37,7 +37,7 @@ $(document).ready(function () {
             },
             {
                 "orderable": false,
-                "className": "delete groups",
+                "className": "delete dt-center",
                 "name": "delete",
                 "data": "id",
                 "title": "Действие",
@@ -322,20 +322,20 @@ function getTeachersOfGroup() {
         },
         columns: [
             {
-                "className": "name teacher",
+                "className": "name dt-center",
                 "name": "name",
                 "data": "name",
                 "title": "Ф.И.О"
             },
             {
-                "className": "birthday teacher",
+                "className": "birthday dt-center",
                 "name": "date",
                 "data": "date",
                 "title": "Дата рождения"
             },
             {
                 "orderable": false,
-                "className": "delete teacher",
+                "className": "delete dt-center",
                 "name": "students",
                 "data": "id",
                 "title": "Действие",
@@ -363,20 +363,20 @@ function getNewTeachersOfGroup() {
         },
         columns: [
             {
-                "className": "name teacher",
+                "className": "name dt-center",
                 "name": "name",
                 "data": "name",
                 "title": "Ф.И.О"
             },
             {
-                "className": "birthday teacher",
+                "className": "birthday dt-center",
                 "name": "date",
                 "data": "date",
                 "title": "Дата рождения"
             },
             {
                 "orderable": false,
-                "className": "add teacher",
+                "className": "add dt-center",
                 "name": "students",
                 "data": "id",
                 "title": "Действие",
@@ -404,13 +404,13 @@ function getStudentOfGroup() {
         },
         columns: [
             {
-                "className": "name student",
+                "className": "name dt-center",
                 "name": "name",
                 "data": "name",
                 "title": "Ф.И.О"
             },
             {
-                "className": "date student",
+                "className": "date dt-center",
                 "name": "date",
                 "data": "date",
                 "title": "Дата рождения"

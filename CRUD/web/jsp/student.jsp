@@ -23,7 +23,7 @@
 <div id="mainDiv">
     <h4 align="center"><a href="/javaBase/">Главная</a></h4>
     <div id="data">
-        <table id="students">
+        <table id="students" class="display">
             <thead>
 
             </thead>
@@ -54,7 +54,7 @@
     </form>
 </div>
 <div id="myModal">
-        <table id="addGroup">
+        <table id="addGroup" class="display">
             <thead>
 
             </thead>

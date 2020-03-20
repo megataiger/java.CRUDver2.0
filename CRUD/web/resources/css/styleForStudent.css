@@ -3,34 +3,12 @@ body {
     font-size: 10pt;
 }
 
-#students_filter {
-    margin-bottom: 10px;
-}
-
-table#students {
-    border-collapse: collapse;
-}
-
-td.students {
-    border: 1px solid black;
-    text-align: center;
-    overflow: hidden;
+td {
     font-size: 10pt;
 }
 
-th.students {
-    border: 1px solid black;
-    text-align: center;
-    overflow: hidden;
+th {
     font-size: 10pt;
-}
-
-td.students:hover {
-    border: 1px solid black;
-    text-align: center;
-    overflow: hidden;
-    font-size: 10pt;
-    background-color: #f0f0f0;
 }
 
 td.name {
@@ -70,6 +48,7 @@ td.date {
     display: none;
 }
 
+/*
 #addGroup {
     background: #fafafa;
     font-size: 10pt;
@@ -80,7 +59,7 @@ th.number th.choose td.number td.choose {
     background: #fafafa;
     font-size: 10pt;
     text-align: center;
-}
+} */
 
 #myModal {
     width: 298px; height: 298px;

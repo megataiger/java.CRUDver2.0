@@ -22,7 +22,7 @@
 <div id="mainDiv">
     <h4 align="center"><a href="/javaBase/">Главная</a></h4>
     <div id="data">
-        <table id="teachers">
+        <table id="teachers" class="display">
             <thead>
 
             </thead>
@@ -55,7 +55,7 @@
             <button id="viewGroup">Просмотр</button>
             <button id="addGroup">Добавление</button>
         </div>
-        <table id="tableGroup">
+        <table id="tableGroup" class="display">
             <thead>
 
             </thead>
