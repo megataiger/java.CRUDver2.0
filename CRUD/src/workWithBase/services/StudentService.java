@@ -19,7 +19,7 @@ public class StudentService implements StudentServiceInterface {
     }
 
     public Student findById(int id){
-        return studentRepository.findById(id).orElse(new Student());
+        return studentRepository.findById(id).orElse(null);
     }
 
     public void insert(Student student) {

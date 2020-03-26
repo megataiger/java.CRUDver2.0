@@ -9,23 +9,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import workWithBase.repositories.GroupRepository;
 import workWithBase.serviceInterfaces.GroupServiceInterface;
-import workWithBase.serviceInterfaces.TeacherServiceInterface;
 
 @Service
 public class GroupService implements GroupServiceInterface {
 
     private GroupRepository groupRepository;
-    private TeacherServiceInterface teacherService;
 
     @Autowired
-    public GroupService(GroupRepository groupRepository,
-                        TeacherServiceInterface teacherService){
+    public GroupService(GroupRepository groupRepository){
         this.groupRepository = groupRepository;
-        this.teacherService = teacherService;
     }
 
     public Group findById(int id) {
-        return groupRepository.findById(id).orElse(new Group());
+        return groupRepository.findById(id).orElse(null);
     }
 
     public void save(Group group) {
@@ -41,19 +37,13 @@ public class GroupService implements GroupServiceInterface {
     }
 
     @Transactional
-    public void addTeacher(int groupId, int teacherId) {
-        Group group = findById(groupId);
-        Teacher teacher = teacherService.findById(teacherId);
-        group.addTeacher(teacher);
-        save(group);
+    public void addTeacher(Group group, Teacher teacher) {
+        groupRepository.insertRecord(group.getId(), teacher.getId());
     }
 
     @Transactional
-    public void removeTeacher(int groupId, int teacherId){
-        Group group = findById(groupId);
-        Teacher teacher = teacherService.findById(teacherId);
-        group.removeTeacher(teacher);
-        save(group);
+    public void removeTeacher(Group group, Teacher teacher) {
+        groupRepository.deleteRecord(group.getId(), teacher.getId());
     }
 
     public Page<Group> getGroups(String filter, Pageable pageable) {

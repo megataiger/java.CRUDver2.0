@@ -11,8 +11,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Студенты</title>
-    <link rel="shortcut icon" href="/resources/image/favicon.png" type="image/png">
-    <link rel="stylesheet" href="<c:url value="/resources/css/styleForStudent.css" />">
+    <link rel="shortcut icon" href="<c:url value="/resources/image/favicon.png"/>" type="image/png"/>
+    <link rel="stylesheet" href="<c:url value="/resources/css/styleForStudent.css" />"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/DataTables-1.10.20/css/jquery.dataTables.css" />"/>
 
     <script type="text/javascript" src="<c:url value="/resources/javaScript/jquery-3.4.1.js" />"></script>
@@ -21,7 +21,7 @@
 </head>
 <body>
 <div id="mainDiv">
-    <h4 align="center"><a href="/javaBase/">Главная</a></h4>
+    <h4 align="center"><a class="index" href="<c:url value="/javaBase/"/>">Главная</a></h4>
     <div id="data">
         <table id="students" class="display">
             <thead>
@@ -48,7 +48,7 @@
         <input type="radio" id="inputGenderStudent" name="gender" value="WOMAN" checked/>Женский
         <input type="radio" name="gender" value="MAN"/>Мужской<br><br>
         <label for="plus">Группа</label>
-        <img id="plus" src="/resources/image/plus1.png">
+        <img id="plus" src="<c:url value="/resources/image/plus1.png"/>">
         <br><br>
         <input type="submit" value="Добавить"/>
     </form>

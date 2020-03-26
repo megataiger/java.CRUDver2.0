@@ -3,6 +3,7 @@ package workWithBase.repositories;
 import objectForStrokeBase.Group;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,10 +15,6 @@ import java.util.Optional;
 @Repository
 public interface GroupRepository
         extends PagingAndSortingRepository<Group, Integer> {
-
-    @Query("SELECT g FROM Group g " +
-            "WHERE CAST(g.number as string) LIKE :filter")
-    List<Group> getPrompt(@Param("filter") String filter);
 
     @Query("SELECT g FROM Group g " +
             "WHERE CAST(g.number as string) LIKE :filter")
@@ -47,4 +44,16 @@ public interface GroupRepository
             "(SELECT g FROM Teacher t JOIN t.groups g " +
             "WHERE t.id = :teacherId)")
     int getCountGroupNotInTeacher(@Param("teacherId") int teacherId);
+
+    @Modifying
+    @Query(value = "insert into group_teacher (group_id, teacher_id) " +
+            "values (:groupId, :teacherId)", nativeQuery = true)
+    void insertRecord(@Param("groupId") int groupId,
+                      @Param("teacherId") int teacherId);
+
+    @Modifying
+    @Query(value = "delete from group_teacher " +
+            "where group_id = :groupId and teacher_id = :teacherId", nativeQuery = true)
+    void deleteRecord(@Param("groupId") int groupId,
+                      @Param("teacherId") int teacherId);
 }

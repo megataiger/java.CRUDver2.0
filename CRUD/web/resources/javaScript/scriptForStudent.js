@@ -39,7 +39,7 @@ $(document).ready(function () {
 
             },
             {
-                "className": "number dt-center",
+                "className": "group dt-center",
                 "name": "group.number",
                 "data": "group",
                 "title": "Группа"
@@ -59,12 +59,6 @@ $(document).ready(function () {
             }
         ]
     });
-
-    var prompt = $("#promptToSearch");
-
-    var promptToAdd = $("#promptToAdd");
-
-    $(promptToAdd).hide();
 
     tableStudents.on("click", "td.name", function () {
         setNameStudent(this, table);
@@ -365,7 +359,7 @@ function getTableGroup() {
             },
             serverSide: true,
             ajax: {
-                url: "students/getGroups",
+                url: "groups/selectGroups",
                 type: "GET",
                 data: function (d) {
                     d.teacherId = $("#nameChooseTeacher").attr("class");

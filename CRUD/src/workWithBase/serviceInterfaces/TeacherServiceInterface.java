@@ -1,5 +1,6 @@
 package workWithBase.serviceInterfaces;
 
+import objectForStrokeBase.Group;
 import objectForStrokeBase.Teacher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,7 @@ public interface TeacherServiceInterface {
 
     int getCountTeacherNotInGroup(int groupId);
 
-    void addGroup(int teacherId, int groupId);
+    void addGroup(Group group, Teacher teacher);
 
-    void deleteGroup(int teacherId, int groupId);
+    void deleteGroup(Group group, Teacher teacher);
 }

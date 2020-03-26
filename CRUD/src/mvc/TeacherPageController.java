@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import workWithBase.serviceInterfaces.GroupServiceInterface;
 import workWithBase.serviceInterfaces.TeacherServiceInterface;
@@ -157,14 +159,16 @@ public class TeacherPageController {
 
     @RequestMapping("/addGroupForTeacher")
     @ResponseBody
-    public void addGroup(int teacherId, int groupId){
-        teacherService.addGroup(teacherId, groupId);
+    public void addGroup(@RequestParam("teacherId") Teacher teacher,
+                         @RequestParam("groupId") Group group){
+        teacherService.addGroup(group, teacher);
     }
 
     @RequestMapping("/deleteGroupForTeacher")
     @ResponseBody
-    public void deleteGroup(int teacherId, int groupId){
-        teacherService.deleteGroup(teacherId, groupId);
+    @Transactional
+    public void deleteGroup(@RequestParam("teacherId") Teacher teacher,
+                            @RequestParam("groupId") Group group){
+        teacherService.deleteGroup(group, teacher);
     }
-
 }

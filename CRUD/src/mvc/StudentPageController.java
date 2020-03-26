@@ -28,13 +28,10 @@ import java.time.LocalDate;
 public class StudentPageController {
 
     private StudentServiceInterface studentService;
-    private GroupServiceInterface groupService;
 
     @Autowired
-    public StudentPageController(StudentServiceInterface studentService,
-                                 GroupServiceInterface groupService) {
+    public StudentPageController(StudentServiceInterface studentService) {
         this.studentService = studentService;
-        this.groupService = groupService;
     }
 
     @RequestMapping("/selectStudentsByCriterion")
@@ -129,31 +126,5 @@ public class StudentPageController {
     public void deleteStudent
             (@RequestParam(name = "idStudent") Student student) {
         studentService.delete(student);
-    }
-
-    @RequestMapping("/getGroups")
-    @ResponseBody
-    public String getGroups(HttpServletRequest request) {
-        DataTablesWrapper dataTables = new DataTablesWrapper(request);
-
-        Pageable pageable = PageRequest.of(dataTables.getPage(),
-                dataTables.getLength(), Sort.by(dataTables.getOrders()));
-
-        Page<Group> groups = groupService.getGroups(
-                dataTables.getFilter(), pageable);
-
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Group.class, new GroupSerialize())
-                .create();
-
-        JsonObject result = new JsonObject();
-
-        result.addProperty("draw", dataTables.getDraw());
-        result.add("data", gson.toJsonTree(groups.getContent()));
-        result.addProperty("recordsTotal", groupService.getCount());
-        result.addProperty("recordsFiltered",
-                groups.getTotalElements());
-
-        return result.toString();
     }
 }

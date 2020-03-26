@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import workWithBase.repositories.GroupRepository;
 import workWithBase.repositories.TeacherRepository;
 import workWithBase.serviceInterfaces.TeacherServiceInterface;
 
@@ -15,17 +14,14 @@ import workWithBase.serviceInterfaces.TeacherServiceInterface;
 public class TeacherService implements TeacherServiceInterface {
 
     private TeacherRepository teacherRepository;
-    private GroupRepository groupRepository;
 
     @Autowired
-    public TeacherService(TeacherRepository teacherRepository,
-                          GroupRepository groupRepository) {
+    public TeacherService(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
-        this.groupRepository = groupRepository;
     }
 
     public Teacher findById(int id) {
-        return teacherRepository.findById(id).orElse(new Teacher());
+        return teacherRepository.findById(id).orElse(null);
     }
 
     public void save(Teacher teacher) {
@@ -65,18 +61,12 @@ public class TeacherService implements TeacherServiceInterface {
     }
 
     @Transactional
-    public void addGroup(int teacherId, int groupId) {
-        Teacher teacher = findById(teacherId);
-        Group group = groupRepository.findById(groupId).orElse(new Group());
-        teacher.addGroup(group);
-        save(teacher);
+    public void addGroup(Group group, Teacher teacher) {
+        teacherRepository.insertRecord(group.getId(), teacher.getId());
     }
 
     @Transactional
-    public void deleteGroup(int teacherId, int groupId) {
-        Teacher teacher = findById(teacherId);
-        Group group = groupRepository.findById(groupId).orElse(new Group());
-        teacher.removeGroup(group);
-        save(teacher);
+    public void deleteGroup(Group group, Teacher teacher) {
+        teacherRepository.deleteRecord(group.getId(), teacher.getId());
     }
 }

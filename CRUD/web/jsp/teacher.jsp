@@ -6,21 +6,22 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Преподаватели</title>
-    <link rel="shortcut icon" href="/resources/image/favicon.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="/resources/css/styleForTeacher.css"/>
-    <link rel="stylesheet" type="text/css" href="/resources/DataTables-1.10.20/css/jquery.dataTables.css"/>
+    <link rel="shortcut icon" href="<c:url value="/resources/image/favicon.png"/>" type="image/png"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/styleForTeacher.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/DataTables-1.10.20/css/jquery.dataTables.css"/>"/>
 
-    <script type="text/javascript" src="/resources/javaScript/jquery-3.4.1.js"></script>
-    <script type="text/javascript" src="/resources/javaScript/scriptForTeacher.js"></script>
-    <script type="text/javascript" src="/resources/DataTables-1.10.20/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="<c:url value="/resources/javaScript/jquery-3.4.1.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/javaScript/scriptForTeacher.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/DataTables-1.10.20/js/jquery.dataTables.js"/>"></script>
 
 </head>
 <body>
 <div id="mainDiv">
-    <h4 align="center"><a href="/javaBase/">Главная</a></h4>
+    <h4 align="center"><a class="index" href="<c:url value="/javaBase/"/>">Главная</a></h4>
     <div id="data">
         <table id="teachers" class="display">
             <thead>
@@ -50,7 +51,7 @@
     </div>
     <div id="groups">
         <h3 id="nameChooseTeacher"></h3>
-        <img id="close" src="/resources/image/close.png">
+        <img id="close" src="<c:url value="/resources/image/close.png"/>">
         <div id="buttons">
             <button id="viewGroup">Просмотр</button>
             <button id="addGroup">Добавление</button>

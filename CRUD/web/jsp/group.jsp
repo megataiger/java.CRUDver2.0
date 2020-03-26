@@ -6,22 +6,23 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Группы</title>
-    <link rel="shortcut icon" href="/resources/image/favicon.png" type="image/png">
-    <link rel="stylesheet" href="/resources/css/styleGroup.css">
-    <link rel="stylesheet" type="text/css" href="/resources/DataTables-1.10.20/css/jquery.dataTables.css"/>
+    <link rel="shortcut icon" href="<c:url value="/resources/image/favicon.png"/>" type="image/png">
+    <link rel="stylesheet" href="<c:url value="/resources/css/styleGroup.css"/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/DataTables-1.10.20/css/jquery.dataTables.css"/>">
 
-    <script type="text/javascript" src="/resources/javaScript/jquery-3.4.1.js"></script>
-    <script type="text/javascript" src="/resources/javaScript/scriptForGroup.js"></script>
-    <script type="text/javascript" src="/resources/DataTables-1.10.20/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="<c:url value="/resources/javaScript/jquery-3.4.1.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/javaScript/scriptForGroup.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/DataTables-1.10.20/js/jquery.dataTables.js"/>"></script>
 </head>
 <body>
 <div class="main_div">
     <div>
         <div>
-            <h4><a href="/javaBase/">Главная</a></h4>
+            <h4><a class="index" href="<c:url value="/javaBase/"/>">Главная</a></h4>
         </div>
         <div>
             <label for="addGroup">Добавить новую группу:</label>

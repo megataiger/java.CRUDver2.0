@@ -61,7 +61,7 @@ public class GroupPageController {
 
         result.addProperty("draw", dataTables.getDraw());
         result.add("data", gson.toJsonTree(groups.getContent()));
-        result.addProperty("recordsTotal", groups.getTotalElements());
+        result.addProperty("recordsTotal", groupService.getCount());
         result.addProperty("recordsFiltered", groups.getTotalElements());
 
         return result.toString();
@@ -168,13 +168,15 @@ public class GroupPageController {
 
     @RequestMapping("/addTeacherForGroup")
     @ResponseBody
-    public void addTeacher(int groupId, int teacherId) {
-        groupService.addTeacher(groupId, teacherId);
+    public void addTeacher(@RequestParam("groupId") Group group,
+                           @RequestParam("teacherId") Teacher teacher) {
+        groupService.addTeacher(group, teacher);
     }
 
     @RequestMapping("/deleteTeacherForGroup")
     @ResponseBody
-    public void deleteTeacher(int groupId, int teacherId) {
-        groupService.removeTeacher(groupId, teacherId);
+    public void deleteTeacher(@RequestParam("groupId") Group group,
+                              @RequestParam("teacherId") Teacher teacher) {
+        groupService.removeTeacher(group, teacher);
     }
 }
