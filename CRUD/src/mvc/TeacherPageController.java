@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import gsonSerialize.GroupSerialize;
 import gsonSerialize.TeacherSerialize;
+import mvc.messageBilder.MessageBilder;
+import mvc.validators.TeacherValidator;
 import mvc.wrappers.DataTablesWrapper;
 import objectForStrokeBase.Gender;
 import objectForStrokeBase.Group;
@@ -16,11 +18,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import workWithBase.serviceInterfaces.GroupServiceInterface;
 import workWithBase.serviceInterfaces.TeacherServiceInterface;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.time.LocalDate;
 
 @RestController
@@ -29,12 +35,24 @@ public class TeacherPageController {
 
     private TeacherServiceInterface teacherService;
     private GroupServiceInterface groupService;
+    private TeacherValidator teacherValidator;
+    private MessageBilder messageBilder;
+
 
     @Autowired
     public TeacherPageController(TeacherServiceInterface teacherService,
-                                 GroupServiceInterface groupService) {
+                                 GroupServiceInterface groupService,
+                                 TeacherValidator teacherValidator,
+                                 MessageBilder messageBilder) {
         this.teacherService = teacherService;
         this.groupService = groupService;
+        this.teacherValidator = teacherValidator;
+        this.messageBilder = messageBilder;
+    }
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(teacherValidator);
     }
 
     @RequestMapping(value = "/selectTeachers")
@@ -65,29 +83,47 @@ public class TeacherPageController {
 
     @RequestMapping("/setNameTeacher")
     @ResponseBody
-    public void setNameTeacher
-            (@RequestParam("teacherId") Teacher teacher,
+    public JsonObject setNameTeacher
+            (@ModelAttribute("teacherId") @Valid Teacher teacher,
+             BindingResult result,
              String nameTeacher) {
-        teacher.setName(nameTeacher);
-        teacherService.save(teacher);
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            teacher.setName(nameTeacher);
+            teacherService.save(teacher);
+            return messageBilder.createSuccessMessage();
+        }
     }
 
     @RequestMapping("/setBirthdayTeacher")
     @ResponseBody
-    public void setBirthdayTeacher
-            (@RequestParam("teacherId") Teacher teacher,
+    public JsonObject setBirthdayTeacher
+            (@ModelAttribute("teacherId") @Valid Teacher teacher,
+             BindingResult result,
              LocalDate newBirthday) {
-        teacher.setDate(newBirthday);
-        teacherService.save(teacher);
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            teacher.setDate(newBirthday);
+            teacherService.save(teacher);
+            return messageBilder.createSuccessMessage();
+        }
     }
 
     @RequestMapping("/setGenderTeacher")
     @ResponseBody
-    public void setGenderTeacher
-            (@RequestParam("teacherId") Teacher teacher,
+    public JsonObject setGenderTeacher
+            (@ModelAttribute("teacherId") Teacher teacher,
+             BindingResult result,
              Gender newGender) {
-        teacher.setGender(newGender);
-        teacherService.save(teacher);
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            teacher.setGender(newGender);
+            teacherService.save(teacher);
+            return messageBilder.createSuccessMessage();
+        }
     }
 
     @RequestMapping("/insertTeacher")
@@ -98,9 +134,15 @@ public class TeacherPageController {
 
     @RequestMapping("/deleteTeacher")
     @ResponseBody
-    public void deleteTeacher
-            (@RequestParam("teacherId") Teacher teacher) {
-        teacherService.delete(teacher);
+    public JsonObject deleteTeacher
+            (@ModelAttribute("teacherId") @Valid Teacher teacher,
+             BindingResult result) {
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            teacherService.delete(teacher);
+            return messageBilder.createSuccessMessage();
+        }
     }
 
     @RequestMapping("/getGroupsTeacher")

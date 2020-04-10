@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import gsonSerialize.GroupSerialize;
 import gsonSerialize.StudentEasySerialize;
 import gsonSerialize.TeacherEasySerialize;
+import mvc.messageBilder.MessageBilder;
+import mvc.validators.GroupValidator;
 import mvc.wrappers.DataTablesWrapper;
 import objectForStrokeBase.Group;
 import objectForStrokeBase.Student;
@@ -16,14 +18,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import workWithBase.serviceInterfaces.GroupServiceInterface;
 import workWithBase.serviceInterfaces.StudentServiceInterface;
 import workWithBase.serviceInterfaces.TeacherServiceInterface;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/groups")
@@ -32,14 +35,25 @@ public class GroupPageController {
     private GroupServiceInterface groupService;
     private StudentServiceInterface studentService;
     private TeacherServiceInterface teacherService;
+    private GroupValidator groupValidator;
+    private MessageBilder messageBilder;
 
     @Autowired
     public GroupPageController(GroupServiceInterface groupService,
                                StudentServiceInterface studentService,
-                               TeacherServiceInterface teacherService) {
+                               TeacherServiceInterface teacherService,
+                               GroupValidator groupValidator,
+                               MessageBilder messageBilder) {
         this.groupService = groupService;
         this.studentService = studentService;
         this.teacherService = teacherService;
+        this.groupValidator = groupValidator;
+        this.messageBilder = messageBilder;
+    }
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(groupValidator);
     }
 
     @RequestMapping("/selectGroups")
@@ -148,10 +162,16 @@ public class GroupPageController {
 
     @RequestMapping("/setNumberGroup")
     @ResponseBody
-    public void setNumberGroup(@RequestParam(name = "groupId") Group group,
+    public JsonObject setNumberGroup(@ModelAttribute(name = "groupId") @Valid Group group,
+                               BindingResult result,
                                int numberGroup) {
-        group.setNumber(numberGroup);
-        groupService.save(group);
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            group.setNumber(numberGroup);
+            groupService.save(group);
+            return messageBilder.createSuccessMessage();
+        }
     }
 
     @RequestMapping("/insertGroup")
@@ -162,8 +182,14 @@ public class GroupPageController {
 
     @RequestMapping("/deleteGroup")
     @ResponseBody
-    public void deleteGroup(@RequestParam(name = "groupId") Group group) {
-        groupService.delete(group);
+    public JsonObject deleteGroup(@ModelAttribute(name = "groupId") @Valid Group group,
+                            BindingResult result) {
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            groupService.delete(group);
+            return messageBilder.createSuccessMessage();
+        }
     }
 
     @RequestMapping("/addTeacherForGroup")

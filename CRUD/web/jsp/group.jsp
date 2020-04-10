@@ -21,8 +21,10 @@
 <body>
 <div class="main_div">
     <div>
-        <div>
-            <h4><a class="index" href="<c:url value="/javaBase/"/>">Главная</a></h4>
+        <div class="menu">
+            <a href="<c:url value="/javaBase/students"/>" class="index">Студенты</a>
+            <a href="<c:url value="/javaBase/groups"/>" class="index">Группы</a>
+            <a href="<c:url value="/javaBase/teachers"/>" class="index">Преподаватели</a>
         </div>
         <div>
             <label for="addGroup">Добавить новую группу:</label>

@@ -8,14 +8,16 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository("studrep")
+@Repository
 public interface StudentRepository
         extends PagingAndSortingRepository<Student, Integer> {
-    @Query(value = "SELECT s FROM Student s JOIN FETCH s.group " +
+    @Query(value = "SELECT s FROM Student s LEFT JOIN FETCH s.group g " +
             "WHERE LOWER(s.name) LIKE :filter " +
             "OR LOWER(s.date) LIKE :filter " +
-            "OR LOWER(s.group.number) LIKE :filter",
-    countQuery = "SELECT COUNT(s) FROM Student s")
+            "OR LOWER(g.number) LIKE :filter",
+    countQuery = "SELECT COUNT(s) FROM Student s LEFT JOIN Group g " +
+            "ON s.group.id = g.id WHERE LOWER(s.name) LIKE :filter " +
+            "OR LOWER(s.date) LIKE :filter OR LOWER(g.number) LIKE :filter")
     Page<Student> getStudents(@Param("filter") String filter,
                               Pageable pageable);
 

@@ -1,16 +1,10 @@
 package objectForStrokeBase;
 
 import com.google.gson.annotations.Expose;
-import workWithBase.daoClasses.StudentDAO;
 
 import javax.persistence.*;
-import java.time.Clock;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
-import java.util.TimeZone;
 
 @Entity
 @Table(name = "student")

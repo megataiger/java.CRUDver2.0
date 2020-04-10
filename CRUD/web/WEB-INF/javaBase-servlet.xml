@@ -13,11 +13,16 @@
 
     <context:component-scan base-package="mvc" />
     <context:component-scan base-package="mvc.filters" />
+    <context:component-scan base-package="mvc.validators" />
     <context:annotation-config />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/jsp/" />
         <property name="suffix" value=".jsp" />
+    </bean>
+
+    <bean class="org.springframework.validation.DefaultMessageCodesResolver">
+        <property name="prefix" value="message"/>
     </bean>
 
     <mvc:resources mapping="/resources/** **" location="resources" />
@@ -34,6 +39,11 @@
                 <bean class="mvc.converters.TeacherConverter" />
             </set>
         </property>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+        <property name="defaultEncoding" value="UTF-8" />
     </bean>
 
 </beans>

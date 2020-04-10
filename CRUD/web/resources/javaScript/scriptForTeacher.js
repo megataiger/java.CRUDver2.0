@@ -86,8 +86,9 @@ function setNameTeacher(cell) {
                 "teachers/setNameTeacher", {
                     nameTeacher: newName,
                     teacherId: teacherId
-                }, function () {
+                }, function (data) {
                     fieldName.html(newName);
+                    createMessage(data);
                 }
             );
         }
@@ -126,8 +127,9 @@ function setBirthdayTeacher(cell, table) {
                 "teachers/setBirthdayTeacher", {
                     newBirthday: newBirthday,
                     teacherId: teacherId
-                }, function () {
+                }, function (data) {
                     table.draw();
+                    createMessage(data)
                 }
             );
         }
@@ -179,8 +181,9 @@ function setGenderTeacher(cell, table) {
         $.post("teachers/setGenderTeacher", {
             teacherId: $(string).attr("id"),
             newGender: newGender
-        }, function () {
+        }, function (data) {
             table.draw();
+            createMessage(data);
         });
     });
 
@@ -468,4 +471,26 @@ function getTeacherNewGroupsTable() {
             }
         ]
     });
+}
+
+function createMessage(data) {
+    if (data["response"]) {
+        $("body").append("<div id='response'>" +
+            data["message"] +
+            "</div>");
+
+        var response = $("#response");
+        setTimeout(function () {
+            response.remove();
+        }, 1000);
+    } else {
+        $("body").append("<div id='response'>" +
+            data["message"] +
+            "</div>");
+
+        var response = $("#response");
+        setTimeout(function () {
+            response.remove();
+        }, 1000);
+    }
 }

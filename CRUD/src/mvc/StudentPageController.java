@@ -4,8 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import gsonSerialize.GroupSerialize;
 import gsonSerialize.StudentSerialize;
+import mvc.messageBilder.MessageBilder;
+import mvc.validators.StudentValidator;
 import mvc.wrappers.DataTablesWrapper;
 import objectForStrokeBase.Gender;
 import objectForStrokeBase.Group;
@@ -16,11 +17,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import workWithBase.serviceInterfaces.GroupServiceInterface;
 import workWithBase.serviceInterfaces.StudentServiceInterface;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.time.LocalDate;
 
 @Controller
@@ -28,10 +31,21 @@ import java.time.LocalDate;
 public class StudentPageController {
 
     private StudentServiceInterface studentService;
+    private StudentValidator studentValidator;
+    private MessageBilder messageBilder;
 
     @Autowired
-    public StudentPageController(StudentServiceInterface studentService) {
+    public StudentPageController(StudentServiceInterface studentService,
+                                 StudentValidator studentValidator,
+                                 MessageBilder messageBilder) {
         this.studentService = studentService;
+        this.studentValidator = studentValidator;
+        this.messageBilder = messageBilder;
+    }
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(studentValidator);
     }
 
     @RequestMapping("/selectStudentsByCriterion")
@@ -55,31 +69,42 @@ public class StudentPageController {
         result.add("data", gson.toJsonTree(students.getContent()));
         result.addProperty("recordsTotal", studentService.getCount());
         result.addProperty("recordsFiltered", students.getTotalElements());
-
         return result.toString();
     }
 
     @RequestMapping("/setNameStudent")
     @ResponseBody
-    public void updateNameStudent
-            (@RequestParam(name = "idStudent") Student student,
+    public JsonObject updateNameStudent
+            (@ModelAttribute(name = "idStudent") @Valid Student student,
+             BindingResult result,
              String newNameStudent) {
-        student.setName(newNameStudent);
-        studentService.update(student);
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            student.setName(newNameStudent);
+            studentService.update(student);
+            return messageBilder.createSuccessMessage();
+        }
     }
 
-    @RequestMapping("/setBirthdayStudent")
+    @RequestMapping(value = "/setBirthdayStudent")
     @ResponseBody
-    public void updateBirthdayStudent
-            (@RequestParam(name = "idStudent") Student student,
+    public JsonObject updateBirthdayStudent
+            (@ModelAttribute(name = "idStudent") @Valid Student idStudent,
+             BindingResult result,
              LocalDate newBirthdayStudent) {
-        student.setDate(newBirthdayStudent);
-        studentService.update(student);
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            idStudent.setDate(newBirthdayStudent);
+            studentService.update(idStudent);
+            return messageBilder.createSuccessMessage();
+        }
     }
 
-    @RequestMapping(value = "/getGender", produces = "application/json")
+    @RequestMapping(value = "/getGender")
     @ResponseBody
-    public String getGenderList
+    public JsonArray getGenderList
             (@RequestParam(name = "gender") String genderInBase) {
         JsonArray resultList = new JsonArray();
         for (Gender e : Gender.values()) {
@@ -94,25 +119,37 @@ public class StudentPageController {
             resultList.add(gender);
         }
 
-        return resultList.toString();
+        return resultList;
     }
 
     @RequestMapping("/setGenderStudent")
     @ResponseBody
-    public void updateGenderStudent
-            (@RequestParam(name = "idStudent") Student student,
+    public JsonObject updateGenderStudent
+            (@ModelAttribute(name = "idStudent") @Valid Student student,
+             BindingResult result,
              Gender genderStudent) {
-        student.setGender(genderStudent);
-        studentService.update(student);
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            student.setGender(genderStudent);
+            studentService.update(student);
+            return messageBilder.createSuccessMessage();
+        }
     }
 
     @RequestMapping("/setGroupStudent")
     @ResponseBody
-    public void updateGroupStudent
-            (@RequestParam(name = "idStudent") Student student,
+    public JsonObject updateGroupStudent
+            (@ModelAttribute(name = "idStudent") @Valid Student student,
+             BindingResult result,
              @RequestParam(name = "numberGroup") Group group) {
-        student.setGroup(group);
-        studentService.update(student);
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            student.setGroup(group);
+            studentService.update(student);
+            return messageBilder.createSuccessMessage();
+        }
     }
 
     @RequestMapping("/insertStudent")
@@ -123,8 +160,14 @@ public class StudentPageController {
 
     @RequestMapping("/deleteStudent")
     @ResponseBody
-    public void deleteStudent
-            (@RequestParam(name = "idStudent") Student student) {
-        studentService.delete(student);
+    public JsonObject deleteStudent
+            (@ModelAttribute(name = "idStudent") @Valid Student student,
+             BindingResult result) {
+        if (result.hasErrors()) {
+            return messageBilder.createErrorMessage(result);
+        } else {
+            studentService.delete(student);
+            return messageBilder.createSuccessMessage();
+        }
     }
 }

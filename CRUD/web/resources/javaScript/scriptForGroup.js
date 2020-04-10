@@ -173,8 +173,9 @@ function setNumberGroup(cell, table) {
             $.post("groups/setNumberGroup", {
                 groupId: groupId,
                 numberGroup: newNumber
-            }, function () {
+            }, function (data) {
                 table.draw('page');
+                createMessage(data)
             })
         }
     })
@@ -417,4 +418,26 @@ function getStudentOfGroup() {
             }
         ]
     });
+}
+
+function createMessage(data) {
+    if (data["response"]) {
+        $("body").append("<div id='response'>" +
+            data["message"] +
+            "</div>");
+
+        var response = $("#response");
+        setTimeout(function () {
+            response.remove();
+        }, 1000);
+    } else {
+        $("body").append("<div id='response'>" +
+            data["message"] +
+            "</div>");
+
+        var response = $("#response");
+        setTimeout(function () {
+            response.remove();
+        }, 1000);
+    }
 }

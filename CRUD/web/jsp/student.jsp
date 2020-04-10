@@ -21,7 +21,11 @@
 </head>
 <body>
 <div id="mainDiv">
-    <h4 align="center"><a class="index" href="<c:url value="/javaBase/"/>">Главная</a></h4>
+    <div class="menu">
+        <a href="<c:url value="/javaBase/students"/>" class="index">Студенты</a>
+        <a href="<c:url value="/javaBase/groups"/>" class="index">Группы</a>
+        <a href="<c:url value="/javaBase/teachers"/>" class="index">Преподаватели</a>
+    </div>
     <div id="data">
         <table id="students" class="display">
             <thead>

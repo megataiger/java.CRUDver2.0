@@ -152,8 +152,9 @@ function setNameStudent(cell, table) {
             $.post("students/setNameStudent", {
                 idStudent: $(id).text(),
                 newNameStudent: newName
-            }, function () {
+            }, function (data) {
                 table.draw('page');
+                createMessage(data);
             });
         }
     });
@@ -189,8 +190,9 @@ function setBirthdayStudent(cell, table) {
             $.post("students/setBirthdayStudent", {
                 idStudent: $(id).text(),
                 newBirthdayStudent: newBirthday
-            }, function () {
+            }, function (data) {
                 table.draw('page');
+                createMessage(data);
             });
         }
     });
@@ -244,8 +246,9 @@ function setGenderStudent(cell, table) {
         $.post("students/setGenderStudent", {
             idStudent: $(id).text(),
             genderStudent: newGender
-        }, function () {
-            table.draw('page')
+        }, function (data) {
+            table.draw('page');
+            createMessage(data);
         });
     });
 
@@ -272,9 +275,9 @@ function setGroupStudent(cell, table, prompt) {
         $.post("students/setGroupStudent", {
             idStudent: $(id).text(),
             numberGroup: groupId
-        }, function () {
+        }, function (data) {
             table.draw('page');
-            prompt.hide();
+            createMessage(data);
         });
 
         $('#myModal').animate({opacity: 0}, 198,
@@ -389,5 +392,27 @@ function getTableGroup() {
         })
     } else {
         return false;
+    }
+}
+
+function createMessage(data) {
+    if (data["response"]) {
+        $("body").append("<div id='response'>" +
+            data["message"] +
+            "</div>");
+
+        var response = $("#response");
+        setTimeout(function () {
+            response.remove();
+        }, 1000);
+} else {
+        $("body").append("<div id='response'>" +
+            data["message"] +
+            "</div>");
+
+        var response = $("#response");
+        setTimeout(function () {
+            response.remove();
+        }, 1000);
     }
 }

@@ -3,6 +3,11 @@ body {
     font-size: 10pt;
 }
 
+.menu
+{
+    text-align: center;
+}
+
 .main_div {
     width: 40%;
     margin-left: auto;
@@ -74,4 +79,17 @@ a.index:hover {
     box-shadow: 0 15px 20px rgba(29, 98, 229, 0.4);
     color: white;
     transform: translateY(-7px);
+}
+
+#response {
+    width: 100px;
+    padding: 20px;
+    border-radius: 8px;
+    background: #ffffff;
+    margin: 30px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
 }
